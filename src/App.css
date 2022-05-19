@@ -1,0 +1,244 @@
+/* Import fonts */
+@import url("assets/fonts/Mont/stylesheet.css");
+@import url("assets/fonts/Gilroy/stylesheet.css");
+@import url("assets/fonts/Manrope/stylesheet.css");
+@import url("https://fonts.googleapis.com/css2?family=Manrope&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #ffffff;
+}
+
+.profile_menu_item {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  width: 100%;
+
+  font-family: "Gilroy";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 140%;
+
+  color: #000000;
+}
+
+.profile_menu_item:nth-child(1) {
+  padding: 0 0 8px 0;
+}
+
+.profile_menu_item.active {
+  font-weight: 600;
+}
+
+.profile_menu_item.logout {
+  color: #d41313;
+  text-decoration: underline;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.visible {
+  visibility: inherit;
+  opacity: 1;
+}
+
+/* Рисуем внешний круг радиокнопки*/
+.custom-radio-btn {
+  cursor: pointer;
+  position: relative; /* Родительский элемент*/
+  display: inline-block; /* Для применения рамок, размеров*/
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border: 1px solid #025b37; /* Толщина, стиль, цвет рамки*/
+  border-radius: 50%; /* Получение круга*/
+  vertical-align: text-top; /* Выравнивание кнопки по центру*/
+  margin-right: 8px; /* Отступ между кнопкой и меткой*/
+}
+
+/* Рисуем внутренний круг */
+.custom-radio-btn::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: #025b37;
+  border-radius: 50%;
+
+  /* Выравниваем по центру относительно внешнего круга */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0);
+
+  /* Плавный переход трансформации масштабирования */
+  /* transition: 0.2s ease-in; */
+}
+.real-radio-btn:checked + .custom-radio-btn::before {
+  transform: translate(-50%, -50%) scale(1);
+}
+.real-radio-btn {
+  /* Скрываем реальную радио кнопку*/
+  width: 0;
+  height: 0;
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+
+.checkbox-active {
+  background: url("assets/svg/checked.svg") no-repeat;
+  background-position: center center;
+  background-color: #191919;
+  height: 20px;
+  width: 20px;
+  border: 1px solid #191919;
+  border-radius: 2px;
+  display: inline-block;
+  padding: 0 0 0 0px;
+}
+
+.checkbox {
+  background-color: none;
+  border: 1px solid #e5e5e5;
+  border-radius: 2px;
+  height: 20px;
+  width: 20px;
+  display: inline-block;
+  padding: 0 0 0 0px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.active_size {
+  border: 1px solid #191919 !important;
+  color: #191919 !important;
+}
+
+.dropdown {
+  position: relative;
+  display: flex;
+  justify-content: end;
+  flex-direction: column;
+  width: 262px;
+  font-family: Gilroy;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.dropdown__btn {
+  cursor: pointer;
+  display: flex;
+  justify-content: end;
+  padding: 14px 41px;
+}
+
+.dropdown__content-title {
+  cursor: pointer;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding: 14px 41px;
+}
+
+.active_btn {
+  filter: drop-shadow(0px 4px 15px rgba(0, 0, 0, 0.1));
+  background-color: white;
+}
+
+.icon-dropdown {
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown__content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+  z-index: 3;
+  width: 100%;
+  align-items: end;
+  flex-direction: column;
+  filter: drop-shadow(0px 4px 15px rgba(0, 0, 0, 0.1));
+}
+
+.active_content {
+  display: flex !important;
+  background-color: #fff;
+}
+
+.dropdown__item {
+  text-align: right;
+  display: flex;
+  padding: 14px 41px;
+  width: calc(100% - 82px);
+  cursor: pointer;
+  justify-content: end;
+  background-color: #fff;
+}
+
+.dropdown__item:hover {
+  background-color: #f9f9f9;
+}
+
+.active_item {
+  background-color: #f9f9f9;
+}
+
+.w100 {
+  width: 100%;
+}
+
+.show_mobile_filter {
+  display: flex !important;
+}
+
+ul {
+  list-style: none; /* Remove default bullets */
+}
+
+ul li::before {
+  content: "\2022"; /* Add content: \2022 is the CSS Code/unicode for a bullet */
+  color: #191919; /* Change the color */
+  font-weight: bold; /* If you want it to be bold */
+  display: inline-block; /* Needed to add space between the bullet and the text */
+  width: 1em; /* Also needed for space (tweak if needed) */
+  margin-left: -1em; /* Also needed for space (tweak if needed) */
+}
+
+li {
+  margin-top: 20px;
+  font-family: Mont;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+li:nth-child(1) {
+  margin-top: 0px;
+}
+
+.slick-slider {
+  height: 380px;
+}
+
+.slick-slide {
+  width: 421px;
+  padding: 0 32px;
+}

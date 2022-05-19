@@ -1,0 +1,154 @@
+.container_range {
+  height: 20px;
+  margin-top: 8px;
+  width: 95%;
+  position: relative;
+}
+
+.price-inputs {
+  margin-top: 20px;
+  display: grid;
+  width: 95%;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 8px;
+}
+
+.price-input-block {
+  position: relative;
+}
+
+.price-input-block:nth-child(2) {
+  margin-left: 8px;
+}
+
+.price-input-label {
+  position: absolute;
+  font-family: "Gilroy";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 8px;
+  line-height: 130%;
+  /* or 10px */
+
+  /* Tabu/Dark/Text-Gray */
+
+  color: #717171;
+
+  margin-left: 8px;
+  margin-top: 4px;
+}
+
+.price-input {
+  border: 1px solid #e5e5e5;
+  outline: none;
+  border-radius: 2px;
+  display: flex;
+  width: 100%;
+
+  padding: 16px 0 4px 8px;
+
+  font-family: "Gilroy";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+
+  color: #191919;
+}
+
+.slider {
+  position: relative;
+  width: 100%;
+}
+
+.slider__track,
+.slider__range,
+.slider__left-value,
+.slider__right-value {
+  position: absolute;
+}
+
+.slider__track,
+.slider__range {
+  height: 1px;
+}
+
+.slider__track {
+  background-color: #bcbcbc;
+  width: 100%;
+  z-index: 1;
+}
+
+.slider__range {
+  background-color: #bcbcbc;
+  z-index: 2;
+}
+
+.slider__left-value,
+.slider__right-value {
+  color: #dee2e6;
+  font-size: 12px;
+  margin-top: 20px;
+}
+
+.slider__left-value {
+  left: 6px;
+}
+
+.slider__right-value {
+  right: -4px;
+}
+
+/* Removing the default appearance */
+.thumb,
+.thumb::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.thumb {
+  pointer-events: none;
+  position: absolute;
+  height: 0;
+  width: 100%;
+  outline: none;
+}
+
+.thumb--left {
+  z-index: 3;
+}
+
+.thumb--right {
+  z-index: 4;
+}
+
+/* For Chrome browsers */
+.thumb::-webkit-slider-thumb {
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  margin-top: 4px;
+  pointer-events: all;
+  position: relative;
+
+  background-image: url("data:image/svg+xml,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Ccircle%20cx%3D%2210%22%20cy%3D%2210%22%20r%3D%229.5%22%20fill%3D%22white%22%20stroke%3D%22%23BCBCBC%22%2F%3E%0A%3Crect%20x%3D%229.75%22%20y%3D%226.25%22%20width%3D%220.5%22%20height%3D%227.5%22%20fill%3D%22%23C4C4C4%22%20stroke%3D%22%23BCBCBC%22%20stroke-width%3D%220.5%22%2F%3E%0A%3Crect%20x%3D%2212.25%22%20y%3D%226.25%22%20width%3D%220.5%22%20height%3D%227.5%22%20fill%3D%22%23C4C4C4%22%20stroke%3D%22%23BCBCBC%22%20stroke-width%3D%220.5%22%2F%3E%0A%3Crect%20x%3D%227.25%22%20y%3D%226.25%22%20width%3D%220.5%22%20height%3D%227.5%22%20fill%3D%22%23C4C4C4%22%20stroke%3D%22%23BCBCBC%22%20stroke-width%3D%220.5%22%2F%3E%0A%3C%2Fsvg%3E%0A");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* For Firefox browsers */
+.thumb::-moz-range-thumb {
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  margin-top: 4px;
+  pointer-events: all;
+  position: relative;
+
+  background-image: url("data:image/svg+xml,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Ccircle%20cx%3D%2210%22%20cy%3D%2210%22%20r%3D%229.5%22%20fill%3D%22white%22%20stroke%3D%22%23BCBCBC%22%2F%3E%0A%3Crect%20x%3D%229.75%22%20y%3D%226.25%22%20width%3D%220.5%22%20height%3D%227.5%22%20fill%3D%22%23C4C4C4%22%20stroke%3D%22%23BCBCBC%22%20stroke-width%3D%220.5%22%2F%3E%0A%3Crect%20x%3D%2212.25%22%20y%3D%226.25%22%20width%3D%220.5%22%20height%3D%227.5%22%20fill%3D%22%23C4C4C4%22%20stroke%3D%22%23BCBCBC%22%20stroke-width%3D%220.5%22%2F%3E%0A%3Crect%20x%3D%227.25%22%20y%3D%226.25%22%20width%3D%220.5%22%20height%3D%227.5%22%20fill%3D%22%23C4C4C4%22%20stroke%3D%22%23BCBCBC%22%20stroke-width%3D%220.5%22%2F%3E%0A%3C%2Fsvg%3E%0A");
+  background-repeat: no-repeat;
+  background-position: center;
+}
