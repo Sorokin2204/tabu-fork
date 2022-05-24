@@ -18,12 +18,15 @@ export const BottomCategory = styled.div`
   align-items: center;
   margin-left: 28px;
   padding: 0 4px 0 4px;
-
+  cursor: pointer;
+  user-select: none;
   font-family: Mont;
   font-weight: 600;
   font-size: 12px;
   text-transform: uppercase;
-
+  &:first-child {
+    padding-left: 0;
+  }
   cursor: pointer;
   color: #ffffff;
 

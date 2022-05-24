@@ -1,19 +1,19 @@
-import styled from "styled-components";
-import { css } from "styled-components";
-import { sizes } from "../../../../../../sizes";
+import styled from 'styled-components';
+import { css } from 'styled-components';
+import { sizes } from '../../../../../../sizes';
 
 export const Card = styled.div`
   display: grid;
   position: relative;
   width: 100%;
-  grid-template-columns: 30% 40% 30%;
+  grid-template-columns: 29% 53% 18%;
   border-bottom: 1px solid #e5e5e5;
-  padding-bottom: 24px;
+  padding: 24px 0;
 
   ${(props) =>
     props.profile &&
     css`
-      margin-top: 40px;
+      padding: 40px 0;
     `}
 
   @media (max-width: ${sizes.mobile}px) {
@@ -30,6 +30,8 @@ export const Card = styled.div`
 export const LeftCol = styled.div`
   display: flex;
   flex-direction: column;
+  padding-right: 24px;
+  padding-left: 16px;
 `;
 
 export const Profile = styled.div`
@@ -57,8 +59,10 @@ export const MobileProfile = styled.div`
 export const ProfileAvatar = styled.div`
   width: 32px;
   height: 32px;
+  min-width: 32px;
+  min-height: 32px;
   border-radius: 50%;
-  background-image: url(${({ src }) => src || ""});
+  background-image: url(${({ src }) => src || ''});
   background-size: cover;
   background-position: center;
 `;
@@ -83,13 +87,14 @@ export const ProfileRole = styled.div`
   font-size: 12px;
   color: #717171;
   margin-top: 4px;
+  white-space: nowrap;
 `;
 
 export const ProductImage = styled.div`
   margin-top: 24px;
   width: 140px;
   height: 175px;
-  background-image: url(${({ src }) => src || ""});
+  background-image: url(${({ src }) => src || ''});
   background-size: cover;
   background-position: center;
 
@@ -99,20 +104,23 @@ export const ProductImage = styled.div`
 `;
 
 export const DescriptionCol = styled.div`
-  display: flex;
-  margin-top: 60px;
+  display: grid;
+  margin-top: 56px;
+  grid-template-columns: 1fr 32%;
 
   @media (max-width: ${sizes.mobile}px) {
     margin-top: 25px;
+    grid-template-columns: min-content 154px;
   }
 `;
 
 export const DescBlock = styled.div`
   display: flex;
   flex-direction: column;
-
+  padding-right: 24px;
   @media (max-width: ${sizes.mobile}px) {
     margin-left: 14px;
+    padding-right: 0px;
   }
 `;
 
@@ -130,6 +138,9 @@ export const DescriptionText = styled.div`
   font-size: 12px;
   color: #191919;
   margin-top: 16px;
+  @media (max-width: ${sizes.mobile}px) {
+    margin-top: 12px;
+  }
 `;
 
 export const SizeBlock = styled.div`
@@ -137,8 +148,7 @@ export const SizeBlock = styled.div`
   justify-content: center;
   align-items: center;
 
-  margin-left: 60px;
-
+  margin-right: auto;
   padding: 0px 20px;
   height: 37px;
 
@@ -161,10 +171,13 @@ export const Size = styled.div`
   color: #717171;
   height: auto;
   width: auto;
+  @media (max-width: ${sizes.mobile}px) {
+    margin-top: 16px;
+  }
 `;
 
 export const PriceCol = styled.div`
-  margin-top: 70px;
+  margin-top: 66px;
   font-family: Gilroy;
   font-weight: 600;
   font-size: 12px;
@@ -177,9 +190,15 @@ export const PriceCol = styled.div`
 
 export const CloseBtn = styled.div`
   position: absolute;
-  top: 10px;
-  right: -5px;
+  top: 35px;
+  right: 14px;
   width: 10px;
   height: 10px;
   cursor: pointer;
+  & svg {
+    position: absolute;
+  }
+  /* mask-size: contain; */
+
+  /* background-color: #717171; */
 `;

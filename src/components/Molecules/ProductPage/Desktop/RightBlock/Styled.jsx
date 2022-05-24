@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -9,5 +9,5 @@ export const Line = styled.div`
   width: 100%;
   height: 1px;
   background-color: #e5e5e5;
-  margin-top: 60px;
+  margin-top: 56px;
 `;

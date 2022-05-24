@@ -1,4 +1,4 @@
-import * as S from "./Styled";
+import * as S from './Styled';
 
 const Steps = ({ step, setStep }) => {
   return (

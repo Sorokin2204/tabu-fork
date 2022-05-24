@@ -22,6 +22,7 @@ export const Category = styled.div`
   font-weight: 600;
   margin-left: 24px;
   cursor: pointer;
+  user-select: none;
   color: #717171;
 
   &:nth-child(1) {

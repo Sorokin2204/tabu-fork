@@ -1,8 +1,8 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Footer = styled.footer`
   padding: 56px 80px 32px 80px;
-  background-color: #00331E;
+  background-color: #00331e;
 `;
 
 export const TitleColumn = styled.div`
@@ -19,7 +19,7 @@ export const TextColumn = styled.div`
   font-size: 14px;
   color: rgba(255, 255, 255, 0.8);
   margin-top: 20px;
-
+  white-space: nowrap;
   &:nth-child(1) {
     margin-top: 0;
   }

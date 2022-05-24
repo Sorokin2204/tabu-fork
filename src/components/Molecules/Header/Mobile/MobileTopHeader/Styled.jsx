@@ -1,10 +1,10 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const MobileTopHeader = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  height: 39px;
+  height: 42px;
   color: #ffffff;
   font-weight: 600;
   font-size: 12px;
@@ -12,4 +12,8 @@ export const MobileTopHeader = styled.div`
   justify-content: center;
   padding: 12px 0;
   background: #191919;
-`
+  box-sizing: border-box;
+  @media (max-width: 1110px) {
+    height: 39px;
+  }
+`;

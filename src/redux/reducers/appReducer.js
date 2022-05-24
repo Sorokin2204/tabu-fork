@@ -1,4 +1,22 @@
-import { SHOW_HOVER_MENU, HIDE_HOVER_MENU, SHOW_PROFILE, HIDE_PROFILE, SHOW_MOBILE_SIDEBAR, HIDE_MOBILE_SIDEBAR, SET_MENU_CATEGORY, SET_SHOW_SIZES_MODAL, SET_SHOW_REG_MODAL, SET_SHOW_AUTH_MODAL, SET_SHOW_REQUEST_MODAL, SET_IS_MOBILE } from '../types/appTypes';
+import {
+  SHOW_HOVER_MENU,
+  HIDE_HOVER_MENU,
+  SHOW_PROFILE,
+  HIDE_PROFILE,
+  SHOW_MOBILE_SIDEBAR,
+  HIDE_MOBILE_SIDEBAR,
+  SET_MENU_CATEGORY,
+  SET_SHOW_SIZES_MODAL,
+  SET_SHOW_REG_MODAL,
+  SET_SHOW_AUTH_MODAL,
+  SET_SHOW_REQUEST_MODAL,
+  SET_IS_MOBILE,
+  SET_IS_DISABLE_SCROLL,
+  SET_MOBILE_FILTER_MODAL,
+  SET_MOBILE_SORT_MODAL,
+  SET_MOBILE_CART_MODAL,
+  SET_SHOW_LOGOUT_MODAL,
+} from '../types/appTypes';
 
 const defaultState = {
   showHoverMenu: false,
@@ -11,8 +29,12 @@ const defaultState = {
   showSizesModal: false,
   showRegModal: false,
   showAuthModal: false,
+  showLogoutModal: false,
   showRequestModal: false,
+  showMobileSortModal: false,
+  showMobileFilterModal: false,
   isDisableScroll: false,
+  showMobileCartModal: false,
 };
 
 export default function productReducer(state = defaultState, action) {
@@ -36,20 +58,28 @@ export default function productReducer(state = defaultState, action) {
       return { ...state, menuCategory: action.payload };
 
     case SET_SHOW_SIZES_MODAL:
-      return { ...state, showSizesModal: action.payload };
+      return { ...state, showSizesModal: action.payload, isDisableScroll: action.payload };
 
     case SET_SHOW_REG_MODAL:
-      return { ...state, showRegModal: action.payload };
+      return { ...state, showRegModal: action.payload, isDisableScroll: action.payload };
 
     case SET_SHOW_AUTH_MODAL:
-      return { ...state, showAuthModal: action.payload };
-
+      return { ...state, showAuthModal: action.payload, isDisableScroll: action.payload };
+    case SET_SHOW_LOGOUT_MODAL:
+      return { ...state, showLogoutModal: action.payload, isDisableScroll: action.payload };
     case SET_SHOW_REQUEST_MODAL:
-      return { ...state, showRequestModal: action.payload };
+      return { ...state, showRequestModal: action.payload, isDisableScroll: action.payload };
 
     case SET_IS_MOBILE:
       return { ...state, isMobile: action.payload };
-
+    case SET_IS_DISABLE_SCROLL:
+      return { ...state, isDisableScroll: action.payload };
+    case SET_MOBILE_FILTER_MODAL:
+      return { ...state, showMobileFilterModal: action.payload, isDisableScroll: action.payload };
+    case SET_MOBILE_SORT_MODAL:
+      return { ...state, showMobileSortModal: action.payload, isDisableScroll: action.payload };
+    case SET_MOBILE_CART_MODAL:
+      return { ...state, showMobileCartModal: action.payload, isDisableScroll: action.payload };
     default:
       return state;
   }
@@ -75,6 +105,10 @@ export const setIsMobile = (isMobile) => ({
   type: SET_IS_MOBILE,
   payload: isMobile,
 });
+export const setIsDisableScroll = (isDisableScroll) => ({
+  type: SET_IS_DISABLE_SCROLL,
+  payload: isDisableScroll,
+});
 
 export const setShowSizesModal = (active) => ({
   type: SET_SHOW_SIZES_MODAL,
@@ -86,6 +120,11 @@ export const setShowAuthModal = (show) => ({
   payload: show,
 });
 
+export const setShowLogoutModal = (show) => ({
+  type: SET_SHOW_LOGOUT_MODAL,
+  payload: show,
+});
+
 export const setShowRegModal = (show) => ({
   type: SET_SHOW_REG_MODAL,
   payload: show,
@@ -93,5 +132,17 @@ export const setShowRegModal = (show) => ({
 
 export const setShowRequestModal = (show) => ({
   type: SET_SHOW_REQUEST_MODAL,
+  payload: show,
+});
+export const setShowMobileFilterModal = (show) => ({
+  type: SET_MOBILE_FILTER_MODAL,
+  payload: show,
+});
+export const setShowMobileSortModal = (show) => ({
+  type: SET_MOBILE_SORT_MODAL,
+  payload: show,
+});
+export const setShowMobileCartModal = (show) => ({
+  type: SET_MOBILE_CART_MODAL,
   payload: show,
 });

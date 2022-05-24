@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -9,7 +9,8 @@ export const Wrapper = styled.div`
 export const Title = styled.div`
   font-family: Mont;
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 600;
+  text-transform: uppercase;
   color: #191919;
 `;
 
@@ -17,9 +18,9 @@ export const Products = styled.div`
   display: grid;
   margin-top: 24px;
   width: 100%;
-  grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+  grid-template-columns: repeat(auto-fit, 156px);
   align-self: start;
-  grid-gap: 48px 32px;
+  grid-gap: 48px 14px;
   justify-content: start;
 `;
 

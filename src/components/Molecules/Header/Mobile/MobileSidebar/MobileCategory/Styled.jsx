@@ -34,6 +34,8 @@ export const Title = styled.div`
   font-weight: 700;
   color: #191919;
   margin-top: 36.5px;
+  user-select: none;
+  cursor: pointer;
 `;
 export const Categories = styled.div`
   display: flex;

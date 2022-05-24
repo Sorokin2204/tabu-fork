@@ -1,18 +1,11 @@
-import {
-  SHOW_MODAL,
-  HIDE_MODAL,
-  SET_PRODUCTS,
-  SET_OPENED_PRODUCT,
-  SET_SHARE_PRODUCT,
-  SET_SIZES, SET_NEW_PRODUCTS, SET_TRENDS,
-} from "redux/types/productTypes";
+import { SHOW_MODAL, HIDE_MODAL, SET_PRODUCTS, SET_OPENED_PRODUCT, SET_SHARE_PRODUCT, SET_SIZES, SET_NEW_PRODUCTS, SET_TRENDS } from 'redux/types/productTypes';
 
 const defaultState = {
   showModal: false,
   openedProduct: {},
   products: [],
   shareProduct: {
-    link: "",
+    link: '',
     showShare: false,
   },
   newProducts: [],

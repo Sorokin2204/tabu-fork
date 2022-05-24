@@ -1,25 +1,20 @@
-import axios from "axios";
-import Button from "components/Atoms/Button";
-import Input from "components/Atoms/Form/Input";
-import FormCategorySelect from "components/Molecules/Form/FormCategorySelect/FormCategorySelect";
-import FormInput from "components/Molecules/Form/FormInput/FormInput";
-import FormSelectInput from "components/Molecules/Form/FormSelectInput/FormSelectInput";
-import FormTextarea from "components/Molecules/Form/FormTextarea/FormTextarea";
-import { API_URL } from "config";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  getBrandsOptions,
-  getColorOptions,
-  getMaterialOptions,
-  getSizeOptions,
-} from "redux/actions/filterOptions";
-import Authenticity from "./Authenticity/Authenticity";
-import DetailsBlock from "./DetailsBlock/DetailsBlock";
-import PriceBlock from "./PriceBlock/PriceBlock";
-import SellerBlock from "./SellerBlock/SellerBlock";
-import StateBlock from "./StateBlock/StateBlock";
-import * as S from "./Styled";
+import axios from 'axios';
+import Button from 'components/Atoms/Button';
+import Input from 'components/Atoms/Form/Input';
+import FormCategorySelect from 'components/Molecules/Form/FormCategorySelect/FormCategorySelect';
+import FormInput from 'components/Molecules/Form/FormInput/FormInput';
+import FormSelectInput from 'components/Molecules/Form/FormSelectInput/FormSelectInput';
+import FormTextarea from 'components/Molecules/Form/FormTextarea/FormTextarea';
+import { API_URL } from 'config';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getBrandsOptions, getColorOptions, getMaterialOptions, getSizeOptions } from 'redux/actions/filterOptions';
+import Authenticity from './Authenticity/Authenticity';
+import DetailsBlock from './DetailsBlock/DetailsBlock';
+import PriceBlock from './PriceBlock/PriceBlock';
+import SellerBlock from './SellerBlock/SellerBlock';
+import StateBlock from './StateBlock/StateBlock';
+import * as S from './Styled';
 
 const ContentBlock = () => {
   const dispatch = useDispatch();
@@ -32,27 +27,27 @@ const ContentBlock = () => {
   const [secondCategory, setSecondCategory] = useState(null);
   const [thirdCategory, setThirdCategory] = useState(null);
 
-  const [brand, setBrand] = useState("");
-  const [color, setColor] = useState("");
-  const [material, setMaterial] = useState("");
-  const [size, setSize] = useState("");
-  const [description, setDescription] = useState("");
-  const [comment, setComment] = useState("");
-  const [state, setState] = useState("new");
+  const [brand, setBrand] = useState('');
+  const [color, setColor] = useState('');
+  const [material, setMaterial] = useState('');
+  const [size, setSize] = useState('');
+  const [description, setDescription] = useState('');
+  const [comment, setComment] = useState('');
+  const [state, setState] = useState('new');
   const [details, setDetails] = useState([]);
   const [price, setPrice] = useState(0);
 
-  const [name, setName] = useState("");
-  const [surname, setSurname] = useState("");
-  const [phone, setPhone] = useState("");
-  const [region, setRegion] = useState("");
-  const [city, setCity] = useState("");
-  const [street, setStreet] = useState("");
-  const [homeNumber, setHomeNumber] = useState("");
-  const [apartNumber, setApartNumber] = useState("");
+  const [name, setName] = useState('');
+  const [surname, setSurname] = useState('');
+  const [phone, setPhone] = useState('');
+  const [region, setRegion] = useState('');
+  const [city, setCity] = useState('');
+  const [street, setStreet] = useState('');
+  const [homeNumber, setHomeNumber] = useState('');
+  const [apartNumber, setApartNumber] = useState('');
 
-  const [serial, setSerial] = useState("");
-  const [model, setModel] = useState("");
+  const [serial, setSerial] = useState('');
+  const [model, setModel] = useState('');
 
   const [vintage, setVintage] = useState(false);
   const [anther, setAnther] = useState(false);
@@ -66,10 +61,10 @@ const ContentBlock = () => {
   }, []);
 
   const onSubmit = () => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
     const data = {
       title: name,
-      description: "string",
+      description: 'string',
       seller: 1,
       category: 92,
       active: true,
@@ -91,7 +86,7 @@ const ContentBlock = () => {
       .then((response) => {
         console.log(response);
         console.log(data);
-        document.location.href = "/";
+        document.location.href = '/';
       })
       .catch((reason) => {
         console.log(reason);
@@ -103,56 +98,13 @@ const ContentBlock = () => {
     <S.ContentBlock>
       <S.TitleBlock>ДОБАВЛЕНИЕ ТОВАРА</S.TitleBlock>
       <S.Form>
-        <FormCategorySelect
-          firstCategory={firstCategory}
-          setFirstCategory={setFirstCategory}
-          secondCategory={secondCategory}
-          setSecondCategory={setSecondCategory}
-          thirdCategory={thirdCategory}
-          setThirdCategory={setThirdCategory}
-          placeholder="Выберите категорию"
-          label="Категория"
-        />
-        <FormSelectInput
-          value={brand}
-          setValue={setBrand}
-          placeholder="Выберите бренд"
-          label="Бренд"
-          options={brands}
-        />
-        <FormSelectInput
-          value={color}
-          setValue={setColor}
-          placeholder="Выберите цвет"
-          label="Цвет"
-          options={colors}
-        />
-        <FormSelectInput
-          value={material}
-          setValue={setMaterial}
-          placeholder="Выберите материал"
-          label="Материал"
-          options={materials}
-        />
-        <FormSelectInput
-          value={size}
-          setValue={setSize}
-          placeholder="Выберите размер"
-          label="Размер"
-          options={sizes}
-        />
-        <FormTextarea
-          value={description}
-          setValue={setDescription}
-          placeholder=""
-          label="Описание"
-        />
-        <FormTextarea
-          value={comment}
-          setValue={setComment}
-          placeholder=""
-          label="Комментарии"
-        />
+        <FormCategorySelect firstCategory={firstCategory} setFirstCategory={setFirstCategory} secondCategory={secondCategory} setSecondCategory={setSecondCategory} thirdCategory={thirdCategory} setThirdCategory={setThirdCategory} placeholder="Выберите категорию" label="Категория" />
+        <FormSelectInput value={brand} setValue={setBrand} placeholder="Выберите бренд" label="Бренд" options={brands} />
+        <FormSelectInput value={color} setValue={setColor} placeholder="Выберите цвет" label="Цвет" options={colors} />
+        <FormSelectInput value={material} setValue={setMaterial} placeholder="Выберите материал" label="Материал" options={materials} />
+        <FormSelectInput value={size} setValue={setSize} placeholder="Выберите размер" label="Размер" options={sizes} />
+        <FormTextarea value={description} setValue={setDescription} placeholder="" label="Описание" />
+        <FormTextarea value={comment} setValue={setComment} placeholder="" label="Комментарии" />
       </S.Form>
       <StateBlock state={state} setState={setState} />
       <DetailsBlock details={details} setDetails={setDetails} />
@@ -175,27 +127,7 @@ const ContentBlock = () => {
         apartNumber={apartNumber}
         setApartNumber={setApartNumber}
       />
-      <Authenticity
-        serial={serial}
-        setSerial={setSerial}
-        model={model}
-        setModel={setModel}
-        vintage={vintage}
-        anther={anther}
-        box={box}
-        setVintage={setVintage}
-        setAnther={setAnther}
-        setBox={setBox}
-      />
-
-      <S.Buttons>
-        <Button grayBorder onClick={onSubmit}>
-          Опубликовать этот товар
-        </Button>
-        <Button topGreen padding="14px 23px" margin="0 0 0 32px">
-          Добавить еще товар
-        </Button>
-      </S.Buttons>
+      <Authenticity serial={serial} setSerial={setSerial} model={model} setModel={setModel} vintage={vintage} anther={anther} box={box} setVintage={setVintage} setAnther={setAnther} setBox={setBox} />
     </S.ContentBlock>
   );
 };

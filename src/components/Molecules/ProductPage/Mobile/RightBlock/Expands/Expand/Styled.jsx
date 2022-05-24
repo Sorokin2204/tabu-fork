@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Expand = styled.div`
   display: flex;
@@ -42,7 +42,7 @@ export const ExpandIcon = styled.div``;
 export const TextBox = styled.div`
   display: flex;
   margin-top: 40px;
-  margin-left: 60px;
+  margin-left: 49px;
   flex-direction: column;
 `;
 

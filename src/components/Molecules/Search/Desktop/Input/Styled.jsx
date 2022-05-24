@@ -1,5 +1,5 @@
-import { sizes } from "sizes";
-import styled from "styled-components";
+import { sizes } from 'sizes';
+import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -41,11 +41,14 @@ export const Input = styled.input`
   border: none;
   outline: none;
 
-  font-family: "Mont";
+  font-family: 'Mont';
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
-
+  ::placeholder {
+    font-weight: 500;
+    color: #ababab;
+  }
   color: #191919;
 `;
 

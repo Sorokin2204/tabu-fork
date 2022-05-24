@@ -1,4 +1,4 @@
-import * as S from "./Styled";
+import * as S from './Styled';
 
 const ExamplePhoto = (props) => {
   return <S.ExamplePhoto {...props} alt="" />;

@@ -1,14 +1,14 @@
-import styled from "styled-components";
-import {sizes} from "../../../../../../sizes";
+import styled from 'styled-components';
+import { sizes } from '../../../../../../sizes';
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 40px;
-  width: 65%;
+  width: 517px;
 
   @media (max-width: ${sizes.mobile}px) {
-   width: calc(100vw - 50px);
+    width: calc(100vw - 50px);
     padding: 0 25px;
   }
 `;
@@ -18,6 +18,9 @@ export const Title = styled.div`
   font-weight: 400;
   font-size: 16px;
   color: #000;
+  @media (max-width: ${sizes.mobile}px) {
+    font-size: 14px;
+  }
 `;
 
 export const Calc = styled.div`
@@ -38,6 +41,9 @@ export const ResultName = styled.div`
   font-size: 14px;
   color: #191919;
   text-transform: uppercase;
+  @media (max-width: ${sizes.mobile}px) {
+    font-size: 12px;
+  }
 `;
 
 export const ResultValue = styled.div`
@@ -45,6 +51,9 @@ export const ResultValue = styled.div`
   font-weight: 800;
   font-size: 14px;
   color: #191919;
+  @media (max-width: ${sizes.mobile}px) {
+    font-size: 12px;
+  }
 `;
 
 export const CalcRow = styled.div`
@@ -62,6 +71,9 @@ export const CalcName = styled.div`
   font-weight: 600;
   font-size: 14px;
   color: #191919;
+  @media (max-width: ${sizes.mobile}px) {
+    font-size: 12px;
+  }
 `;
 
 export const CalcValue = styled.div`
@@ -69,6 +81,9 @@ export const CalcValue = styled.div`
   font-weight: 600;
   font-size: 14px;
   color: #191919;
+  @media (max-width: ${sizes.mobile}px) {
+    font-size: 12px;
+  }
 `;
 
 export const Line = styled.div`
@@ -101,15 +116,18 @@ export const InfoText = styled.div`
   font-weight: 600;
   font-size: 12px;
   color: #717171;
-  margin-left: 24px;
+  margin-left: 20px;
 `;
 
 export const Buttons = styled.div`
-  display: flex;
-  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 51px;
+  margin-top: 37px;
 
   @media (max-width: ${sizes.mobile}px) {
-    flex-direction: column;
+    grid-template-columns: 1fr;
+    grid-gap: 8px;
   }
 `;
 

@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
   position: fixed;
   top: 0;
   z-index: 35;
-  width: 100%;
+  width: 80%;
   height: 100%;
   transition: 0.3s;
   transform: translateX(-100%);
@@ -16,20 +16,10 @@ export const Wrapper = styled.div`
     `}
 `;
 
-export const Background = styled.div`
-  background: rgba(0, 0, 0, 0.32);
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 34;
-`;
-
 export const AbsoluteSidebar = styled.div`
   position: fixed;
   background-color: #fff;
-  width: 80%;
+  width: 100%;
   height: 100%;
   z-index: 36;
 `;

@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import DetailsItem from "./DetailsItem";
-import * as S from "./Styled";
+import { useEffect, useState } from 'react';
+import DetailsItem from './DetailsItem';
+import * as S from './Styled';
 
 const DetailsBlock = ({ details, setDetails }) => {
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
 
   const onSubmit = (e) => {
     setDetails([...details, { title: input }]);
@@ -24,11 +24,11 @@ const DetailsBlock = ({ details, setDetails }) => {
   return (
     <S.Wrapper>
       <S.Title>Детали продукта</S.Title>
-      <S.DetailsList>
+      {/* <S.DetailsList>
         {details?.map((detail, i) => (
           <DetailsItem onDelete={deleteDetail} id={i} title={detail.title} />
         ))}
-      </S.DetailsList>
+      </S.DetailsList> */}
       <S.Form onSubmit={onSubmit}>
         <S.Input value={input} onChange={(e) => setInput(e.target.value)} />
       </S.Form>

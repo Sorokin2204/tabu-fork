@@ -1,5 +1,5 @@
-import { sizes } from "sizes";
-import styled from "styled-components";
+import { sizes } from 'sizes';
+import styled from 'styled-components';
 
 export const Header = styled.header`
   display: flex;
@@ -7,11 +7,12 @@ export const Header = styled.header`
   align-items: center;
   background: #fff;
   height: 80px;
-  width: 100vw;
   border-bottom: 1px solid #e5e5e5;
 
   @media (max-width: ${sizes.mobile}px) {
-    height: 60px;
+    /* width: calc(100vw - 32px); */
+    height: 72px;
+    min-height: 72px;
   }
 `;
 
@@ -24,15 +25,23 @@ export const Logo = styled.header`
 export const Close = styled.header`
   width: 32px;
   height: 32px;
+  min-width: 32px;
+  min-height: 32px;
   position: absolute;
   top: 68px;
   right: 40px;
   cursor: pointer;
 
   @media (max-width: ${sizes.mobile}px) {
+    & svg {
+      width: 24px;
+      height: 24px;
+    }
     width: 24px;
     height: 24px;
+    min-width: 24px;
+    min-height: 24px;
     right: 24px;
-    top: 19px;
+    top: 22px;
   }
 `;

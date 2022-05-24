@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
-  margin-top: 80px;
+  margin-top: 56px;
   display: flex;
   flex-direction: column;
 `;
@@ -11,6 +11,7 @@ export const Title = styled.div`
   font-size: 16px;
   font-weight: 600;
   color: #191919;
+  text-transform: uppercase;
 `;
 
 export const LeftColumn = styled.div`
@@ -52,5 +53,5 @@ export const ValueRow = styled.div`
 
 export const Columns = styled.div`
   display: flex;
-  margin-top: 24px;
+  margin-top: 22px;
 `;

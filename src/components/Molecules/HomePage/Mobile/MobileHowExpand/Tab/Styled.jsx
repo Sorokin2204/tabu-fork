@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Tab = styled.div`
   display: flex;
@@ -23,12 +23,14 @@ export const Tab = styled.div`
 
 export const TabIcon = styled.div`
   margin-left: 23px;
+  height: 18px;
 `;
 
 export const Description = styled.div`
-  margin-top: 15px;
+  margin-top: 24px;
   font-family: Mont;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 400;
   color: #191919;
+  margin-right: auto;
 `;

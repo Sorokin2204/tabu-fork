@@ -1,5 +1,5 @@
-import { sizes } from "sizes";
-import styled from "styled-components";
+import { sizes } from 'sizes';
+import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   position: fixed;
@@ -14,21 +14,51 @@ export const Wrapper = styled.div`
   z-index: 110;
   transition: 300ms;
 `;
-
-export const Block = styled.div`
+export const AvatarBox = styled.div`
+  position: relative;
+  min-width: 100px;
+  min-height: 100px;
+  width: 100px;
+  height: 100px;
+  @media (max-width: ${sizes.mobile}px) {
+    margin: 0 auto;
+  }
+`;
+export const AvatarBtn = styled.div`
+  background-color: #191919;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  & img {
+    width: 16px;
+    height: 14px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-46%, -55%);
+    display: block;
+    /* margin-left: 1px; */
+  }
+`;
+export const Block = styled.div`
   flex-direction: column;
   align-items: start;
   background: #ffffff;
-  position: relative;
-  width: 71%;
-  height: 80%;
+  width: 1024px;
+  height: 726px;
   align-items: center;
-
+  overflow: overlay;
+  max-height: calc(100vh - 40px);
   @media (max-width: ${sizes.mobile}px) {
-    width: 100%;
-    height: 100%;
-    align-items: start;
+    width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
   }
 `;
 
@@ -39,7 +69,7 @@ export const Avatar = styled.div`
   height: 100px;
 
   border-radius: 50%;
-  background-image: url(${({ src }) => src || ""});
+  background-image: url(${({ src }) => src || ''});
   background-size: cover;
   background-position: center;
 
@@ -57,7 +87,7 @@ export const AvatarText = styled.div`
   border-radius: 50%;
   background: #f9f9f9;
 
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 700;
   font-size: 40px;
@@ -70,19 +100,15 @@ export const AvatarText = styled.div`
   align-items: center;
 
   @media (max-width: ${sizes.mobile}px) {
-    border: 6px solid #ffffff;
-    margin-left: 25px;
+    margin: 0 auto;
   }
 `;
 
 export const BottomBlock = styled.div`
-  margin-top: 50px;
-  width: 65%;
   display: flex;
-
+  margin: 0 auto;
   @media (max-width: ${sizes.mobile}px) {
     flex-direction: column;
-    width: 87%;
   }
 `;
 
@@ -100,7 +126,7 @@ export const Slice = styled.div`
 export const Form = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 43px;
+  margin-left: 56px;
   width: 100%;
 
   @media (max-width: ${sizes.mobile}px) {
@@ -111,49 +137,58 @@ export const Form = styled.div`
 export const FormTop = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 56px;
   width: 100%;
-
+  border-left: 1px solid #e5e5e5;
+  padding-left: 56px;
+  box-sizing: border-box;
   @media (max-width: ${sizes.mobile}px) {
-    margin-left: 28px;
     margin-top: 28px;
+    padding: 0;
+    border: none;
   }
 `;
 
 export const Radios = styled.div`
   display: flex;
+  padding-bottom: 3px;
+  @media (max-width: ${sizes.mobile}px) {
+    padding-bottom: 2px;
+  }
 `;
 
 export const ButtonBlock = styled.div``;
 
 export const Title = styled.div`
-  margin-top: 80px;
-  font-family: "Gilroy";
+  display: flex;
+  justify-content: center;
+  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
   line-height: 140%;
-  /* identical to box height, or 28px */
-
+  margin-bottom: 48px;
   text-transform: uppercase;
-
-  /* Tabu/Black */
-
   color: #191919;
 
   @media (max-width: ${sizes.mobile}px) {
+    font-size: 16px;
     margin-top: 32px;
-    margin-left: 25px;
+    margin-right: auto;
+    margin-bottom: 0px;
   }
 `;
 
 export const CloseBlock = styled.div`
-  height: 80%;
+  height: 32px;
+  width: 32px;
   display: flex;
   align-items: start;
   margin-left: 24px;
   cursor: pointer;
-
+  position: absolute;
+  right: -56px;
+  top: -7px;
+  z-index: 110;
   @media (max-width: ${sizes.mobile}px) {
     display: none;
   }

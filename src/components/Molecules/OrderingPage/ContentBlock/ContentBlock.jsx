@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import Delivery from "./Delivery/Delivery";
-import Payment from "./Payment/Payment";
-import Steps from "./Steps/Steps";
-import * as S from "./Styled";
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import Delivery from './Delivery/Delivery';
+import Payment from './Payment/Payment';
+import Steps from './Steps/Steps';
+import * as S from './Styled';
 
 const ContentBlock = () => {
   const [step, setStep] = useState(1);
@@ -26,7 +26,7 @@ const ContentBlock = () => {
     <S.ContentBlock>
       <S.Header>
         <Link to="/">
-          <S.HeaderLogo src={"/img/logo.png"} alt="" />
+          <S.HeaderLogo src={'/img/logo.png'} alt="" />
         </Link>
       </S.Header>
       <Steps step={step} setStep={setStep} />

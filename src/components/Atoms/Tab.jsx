@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 const StyledTab = styled.div`
   padding: 23px;
@@ -7,17 +7,20 @@ const StyledTab = styled.div`
   border: 0;
   border-bottom: 1px solid #e5e5e5;
   cursor: pointer;
-  color: #191919;
-  font-family: "Mont";
+
+  font-family: 'Mont';
   font-weight: 600;
   font-size: 16px;
   text-align: center;
-
+  @media (max-width: 1110px) {
+    padding: 12px 26px;
+    font-size: 14px;
+  }
   ${(props) =>
     props.active &&
     css`
-      color: #191919;
-      border-bottom: 3px solid #191919;
+      color: #025b37;
+      border-bottom: 3px solid #025b37;
       font-weight: 700;
     `}
 `;

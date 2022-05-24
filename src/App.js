@@ -10,9 +10,10 @@ import routes from './routes/routes';
 function App() {
   const dispatch = useDispatch();
   const isAuth = useSelector((state) => state.user.isAuth);
+
   const isDisableScroll = useSelector((state) => state.app.isDisableScroll);
-  const routing = useRoutes(routes(isAuth));
   const isMobile = useIsMobile();
+  const routing = useRoutes(routes(isAuth, isMobile));
 
   useEffect(() => {
     dispatch(setIsMobile(isMobile));
@@ -21,9 +22,9 @@ function App() {
   useEffect(() => {
     console.log();
     if (isDisableScroll) {
-      window.document.body.style.overflow = 'hidden';
+      window.document.body.classList.add('no-scroll');
     } else {
-      window.document.body.style.overflow = 'auto';
+      window.document.body.classList.remove('no-scroll');
     }
   }, [isDisableScroll]);
 

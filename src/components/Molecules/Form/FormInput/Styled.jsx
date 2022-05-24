@@ -1,27 +1,31 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-
-  padding-top: 10px;
+  box-sizing: border-box;
+  padding-top: 8px;
   border: 1px solid #e5e5e5;
   margin-top: 34px;
-  width: ${({ width }) => width || ""};
+  width: ${({ width }) => width || ''};
 `;
 
 export const Label = styled.label`
   position: relative;
   top: -20px;
-  left: 16px;
+  left: 12px;
   background-color: #fff;
-
-  font-family: "Mont";
+  padding: 0 4px;
+  font-family: 'Mont';
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
 
   color: #717171;
+  @media (max-width: 1110px) {
+    top: -19px;
+    font-size: 12px;
+  }
 `;
 
 export const Input = styled.input`
@@ -29,20 +33,20 @@ export const Input = styled.input`
   outline: none;
   padding: 0px 16px 13px;
 
-  font-family: "Mont";
+  font-family: 'Mont';
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
   line-height: 18px;
 
   color: #191919;
 
   &::placeholder {
-    font-family: "Mont";
+    font-family: 'Mont';
     font-style: normal;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 14px;
 
-    color: #a8a8a8;
+    color: #ababab;
   }
 `;

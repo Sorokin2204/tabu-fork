@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
-  margin-top: 80px;
+  margin-top: 56px;
 `;
 
 export const Expands = styled.div`

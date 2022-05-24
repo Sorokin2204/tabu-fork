@@ -1,6 +1,6 @@
 import * as S from './Styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { hideMobileSidebar, setShowAuthModal } from '../../../../../redux/reducers/appReducer';
+import { hideMobileSidebar, setIsDisableScroll, setShowAuthModal, setShowRegModal, showMobileSidebar } from '../../../../../redux/reducers/appReducer';
 import MobileCategory from './MobileCategory/MobileCategory';
 import MobileCategories from './MobileCategories/MobileCategories';
 import { setMainCategory } from 'redux/reducers/categoriesReducer';
@@ -17,12 +17,15 @@ const MobileSidebar = (props) => {
 
   return (
     <S.Wrapper {...props}>
-      <S.Background onClick={() => dispatch(hideMobileSidebar())} />
+      {/* <S.Background active={showMobileSidebar} onClick={() => dispatch(hideMobileSidebar())} /> */}
+
       <S.AbsoluteSidebar>
         <S.MobileSidebar>
           <S.Login
             onClick={() => {
+              dispatch(setIsDisableScroll(true));
               dispatch(setShowAuthModal(true));
+              dispatch(setShowRegModal(true));
               dispatch(hideMobileSidebar());
             }}>
             Регистрация / Войти

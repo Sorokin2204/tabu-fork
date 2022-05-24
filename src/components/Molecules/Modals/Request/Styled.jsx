@@ -1,5 +1,5 @@
-import { sizes } from "sizes";
-import styled from "styled-components";
+import { sizes } from 'sizes';
+import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
   z-index: 100;
   width: 100vw;
   height: 100vh;
-  padding: 0 16px;
+  /* padding: 0 16px; */
   transition: 300ms;
 `;
 
@@ -30,16 +30,18 @@ export const Block = styled.div`
 `;
 
 export const BlockInside = styled.div`
+  max-height: calc(100vh - 40px);
   background-color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 584px;
   height: auto;
-  padding: 60px 62px 64px;
+  /* padding: 60px 62px 64px; */
   position: relative;
-
+  z-index: 107;
   @media (max-width: ${sizes.mobile}px) {
+    max-height: 100vh;
     width: 100vw;
     height: 100vh;
     padding: 0;
@@ -48,13 +50,13 @@ export const BlockInside = styled.div`
 `;
 
 export const Title = styled.div`
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
   line-height: 140%;
   /* identical to box height, or 28px */
-  padding-bottom: 20px;
+  padding-bottom: 16px;
 
   text-transform: uppercase;
 

@@ -1,4 +1,4 @@
-import * as S from "./Styled";
+import * as S from './Styled';
 
 const MobileStart = (props) => {
   return (
@@ -8,9 +8,7 @@ const MobileStart = (props) => {
       <S.Image src={props?.ad?.image} />
       <S.Description>{props?.ad?.description}</S.Description>
       <S.Bottom>
-        <S.Slides>
-          <S.Slide />
-        </S.Slides>
+        <S.Slides></S.Slides>
         <a href={props?.ad?.link} target="_blank">
           <S.Button>Посмотреть</S.Button>
         </a>

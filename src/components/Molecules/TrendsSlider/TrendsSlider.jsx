@@ -1,12 +1,16 @@
-import React from "react";
-import ArrowRight from "./Arrows/ArrowRight";
-import ArrowLeft from "./Arrows/ArrowLeft";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Card from "../Card/Card";
-import styled from "styled-components";
-import { URL } from "../../../config";
+import React from 'react';
+import ArrowRight from './Arrows/ArrowRight';
+import ArrowLeft from './Arrows/ArrowLeft';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import Card from '../Card/Card';
+import styled from 'styled-components';
+import { URL } from '../../../config';
+import { Navigation } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
 
 const Wrapper = styled.div`
   width: calc(100vw - 130px);
@@ -14,38 +18,17 @@ const Wrapper = styled.div`
 `;
 
 const TrendsSlider = (props) => {
-  const settings = {
-    dots: false,
-    arrows: true,
-    speed: 300,
-    slidesToShow: props.products?.results?.length > 3 ? 3 : 1,
-    slidesToScroll: 1,
-    variableWidth: true,
-    rtl: true,
-
-    nextArrow: <ArrowRight />,
-    prevArrow: <ArrowLeft />,
-  };
-
   return (
     <Wrapper>
-      <Slider {...settings}>
+      <Swiper id="swiper-home-trand-product" modules={[Navigation]} loop={true} spaceBetween={32} slidesPerView={3} navigation>
         {props.products?.results?.map((product, i) => {
           return (
-            <Card
-              key={i}
-              noHover
-              img={
-                URL +
-                product.images?.filter((x) => x.main_image === true)[0]?.image
-              }
-              title={product?.title}
-              description={product?.description}
-              price={product?.price}
-            />
+            <SwiperSlide>
+              <Card key={i} noHover img={URL + product.images?.filter((x) => x.main_image === true)[0]?.image} title={product?.title} description={product?.description} price={product?.price} />
+            </SwiperSlide>
           );
         })}
-      </Slider>
+      </Swiper>
     </Wrapper>
   );
 };

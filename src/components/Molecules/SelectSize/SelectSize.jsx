@@ -1,18 +1,19 @@
-import Flex from "components/Atoms/Flex";
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { setOpenedProduct } from "redux/reducers/productReducer";
-import styled, { css } from "styled-components";
+import Flex from 'components/Atoms/Flex';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { setOpenedProduct } from 'redux/reducers/productReducer';
+import styled, { css } from 'styled-components';
 
 export const StyledSize = styled.div`
-  padding: 11px 16px;
+  padding: 7px 16px 8px 16px;
   border: 1px solid #e5e5e5;
   border-radius: 4px;
   font-family: Mont;
   font-size: 14px;
   color: #717171;
+  text-transform: uppercase;
   margin-left: 16px;
-
+  font-weight: 600;
   &:nth-child(1) {
     margin-left: 0;
   }
@@ -53,16 +54,12 @@ const SelectSize = (props) => {
       {opened_product
         ? opened_product.size
           ? opened_product.size.map((size, i) => (
-              <StyledSize
-                key={i}
-                onClick={() => onSelect(size, i)}
-                active={now === size.title}
-              >
+              <StyledSize key={i} onClick={() => onSelect(size, i)} active={now === size.title}>
                 {size.title}
               </StyledSize>
             ))
-          : ""
-        : ""}
+          : ''
+        : ''}
     </Flex>
   );
 };

@@ -1,5 +1,5 @@
-import { sizes } from "sizes";
-import styled from "styled-components";
+import { sizes } from 'sizes';
+import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   position: relative;
@@ -13,6 +13,7 @@ export const Container = styled.div`
   padding: 0 103px 0 56px;
 
   @media (max-width: ${sizes.mobile}px) {
+    padding: 0px;
     grid-template-columns: 1fr;
     padding: 0 25;
   }

@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import {sizes} from "../../../../../sizes";
+import styled from 'styled-components';
+import { sizes } from '../../../../../sizes';
 
 export const Container = styled.div`
   display: flex;
@@ -15,11 +15,11 @@ export const FirstCont = styled.div`
 export const Header = styled.div`
   display: grid;
   width: 100%;
-  grid-template-columns: 30% 40% 30%;
-  padding: 16px 16px;
+  grid-template-columns: 29% 53% 18%;
+  padding: 16px 0px;
   border-top: 1px solid #e5e5e5;
   border-bottom: 1px solid #e5e5e5;
-  grid-column-gap: 10px;
+  /* grid-column-gap: 10px; */
 
   @media (max-width: ${sizes.mobile}px) {
     padding: 16px 0;
@@ -36,16 +36,17 @@ export const Head = styled.div`
   font-weight: 400;
   font-size: 16px;
   color: #000;
-  padding: ${({ padding }) => padding || ""};
+  padding: ${({ padding }) => padding || ''};
   text-transform: uppercase;
 
   @media (max-width: ${sizes.mobile}px) {
+    font-size: 14px;
     padding: 0;
     &:nth-child(1) {
       margin-left: 25px;
     }
     &:nth-child(3) {
-     margin-right: 25px;
+      margin-right: 25px;
     }
   }
 `;
@@ -54,7 +55,7 @@ export const Cards = styled.div`
   display: flex;
   width: 100%;
   flex-direction: column;
-  padding: 24px;
+  padding: 0px;
 `;
 
 export const Line = styled.div`

@@ -1,18 +1,19 @@
-import MainLayout from "components/Layouts/MainLayout";
-import Cart from "pages/Cart/Cart";
-import CategoryPage from "pages/CategoryPage/CategoryPage";
-import Ordering from "pages/Ordering/Ordering";
-import ProductPage from "pages/ProductPage/ProductPage";
-import ProfilePage from "pages/ProfilePages/ProfileBuyPage/ProfileBuyPage";
-import ProfileSellPage from "pages/ProfilePages/ProfileSellPage/ProfileSellPage";
-import ProfileWishListPage from "pages/ProfilePages/ProfileWishListPage/ProfileSalePage";
-import SellProduct from "pages/SellProduct/SellProduct";
-import { Navigate } from "react-router-dom";
-import HomePage from "../pages/HomePage";
+import MainLayout from 'components/Layouts/MainLayout';
+import Cart from 'pages/Cart/Cart';
+import CategoryPage from 'pages/CategoryPage/CategoryPage';
+import Ordering from 'pages/Ordering/Ordering';
+import ProductPage from 'pages/ProductPage/ProductPage';
+import ProfilePage from 'pages/ProfilePages/ProfileBuyPage/ProfileBuyPage';
+import ProfileOrderListPage from 'pages/ProfilePages/ProfileOrderListPage/ProfileOrderListPage';
+import ProfileSellPage from 'pages/ProfilePages/ProfileSellPage/ProfileSellPage';
+import ProfileWishListPage from 'pages/ProfilePages/ProfileWishListPage/ProfileSalePage';
+import SellProduct from 'pages/SellProduct/SellProduct';
+import { Navigate } from 'react-router-dom';
+import HomePage from '../pages/HomePage';
 
-const routes = (isAuth) => [
+const routes = (isAuth, isMobile) => [
   {
-    path: "/",
+    path: '/',
     element: (
       <MainLayout>
         <HomePage />
@@ -20,7 +21,7 @@ const routes = (isAuth) => [
     ),
   },
   {
-    path: "/categories/:category_name",
+    path: '/categories/:category_name',
     element: (
       <MainLayout>
         <CategoryPage />
@@ -28,7 +29,7 @@ const routes = (isAuth) => [
     ),
   },
   {
-    path: "/products/:product_id",
+    path: '/products/:product_id',
     element: (
       <MainLayout>
         <ProductPage />
@@ -36,7 +37,7 @@ const routes = (isAuth) => [
     ),
   },
   {
-    path: "/cart",
+    path: '/cart',
     element: (
       <MainLayout>
         <Cart />
@@ -44,27 +45,31 @@ const routes = (isAuth) => [
     ),
   },
   {
-    path: "/sellproduct",
+    path: '/sellproduct',
     element: (
       <MainLayout>
         <SellProduct />
       </MainLayout>
     ),
   },
-  { path: "/ordering", element: <Ordering /> },
+  { path: '/ordering', element: <Ordering /> },
 
   {
-    path: "/profile",
+    path: '/profile',
     element: isAuth ? (
-      <MainLayout>
-        <ProfilePage />{" "}
-      </MainLayout>
+      isMobile ? (
+        <MainLayout>
+          <ProfilePage />
+        </MainLayout>
+      ) : (
+        <Navigate to="/profile/sellitems" />
+      )
     ) : (
       <Navigate to="/" />
     ),
   },
   {
-    path: "/profile/sellitems",
+    path: '/profile/sellitems',
     element: isAuth ? (
       <MainLayout>
         <ProfileSellPage />
@@ -74,10 +79,20 @@ const routes = (isAuth) => [
     ),
   },
   {
-    path: "/profile/wishlist",
+    path: '/profile/wishlist',
     element: isAuth ? (
       <MainLayout>
         <ProfileWishListPage />
+      </MainLayout>
+    ) : (
+      <Navigate to="/" />
+    ),
+  },
+  {
+    path: '/profile/orders',
+    element: isAuth ? (
+      <MainLayout>
+        <ProfileOrderListPage />
       </MainLayout>
     ) : (
       <Navigate to="/" />

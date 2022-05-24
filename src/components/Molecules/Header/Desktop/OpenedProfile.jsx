@@ -42,6 +42,10 @@ const OpenedProfile = () => {
                 } else {
                   dispatch(showProfile());
                 }
+              }}
+              style={{
+                cursor: 'pointer',
+                userSelect: 'none',
               }}>
               Мой профиль
             </Text>
@@ -63,6 +67,7 @@ const OpenedProfile = () => {
                     padding="8px 12px"
                     topGreen
                     onClick={() => {
+                      dispatch(setShowAuthModal(false));
                       dispatch(setShowRegModal(true));
                       dispatch(hideProfile(false));
                     }}>
@@ -79,6 +84,7 @@ const OpenedProfile = () => {
                     dark_filled
                     onClick={() => {
                       dispatch(setShowAuthModal(true));
+                      dispatch(setShowRegModal(true));
                       dispatch(hideProfile());
                     }}>
                     Войти

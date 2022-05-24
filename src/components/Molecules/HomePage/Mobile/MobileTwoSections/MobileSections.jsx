@@ -11,12 +11,12 @@ const MobileSections = () => {
       <S.Block>
         <S.Title>{ad_left?.title}</S.Title>
         <S.Description>{ad_left?.helper_text}</S.Description>
-        <S.Image1 src={ad_left?.image} />
+        <S.Image src={ad_left?.image} />
       </S.Block>
       <S.Block>
         <S.Title>{ad_right?.title}</S.Title>
         <S.Description>{ad_right?.helper_text}</S.Description>
-        <S.Image2 src={ad_right?.image} />
+        <S.Image src={ad_right?.image} />
       </S.Block>
     </S.Wrapper>
   );

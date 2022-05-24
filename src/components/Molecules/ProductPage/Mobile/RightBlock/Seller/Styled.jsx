@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -12,6 +12,7 @@ export const Title = styled.div`
   font-weight: 600;
   font-size: 16px;
   color: #191919;
+  text-transform: uppercase;
 `;
 
 export const Bottom = styled.div`
@@ -26,7 +27,7 @@ export const Avatar = styled.div`
   width: 64px;
   border-radius: 50%;
 
-  background-image: url(${({ src }) => src || ""});
+  background-image: url(${({ src }) => src || ''});
   background-size: cover;
   background-position: center;
 `;
@@ -73,7 +74,7 @@ export const LocationName = styled.div`
 `;
 
 export const Comment = styled.div`
-  padding: 16px 32px;
+  padding: 16px 28px;
   display: flex;
   align-items: center;
   background-color: #f9f9f9;
@@ -83,8 +84,8 @@ export const Comment = styled.div`
   font-weight: 600;
   color: #191919;
   border-radius: 8px;
-
-  margin-left: 36px;
+  margin-top: 28px;
+  max-width: 267px;
 `;
 
 export const DetailsContainer = styled.div``;

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -6,21 +6,23 @@ export const Wrapper = styled.div`
   margin-top: 72px;
   align-items: center;
   width: 100%;
+  @media (max-width: 1110px) {
+    margin-top: 64px;
+  }
 `;
 
 export const Title = styled.div`
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
   line-height: 140%;
-  /* identical to box height, or 28px */
-
   text-transform: uppercase;
-
-  /* Tabu/Black */
-
   color: #191919;
+  @media (max-width: 1110px) {
+    font-size: 14px;
+    margin-right: auto;
+  }
 `;
 
 export const DetailsList = styled.div`
@@ -33,7 +35,7 @@ export const DetailsList = styled.div`
 export const DetailsItem = styled.div`
   display: flex;
   justify-content: space-between;
-  width: calc(100% - 32px);
+  width: 100%;
   padding: 0 16px;
   height: 50px;
   align-items: center;
@@ -42,7 +44,7 @@ export const DetailsItem = styled.div`
 `;
 
 export const DetailsItemTitle = styled.div`
-  font-family: "Mont";
+  font-family: 'Mont';
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -65,17 +67,26 @@ export const DetailsDelete = styled.div`
 export const Form = styled.form`
   width: 100%;
   margin-top: 32px;
+  @media (max-width: 1110px) {
+    margin-top: 40px;
+  }
 `;
 
 export const Input = styled.input`
   padding: 0 16px;
   height: 50px;
+  box-sizing: border-box;
   border: 1px solid #e5e5e5;
   outline: none;
-  width: calc(100% - 32px);
+  width: 100%;
   display: flex;
   align-items: center;
 
+  font-family: 'Mont';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
   &:focus {
     border: 1px solid #025b37;
   }

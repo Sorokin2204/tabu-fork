@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { css } from "styled-components";
+import styled from 'styled-components';
+import { css } from 'styled-components';
 
 export const Container = styled.div`
   padding: 24px 56px;
@@ -36,7 +36,7 @@ export const PreviewImage = styled.div`
 
   margin-top: 16px;
 
-  background-image: url(${({ src }) => src || ""});
+  background-image: url(${({ src }) => src || ''});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -59,5 +59,5 @@ export const MainImages = styled.div`
 `;
 
 export const SubscribeBlock = styled.div`
-  margin-top: 140px;
+  margin-top: 80px;
 `;

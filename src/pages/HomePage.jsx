@@ -69,7 +69,7 @@ const HomePage = () => {
         <>
           <Sales />
           <StartContainer />
-          <HowWorks />
+          <MobileHowWorks />
           <NewProducts />
           <Banners />
           <Trends />
@@ -77,9 +77,9 @@ const HomePage = () => {
           <StartSell />
           {/*<Media />*/}
           <Advantages />
-          <Instagram />
           <WeSelling />
-          <HowWorks />
+          <MobileHowWorks />
+          <Instagram />
           <Answers />
           <Subscribe />
         </>

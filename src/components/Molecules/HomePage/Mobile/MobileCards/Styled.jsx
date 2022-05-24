@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Wrapper = styled.div``;
 
@@ -46,6 +46,7 @@ export const Button = styled.div`
   margin-top: 16px;
   border-bottom: 1px solid #252525;
   cursor: pointer;
+  text-transform: uppercase;
 `;
 
 export const ButtonBox = styled.div`

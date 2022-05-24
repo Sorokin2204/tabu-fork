@@ -1,12 +1,15 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 171px);
+  padding: 220px 0 340px;
   width: 100%;
+  @media (max-width: 1110px) {
+    padding: 107px 0 256px;
+  }
 `;
 
 export const Image = styled.div``;
@@ -17,6 +20,7 @@ export const Title = styled.div`
   font-size: 20px;
   color: #191919;
   margin-top: 34px;
+  text-transform: uppercase;
 `;
 
 export const Description = styled.div`

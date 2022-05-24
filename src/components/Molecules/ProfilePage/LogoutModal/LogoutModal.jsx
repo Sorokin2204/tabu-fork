@@ -1,25 +1,24 @@
-import Button from "components/Atoms/Button";
-import * as S from "./Styled";
+import Button from 'components/Atoms/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import { setShowLogoutModal } from 'redux/reducers/appReducer';
+import * as S from './Styled';
 
-const LogoutModal = ({ show, setShow }) => {
+const LogoutModal = () => {
+  const showLogoutModal = useSelector((state) => state.app.showLogoutModal);
+  const dispath = useDispatch();
   const onLogoutClick = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
 
-    document.location.href = "/";
+    document.location.href = '/';
   };
 
   return (
-    <S.Wrapper className={show ? "visible" : "hidden"}>
-      <S.Block>
-        <S.Close onClick={() => setShow(false)}>
-          <svg
-            width="32"
-            height="32"
-            viewBox="0 0 32 32"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+    <>
+      <S.Wrapper className={showLogoutModal ? 'visible' : 'hidden'} onClick={() => dispath(setShowLogoutModal(false))}></S.Wrapper>
+      <S.Block className={showLogoutModal ? 'visible' : 'hidden'}>
+        <S.Close onClick={() => dispath(setShowLogoutModal(false))}>
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               fillRule="evenodd"
               clipRule="evenodd"
@@ -30,27 +29,15 @@ const LogoutModal = ({ show, setShow }) => {
         </S.Close>
         <S.Title>Вы уверены, что хотите выйти?</S.Title>
         <S.Buttons>
-          <Button
-            onClick={() => setShow(false)}
-            w100
-            padding="14px 0"
-            grayBorder
-          >
+          <Button onClick={() => dispath(setShowLogoutModal(false))} w100 padding="14px 0" grayBorder>
             Отменить
           </Button>
-          <Button
-            margin="0 0 0 24px"
-            dark_filled
-            borderRadius="0"
-            padding="14px 0"
-            w100
-            onClick={() => onLogoutClick()}
-          >
+          <Button margin="0 0 0 0" dark_filled borderRadius="0" padding="14px 0" w100 onClick={() => onLogoutClick()}>
             Выйти
           </Button>
         </S.Buttons>
       </S.Block>
-    </S.Wrapper>
+    </>
   );
 };
 

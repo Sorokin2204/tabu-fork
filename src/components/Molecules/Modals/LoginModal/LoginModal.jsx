@@ -37,7 +37,7 @@ const LoginModal = () => {
   };
 
   return (
-    <S.Wrapper className={showAuthModal ? 'visible' : 'hidden'}>
+    <S.Wrapper className={'hidden'}>
       <S.Block>
         {isMobile ? (
           ''

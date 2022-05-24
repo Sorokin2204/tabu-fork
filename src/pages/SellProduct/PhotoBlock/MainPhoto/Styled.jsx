@@ -1,11 +1,10 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div`
   width: 100%;
 `;
 
 export const MainPhoto = styled.button`
-  border: 1px dashed rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   border-radius: 16px;
   outline: none;
@@ -15,9 +14,11 @@ export const MainPhoto = styled.button`
   justify-content: center;
 
   width: 100%;
-  height: 210px;
-
-  background: url(${(props) => props.background || "#ffffff"});
+  height: 220px;
+  @media (max-width: 1110px) {
+    min-width: 156px;
+  }
+  background: url(${(props) => props.background || '#ffffff'});
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

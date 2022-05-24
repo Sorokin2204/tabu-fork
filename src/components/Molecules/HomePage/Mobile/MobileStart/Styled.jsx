@@ -1,5 +1,5 @@
-import styled, { css } from "styled-components";
-import StartImage from "assets/img/start.png";
+import styled, { css } from 'styled-components';
+import StartImage from 'assets/img/start.png';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -23,10 +23,11 @@ export const SubTitle = styled.div`
 `;
 
 export const Image = styled.div`
-  height: 190px;
+  height: 52vw;
   width: 100%;
-  background-image: url(${({ src }) => src || ""});
+  background-image: url(${({ src }) => src || ''});
   background-size: cover;
+  background-repeat: no-repeat;
   margin-top: 16px;
 `;
 

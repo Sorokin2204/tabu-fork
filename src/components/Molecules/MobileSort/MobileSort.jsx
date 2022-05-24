@@ -1,64 +1,34 @@
-import { useDispatch, useSelector } from "react-redux";
-import { setProducts } from "redux/reducers/productReducer";
-import * as S from "./Styled";
+import { useDispatch, useSelector } from 'react-redux';
+import { setShowMobileSortModal } from 'redux/reducers/appReducer';
+import { setProducts } from 'redux/reducers/productReducer';
+import * as S from './Styled';
 
 const MobileSort = (props) => {
+  const showMobileSortModal = useSelector((state) => state.app.showMobileSortModal);
   const products = useSelector((state) => state.product.products);
   const dispatch = useDispatch();
-
-  const onClose = () => {
-    props.setActive(false);
-    document.body.style.overflow = document.body.style.overflow
-      ? null
-      : "hidden";
-  };
 
   const onUp = () => {
     let newProducts = [...products];
 
-    dispatch(
-      setProducts(
-        newProducts.sort((a, b) => parseFloat(a.price) - parseFloat(b.price))
-      )
-    );
-    props.setActive(false);
+    dispatch(setProducts(newProducts.sort((a, b) => parseFloat(a.price) - parseFloat(b.price))));
+    dispatch(setShowMobileSortModal(false));
   };
 
   const onLow = () => {
     let newProducts = [...products];
 
-    dispatch(
-      setProducts(
-        newProducts.sort((a, b) => parseFloat(b.price) - parseFloat(a.price))
-      )
-    );
-    props.setActive(false);
+    dispatch(setProducts(newProducts.sort((a, b) => parseFloat(b.price) - parseFloat(a.price))));
+    dispatch(setShowMobileSortModal(false));
   };
 
   return (
-    <S.MobileSort className={props.active ? "show_mobile_filter" : ""}>
+    <S.MobileSort className={showMobileSortModal ? 'show_mobile_filter' : ''}>
       <S.Header>
         Сортировка
-        <svg
-          onClick={onClose}
-          width={24}
-          height={24}
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M7 7L17 17"
-            stroke="black"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M7 17L17 7"
-            stroke="black"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
+        <svg onClick={() => dispatch(setShowMobileSortModal(false))} width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7 7L17 17" stroke="black" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M7 17L17 7" stroke="black" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </S.Header>
       <S.ListWrapper>

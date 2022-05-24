@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { media } from "../../sizes";
+import styled from 'styled-components';
+import { media } from '../../sizes';
 
 export const Wrapper = styled.div`
   padding: 24px 64px;
@@ -28,9 +28,9 @@ export const StyledProducts = styled.div`
   margin-top: 24px;
   display: grid;
   width: 100%;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 350px));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   align-self: start;
-  grid-gap: 48px 32px;
+  grid-gap: 48px 24px;
   justify-content: start;
 
   @media ${media.mobile} {

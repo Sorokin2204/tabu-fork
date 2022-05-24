@@ -1,14 +1,14 @@
-import Button from "components/Atoms/Button";
-import { useSelector } from "react-redux";
-import * as S from "./Styled";
-import { useEffect, useState } from "react";
-import { sizes } from "../../../../../../sizes";
-import { Navigate, useNavigate } from "react-router-dom";
+import Button from 'components/Atoms/Button';
+import { useSelector } from 'react-redux';
+import * as S from './Styled';
+import { useEffect, useState } from 'react';
+import { sizes } from '../../../../../../sizes';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const Order = () => {
   const navigate = useNavigate();
   const cartProducts = useSelector((state) => state.cart.cartProducts);
-const isMobile = useSelector((state) => state.app.isMobile);
+  const isMobile = useSelector((state) => state.app.isMobile);
 
   return (
     <S.Container>
@@ -18,10 +18,7 @@ const isMobile = useSelector((state) => state.app.isMobile);
           <S.CalcName>Товары:</S.CalcName>
           <S.CalcValue>
             $&nbsp;
-            {cartProducts.reduce(
-              (accumulator, current) => accumulator + current.price,
-              0
-            )}
+            {cartProducts.reduce((accumulator, current) => accumulator + current.price, 0)}
           </S.CalcValue>
         </S.CalcRow>
         <S.CalcRow>
@@ -38,22 +35,12 @@ const isMobile = useSelector((state) => state.app.isMobile);
         <S.ResultName>Всего:</S.ResultName>
         <S.ResultValue>
           $&nbsp;
-          {cartProducts?.length > 0 &&
-            cartProducts?.reduce(
-              (accumulator, current) => accumulator + current.price,
-              0
-            )}
+          {cartProducts?.length > 0 && cartProducts?.reduce((accumulator, current) => accumulator + current.price, 0)}
         </S.ResultValue>
       </S.ResultRow>
       <S.Information>
         <S.InfoIcon>
-          <svg
-            width={18}
-            height={18}
-            viewBox="0 0 18 18"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg width={18} height={18} viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               fillRule="evenodd"
               clipRule="evenodd"
@@ -66,37 +53,16 @@ const isMobile = useSelector((state) => state.app.isMobile);
               d="M8.64509 9.71456L8.64509 4.71456C8.64509 4.51732 8.80499 4.35742 9.00223 4.35742C9.19948 4.35742 9.35937 4.51732 9.35937 4.71456L9.35937 9.71456C9.35937 9.91181 9.19948 10.0717 9.00223 10.0717C8.80499 10.0717 8.64509 9.91181 8.64509 9.71456Z"
               fill="#191919"
             />
-            <path
-              d="M9.71568 12.5717C9.71568 12.9662 9.39588 13.286 9.0014 13.286C8.60691 13.286 8.28711 12.9662 8.28711 12.5717C8.28711 12.1772 8.60691 11.8574 9.0014 11.8574C9.39588 11.8574 9.71568 12.1772 9.71568 12.5717Z"
-              fill="#191919"
-            />
+            <path d="M9.71568 12.5717C9.71568 12.9662 9.39588 13.286 9.0014 13.286C8.60691 13.286 8.28711 12.9662 8.28711 12.5717C8.28711 12.1772 8.60691 11.8574 9.0014 11.8574C9.39588 11.8574 9.71568 12.1772 9.71568 12.5717Z" fill="#191919" />
           </svg>
         </S.InfoIcon>
-        <S.InfoText>
-          Обратите внимание, что если ваш заказ содержит один или несколько
-          товаров, то доставка займет больше времени. Мы подготовим и отправим
-          все ваши товары в одной посылке.
-        </S.InfoText>
+        <S.InfoText>Обратите внимание, что если ваш заказ содержит один или несколько товаров, то доставка займет больше времени. Мы подготовим и отправим все ваши товары в одной посылке.</S.InfoText>
       </S.Information>
       <S.Buttons>
-        <Button
-          border="1px solid #717171"
-          borderRadius="2px"
-          background="#fff"
-          color="#717171"
-          padding="14px 40.5px"
-          width={isMobile ? "100%" : "auto"}
-        >
+        <Button border="1px solid #717171" borderRadius="2px" background="#fff" color="#717171" padding="14px" width={isMobile ? '100%' : 'auto'} style={{ whiteSpace: 'nowrap', order: isMobile ? 2 : 1 }}>
           Продолжить покупки
         </Button>
-        <Button
-          onClick={() => navigate("/ordering")}
-          margin={isMobile ? "8px 0 0 0" : "0 0 0 51px"}
-          green
-          borderRadius="2px"
-          padding="14px 56.5px"
-          width={isMobile ? "100%" : "auto"}
-        >
+        <Button onClick={() => navigate('/ordering')} green borderRadius="2px" padding="14px" width={isMobile ? '100%' : 'auto'} style={{ whiteSpace: 'nowrap', order: isMobile ? 1 : 2 }}>
           Оформить заказ
         </Button>
       </S.Buttons>

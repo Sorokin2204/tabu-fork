@@ -1,5 +1,6 @@
-import styled from "styled-components";
-
+import styled from 'styled-components';
+import Arrow from 'assets/svg/chevron.svg';
+import { css } from 'styled-components';
 export const OrderBlock = styled.div`
   display: flex;
   flex-direction: column;
@@ -8,10 +9,52 @@ export const OrderBlock = styled.div`
   height: auto;
   padding: 32px 56px 56px 35px;
   align-items: center;
+  @media (max-width: 1110px) {
+    z-index: 101;
+    padding: 20px 25px 25px 25px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 70vh;
+    bottom: 0;
+    overflow: overlay;
+    position: fixed;
+    transition: transform 0.3s !important;
+    transform: translateY(100%);
+  }
+  ${(props) =>
+    props.active &&
+    css`
+      transform: translateY(0%) !important;
+    `}
+`;
+
+export const Overlay = styled.div`
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s;
+  @media (max-width: 1110px) {
+    display: block;
+  }
+  ${(props) =>
+    props.active &&
+    css`
+      visibility: visible;
+      opacity: 1;
+    `}
 `;
 
 export const TitleBlock = styled.div`
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -22,6 +65,22 @@ export const TitleBlock = styled.div`
 
   color: #000000;
   width: 100%;
+  @media (max-width: 1110px) {
+    display: flex;
+    align-items: center;
+    &::before {
+      content: '';
+      display: block;
+      width: 4px;
+      height: 8px;
+      background-image: url(${Arrow});
+      background-size: contain;
+      transform: rotate(90deg);
+      background-repeat: no-repeat;
+      margin-right: 10px;
+      margin-left: 10px;
+    }
+  }
 `;
 
 export const Products = styled.div`
@@ -29,6 +88,9 @@ export const Products = styled.div`
   flex-direction: column;
   width: 100%;
   margin-top: 40px;
+  @media (max-width: 1110px) {
+    margin-top: 53px;
+  }
 `;
 
 export const Line = styled.div`
@@ -36,10 +98,18 @@ export const Line = styled.div`
   height: 1px;
   background-color: #e5e5e5;
   margin-top: 86px;
+  @media (max-width: 1110px) {
+    width: 100%;
+    margin-top: 32px;
+  }
 `;
 
 export const Container = styled.div`
   width: 90%;
+  @media (max-width: 1110px) {
+    box-sizing: border-box;
+    width: 100%;
+  }
 `;
 
 export const PriceItems = styled.div`
@@ -62,7 +132,7 @@ export const PriceItem = styled.div`
 `;
 
 export const PriceItemName = styled.div`
-  font-family: "Mont";
+  font-family: 'Mont';
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
@@ -75,7 +145,7 @@ export const PriceItemName = styled.div`
 `;
 
 export const PriceItemNumber = styled.div`
-  font-family: "Mont";
+  font-family: 'Mont';
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
@@ -83,7 +153,7 @@ export const PriceItemNumber = styled.div`
   /* identical to box height, or 17px */
 
   text-align: right;
-  font-feature-settings: "tnum" on, "lnum" on;
+  font-feature-settings: 'tnum' on, 'lnum' on;
 
   /* Tabu/Black */
 
@@ -91,7 +161,7 @@ export const PriceItemNumber = styled.div`
 `;
 
 export const SumTitle = styled.div`
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -108,7 +178,7 @@ export const AllPrice = styled.div`
 `;
 
 export const AllPriceName = styled.div`
-  font-family: "Mont";
+  font-family: 'Mont';
   font-style: normal;
   font-weight: 700;
   font-size: 14px;
@@ -123,7 +193,7 @@ export const AllPriceName = styled.div`
 `;
 
 export const AllPriceNumber = styled.div`
-  font-family: "Mont";
+  font-family: 'Mont';
   font-style: normal;
   font-weight: 700;
   font-size: 12px;
@@ -132,7 +202,7 @@ export const AllPriceNumber = styled.div`
 
   text-align: right;
   text-transform: uppercase;
-  font-feature-settings: "tnum" on, "lnum" on;
+  font-feature-settings: 'tnum' on, 'lnum' on;
 
   /* Tabu/Black */
 

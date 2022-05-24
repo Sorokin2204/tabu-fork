@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   margin-top: 80px;
@@ -11,6 +11,7 @@ export const Title = styled.div`
   font-size: 16px;
   font-weight: 600;
   color: #191919;
+  text-transform: uppercase;
 `;
 
 export const LeftColumn = styled.div`

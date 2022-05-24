@@ -1,94 +1,72 @@
-import React from "react";
-import * as S from "./Styled";
+import React from 'react';
+import FooterExpander from '../FooterExpander/FooterExpander';
+import * as S from './Styled';
+
+const footerData = [
+  {
+    title: 'Taabu',
+    list: [
+      { name: 'О проекте', link: '#' },
+      { name: 'Гарантии от TABU', link: '#' },
+    ],
+  },
+  {
+    title: 'ПОКУПАТЕЛЯМ',
+    list: [
+      { name: 'Как покупать', link: '#' },
+      { name: 'Гарантия подлинности', link: '#' },
+      { name: 'Безопасная сделка', link: '#' },
+      { name: 'Доставка и возврат', link: '#' },
+      { name: 'Полезные советы', link: '#' },
+    ],
+  },
+  {
+    title: 'ПРОДАВЦАМ',
+    list: [{ name: 'Как продавать', link: '#' }],
+    list: [{ name: 'Экспертиза', link: '#' }],
+    list: [{ name: 'Безопасная сделка', link: '#' }],
+    list: [{ name: 'Комиссия', link: '#' }],
+    list: [{ name: 'Полезные советы', link: '#' }],
+  },
+  {
+    title: 'ПОМОЩЬ',
+    list: [{ name: 'FAQ', link: '#' }],
+  },
+];
 
 const MobileFooter = () => {
   return (
     <S.StyledMobileFooter>
-      <S.Category>
-        <S.CategoryName>Taabu</S.CategoryName>
-        <S.CategoryExpand>
-          <svg
-            width="10"
-            height="6"
-            viewBox="0 0 10 6"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M9 1L5 5L1 1"
-              stroke="white"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </S.CategoryExpand>
-      </S.Category>
-      <S.Category>
+      {footerData.map((footerItem) => (
+        <FooterExpander title={footerItem.title} list={footerItem.list} />
+      ))}
+      {/* <S.Category>
         <S.CategoryName>Покупателям</S.CategoryName>
         <S.CategoryExpand>
-          <svg
-            width="10"
-            height="6"
-            viewBox="0 0 10 6"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M9 1L5 5L1 1"
-              stroke="white"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
+          <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 1L5 5L1 1" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </S.CategoryExpand>
       </S.Category>
       <S.Category>
         <S.CategoryName>Продавцам</S.CategoryName>
         <S.CategoryExpand>
-          <svg
-            width="10"
-            height="6"
-            viewBox="0 0 10 6"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M9 1L5 5L1 1"
-              stroke="white"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
+          <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 1L5 5L1 1" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </S.CategoryExpand>
       </S.Category>
       <S.Category>
         <S.CategoryName>Помощь</S.CategoryName>
         <S.CategoryExpand>
-          <svg
-            width="10"
-            height="6"
-            viewBox="0 0 10 6"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M9 1L5 5L1 1"
-              stroke="white"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
+          <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 1L5 5L1 1" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </S.CategoryExpand>
-      </S.Category>
+      </S.Category> */}
       <S.SocialNets>
         <S.Net>
-          <svg
-            width="22"
-            height="15"
-            viewBox="0 0 22 15"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg width="22" height="15" viewBox="0 0 22 15" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               fillRule="evenodd"
               clipRule="evenodd"
@@ -104,23 +82,14 @@ const MobileFooter = () => {
           </svg>
         </S.Net>
         <S.Net>
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 18 18"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               fillRule="evenodd"
               clipRule="evenodd"
               d="M9.00013 12.7332C11.062 12.7332 12.7335 11.0617 12.7335 8.99989C12.7335 6.93802 11.062 5.26655 9.00013 5.26655C6.93827 5.26655 5.2668 6.93802 5.2668 8.99989C5.2668 11.0617 6.93827 12.7332 9.00013 12.7332ZM9.00013 11.6666C10.4729 11.6666 11.6668 10.4726 11.6668 8.99989C11.6668 7.52713 10.4729 6.33322 9.00013 6.33322C7.52737 6.33322 6.33346 7.52713 6.33346 8.99989C6.33346 10.4726 7.52737 11.6666 9.00013 11.6666Z"
               fill="white"
             />
-            <path
-              d="M13.8001 5.26655C14.0947 5.26655 14.3335 5.02777 14.3335 4.73322C14.3335 4.43867 14.0947 4.19989 13.8001 4.19989C13.5056 4.19989 13.2668 4.43867 13.2668 4.73322C13.2668 5.02777 13.5056 5.26655 13.8001 5.26655Z"
-              fill="white"
-            />
+            <path d="M13.8001 5.26655C14.0947 5.26655 14.3335 5.02777 14.3335 4.73322C14.3335 4.43867 14.0947 4.19989 13.8001 4.19989C13.5056 4.19989 13.2668 4.43867 13.2668 4.73322C13.2668 5.02777 13.5056 5.26655 13.8001 5.26655Z" fill="white" />
             <path
               fillRule="evenodd"
               clipRule="evenodd"
@@ -130,13 +99,7 @@ const MobileFooter = () => {
           </svg>
         </S.Net>
         <S.Net>
-          <svg
-            width="20"
-            height="16"
-            viewBox="0 0 20 16"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               fillRule="evenodd"
               clipRule="evenodd"
@@ -146,13 +109,7 @@ const MobileFooter = () => {
           </svg>
         </S.Net>
         <S.Net>
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               fillRule="evenodd"
               clipRule="evenodd"
@@ -168,13 +125,7 @@ const MobileFooter = () => {
           </svg>
         </S.Net>
         <S.Net>
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               fillRule="evenodd"
               clipRule="evenodd"

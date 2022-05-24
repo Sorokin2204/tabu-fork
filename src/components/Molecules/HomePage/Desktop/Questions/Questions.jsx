@@ -1,8 +1,8 @@
-import styled, { css } from "styled-components";
-import Grid from "../../../../Atoms/Grid";
-import ExpandIcon from "../../../../Atoms/Icons/ExpandIcon";
-import Text from "../../../../Atoms/Text";
-import Question from "./Question";
+import styled, { css } from 'styled-components';
+import Grid from '../../../../Atoms/Grid';
+import ExpandIcon from '../../../../Atoms/Icons/ExpandIcon';
+import Text from '../../../../Atoms/Text';
+import Question from './Question';
 
 const Numbers = styled.div`
   display: flex;
@@ -31,11 +31,11 @@ const HalfLine = styled.div`
   height: 20px;
   width: 1px;
   background-color: rgba(0, 0, 0, 0.25);
-  margin: ${({ margin }) => margin || ""};
+  margin: ${({ margin }) => margin || ''};
   ${(props) =>
     props.active &&
     css`
-      background-color: #000;
+      background-color: #025b37;
     `};
 `;
 
@@ -44,55 +44,35 @@ const Questions = () => {
     <Grid columns="1fr 10fr" padding="64px 0 0 0">
       <Numbers>
         <Number>
-          <Text color="#000" fontFamily="Mont" fontWeight="600" fontSize="18px">
+          <Text color="#025B37;" fontFamily="Mont" fontWeight="600" fontSize="18px">
             01
           </Text>
           <HalfLine margin="15px 0 0 0" active />
           <HalfLine />
         </Number>
         <Number>
-          <Text
-            color="rgba(0, 0, 0, 0.25)"
-            fontFamily="Mont"
-            fontWeight="600"
-            fontSize="18px"
-          >
+          <Text color="rgba(0, 0, 0, 0.25)" fontFamily="Mont" fontWeight="600" fontSize="18px">
             02
           </Text>
           <HalfLine margin="15px 0 0 0" />
           <HalfLine />
         </Number>
         <Number>
-          <Text
-            color="rgba(0, 0, 0, 0.25)"
-            fontFamily="Mont"
-            fontWeight="600"
-            fontSize="18px"
-          >
+          <Text color="rgba(0, 0, 0, 0.25)" fontFamily="Mont" fontWeight="600" fontSize="18px">
             03
           </Text>
           <HalfLine margin="15px 0 0 0" />
           <HalfLine />
         </Number>
         <Number>
-          <Text
-            color="rgba(0, 0, 0, 0.25)"
-            fontFamily="Mont"
-            fontWeight="600"
-            fontSize="18px"
-          >
+          <Text color="rgba(0, 0, 0, 0.25)" fontFamily="Mont" fontWeight="600" fontSize="18px">
             04
           </Text>
           <HalfLine margin="15px 0 0 0" />
           <HalfLine />
         </Number>
         <Number>
-          <Text
-            color="rgba(0, 0, 0, 0.25)"
-            fontFamily="Mont"
-            fontWeight="600"
-            fontSize="18px"
-          >
+          <Text color="rgba(0, 0, 0, 0.25)" fontFamily="Mont" fontWeight="600" fontSize="18px">
             05
           </Text>
         </Number>

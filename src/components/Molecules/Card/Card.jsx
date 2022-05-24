@@ -9,13 +9,15 @@ import { setOpenedProduct, showModal } from 'redux/reducers/productReducer';
 import { sizes } from '../../../sizes';
 import { useNavigate } from 'react-router-dom';
 import Flex from 'components/Atoms/Flex';
+import { setIsDisableScroll } from 'redux/reducers/appReducer';
 
 export const HoverWrapper = styled.div`
   position: relative;
 `;
 export const HoverCard = styled.div`
   position: absolute;
-  left: -7%;
+  left: -25px;
+  top: -25px;
   z-index: 3;
   width: ${({ width }) => width || ''};
   height: auto;
@@ -45,10 +47,20 @@ const Card = (props) => {
     const targetProduct = products.results.find((x) => x.id === props.product_id);
     dispatch(setOpenedProduct(targetProduct));
     dispatch(showModal());
+    dispatch(setIsDisableScroll(true));
   };
 
   return (
-    <S.StyledCard {...props} className="card" onMouseEnter={onHover} onMouseLeave={() => setHover(false)}>
+    <S.StyledCard
+      {...props}
+      onClick={() => {
+        if (isMobile) {
+          navigate(`/products/${props?.product_id}`);
+        }
+      }}
+      className="card"
+      onMouseEnter={onHover}
+      onMouseLeave={() => setHover(false)}>
       {!props.noHover && hover && !isMobile && (
         <HoverWrapper>
           <HoverCard width={`${widthHoverBlock}px`}>
@@ -70,22 +82,22 @@ const Card = (props) => {
             <S.ImageBlock src={props.img} />
             <S.Details>
               <Flex direction="column" width="80%">
-                <Text name="name" color="#191919" fontFamily="Mont" fontWeight="600" fontSize="16px">
+                <Text name="name" color="#191919" fontFamily="Mont" fontWeight="600" fontSize="12px">
                   {props.title ? props.title : ''}
                 </Text>
-                <Text name="desc" color="#717171" margin="6px 0 0 0" fontFamily="Mont" fontWeight="400" fontSize="16px">
+                <Text name="desc" color="#717171" margin="6px 0 0 0" fontFamily="Mont" fontWeight="400" fontSize="12px">
                   {props.description?.length > 65 ? props.description.slice(0, 65) + ' ...' : props.description}
                 </Text>
-                <Text name="size" color="#717171" margin="6px 0 0 0" fontFamily="Mont" fontWeight="400" fontSize="16px">
+                <Text name="size" color="#717171" margin="6px 0 0 0" fontFamily="Mont" fontWeight="400" fontSize="12px">
                   {props?.product?.size?.length && `UE ${props?.product?.size[0].title}`}
                 </Text>
               </Flex>
               <Flex direction="column" justify="start" align="end">
-                <Text color="#191919" fontFamily="Mont" fontWeight="600" fontSize="16px">
+                <Text color="#191919" fontFamily="Mont" fontWeight="600" fontSize="12px">
                   {props.price ? '$ ' + props.price : ''}
                 </Text>
 
-                <Text color="#ABABAB" fontFamily="Mont" fontWeight="600" fontSize="16px" decoration="line-through">
+                <Text color="#ABABAB" fontFamily="Mont" fontWeight="600" fontSize="12px" decoration="line-through">
                   {props?.product?.old_price && '$ ' + props?.product?.old_price}
                 </Text>
               </Flex>
@@ -116,19 +128,35 @@ const Card = (props) => {
 
       <S.Details>
         <Flex direction="column" width="80%">
-          <Text color="#191919" fontFamily="Mont" fontWeight="600" fontSize="16px" onClick={() => navigate(`/products/${props?.product_id}`)} cursor="pointer">
+          <Text color="#191919" fontFamily="Mont" fontWeight="600" fontSize="12px" onClick={() => navigate(`/products/${props?.product_id}`)} cursor="pointer">
             {props.title ? props.title : ''}
           </Text>
-          <Text color="#717171" margin="6px 0 0 0" fontFamily="Mont" fontWeight="400" fontSize="16px">
+          <Text
+            color="#717171"
+            fontFamily="Mont"
+            fontWeight="400"
+            fontSize="12px"
+            style={{
+              marginTop: isMobile ? '4px' : '6px',
+            }}>
             {props.description?.length > 65 ? props.description.slice(0, 65) + ' ...' : props.description}
           </Text>
-
-          <Text name="size" color="#717171" margin="6px 0 0 0" fontFamily="Mont" fontWeight="400" fontSize="16px">
-            {props?.product?.size?.length && `UE ${props?.product?.size[0].title}`}
-          </Text>
+          {props?.product?.size?.length && (
+            <Text
+              name="size"
+              color="#717171"
+              fontFamily="Mont"
+              fontWeight="400"
+              fontSize="12px"
+              style={{
+                marginTop: isMobile ? '4px' : '6px',
+              }}>
+              {props?.product?.size?.length && `UE ${props?.product?.size[0].title}`}
+            </Text>
+          )}
 
           {isMobile ? (
-            <Text color="#191919" fontFamily="Mont" fontWeight="600" fontSize="16px" margin={'6px 0 0 0'}>
+            <Text color="#191919" fontFamily="Mont" fontWeight="600" fontSize="12px" margin={'6px 0 0 0'}>
               {props.price ? '$ ' + props.price : ''}
             </Text>
           ) : (
@@ -137,11 +165,11 @@ const Card = (props) => {
         </Flex>
         {!isMobile ? (
           <Flex direction="column" justify="start" align="end">
-            <Text color="#191919" fontFamily="Mont" fontWeight="600" fontSize="16px">
+            <Text color="#191919" fontFamily="Mont" fontWeight="600" fontSize="12px">
               {props.price ? '$ ' + props.price : ''}
             </Text>
 
-            <Text color="#ABABAB" fontFamily="Mont" fontWeight="600" fontSize="16px" decoration="line-through">
+            <Text color="#ABABAB" fontFamily="Mont" fontWeight="600" fontSize="12px" decoration="line-through">
               {props?.product?.old_price && '$ ' + props?.product?.old_price}
             </Text>
           </Flex>

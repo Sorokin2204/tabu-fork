@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const ExamplePhoto = styled.div`
   width: 100%;
@@ -6,10 +6,14 @@ export const ExamplePhoto = styled.div`
   border-radius: 16px;
   margin-left: 20px;
 
-  background-image: url(${(props) => props.src || ""});
+  background-image: url(${(props) => props.src || ''});
   background-size: cover;
   background-position: center;
 
   width: 100%;
-  height: 210px;
+  height: 220px;
+  @media (max-width: 1110px) {
+    min-width: 156px;
+    margin-left: 16px;
+  }
 `;

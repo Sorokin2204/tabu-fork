@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from "react";
-import styled from "styled-components";
-import StartSlide from "./StartSlide";
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
-import { Navigation } from "swiper";
-import "swiper/css";
-import { useSelector } from "react-redux";
+import React, { useEffect, useRef } from 'react';
+import styled from 'styled-components';
+import StartSlide from './StartSlide';
+import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+import { Navigation } from 'swiper';
+import 'swiper/css';
+import { useSelector } from 'react-redux';
 
 export const StyledContainer = styled.div`
   padding: 80px 137px;
@@ -38,9 +38,8 @@ const StartContainer = () => {
           swiperRef.current = swiper;
         }}
         loop="true"
-        modules={[Navigation]}
-        navigation
-      >
+        spaceBetween={40}>
+        {' '}
         {ads
           ?.filter((x) => x.type === 1)
           ?.map((ad, i) => (
@@ -51,13 +50,7 @@ const StartContainer = () => {
       </Swiper>
 
       <ArrowLeft onClick={() => swiperRef.current.slidePrev()}>
-        <svg
-          width={48}
-          height={48}
-          viewBox="0 0 48 48"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg width={48} height={48} viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width={48} height={48} fill="white" fillOpacity="0.5" />
           <path
             fillRule="evenodd"
@@ -69,22 +62,8 @@ const StartContainer = () => {
       </ArrowLeft>
 
       <ArrowRight onClick={() => swiperRef.current.slideNext()}>
-        <svg
-          width={48}
-          height={48}
-          viewBox="0 0 48 48"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect
-            x={48}
-            y={48}
-            width={48}
-            height={48}
-            transform="rotate(-180 48 48)"
-            fill="white"
-            fillOpacity="0.5"
-          />
+        <svg width={48} height={48} viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x={48} y={48} width={48} height={48} transform="rotate(-180 48 48)" fill="white" fillOpacity="0.5" />
           <path
             fillRule="evenodd"
             clipRule="evenodd"

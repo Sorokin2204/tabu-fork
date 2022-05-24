@@ -1,20 +1,20 @@
-import React from "react";
-import styled, { css } from "styled-components";
+import React from 'react';
+import styled, { css } from 'styled-components';
 
 const StyledButton = styled.button`
   outline: none;
   cursor: pointer;
-
-  width: ${({ width }) => width || ""};
-  background: ${({ background }) => background || ""};
-  border: ${({ border }) => border || ""};
-  border-radius: ${({ borderRadius }) => borderRadius || ""};
-  color: ${({ color }) => color || ""};
-  font-family: ${({ fontFamily }) => fontFamily || "Mont"};
-  font-size: ${({ fontSize }) => fontSize || "13px"};
-  font-weight: ${({ fontWeight }) => fontWeight || "600"};
-  padding: ${({ padding }) => padding || "12px 16px"};
-  margin: ${({ margin }) => margin || "0"};
+  user-select: none;
+  width: ${({ width }) => width || ''};
+  background: ${({ background }) => background || ''};
+  border: ${({ border }) => border || ''};
+  border-radius: ${({ borderRadius }) => borderRadius || ''};
+  color: ${({ color }) => color || ''};
+  font-family: ${({ fontFamily }) => fontFamily || 'Mont'};
+  font-size: ${({ fontSize }) => fontSize || '13px'};
+  font-weight: ${({ fontWeight }) => fontWeight || '500'};
+  padding: ${({ padding }) => padding || '12px 16px'};
+  margin: ${({ margin }) => margin || '0'};
 
   ${(props) =>
     props.outlined &&
@@ -93,7 +93,7 @@ const StyledButton = styled.button`
       border: 1px solid #e5e5e5;
       background: #fff;
 
-      font-family: "Mont";
+      font-family: 'Mont';
       font-style: normal;
       font-weight: 600;
       font-size: 14px;

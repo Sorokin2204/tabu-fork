@@ -8,17 +8,17 @@ import { sizes } from 'sizes';
 import * as S from './Styled';
 
 const ProfileWishListPage = () => {
-  const [showLogout, setShowLogout] = useState(false);
   const isMobile = useSelector((state) => state.app.isMobile);
 
   return (
     <S.Wrapper>
-      <LogoutModal show={showLogout} setShow={setShowLogout} />
-      <TopBackground />
-      <S.Container>
-        <ProfileMenu setShowLogout={setShowLogout} />
+      <LogoutModal />
+      {!isMobile && <TopBackground />}
 
-        {isMobile ? '' : <ProfileContent />}
+      <S.Container>
+        {!isMobile && <ProfileMenu />}
+
+        <ProfileContent wishlist title={'Избранные: 12'} />
       </S.Container>
     </S.Wrapper>
   );

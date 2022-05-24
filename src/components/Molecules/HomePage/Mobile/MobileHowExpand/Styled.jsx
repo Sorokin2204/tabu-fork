@@ -1,10 +1,11 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 48px 0 23px;
   background-color: #f9f9f9;
+  margin-top: 6px;
 `;
 
 export const Title = styled.div`
@@ -13,6 +14,8 @@ export const Title = styled.div`
   font-weight: 400;
   color: #191919;
   text-align: center;
+  margin-bottom: 8px;
+  text-transform: uppercase;
 `;
 
 export const Tab = styled.div`

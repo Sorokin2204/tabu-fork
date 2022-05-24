@@ -1,20 +1,14 @@
-import Flex from "components/Atoms/Flex";
-import Grid from "components/Atoms/Grid";
-import Text from "components/Atoms/Text";
-import * as S from "./Styled";
-import {
-  Youtube,
-  Instagram,
-  Telegram,
-  Whatsapp,
-  Facebook,
-} from "components/Atoms/Icons/Social";
+import Flex from 'components/Atoms/Flex';
+import Grid from 'components/Atoms/Grid';
+import Text from 'components/Atoms/Text';
+import * as S from './Styled';
+import { Youtube, Instagram, Telegram, Whatsapp, Facebook } from 'components/Atoms/Icons/Social';
 
 const Footer = () => {
   return (
     <S.Footer>
       <Flex>
-        <Grid columns="1fr 1fr 1fr 1fr 1fr" gap="0 80px">
+        <Flex columns="1fr 1fr 1fr 1fr 1fr" gap="0 80px" style={{ justifyContent: 'space-between', width: '100%' }}>
           <Flex direction="column">
             <S.TitleColumn>Tabu</S.TitleColumn>
             <Flex margin="40px 0 0 0" direction="column">
@@ -69,7 +63,7 @@ const Footer = () => {
               </Flex>
             </Flex>
           </Flex>
-        </Grid>
+        </Flex>
       </Flex>
       <Flex align="center" justify="space-between" margin="78px 0 0 0">
         <S.DarkText>© 2019-2022 TabuGroup. Все права защищены .</S.DarkText>

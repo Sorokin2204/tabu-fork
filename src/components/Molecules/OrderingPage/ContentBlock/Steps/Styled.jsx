@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { css } from "styled-components";
+import styled from 'styled-components';
+import { css } from 'styled-components';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -8,6 +8,9 @@ export const Wrapper = styled.div`
   justify-content: center;
   margin-top: 48px;
   align-items: center;
+  @media (max-width: 1110px) {
+    margin-top: 0px;
+  }
 `;
 
 export const Step = styled.div`
@@ -19,6 +22,15 @@ export const Step = styled.div`
 
   &:nth-child(1) {
     margin-left: 0;
+  }
+  @media (max-width: 1110px) {
+    &:nth-child(1) {
+      padding-left: 25px;
+    }
+    &:last-child {
+      padding-right: 25px;
+    }
+    margin-left: 8px;
   }
 `;
 
@@ -33,18 +45,20 @@ export const StepCircle = styled.div`
   justify-content: center;
   align-items: center;
 
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 130%;
-  /* identical to box height, or 21px */
-
-  font-feature-settings: "pnum" on, "lnum" on;
-
   color: #191919;
   border-radius: 50%;
-
+  @media (max-width: 1110px) {
+    font-size: 14px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+  }
   ${(props) =>
     props.active &&
     css`
@@ -54,20 +68,18 @@ export const StepCircle = styled.div`
 `;
 
 export const StepName = styled.div`
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
   line-height: 130%;
-  /* identical to box height, or 16px */
-
   text-align: center;
   text-transform: uppercase;
-
-  /* Tabu/Black */
-
   color: #191919;
   margin-top: 16px;
+  @media (max-width: 1110px) {
+    margin-top: 12px;
+  }
 `;
 
 export const Line = styled.div`
@@ -76,6 +88,10 @@ export const Line = styled.div`
   height: 1px;
   margin-left: 20px;
   margin-bottom: 32px;
+  @media (max-width: 1110px) {
+    width: 56px;
+    margin-left: 8px;
+  }
 `;
 
 export const Step3 = styled.div``;

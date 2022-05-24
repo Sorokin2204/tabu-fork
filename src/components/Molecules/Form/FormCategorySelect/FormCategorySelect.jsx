@@ -1,25 +1,14 @@
-import SearchInput from "components/Atoms/Form/SearchInput";
-import { useEffect, useState } from "react";
-import * as S from "./Styled";
-import OutsideClickHandler from "react-outside-click-handler";
-import FormCheckBox from "../FormCheckBox";
-import { useDispatch, useSelector } from "react-redux";
-import { getCategories } from "redux/actions/categories";
-import CategorySelectModal from "./CategorySelectModal/CategorySelectModal";
+import SearchInput from 'components/Atoms/Form/SearchInput';
+import { useEffect, useState } from 'react';
+import * as S from './Styled';
+import OutsideClickHandler from 'react-outside-click-handler';
+import FormCheckBox from '../FormCheckBox';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCategories } from 'redux/actions/categories';
+import CategorySelectModal from './CategorySelectModal/CategorySelectModal';
+import { setIsDisableScroll } from 'redux/reducers/appReducer';
 
-const FormCategorySelect = ({
-  value,
-  setValue,
-  label,
-  placeholder,
-  type,
-  firstCategory,
-  setFirstCategory,
-  secondCategory,
-  setSecondCategory,
-  thirdCategory,
-  setThirdCategory,
-}) => {
+const FormCategorySelect = ({ value, setValue, label, placeholder, type, firstCategory, setFirstCategory, secondCategory, setSecondCategory, thirdCategory, setThirdCategory }) => {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.categories.categories);
 
@@ -32,16 +21,7 @@ const FormCategorySelect = ({
 
   return (
     <S.Wrapper>
-      <CategorySelectModal
-        firstCategory={firstCategory}
-        setFirstCategory={setFirstCategory}
-        secondCategory={secondCategory}
-        setSecondCategory={setSecondCategory}
-        thirdCategory={thirdCategory}
-        setThirdCategory={setThirdCategory}
-        active={activeCat}
-        setActive={setActiveCat}
-      />
+      <CategorySelectModal firstCategory={firstCategory} setFirstCategory={setFirstCategory} secondCategory={secondCategory} setSecondCategory={setSecondCategory} thirdCategory={thirdCategory} setThirdCategory={setThirdCategory} active={activeCat} setActive={setActiveCat} />
       <div>
         <S.Label>{label}</S.Label>
       </div>
@@ -51,14 +31,11 @@ const FormCategorySelect = ({
         onClick={() => {
           setOpen(!open);
           setActiveCat(true);
+          dispatch(setIsDisableScroll(true));
         }}
         placeholder={placeholder}
-        type={type}
-      >
-        {firstCategory &&
-          secondCategory &&
-          thirdCategory &&
-          `${firstCategory?.title} / ${secondCategory?.title} / ${thirdCategory?.title}`}
+        type={type}>
+        {firstCategory && secondCategory && thirdCategory && `${firstCategory?.title} / ${secondCategory?.title} / ${thirdCategory?.title}`}
         {value}
       </S.Input>
     </S.Wrapper>

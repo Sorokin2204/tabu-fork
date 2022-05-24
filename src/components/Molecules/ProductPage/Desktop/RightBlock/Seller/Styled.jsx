@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -8,15 +8,15 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.div`
+  text-transform: uppercase;
   font-family: Gilroy;
   font-weight: 600;
   font-size: 16px;
   color: #191919;
+  margin-bottom: 38px;
 `;
 
 export const Bottom = styled.div`
-  margin-top: 24px;
-
   display: flex;
   align-items: center;
 `;
@@ -26,7 +26,7 @@ export const Avatar = styled.div`
   width: 64px;
   border-radius: 50%;
 
-  background-image: url(${({ src }) => src || ""});
+  background-image: url(${({ src }) => src || ''});
   background-size: cover;
   background-position: center;
 `;
@@ -83,8 +83,10 @@ export const Comment = styled.div`
   font-weight: 600;
   color: #191919;
   border-radius: 8px;
-
-  margin-left: 36px;
 `;
 
-export const DetailsContainer = styled.div``;
+export const DetailsContainer = styled.div`
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 36px;
+`;

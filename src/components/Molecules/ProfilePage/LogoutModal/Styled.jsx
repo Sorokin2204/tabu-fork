@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   position: fixed;
@@ -15,18 +15,27 @@ export const Wrapper = styled.div`
 `;
 
 export const Block = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background: #ffffff;
-  position: relative;
-  width: 55%;
-  height: 50%;
+  width: 760px;
+  height: 448px;
+  max-height: calc(100vh - 40px);
+  z-index: 110;
+  @media (max-width: 1110px) {
+    width: 343px;
+    height: 267px;
+  }
 `;
 
 export const Title = styled.div`
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
@@ -36,12 +45,21 @@ export const Title = styled.div`
   text-transform: uppercase;
 
   color: #000000;
+  @media (max-width: 1110px) {
+    font-size: 14px;
+  }
 `;
 
 export const Buttons = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 215px);
+  grid-gap: 24px;
   margin-top: 48px;
-  width: 70%;
+  @media (max-width: 1110px) {
+    margin-top: 40px;
+    grid-template-columns: repeat(1, 215px);
+    grid-gap: 12px;
+  }
 `;
 
 export const Close = styled.div`
@@ -49,4 +67,12 @@ export const Close = styled.div`
   top: 12px;
   cursor: pointer;
   right: 12px;
+  @media (max-width: 1110px) {
+    top: 14px;
+    right: 16px;
+    & svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
 `;

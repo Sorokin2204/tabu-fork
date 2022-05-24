@@ -1,13 +1,20 @@
-import { sizes } from "sizes";
-import styled from "styled-components";
-import { css } from "styled-components";
+import { sizes } from 'sizes';
+import styled from 'styled-components';
+import { css } from 'styled-components';
 
 export const Tabs = styled.div`
   display: flex;
   flex-direction: row;
-  margin-top: 32px;
+  margin-top: 24px;
   border-bottom: 1px solid #e5e5e5;
   width: 100%;
+  @media (max-width: ${sizes.mobile}px) {
+    &::-webkit-scrollbar {
+      display: none !important;
+    }
+    margin-top: 32px;
+    overflow: overlay;
+  }
 `;
 
 export const Tab = styled.div`
@@ -17,8 +24,8 @@ export const Tab = styled.div`
   color: #e5e5e5;
   margin-left: 24px;
   cursor: pointer;
-
-  font-family: "Mont";
+  white-space: nowrap;
+  font-family: 'Mont';
   font-style: normal;
   font-weight: 600;
   font-size: 14px;
@@ -28,7 +35,14 @@ export const Tab = styled.div`
   &:nth-child(1) {
     margin-left: 0;
   }
-
+  @media (max-width: ${sizes.mobile}px) {
+    &:nth-child(1) {
+      margin-left: 16px;
+    }
+    padding: 0px 12px 11px 12px;
+    margin-left: 20px;
+    font-size: 12px;
+  }
   ${(props) =>
     props.active &&
     css`
@@ -40,6 +54,8 @@ export const Tab = styled.div`
 
 export const Wrapper = styled.div`
   width: 100%;
+  @media (max-width: ${sizes.mobile}px) {
+  }
 `;
 
 export const Container = styled.div`

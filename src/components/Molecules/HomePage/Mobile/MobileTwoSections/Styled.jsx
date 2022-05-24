@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import FirstImg from "assets/img/twoSections/1.png";
-import SecondImg from "assets/img/twoSections/2.png";
+import styled from 'styled-components';
+import FirstImg from 'assets/img/twoSections/1.png';
+import SecondImg from 'assets/img/twoSections/2.png';
 
 export const Wrapper = styled.div`
   padding: 48px 25px;
@@ -19,7 +19,7 @@ export const Block = styled.div`
   cursor: pointer;
 
   &:nth-child(1) {
-    margin-top: 48px;
+    margin-top: 0px;
   }
 `;
 export const Title = styled.div`
@@ -38,10 +38,10 @@ export const Description = styled.div`
   color: #717171;
   text-transform: uppercase;
 `;
-export const Image1 = styled.div`
-  height: 190px;
+export const Image = styled.div`
+  height: 52vw;
   width: 100%;
-  background-image: url(${({ src }) => src || ""});
+  background-image: url(${({ src }) => src || ''});
   background-size: cover;
   margin-top: 24px;
 `;
@@ -49,7 +49,7 @@ export const Image1 = styled.div`
 export const Image2 = styled.div`
   height: 190px;
   width: 100%;
-  background-image: url(${({ src }) => src || ""});
+  background-image: url(${({ src }) => src || ''});
   background-size: cover;
   margin-top: 24px;
 `;

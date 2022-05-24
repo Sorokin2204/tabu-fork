@@ -1,9 +1,10 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const StyledImageBlock = styled.div`
+  display: block;
   width: 100%;
   height: auto;
-  margin: ${({ margin }) => margin || ""};
+  margin: ${({ margin }) => margin || ''};
 `;
 
 const ImageRef = styled.img`

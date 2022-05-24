@@ -21,6 +21,7 @@ import MobileSort from 'components/Molecules/MobileSort/MobileSort';
 import ShareProduct from 'components/Molecules/CategoryPage/ShareProduct/ShareProduct';
 import ProductModal from 'components/Molecules/Modals/ProductModal';
 import { hideModal } from 'redux/reducers/productReducer';
+import { setIsDisableScroll } from 'redux/reducers/appReducer';
 
 const CategoryPage = () => {
   const dispatch = useDispatch();
@@ -38,8 +39,6 @@ const CategoryPage = () => {
     { id: 3, name: 'По величине скидки' },
   ];
   const isMobile = useSelector((state) => state.app.isMobile);
-  const [activeFilter, setActiveFilter] = useState(false);
-  const [activeSort, setActiveSort] = useState(false);
 
   useEffect(() => {
     if (params.category_name === undefined) {
@@ -51,22 +50,28 @@ const CategoryPage = () => {
 
   return (
     <S.Wrapper>
-      <ProductModal showModal={showModal} handleClose={() => dispatch(hideModal())} />
+      <ProductModal
+        showModal={showModal}
+        handleClose={() => {
+          dispatch(hideModal());
+          dispatch(setIsDisableScroll(false));
+        }}
+      />
       <ShareProduct active={showShare} />
-      <MobileFilter active={activeFilter} setActive={setActiveFilter} />
-      <MobileSort active={activeSort} setActive={setActiveSort} />
+      <MobileFilter />
+      <MobileSort />
 
       <BreadCrumbs />
       <S.TitlePage>{params.category_name}</S.TitlePage>
       {!isMobile ? (
         <>
-          <Flex margin="42px 0 0 0" width="100%" justify="end">
+          <Flex margin="28px 0 0 0" width="100%" justify="end">
             <SelectText options={optionsSort} />
           </Flex>
-          <Hr margin="15px 0 0 0" color="#E5E5E5" />
+          <Hr margin="0 0 0 0" color="#E5E5E5" />
         </>
       ) : (
-        <SortButtons setActiveFilter={setActiveFilter} setActiveSort={setActiveSort} />
+        <SortButtons />
       )}
 
       {!isMobile ? (

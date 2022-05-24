@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -6,21 +6,28 @@ export const Wrapper = styled.div`
 
   padding-top: 10px;
   border: 1px solid #e5e5e5;
-  margin-top: 34px;
+  margin-top: 41px;
+  @media (max-width: 1110px) {
+    margin-top: 34px;
+  }
 `;
 
 export const Label = styled.label`
   position: relative;
-  top: -20px;
-  left: 16px;
+  top: -21px;
+  left: 12px;
   background-color: #fff;
-
-  font-family: "Mont";
+  padding: 0 4px;
+  font-family: 'Mont';
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
 
   color: #717171;
+  @media (max-width: 1110px) {
+    top: -20px;
+    font-size: 12px;
+  }
 `;
 
 export const Textarea = styled.textarea`
@@ -28,9 +35,9 @@ export const Textarea = styled.textarea`
   outline: none;
   padding: 0px 16px 13px;
 
-  font-family: "Mont";
+  font-family: 'Mont';
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
   line-height: 18px;
   min-height: 100px;
@@ -52,11 +59,11 @@ export const Textarea = styled.textarea`
   }
 
   &::placeholder {
-    font-family: "Mont";
+    font-family: 'Mont';
     font-style: normal;
     font-weight: 600;
     font-size: 14px;
 
-    color: #a8a8a8;
+    color: #ababab;
   }
 `;

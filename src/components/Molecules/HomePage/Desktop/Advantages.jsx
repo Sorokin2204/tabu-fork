@@ -1,13 +1,13 @@
-import AboutCard from "../../../Atoms/AboutCard";
-import Grid from "../../../Atoms/Grid";
-import CartIcon from "../../../Atoms/Icons/CartIcon";
-import DocumentIcon from "../../../Atoms/Icons/DocumentIcon";
-import LockIcon from "../../../Atoms/Icons/LockIcon";
-import DeliveryIcon from "../../../Atoms/Icons/DeliveryIcon";
+import AboutCard from '../../../Atoms/AboutCard';
+import Grid from '../../../Atoms/Grid';
+import CartIcon from '../../../Atoms/Icons/CartIcon';
+import DocumentIcon from '../../../Atoms/Icons/DocumentIcon';
+import LockIcon from '../../../Atoms/Icons/LockIcon';
+import DeliveryIcon from '../../../Atoms/Icons/DeliveryIcon';
 
 const Advantages = () => {
   return (
-    <Grid columns="1fr 1fr 1fr 1fr" padding="64px 53px" gap="0 28px">
+    <Grid padding="64px 53px" gap="0 28px" style={{ gridTemplateColumns: 'repeat(4,minmax(0,1fr))', gridTemplateRows: '434px' }}>
       <AboutCard
         icon={<CartIcon />}
         title="Новая и почти новая одежда"

@@ -1,6 +1,7 @@
 import TopHeader from 'components/Molecules/Header/Desktop/TopHeader/TopHeader';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { setIsDisableScroll } from 'redux/reducers/appReducer';
 import { setShowSearch } from 'redux/reducers/searchReducer';
 import { sizes } from 'sizes';
 import Categories from './Categories/Categories';
@@ -19,13 +20,23 @@ const Search = () => {
       <S.Wrapper>
         <S.Block>
           {isMobile ? '' : <TopHeader />}
-          <Header onClose={() => dispatch(setShowSearch(false))} />
+          <Header
+            onClose={() => {
+              dispatch(setShowSearch(false));
+              dispatch(setIsDisableScroll(false));
+            }}
+          />
           <Input />
           <Tabs />
           {/* <Categories /> */}
           <Products />
         </S.Block>
-        <S.Background onClick={() => dispatch(setShowSearch(false))} />
+        <S.Background
+          onClick={() => {
+            dispatch(setShowSearch(false));
+            dispatch(setIsDisableScroll(false));
+          }}
+        />
       </S.Wrapper>
     </>
   );

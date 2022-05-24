@@ -1,30 +1,39 @@
-import { sizes } from "sizes";
-import styled from "styled-components";
+import { sizes } from 'sizes';
+import styled from 'styled-components';
 
 export const StyledCard = styled.div`
   display: grid;
   position: relative;
   cursor: pointer;
-  padding: ${({ padding }) => padding || ""};
+  max-width: 460px;
+  padding: ${({ padding }) => padding || ''};
+
+  @media (max-width: 1110px) {
+    grid-template-rows: 156px auto;
+  }
 `;
 
 export const Details = styled.div`
-  margin-top: 20px;
+  margin-top: 16px;
   display: flex;
   justify-content: space-between;
+  @media (max-width: 1110px) {
+    margin-top: 8px;
+  }
 `;
 
 export const ImageBlock = styled.div`
   display: grid;
   height: 300px;
   justify-items: center;
-  padding-top: 25px;
-  background-image: url(${({ src }) => src || ""});
+  /* padding-top: 25px; */
+  background-image: url(${({ src }) => src || ''});
   background-size: cover;
   background-position: center;
 
   @media (max-width: ${sizes.mobile}px) {
-    height: 150px;
+    height: 156px;
+    padding-top: 0px;
   }
 `;
 

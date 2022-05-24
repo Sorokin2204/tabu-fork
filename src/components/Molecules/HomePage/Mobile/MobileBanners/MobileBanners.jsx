@@ -1,7 +1,7 @@
-import * as S from "./Styled";
-import ImageBlock from "../../../../Atoms/ImageBlock";
-import Ring from "assets/img/banners/2.png";
-import { useSelector } from "react-redux";
+import * as S from './Styled';
+import ImageBlock from '../../../../Atoms/ImageBlock';
+import Ring from 'assets/img/banners/2.png';
+import { useSelector } from 'react-redux';
 
 const MobileBanners = () => {
   const ads = useSelector((state) => state.ads.ads);

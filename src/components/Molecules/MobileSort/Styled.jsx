@@ -1,9 +1,10 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const MobileSort = styled.div`
   position: fixed;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
+  overflow: overlay;
   background-color: #fff;
   z-index: 20;
   top: 0;
@@ -20,7 +21,7 @@ export const Header = styled.div`
   font-family: Mont;
   font-weight: 600;
   font-size: 14px;
-  color: #191919;
+  color: #717171;
   padding: 0 25px;
 `;
 export const ListWrapper = styled.div`

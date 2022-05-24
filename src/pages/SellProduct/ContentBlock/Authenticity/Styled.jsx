@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { css } from "styled-components";
+import styled from 'styled-components';
+import { css } from 'styled-components';
 
 export const Wrapper = styled.div`
   margin-top: 72px;
@@ -7,10 +7,13 @@ export const Wrapper = styled.div`
   flex-direction: column;
   display: flex;
   align-items: center;
+  @media (max-width: 1110px) {
+    margin-top: 56px;
+  }
 `;
 
 export const Title = styled.div`
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
@@ -22,6 +25,10 @@ export const Title = styled.div`
   /* Tabu/Black */
 
   color: #191919;
+  @media (max-width: 1110px) {
+    font-size: 14px;
+    margin-right: auto;
+  }
 `;
 
 export const Inputs = styled.div`
@@ -29,7 +36,11 @@ export const Inputs = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 44px;
-  margin-top: 25px;
+  margin-top: 56px;
+  @media (max-width: 1110px) {
+    grid-template-columns: 1fr;
+    margin-top: 40px;
+  }
 `;
 
 export const Left = styled.div`
@@ -39,11 +50,20 @@ export const Left = styled.div`
 `;
 
 export const Row = styled.div`
+  cursor: pointer;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-top: 33px;
+  margin-top: 32px;
+  &:first-child {
+    margin-top: 0;
+  }
+  @media (max-width: 1110px) {
+    &:first-child {
+      margin-top: 32px;
+    }
+  }
 `;
 
 export const RowCol = styled.div`
@@ -53,16 +73,17 @@ export const RowCol = styled.div`
 `;
 
 export const RowTitle = styled.div`
-  font-family: "Mont";
+  font-family: 'Mont';
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 18px;
+  user-select: none;
   /* identical to box height */
 
   display: flex;
   align-items: center;
-  font-feature-settings: "case" on;
+  font-feature-settings: 'case' on;
 
   /* Tabu/Black */
 
@@ -70,7 +91,8 @@ export const RowTitle = styled.div`
 `;
 
 export const RowDescription = styled.div`
-  font-family: "Mont";
+  user-select: none;
+  font-family: 'Mont';
   font-style: normal;
   font-weight: 400;
   font-size: 14px;

@@ -1,9 +1,9 @@
-import * as S from "./Styled";
-import { URL } from "config";
-import { useDispatch, useSelector } from "react-redux";
-import { setCartProducts } from "../../../../../../redux/reducers/cartReducer";
-import { useEffect, useState } from "react";
-import { sizes } from "../../../../../../sizes";
+import * as S from './Styled';
+import { URL } from 'config';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCartProducts } from '../../../../../../redux/reducers/cartReducer';
+import { useEffect, useState } from 'react';
+import { sizes } from '../../../../../../sizes';
 
 const CartProductCard = (props) => {
   const cartProducts = useSelector((state) => state.cart.cartProducts);
@@ -15,7 +15,7 @@ const CartProductCard = (props) => {
     dispatch(setCartProducts());
 
     // Сохранение в localstorage
-    localStorage.setItem("cartProducts", JSON.stringify(copyCartProducts));
+    localStorage.setItem('cartProducts', JSON.stringify(copyCartProducts));
     console.log(id);
   };
 
@@ -23,24 +23,13 @@ const CartProductCard = (props) => {
     <S.Card>
       <S.Profile>
         <S.ProfileMobile>
-          <S.ProfileAvatar
-            src={
-              "https://s3-alpha-sig.figma.com/img/069d/4993/effb9b18f14255a7118da3477ecc84db?Expires=1649635200&Signature=RTys6vM4E9Xmg7hJjb3xWi24G8ux6STDBTGPxBIbZZ-7gsb8lNW75CuUnu~JGLTvhQ8QJPYcbxqbKxGMJn857jySEbOKhvvTbG6L7yyPfG7OoI3sTGkraJcfphAaLw90DQs~IdMqxAi-F72bLsBCebrIrLGbpOgmrDLHwCEYpYdenIf7vVYnaaSnzGYE8RJXneIzxd-OxMaE4qBWuS9cAiR93ot7l~-jiUw8ompgM9kt38cigyX0zavTwcJfkRVDmAMWNgyd-XlJt0zAMIvuDWGl6jR~QujBDWbLllk9aEaaZQl93hk77R79~WYR2weIgpOGDSEtpJN9QhQIKHjpLQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
-            }
-          />
+          <S.ProfileAvatar src={'https://i.pravatar.cc/64'} />
           <S.ProfileDetails>
             <S.ProfileName>{props.product?.seller?.first_name}</S.ProfileName>
             <S.ProfileRole>Частный продавец</S.ProfileRole>
           </S.ProfileDetails>
         </S.ProfileMobile>
-        <svg
-          onClick={() => deleteItem(props.product?.id)}
-          width="10px"
-          height="10px"
-          viewBox="0 0 10 10"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg onClick={() => deleteItem(props.product?.id)} width="10px" height="10px" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             fillRule="evenodd"
             clipRule="evenodd"
@@ -50,24 +39,11 @@ const CartProductCard = (props) => {
         </svg>
       </S.Profile>
       <S.DescriptionCol>
-        <S.ProductImage
-          src={
-            URL +
-            props.product?.images?.find((x) => x.main_image === true)?.image
-          }
-        />
+        <S.ProductImage src={URL + props.product?.images?.find((x) => x.main_image === true)?.image} />
         <S.DescBlock>
           <S.DescriptionTitle>{props.product?.title}</S.DescriptionTitle>
-          <S.DescriptionText>
-            {props?.product?.description?.length > 65
-              ? props?.product?.description?.slice(0, 65) + " ..."
-              : props?.product?.description}
-          </S.DescriptionText>
-          <S.PriceCol>${props.product?.price}</S.PriceCol>
-          <S.Size>
-            Размер:{" "}
-            {props.product?.size?.filter((x) => x.selected === true)[0]?.title}
-          </S.Size>
+          <S.DescriptionText>{props?.product?.description?.length > 65 ? props?.product?.description?.slice(0, 65) + ' ...' : props?.product?.description}</S.DescriptionText>
+          <S.Size>Размер: {props.product?.size?.filter((x) => x.selected === true)[0]?.title}</S.Size> <S.PriceCol>${props.product?.price}</S.PriceCol>
         </S.DescBlock>
       </S.DescriptionCol>
     </S.Card>

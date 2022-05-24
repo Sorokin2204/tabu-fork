@@ -8,17 +8,38 @@ import { sizes } from 'sizes';
 import * as S from './Styled';
 
 const ProfileSellPage = () => {
-  const [showLogout, setShowLogout] = useState(false);
   const isMobile = useSelector((state) => state.app.isMobile);
-
+  const tabs = [
+    {
+      name: 'Опубликовано',
+      slug: 'publish',
+    },
+    {
+      name: 'На модерации',
+      slug: 'moderate',
+    },
+    {
+      name: 'Снят с продажи',
+      slug: 'dont-sell',
+    },
+    {
+      name: 'Отклонено',
+      slug: 'canceled',
+    },
+    {
+      name: 'Продано',
+      slug: 'sales',
+    },
+  ];
   return (
     <S.Wrapper>
-      <LogoutModal show={showLogout} setShow={setShowLogout} />
-      <TopBackground />
-      <S.Container>
-        <ProfileMenu setShowLogout={setShowLogout} />
+      <LogoutModal />
+      {!isMobile && <TopBackground />}
 
-        {isMobile ? '' : <ProfileContent />}
+      <S.Container>
+        {!isMobile && <ProfileMenu />}
+
+        <ProfileContent tabs={tabs} title={'Товары на продажу: 12'} />
       </S.Container>
     </S.Wrapper>
   );

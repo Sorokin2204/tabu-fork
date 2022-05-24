@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -10,6 +10,10 @@ export const Warning = styled.div`
   display: flex;
   width: 48px;
   height: 48px;
+  min-width: 48px;
+  min-height: 48px;
+  max-width: 48px;
+  max-height: 48px;
   background-color: #f9f9f9;
   border-radius: 50%;
   justify-content: center;

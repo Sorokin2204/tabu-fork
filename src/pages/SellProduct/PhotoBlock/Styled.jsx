@@ -1,10 +1,12 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const PhotoBlock = styled.div`
   display: flex;
   flex-direction: column;
   align-items: start;
-  width: 35%;
+  @media (max-width: 1110px) {
+    order: 2;
+  }
 `;
 
 export const Section = styled.div`
@@ -21,7 +23,7 @@ export const SectionInner = styled.div`
 `;
 
 export const MainText = styled.div`
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
@@ -35,6 +37,9 @@ export const SubTitleBlock = styled.div`
   width: 100%;
   display: flex;
   margin-top: 56px;
+  @media (max-width: 1110px) {
+    margin-top: 40px;
+  }
 `;
 
 export const Sections = styled.div`
@@ -44,7 +49,7 @@ export const Sections = styled.div`
 `;
 
 export const TitleSection = styled.div`
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -64,9 +69,9 @@ export const TitleSection = styled.div`
 `;
 
 export const TitleBlock = styled.div`
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-style: normal;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 16px;
   line-height: 140%;
   /* or 22px */

@@ -1,28 +1,36 @@
-import styled from "styled-components";
+import styled from 'styled-components';
+import Arrow from 'assets/svg/chevron-bold.svg';
 
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  padding-top: 10px;
+  padding-top: 3px;
   border: 1px solid #e5e5e5;
   margin-top: 34px;
   position: relative;
+  @media (max-width: 1110px) {
+    margin-top: 0;
+  }
 `;
 
 export const Label = styled.label`
   position: absolute;
   z-index: 1;
-  top: -8px;
-  left: 16px;
+  top: -11px;
+  left: 12px;
   background-color: #fff;
-
-  font-family: "Mont";
+  padding: 0 4px;
+  font-family: 'Mont';
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
 
   color: #717171;
+  @media (max-width: 1110px) {
+    top: -10px;
+    font-size: 12px;
+  }
 `;
 
 export const Input = styled.div`
@@ -31,23 +39,37 @@ export const Input = styled.div`
   outline: none;
   display: flex;
   align-items: center;
-  padding-left: 16px;
-
-  font-family: "Mont";
+  /* padding-left: 16px; */
+  padding: 0 16px 0 16px;
+  font-family: 'Mont';
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
   line-height: 18px;
-
   color: #191919;
 
   &::placeholder {
-    font-family: "Mont";
+    font-family: 'Mont';
     font-style: normal;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 14px;
 
-    color: #a8a8a8;
+    color: #ababab;
+  }
+  &::before {
+    content: '';
+    display: block;
+    width: 11px;
+    height: 7px;
+    background-image: url(${Arrow});
+    background-size: contain;
+    transform: translateY(-50%);
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 50%;
+    right: 19px;
+
+    margin-left: 1px;
   }
 `;
 

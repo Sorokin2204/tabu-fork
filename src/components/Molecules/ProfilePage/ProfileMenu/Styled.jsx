@@ -1,6 +1,6 @@
-import { sizes } from "sizes";
-import styled from "styled-components";
-import { css } from "styled-components";
+import { sizes } from 'sizes';
+import styled from 'styled-components';
+import { css } from 'styled-components';
 
 export const Wrapper = styled.div`
   position: absolute;
@@ -33,14 +33,15 @@ export const WrapperInner = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 32px 0px 116px 0px;
+  padding: 32px 0px 100px 0px;
   width: 100%;
 
   @media (max-width: ${sizes.mobile}px) {
     padding: 0;
   }
 `;
-
+export const AvatarBox = styled.div``;
+export const AvatarBtn = styled.div``;
 export const Avatar = styled.div`
   min-width: 100px;
   min-height: 100px;
@@ -48,7 +49,7 @@ export const Avatar = styled.div`
   height: 100px;
 
   border-radius: 50%;
-  background-image: url(${({ src }) => src || ""});
+  background-image: url(${({ src }) => src || ''});
   background-size: cover;
   background-position: center;
 
@@ -66,7 +67,7 @@ export const AvatarText = styled.div`
   border-radius: 50%;
   background: #f9f9f9;
 
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 700;
   font-size: 40px;
@@ -84,7 +85,7 @@ export const AvatarText = styled.div`
 `;
 
 export const Title = styled.div`
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
@@ -100,7 +101,7 @@ export const Title = styled.div`
 `;
 
 export const Role = styled.div`
-  font-family: "Mont";
+  font-family: 'Mont';
   font-style: normal;
   font-weight: 600;
   font-size: 12px;
@@ -119,7 +120,7 @@ export const Position = styled.div`
 
   margin-top: 12px;
 
-  font-family: "Mont";
+  font-family: 'Mont';
   font-style: normal;
   font-weight: 600;
   font-size: 12px;
@@ -144,7 +145,7 @@ export const EditIcon = styled.div`
 `;
 
 export const ButtonInner = styled.div`
-  display: flex
+  display: flex;
   justify-content: center;
   align-items: center;
 `;
@@ -155,7 +156,7 @@ export const Button = styled.div`
   background-color: #191919;
   width: 80%;
 
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
@@ -185,7 +186,7 @@ export const Item = styled.div`
   padding: 8px 0;
   width: 100%;
 
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
