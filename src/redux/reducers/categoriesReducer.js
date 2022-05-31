@@ -1,15 +1,12 @@
-import {
-  SET_CATEGORIES,
-  SET_CATEGORY,
-  SET_MAIN_CATEGORY,
-  SET_PAGE_CATEGORY,
-} from "redux/types/categoriesTypes";
+import { SET_CATEGORIES, SET_CATEGORY, SET_MAIN_CATEGORY, SET_PAGE_CATEGORY, SET_PAGE_CATEGORY_ERROR, SET_PAGE_CATEGORY_LOADING } from 'redux/types/categoriesTypes';
 
 const defaultState = {
   categories: [],
   category: [],
   main_category: [null],
-  pageCategory: {},
+  pageCategoryLoading: false,
+  pageCategoryError: null,
+  pageCategory: null,
 };
 
 export default function categoriesReducer(state = defaultState, action) {
@@ -21,7 +18,11 @@ export default function categoriesReducer(state = defaultState, action) {
     case SET_MAIN_CATEGORY:
       return { ...state, main_category: action.payload };
     case SET_PAGE_CATEGORY:
-      return { ...state, pageCategory: action.payload };
+      return { ...state, pageCategory: action.payload, pageCategoryLoading: false, pageCategoryError: null };
+    case SET_PAGE_CATEGORY_LOADING:
+      return { ...state, pageCategoryLoading: action.payload ? true : false, pageCategoryError: null };
+    case SET_PAGE_CATEGORY_ERROR:
+      return { ...state, pageCategoryError: action.payload, pageCategoryLoading: false };
     default:
       return state;
   }
@@ -42,7 +43,15 @@ export const setMainCategory = (main_category) => ({
   payload: main_category,
 });
 
-export const setPageCategory = (pageCategory) => ({
+export const setPageCategory = (data) => ({
   type: SET_PAGE_CATEGORY,
-  payload: pageCategory,
+  payload: data,
+});
+export const setPageCategoryLoading = (data) => ({
+  type: SET_PAGE_CATEGORY_LOADING,
+  payload: data,
+});
+export const setPageCategoryError = (data) => ({
+  type: SET_PAGE_CATEGORY_ERROR,
+  payload: data,
 });

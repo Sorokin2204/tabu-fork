@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { css } from 'styled-components';
 
 export const MobileSort = styled.div`
   position: fixed;
@@ -6,10 +7,12 @@ export const MobileSort = styled.div`
   height: 100vh;
   overflow: overlay;
   background-color: #fff;
-  z-index: 20;
+  z-index: 100;
   top: 0;
   left: 0;
-  display: none;
+  display: flex;
+  transition: all 0.3s;
+  transform: translateX(100%);
   flex-direction: column;
   padding: 28px 0;
 `;
@@ -19,7 +22,7 @@ export const Header = styled.div`
   justify-content: space-between;
 
   font-family: Mont;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
   color: #717171;
   padding: 0 25px;
@@ -38,10 +41,16 @@ export const List = styled.div`
 export const Item = styled.div`
   padding: 14px 8px;
   background-color: #fff;
-
+  user-select: none;
+  cursor: pointer;
   font-family: Gilroy;
   font-weight: 400;
   font-size: 14px;
   color: #000;
+  ${(props) =>
+    props.active &&
+    css`
+      background-color: #f9f9f9;
+    `}
 `;
 export const Header1 = styled.div``;

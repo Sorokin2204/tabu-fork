@@ -8,6 +8,15 @@ export const Wrapper = styled.div`
     padding: 0 25px 80px 25px;
   }
 `;
+export const Wrap = styled.div`
+  min-height: 900px;
+`;
+
+export const CatalogLoading = styled.div`
+  width: 100%;
+  height: 900px;
+  position: relative;
+`;
 
 export const TitlePage = styled.div`
   color: #191919;
@@ -24,6 +33,19 @@ export const TitlePage = styled.div`
     margin-top: 16px;
   }
 `;
+export const ProductsNotFound = styled.div`
+  font-family: 'Mont';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  color: #717171;
+`;
+
 export const StyledProducts = styled.div`
   margin-top: 24px;
   display: grid;
@@ -32,7 +54,6 @@ export const StyledProducts = styled.div`
   align-self: start;
   grid-gap: 48px 24px;
   justify-content: start;
-
   @media ${media.mobile} {
     grid-gap: 24px 16px;
     grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));

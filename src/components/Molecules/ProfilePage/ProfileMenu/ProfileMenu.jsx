@@ -29,7 +29,7 @@ const ProfileMenu = (props) => {
                 <path fillRule="evenodd" clipRule="evenodd" d="M6 3C6.82843 3 7.5 3.67157 7.5 4.5C7.5 5.32843 6.82843 6 6 6C5.17157 6 4.5 5.32843 4.5 4.5C4.5 3.67157 5.17157 3 6 3Z" stroke="#717171" strokeLinecap="round" />
               </svg>
             </S.PositionIcon>
-            Алматы Казахстан
+            {user?.position ?? 'Не указано'}
           </S.Position>
 
           <S.Button

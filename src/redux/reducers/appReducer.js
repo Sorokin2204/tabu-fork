@@ -16,6 +16,12 @@ import {
   SET_MOBILE_SORT_MODAL,
   SET_MOBILE_CART_MODAL,
   SET_SHOW_LOGOUT_MODAL,
+  SET_SHOW_SELLER_THANKS_MODAL,
+  SET_SHOW_SUBSCRIBE_THANKS_MODAL,
+  SET_SHOW_SUBSCRIBE_ERROR_MODAL,
+  SET_SHOW_REQUEST_THANKS_MODAL,
+  SET_SHOW_REQUEST_ERROR_MODAL,
+  SET_BREADCRUMBS,
 } from '../types/appTypes';
 
 const defaultState = {
@@ -35,6 +41,12 @@ const defaultState = {
   showMobileFilterModal: false,
   isDisableScroll: false,
   showMobileCartModal: false,
+  showSellerThanksModal: false,
+  showSubscribeThanksModal: false,
+  showSubscribeErrorModal: false,
+  showRequestThanksModal: false,
+  showRequestErrorModal: false,
+  breadcrumbs: [],
 };
 
 export default function productReducer(state = defaultState, action) {
@@ -64,7 +76,7 @@ export default function productReducer(state = defaultState, action) {
       return { ...state, showRegModal: action.payload, isDisableScroll: action.payload };
 
     case SET_SHOW_AUTH_MODAL:
-      return { ...state, showAuthModal: action.payload, isDisableScroll: action.payload };
+      return { ...state, showAuthModal: action.payload };
     case SET_SHOW_LOGOUT_MODAL:
       return { ...state, showLogoutModal: action.payload, isDisableScroll: action.payload };
     case SET_SHOW_REQUEST_MODAL:
@@ -80,6 +92,19 @@ export default function productReducer(state = defaultState, action) {
       return { ...state, showMobileSortModal: action.payload, isDisableScroll: action.payload };
     case SET_MOBILE_CART_MODAL:
       return { ...state, showMobileCartModal: action.payload, isDisableScroll: action.payload };
+    case SET_SHOW_SELLER_THANKS_MODAL:
+      return { ...state, showSellerThanksModal: action.payload, isDisableScroll: action.payload };
+    case SET_SHOW_SUBSCRIBE_THANKS_MODAL:
+      return { ...state, showSubscribeThanksModal: action.payload, isDisableScroll: action.payload };
+    case SET_SHOW_SUBSCRIBE_ERROR_MODAL:
+      return { ...state, showSubscribeErrorModal: action.payload, isDisableScroll: action.payload };
+
+    case SET_SHOW_REQUEST_THANKS_MODAL:
+      return { ...state, showRequestThanksModal: action.payload, isDisableScroll: action.payload };
+    case SET_SHOW_REQUEST_ERROR_MODAL:
+      return { ...state, showRequestErrorModal: action.payload, isDisableScroll: action.payload };
+    case SET_BREADCRUMBS:
+      return { ...state, breadcrumbs: action.payload };
     default:
       return state;
   }
@@ -130,6 +155,29 @@ export const setShowRegModal = (show) => ({
   payload: show,
 });
 
+export const setShowSellerThanksModal = (show) => ({
+  type: SET_SHOW_SELLER_THANKS_MODAL,
+  payload: show,
+});
+
+export const setShowSubscribeThanksModal = (show) => ({
+  type: SET_SHOW_SUBSCRIBE_THANKS_MODAL,
+  payload: show,
+});
+export const setShowSubscribeErrorModal = (show) => ({
+  type: SET_SHOW_SUBSCRIBE_ERROR_MODAL,
+  payload: show,
+});
+
+export const setShowRequestThanksModal = (show) => ({
+  type: SET_SHOW_REQUEST_THANKS_MODAL,
+  payload: show,
+});
+export const setShowRequestErrorModal = (show) => ({
+  type: SET_SHOW_REQUEST_ERROR_MODAL,
+  payload: show,
+});
+
 export const setShowRequestModal = (show) => ({
   type: SET_SHOW_REQUEST_MODAL,
   payload: show,
@@ -145,4 +193,8 @@ export const setShowMobileSortModal = (show) => ({
 export const setShowMobileCartModal = (show) => ({
   type: SET_MOBILE_CART_MODAL,
   payload: show,
+});
+export const setBreadcrumbs = (breadcrumbs) => ({
+  type: SET_BREADCRUMBS,
+  payload: breadcrumbs,
 });

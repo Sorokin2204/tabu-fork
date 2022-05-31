@@ -14,7 +14,7 @@ const SellerBlock = (props) => {
           value={props.name}
           setValue={props.setName}
           style={{
-            marginTop: isMobile ? '0px' : '41px',
+            marginTop: isMobile ? '0px' : '21px',
           }}
         />
         <FormInput

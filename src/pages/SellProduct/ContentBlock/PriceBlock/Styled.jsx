@@ -35,6 +35,7 @@ export const Inputs = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 23px;
+  align-items: flex-start;
   margin-top: 31px;
   @media (max-width: 1110px) {
     grid-template-columns: 1fr;
@@ -43,12 +44,12 @@ export const Inputs = styled.div`
 `;
 
 export const Description = styled.div`
-  margin-top: 24px;
+  margin-top: 6px;
 
   font-family: 'Gilroy';
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 140%;
   /* identical to box height, or 20px */
 

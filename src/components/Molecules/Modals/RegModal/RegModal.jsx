@@ -8,42 +8,70 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setShowAuthModal, setShowRegModal } from 'redux/reducers/appReducer';
 import { sizes } from 'sizes';
 import * as S from './Styled';
-import { registration } from 'redux/actions/user';
+import { login, registration } from 'redux/actions/user';
+import { useForm } from 'react-hook-form';
+import Loading from 'components/Loading/Loading';
+import { userReset } from 'redux/reducers/userReducer';
 
 const RegModal = () => {
   const dispatch = useDispatch();
   const showRegModal = useSelector((state) => state.app.showRegModal);
   const showAuthModal = useSelector((state) => state.app.showAuthModal);
+  const { data, loading, error } = useSelector((state) => state.user);
+  const defaultValuesReg = {
+    fullName: '',
+    companyName: '',
+    user_type: 0,
+    email: '',
+    password: '',
+  };
+  const defaultValuesLogin = {
+    email: '',
+    password: '',
+  };
+  const regForm = useForm({
+    defaultValues: defaultValuesReg,
+  });
 
-  const [favorite, setFavorite] = useState('private');
-
-  const [firstName, setFirstName] = useState('qwer');
-  const [lastName, setLastName] = useState('asdf');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const loginForm = useForm({
+    defaultValues: defaultValuesLogin,
+  });
 
   const isMobile = useSelector((state) => state.app.isMobile);
 
   const handlePrivateChange = () => {
-    setFavorite('private');
+    regForm.setValue('companyName', '');
+    regForm.setValue('user_type', 0);
   };
 
   const handleCompanyChange = () => {
-    setFavorite('company');
+    regForm.setValue('fullName', '');
+    regForm.setValue('user_type', 1);
   };
 
+  const resetFields = () => {
+    dispatch(userReset());
+    regForm.reset();
+    loginForm.reset();
+  };
   const handleClose = () => {
     dispatch(setShowRegModal(false));
+    resetFields();
   };
 
-  const onReg = async () => {
-    if (firstName === '' || lastName === '' || email === '' || password === '' || favorite === '') {
-      alert('Заполните все поля');
-    } else {
-      await registration(favorite === 'private' ? 0 : 1, firstName, lastName, password, email);
-    }
+  const onLoginSubmit = (data) => {
+    console.log(data);
+    dispatch(login(data));
+    // if (firstName === '' || lastName === '' || email === '' || password === '' || favorite === '') {
+    //   alert('Заполните все поля');
+    // } else {
   };
-
+  const onRegSubmit = (data) => {
+    console.log(data);
+    dispatch(registration(data));
+  };
+  const userType = regForm.watch('user_type');
+  console.log(userType);
   return (
     <>
       <S.Wrapper className={showRegModal ? 'visible' : 'hidden'} onClick={handleClose}></S.Wrapper>
@@ -62,40 +90,117 @@ const RegModal = () => {
             </svg>
           </S.Close>
         )}
-
+        {isMobile ? <Header onClose={handleClose} /> : ''}
         <S.Left>
-          {isMobile ? <Header onClose={handleClose} /> : ''}
-
           <S.LeftBlock>
             <S.Title>{showAuthModal ? 'Войти' : 'Зарегистрироваться'}</S.Title>
-            <S.Description>Введите свои учетные данные</S.Description>
+            <S.Description error={error}>{error && typeof error === 'string' ? error : 'Введите свои учетные данные'}</S.Description>
+
             {!showAuthModal && (
               <S.Radios>
-                <Radio label="Частный продавец" value={favorite === 'private'} onChange={handlePrivateChange} />
-                <Radio label="Компания" value={favorite === 'company'} onChange={handleCompanyChange} margin="0 0 0 27px" />
+                <Radio label="Частный продавец" value={userType === 0} onChange={handlePrivateChange} />
+                <Radio label="Компания" value={userType === 1} onChange={handleCompanyChange} margin="0 0 0 27px" />
               </S.Radios>
             )}
-
-            {favorite === 'private' && !showAuthModal && (
-              <>
-                <FormInput value={firstName} setValue={setFirstName} label="ФИО" placeholder="Введите Имя, фамилию и отчество" type="text" />
-                <FormInput value={email} setValue={setEmail} label="Эл.почта" placeholder="Введите электронную почту" type="email" />
-                <FormInput value={password} setValue={setPassword} label="Пароль" placeholder="Введите пароль" type="password" />
-              </>
-            )}
-            {favorite === 'company' && !showAuthModal && (
-              <>
-                <FormInput value={email} setValue={setEmail} label="Компания" placeholder="Название компании" type="company" />
-                <FormInput value={email} setValue={setEmail} label="Эл.почта" placeholder="Введите электронную почту" type="email" />
-                <FormInput value={password} setValue={setPassword} label="Пароль" placeholder="Введите пароль" type="password" />
-              </>
-            )}
-            {showAuthModal && (
-              <>
-                <FormInput value={email} setValue={setEmail} label="Эл.почта" placeholder="Введите электронную почту" type="email" />
-                <FormInput value={password} setValue={setPassword} label="Пароль" placeholder="Введите пароль" type="password" />
-              </>
-            )}
+            <form>
+              {userType === 0 && !showAuthModal && (
+                <>
+                  <FormInput
+                    label="ФИО"
+                    placeholder="Введите Имя, фамилию и отчество"
+                    type="text"
+                    register={regForm.register}
+                    name="fullName"
+                    rules={{
+                      required: { value: true, message: 'Обязательное поле ' },
+                    }}
+                    errors={regForm.formState.errors}
+                  />
+                </>
+              )}
+              {userType === 1 && !showAuthModal && (
+                <>
+                  <FormInput
+                    label="Компания"
+                    placeholder="Название компании"
+                    type="company"
+                    register={regForm.register}
+                    name="companyName"
+                    rules={{
+                      required: { value: true, message: 'Обязательное поле ' },
+                    }}
+                    errors={regForm.formState.errors}
+                  />
+                </>
+              )}
+              {!showAuthModal && (
+                <>
+                  <FormInput
+                    label="Эл.почта"
+                    placeholder="Введите электронную почту"
+                    type="email"
+                    register={regForm.register}
+                    name="email"
+                    rules={{
+                      required: { value: true, message: 'Обязательное поле для заполнения' },
+                      pattern: {
+                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                        message: 'Неправильный формат почты',
+                      },
+                    }}
+                    errors={regForm.formState.errors}
+                  />
+                  <FormInput
+                    label="Пароль"
+                    placeholder="Введите пароль"
+                    type="password"
+                    register={regForm.register}
+                    name="password"
+                    rules={{
+                      required: { value: true, message: 'Обязательное поле для заполнения' },
+                      minLength: { value: 8, message: 'Пароль должен быть длинее 7 символов' },
+                      pattern: {
+                        value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i,
+                        message: 'Пароль должен содержать одну букву и цифру',
+                      },
+                    }}
+                    errors={regForm.formState.errors}
+                  />
+                </>
+              )}
+            </form>
+            <form>
+              {showAuthModal && (
+                <>
+                  <FormInput
+                    label="Эл.почта"
+                    placeholder="Введите электронную почту"
+                    type="email"
+                    register={loginForm.register}
+                    name="email"
+                    rules={{
+                      required: { value: true, message: 'Обязательное поле для заполнения' },
+                      pattern: {
+                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                        message: 'Неправильный формат почты',
+                      },
+                    }}
+                    errors={loginForm.formState.errors}
+                  />
+                  <FormInput
+                    label="Пароль"
+                    placeholder="Введите пароль"
+                    type="password"
+                    name="password"
+                    register={loginForm.register}
+                    rules={{
+                      required: { value: true, message: 'Обязательное поле для заполнения' },
+                    }}
+                    errors={loginForm.formState.errors}
+                  />
+                </>
+              )}
+            </form>
             <S.BottomBlock>
               <S.RememberBlock>
                 <CheckBox name="Запомнить информацию" />
@@ -103,19 +208,28 @@ const RegModal = () => {
               <S.Forgot>Забыли пароль?</S.Forgot>
             </S.BottomBlock>
             {showAuthModal ? (
-              <Button onClick={() => onReg()} topGreen padding="14px 0" margin="62px 0 0 0">
+              <Button onClick={loginForm.handleSubmit(onLoginSubmit)} topGreen padding="14px 0" margin="62px 0 0 0">
                 Вход
               </Button>
             ) : (
-              <Button onClick={() => onReg()} topGreen padding="14px 0" margin="62px 0 0 0">
+              <Button onClick={regForm.handleSubmit(onRegSubmit)} topGreen padding="14px 0" margin="62px 0 0 0">
                 Зарегистрироваться
               </Button>
             )}
-            {showAuthModal && <S.CreateAccount onClick={() => dispatch(setShowAuthModal(false))}>Создать аккаунт</S.CreateAccount>}
+            {showAuthModal && (
+              <S.CreateAccount
+                onClick={() => {
+                  dispatch(setShowAuthModal(false));
+                  dispatch(userReset());
+                }}>
+                Создать аккаунт
+              </S.CreateAccount>
+            )}
           </S.LeftBlock>
         </S.Left>
         <S.Right />
       </S.Block>
+      {loading && <Loading />}
     </>
   );
 };

@@ -12,7 +12,7 @@ const Label = styled.label`
 const Radio = (props) => {
   return (
     <Label {...props}>
-      <input className="real-radio-btn" type="radio" checked={props.value} onChange={props.onChange} />
+      <input className="real-radio-btn" type="radio" checked={props.value} onChange={props.onChange} {...(props.register && { ...props.register(props.name) })} />
       <span className="custom-radio-btn" />
       <Text color="#191919" fontFamily="Gilroy" fontWeight="400" fontSize="14px" textAlign="center" cursor="pointer">
         {' '}

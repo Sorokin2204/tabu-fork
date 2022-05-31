@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-
+import ProfileIcon from 'assets/svg/profile.svg';
 export const StyledHeader = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -49,6 +49,16 @@ export const Logo = styled.div`
 
   color: #000000;
 `;
+export const AvatarProfile = styled.div`
+  width: 36px;
+  height: 36px;
+  background: #e8e8e8;
+  border-radius: 50%;
+  background-image: url(${ProfileIcon});
+  background-repeat: no-repeat;
+  background-position: 54% 48%;
+  margin-left: 26px;
+`;
 
 export const UserBlock = styled.div`
   display: flex;
@@ -74,7 +84,7 @@ export const Favorite = styled.div`
   margin-left: 12px;
   cursor: pointer;
   z-index: 100;
-  margin-right: -104px;
+  /* margin-right: -104px; */
 `;
 
 export const Profile = styled.div`
@@ -89,14 +99,16 @@ export const Profile = styled.div`
 `;
 
 export const OpenedProfileWrapper = styled.div`
-  position: relative;
+  position: absolute;
+  right: 0;
+  top: 85%;
   width: 254px;
   margin-left: 16px;
 `;
 
 export const OpenedProfile = styled.div`
   position: absolute;
-  top: -28px;
+  top: 0px;
   width: 254px;
   background: #ffffff;
   display: flex;

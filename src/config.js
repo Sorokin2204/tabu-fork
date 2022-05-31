@@ -1,2 +1,2 @@
-export const API_URL = "http://159.223.230.8:8005/api";
-export const URL = "http://159.223.230.8:8005";
+export const API_URL = 'http://195.49.215.73:8000/api';
+export const URL = 'http://195.49.215.73:8000';

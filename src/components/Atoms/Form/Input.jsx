@@ -12,7 +12,7 @@ const Label = styled.label`
   font-family: 'Gilroy';
   font-weight: 400;
   font-size: 14px;
-  color: #191919;
+  color: ${({ error }) => (error ? '#D51313' : '#191919')};
 `;
 
 const StyledInput = styled.input`
@@ -34,8 +34,8 @@ const StyledInput = styled.input`
 const Input = (props) => {
   return (
     <Wrapper width={props.width} style={props.style}>
-      <Label>{props.label}</Label>
-      <StyledInput placeholder={props.placeholder} onChange={(event) => props.setValue(event.target.value)} value={props.value} />
+      <Label error={props.errors?.[props.name]?.message}>{props.errors?.[props.name]?.message ?? props.label}</Label>
+      <StyledInput autoComplete="off" placeholder={props.placeholder} onChange={(event) => props.setValue(event.target.value)} value={props.value} {...(props.register && { ...props.register(props.name, { ...(props.rules && props.rules) }) })} />
     </Wrapper>
   );
 };

@@ -48,10 +48,10 @@ const HoverMenu = () => {
               <S.SubCategory>
                 <Link
                   onClick={() => {
-                    dispatch(getProductsByCategory(category.title));
+                    // dispatch(getProductsByCategory(category.slug));
                     onClickLink();
                   }}
-                  to={`/categories/${category.title}`}>
+                  to={`/categories/${category.slug}`}>
                   <S.SubCategoryName onClick={() => onClickLink()}>{category.title}</S.SubCategoryName>
                 </Link>
                 <S.SubCategoryItems>
@@ -62,10 +62,10 @@ const HoverMenu = () => {
                           <S.SubCategoryItem>
                             <Link
                               onClick={() => {
-                                dispatch(getProductsByCategory(doubleSubCat.title));
+                                // dispatch(getProductsByCategory(doubleSubCat.slug));
                                 onClickLink();
                               }}
-                              to={`/categories/${doubleSubCat.title}`}>
+                              to={`/categories/${doubleSubCat.slug}`}>
                               {doubleSubCat.title}
                             </Link>
                           </S.SubCategoryItem>
@@ -74,7 +74,7 @@ const HoverMenu = () => {
                 </S.SubCategoryItems>
                 <S.OpenAll
                   onClick={() => {
-                    navigate(`/categories/${category.title}`);
+                    navigate(`/categories/${category.slug}`);
                     dispatch(hideHoverMenu());
                   }}>
                   Открыть все

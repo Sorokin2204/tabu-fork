@@ -29,7 +29,7 @@ export const WrapperOverlay = styled.div`
   position: fixed;
   width: 100%;
   height: 100%;
-  z-index: 39;
+  z-index: 100;
 
   top: 0;
   left: 0;

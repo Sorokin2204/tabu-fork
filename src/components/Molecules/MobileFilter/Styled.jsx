@@ -6,7 +6,7 @@ export const MobileFilter = styled.div`
   height: 100vh;
   overflow: overlay;
   background-color: #fff;
-  z-index: 20;
+  z-index: 100;
   top: 0;
   left: 0;
   display: none;

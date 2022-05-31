@@ -14,6 +14,14 @@ export const MobileTopHeader = styled.div`
   background: #191919;
   box-sizing: border-box;
   @media (max-width: 1110px) {
+    z-index: 99;
+    box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    z-index: 99;
     height: 39px;
   }
 `;

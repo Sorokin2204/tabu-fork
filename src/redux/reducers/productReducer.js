@@ -1,9 +1,11 @@
-import { SHOW_MODAL, HIDE_MODAL, SET_PRODUCTS, SET_OPENED_PRODUCT, SET_SHARE_PRODUCT, SET_SIZES, SET_NEW_PRODUCTS, SET_TRENDS } from 'redux/types/productTypes';
+import { SHOW_MODAL, HIDE_MODAL, SET_PRODUCTS, SET_OPENED_PRODUCT, SET_SHARE_PRODUCT, SET_SIZES, SET_NEW_PRODUCTS, SET_TRENDS, SET_PRODUCTS_ERROR, SET_PRODUCTS_LOADING } from 'redux/types/productTypes';
 
 const defaultState = {
   showModal: false,
   openedProduct: {},
   products: [],
+  productsLoading: false,
+  productsError: false,
   shareProduct: {
     link: '',
     showShare: false,
@@ -23,6 +25,10 @@ export default function productReducer(state = defaultState, action) {
 
     case SET_PRODUCTS:
       return { ...state, products: action.payload };
+    case SET_PRODUCTS_LOADING:
+      return { ...state, productsLoading: action.payload };
+    case SET_PRODUCTS_ERROR:
+      return { ...state, productsError: action.payload };
 
     case SET_OPENED_PRODUCT:
       return { ...state, openedProduct: action.payload };
@@ -46,6 +52,14 @@ export default function productReducer(state = defaultState, action) {
 
 export const showModal = () => ({ type: SHOW_MODAL });
 export const hideModal = () => ({ type: HIDE_MODAL });
+
+export const setProductsLoading = (payload) => ({
+  type: SET_PRODUCTS_LOADING,
+  payload,
+});
+export const setProductsError = () => ({
+  type: SET_PRODUCTS_ERROR,
+});
 
 export const setProducts = (products) => ({
   type: SET_PRODUCTS,

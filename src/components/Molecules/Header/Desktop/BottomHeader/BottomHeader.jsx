@@ -13,9 +13,9 @@ const BottomHeader = () => {
   const categories = useSelector((state) => state.categories.categories);
   const main_category = useSelector((state) => state.categories.main_category);
 
-  useEffect(() => {
-    dispatch(getCategories());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getCategories());
+  // }, []);
 
   const onHover = (category) => {
     dispatch(setCategory(category));
@@ -35,10 +35,10 @@ const BottomHeader = () => {
                 }}>
                 <Link
                   onClick={() => {
-                    dispatch(getProductsByCategory(category.title));
+                    // dispatch(getProductsByCategory({ category: category.slug }));
                     dispatch(hideHoverMenu());
                   }}
-                  to={`/categories/${category.title}`}>
+                  to={`/categories/${category.slug}`}>
                   {category.title}
                 </Link>
               </S.BottomCategory>

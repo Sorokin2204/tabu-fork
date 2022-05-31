@@ -1,25 +1,22 @@
+import { optionsSort } from 'pages/CategoryPage/CategoryPage';
 import { useDispatch, useSelector } from 'react-redux';
+import { getProductsByCategory } from 'redux/actions/product';
 import { setShowMobileSortModal } from 'redux/reducers/appReducer';
+import { setTypeSort } from 'redux/reducers/filterOptionsReducer';
 import { setProducts } from 'redux/reducers/productReducer';
 import * as S from './Styled';
 
 const MobileSort = (props) => {
   const showMobileSortModal = useSelector((state) => state.app.showMobileSortModal);
   const products = useSelector((state) => state.product.products);
+  const { typeSort } = useSelector((state) => state.filterOptions);
+
   const dispatch = useDispatch();
 
-  const onUp = () => {
-    let newProducts = [...products];
-
-    dispatch(setProducts(newProducts.sort((a, b) => parseFloat(a.price) - parseFloat(b.price))));
+  const onChangeType = (item) => {
+    dispatch(setTypeSort(item));
     dispatch(setShowMobileSortModal(false));
-  };
-
-  const onLow = () => {
-    let newProducts = [...products];
-
-    dispatch(setProducts(newProducts.sort((a, b) => parseFloat(b.price) - parseFloat(a.price))));
-    dispatch(setShowMobileSortModal(false));
+    dispatch(getProductsByCategory());
   };
 
   return (
@@ -33,10 +30,11 @@ const MobileSort = (props) => {
       </S.Header>
       <S.ListWrapper>
         <S.List>
-          <S.Item>Сначала новые</S.Item>
-          <S.Item onClick={onLow}>По убыванию цены</S.Item>
-          <S.Item onClick={onUp}>По возрастанию цены</S.Item>
-          <S.Item>По величине скидки</S.Item>
+          {optionsSort.map((item) => (
+            <S.Item active={typeSort?.slug === item.slug} onClick={() => onChangeType(item)}>
+              {item.name}
+            </S.Item>
+          ))}
         </S.List>
       </S.ListWrapper>
     </S.MobileSort>

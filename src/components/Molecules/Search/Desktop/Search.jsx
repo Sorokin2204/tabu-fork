@@ -28,16 +28,16 @@ const Search = () => {
           />
           <Input />
           <Tabs />
-          {/* <Categories /> */}
-          <Products />
+          <Categories />
+          {/* <Products /> */}
         </S.Block>
-        <S.Background
-          onClick={() => {
-            dispatch(setShowSearch(false));
-            dispatch(setIsDisableScroll(false));
-          }}
-        />
       </S.Wrapper>
+      <S.Background
+        onClick={() => {
+          dispatch(setShowSearch(false));
+          dispatch(setIsDisableScroll(false));
+        }}
+      />
     </>
   );
 };

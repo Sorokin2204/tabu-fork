@@ -22,9 +22,7 @@ const MobileFilter = () => {
           </svg>
         </S.Close>
       </S.Header>
-      <S.SidebarWrapper>
-        <Sidebar />
-      </S.SidebarWrapper>
+      <S.SidebarWrapper>{/* <Sidebar /> */}</S.SidebarWrapper>
     </S.MobileFilter>
   );
 };

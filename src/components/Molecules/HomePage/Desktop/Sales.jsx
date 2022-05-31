@@ -40,9 +40,9 @@ const Sales = () => {
 
   return (
     <StyledSales>
-      <Title withDesc={typeAd?.description}>{typeAd?.title}</Title>
+      <Title withDesc={false}>{typeAd?.title}</Title>
       <Details>
-        {typeAd?.description && (
+        {false && (
           <Text fontFamily="Gilroy" fontSize={'32px'} textTransform="uppercase" fontWeight="600" color="#ffffff">
             {typeAd?.description}
           </Text>

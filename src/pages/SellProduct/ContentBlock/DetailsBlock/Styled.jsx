@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import AddIcon from 'assets/svg/close.svg';
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -64,14 +64,43 @@ export const DetailsDelete = styled.div`
   align-items: center;
 `;
 
-export const Form = styled.form`
+export const Form = styled.div`
   width: 100%;
   margin-top: 32px;
   @media (max-width: 1110px) {
     margin-top: 40px;
   }
 `;
-
+export const Add = styled.div`
+  mask-image: url(${AddIcon});
+  mask-size: 25px 25px;
+  mask-repeat: no-repeat;
+  background-color: #717171;
+  width: 26px;
+  height: 26px;
+  box-sizing: border-box;
+  transform: rotate(45deg) scale(0.8) translate(3%, -1%);
+`;
+export const InputClose = styled.div`
+  cursor: pointer;
+  top: 50%;
+  right: 11px;
+  position: absolute;
+  mask-image: url(${AddIcon});
+  mask-size: 22px 22px;
+  mask-repeat: no-repeat;
+  background-color: #717171;
+  width: 22px;
+  height: 22px;
+  box-sizing: border-box;
+  transform: translateY(-50%);
+`;
+export const InputWrapper = styled.div`
+  position: relative;
+  & + & {
+    margin-top: 16px;
+  }
+`;
 export const Input = styled.input`
   padding: 0 16px;
   height: 50px;

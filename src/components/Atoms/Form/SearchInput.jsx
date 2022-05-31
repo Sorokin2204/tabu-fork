@@ -36,6 +36,7 @@ const StyledInput = styled.input`
   font-size: 12px;
 
   ::placeholder {
+    user-select: none;
     color: #959494;
   }
 `;
@@ -44,7 +45,21 @@ const SearchInput = (props) => {
   return (
     <Wrapper width={props.width}>
       <Label>{props.label}</Label>
-      <StyledInput placeholder={props.placeholder} onChange={(event) => props.setValue(event.target.value)} value={props.value} {...props} />
+      <StyledInput
+        placeholder={props.placeholder}
+        onChange={(event) => {
+          let str = event.target.value;
+          let reg = new RegExp('^[А-Яа-яA-Za-z0-9 .,]*$', 'gi');
+          if (reg.test(str) || str == '') {
+            props.setValue(event.target.value);
+          }
+          // if (!str.includes('/') && !str.includes('\\') && !str.includes('[') && !str.includes(']') && !str.includes('{') && !str.includes('}') && !str.includes('.') && !str.includes('?') && !str.includes(',')) {
+          //   props.setValue(event.target.value);
+          // }
+        }}
+        value={props.value}
+        {...props}
+      />
     </Wrapper>
   );
 };

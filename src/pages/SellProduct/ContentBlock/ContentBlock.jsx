@@ -7,6 +7,7 @@ import FormSelectInput from 'components/Molecules/Form/FormSelectInput/FormSelec
 import FormTextarea from 'components/Molecules/Form/FormTextarea/FormTextarea';
 import { API_URL } from 'config';
 import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBrandsOptions, getColorOptions, getMaterialOptions, getSizeOptions } from 'redux/actions/filterOptions';
 import Authenticity from './Authenticity/Authenticity';
@@ -16,25 +17,22 @@ import SellerBlock from './SellerBlock/SellerBlock';
 import StateBlock from './StateBlock/StateBlock';
 import * as S from './Styled';
 
-const ContentBlock = () => {
+const ContentBlock = ({ errors, register, setValue, watch, trigger }) => {
   const dispatch = useDispatch();
   const brands = useSelector((state) => state.filterOptions.brandOptions);
   const colors = useSelector((state) => state.filterOptions.colorOptions);
   const materials = useSelector((state) => state.filterOptions.materialOptions);
   const sizes = useSelector((state) => state.filterOptions.sizeOptions);
-
+  const sizeTypes = [
+    { id: 0, title: 'Все размеры' },
+    { id: 1, title: 'Европейские' },
+    { id: 2, title: 'Амерканские' },
+    { id: 3, title: 'Дюймы' },
+  ];
   const [firstCategory, setFirstCategory] = useState(null);
   const [secondCategory, setSecondCategory] = useState(null);
   const [thirdCategory, setThirdCategory] = useState(null);
 
-  const [brand, setBrand] = useState('');
-  const [color, setColor] = useState('');
-  const [material, setMaterial] = useState('');
-  const [size, setSize] = useState('');
-  const [description, setDescription] = useState('');
-  const [comment, setComment] = useState('');
-  const [state, setState] = useState('new');
-  const [details, setDetails] = useState([]);
   const [price, setPrice] = useState(0);
 
   const [name, setName] = useState('');
@@ -93,21 +91,54 @@ const ContentBlock = () => {
         console.log(data);
       });
   };
+  useEffect(() => {
+    register('brand', { required: { value: true, message: 'Выберите бренд' } });
+    register('color', { required: { value: true, message: 'Выберите цвет' } });
+    register('material', { required: { value: true, message: 'Выберите материал' } });
+    register('size', { required: { value: true, message: 'Выберите размер' } });
+    register('sizeType', { required: { value: true, message: 'Выберите размер' } });
+    register('category', { required: { value: true, message: 'Выберите категорию' } });
+  }, [register]);
+  useEffect(() => {
+    console.log(thirdCategory);
+    setValue('category', thirdCategory);
+  }, [thirdCategory]);
 
   return (
     <S.ContentBlock>
       <S.TitleBlock>ДОБАВЛЕНИЕ ТОВАРА</S.TitleBlock>
       <S.Form>
-        <FormCategorySelect firstCategory={firstCategory} setFirstCategory={setFirstCategory} secondCategory={secondCategory} setSecondCategory={setSecondCategory} thirdCategory={thirdCategory} setThirdCategory={setThirdCategory} placeholder="Выберите категорию" label="Категория" />
-        <FormSelectInput value={brand} setValue={setBrand} placeholder="Выберите бренд" label="Бренд" options={brands} />
-        <FormSelectInput value={color} setValue={setColor} placeholder="Выберите цвет" label="Цвет" options={colors} />
-        <FormSelectInput value={material} setValue={setMaterial} placeholder="Выберите материал" label="Материал" options={materials} />
-        <FormSelectInput value={size} setValue={setSize} placeholder="Выберите размер" label="Размер" options={sizes} />
-        <FormTextarea value={description} setValue={setDescription} placeholder="" label="Описание" />
-        <FormTextarea value={comment} setValue={setComment} placeholder="" label="Комментарии" />
+        <FormCategorySelect
+          errors={errors}
+          name={'category'}
+          firstCategory={firstCategory}
+          setFirstCategory={setFirstCategory}
+          secondCategory={secondCategory}
+          setSecondCategory={setSecondCategory}
+          thirdCategory={thirdCategory}
+          setThirdCategory={setThirdCategory}
+          placeholder="Выберите категорию"
+          label="Категория"
+        />
+        <FormSelectInput searchText={'Поиск по брендам'} placeholder="Выберите бренд" label="Бренд" options={brands} errors={errors} watch={watch} setValue={setValue} name="brand" />
+
+        <FormSelectInput trigger={trigger} searchText={'Поиск по цветам'} placeholder="Выберите цвет" label="Цвет" options={colors} errors={errors} watch={watch} setValue={setValue} name="color" />
+        <FormSelectInput searchText={'Поиск по материалам'} placeholder="Выберите материал" label="Материал" options={materials} errors={errors} watch={watch} setValue={setValue} name="material" />
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gridGap: '23px',
+          }}>
+          <FormSelectInput label="Тип размера" options={sizeTypes} errors={errors} watch={watch} setValue={setValue} name="sizeType" noEmpty={true} />
+          <FormSelectInput searchText={'Поиск по размерам'} placeholder="Выберите размер" label="Размер" options={sizes} errors={errors} watch={watch} setValue={setValue} name="size" multiply />
+        </div>
+
+        <FormTextarea errors={errors} watch={watch} setValue={setValue} register={register} placeholder="" label="Описание" name="description" rules={{ required: { value: true, message: 'Заполните описание товара' }, maxLength: { value: 1000, message: 'Количество симовлов не более 1000' } }} />
+        <FormTextarea errors={errors} watch={watch} setValue={setValue} register={register} placeholder="" label="Комментарии" name="comment" rules={{ required: false, maxLength: { value: 1000, message: 'Количество симовлов не более 1000' } }} />
       </S.Form>
-      <StateBlock state={state} setState={setState} />
-      <DetailsBlock details={details} setDetails={setDetails} />
+      <StateBlock watch={watch} name={'condition'} setValue={setValue} />
+      <DetailsBlock watch={watch} name={'details_list'} setValue={setValue} />
       <PriceBlock price={price} setPrice={setPrice} />
       <SellerBlock
         name={name}

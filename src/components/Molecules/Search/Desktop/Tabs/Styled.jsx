@@ -1,6 +1,6 @@
-import { sizes } from "sizes";
-import styled from "styled-components";
-import { css } from "styled-components";
+import { sizes } from 'sizes';
+import styled from 'styled-components';
+import { css } from 'styled-components';
 
 export const Tabs = styled.div`
   display: flex;
@@ -18,7 +18,7 @@ export const Tab = styled.div`
   margin-left: 24px;
   cursor: pointer;
 
-  font-family: "Mont";
+  font-family: 'Mont';
   font-style: normal;
   font-weight: 600;
   font-size: 14px;
@@ -41,16 +41,18 @@ export const Tab = styled.div`
 `;
 
 export const Wrapper = styled.div`
+  margin: 0 auto;
   display: flex;
-  width: 100%;
+  width: calc(100% - 50px);
+  max-width: 468px;
   justify-content: center;
+  @media (max-width: 1110px) {
+    padding: 0 25px;
+  }
 `;
 
 export const Container = styled.div`
   display: flex;
-  width: 35%;
-
-  @media (max-width: ${sizes.mobile}px) {
-    width: 85%;
-  }
+  width: 100%;
+  max-width: 468px;
 `;

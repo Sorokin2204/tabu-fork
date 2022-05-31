@@ -1,9 +1,16 @@
-import * as S from "./Styled";
+import * as S from './Styled';
 
-const BreadCrumbs = () => {
+const BreadCrumbs = ({ list }) => {
   return (
     <S.BreadCrumbs>
-      Главная / Для нее / <S.ActiveCrumb>&nbsp;Новинки</S.ActiveCrumb>
+      {list.map((item, index) => {
+        if (index === list.length - 1) {
+          return <S.ActiveCrumb>{item}</S.ActiveCrumb>;
+        } else {
+          return item + ' / ';
+        }
+      })}
+      {/* Главная / Для нее / <S.ActiveCrumb>&nbsp;Новинки</S.ActiveCrumb> */}
     </S.BreadCrumbs>
   );
 };

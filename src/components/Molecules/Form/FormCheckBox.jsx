@@ -17,7 +17,7 @@ const CheckWrapper = styled.div`
 const FormCheckBox = (props) => {
   return (
     <CheckWrapper onClick={props.onClick}>
-      <div className={`checkbox ${props.selected === props.name ? 'checkbox-active' : ''}`}></div>
+      <div className={`checkbox ${props.selected ? 'checkbox-active' : ''}`}></div>
       {props.color && (
         <>
           <Flex margin="0 0 0 15px" radius="50%" width="20px" height="20px" background={props.color} />

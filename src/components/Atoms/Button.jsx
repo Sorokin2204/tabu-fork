@@ -90,12 +90,12 @@ const StyledButton = styled.button`
     ${(props) =>
     props.grayBorder &&
     css`
-      border: 1px solid #e5e5e5;
+      border: 1px solid #717171;
       background: #fff;
 
       font-family: 'Mont';
       font-style: normal;
-      font-weight: 600;
+      font-weight: 500;
       font-size: 14px;
       line-height: 18px;
       /* identical to box height */

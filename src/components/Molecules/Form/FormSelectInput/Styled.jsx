@@ -26,8 +26,8 @@ export const Label = styled.label`
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
-
-  color: #717171;
+  user-select: none;
+  color: ${(props) => (props.error ? '#EE1616' : '#717171')};
   @media (max-width: 1110px) {
     top: -10px;
     font-size: 12px;
@@ -35,6 +35,7 @@ export const Label = styled.label`
 `;
 
 export const Input = styled.div`
+  user-select: none;
   height: 45px;
   border: none;
   outline: none;
@@ -126,14 +127,27 @@ export const Dropdown = styled.div`
     padding: 20px 16px 24px 16px;
   }
 `;
-
+export const EmptySearch = styled.div`
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 381px;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 140%;
+  text-align: center;
+  color: #717171;
+`;
 export const CheckBoxes = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  margin-top: 24px;
+  margin-top: ${(props) => (props.search ? '24px' : '0')};
   @media (max-width: 1110px) {
-    margin-top: 20px;
+    margin-top: ${(props) => (props.search ? '20px' : '0')};
   }
 `;
 

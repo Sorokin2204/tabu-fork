@@ -4,27 +4,28 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   display: flex;
   margin-top: 32px;
-  width: 100%;
+  width: calc(100% - 50px);
+  max-width: 468px;
+  margin: 32px auto 0 auto;
   justify-content: center;
 
   @media (max-width: ${sizes.mobile}px) {
+    padding: 0 25px;
     margin-top: 24px;
   }
 `;
 
 export const Container = styled.div`
   display: flex;
-  width: 35%;
-  @media (max-width: ${sizes.mobile}px) {
-    width: 85%;
-  }
+  width: 100%;
+  max-width: 468px;
 `;
 
 export const Subcont = styled.div`
   display: flex;
   width: 100%;
 
-  padding-bottom: 4.42px;
+  padding-bottom: 2px;
   border-bottom: 1px solid #191919;
 `;
 

@@ -1,12 +1,18 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '../../../Atoms/Button';
 import Flex from '../../../Atoms/Flex';
 import Input from '../../../Atoms/Form/Input';
+
 import Radio from '../../../Atoms/Form/Radio';
 import Text from '../../../Atoms/Text';
 import styled from 'styled-components';
 import { sizes } from '../../../../sizes';
-
+import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { postSubscribe } from 'redux/actions/subscribe';
+import Loading from 'components/Loading/Loading';
+import MessageModal from 'components/Molecules/ProductPage/ThanksModal/ThanksModal';
+import { setShowSubscribeErrorModal, setShowSubscribeThanksModal } from 'redux/reducers/appReducer';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -29,41 +35,92 @@ const Wrapper = styled.div`
 `;
 
 const Subscribe = () => {
-  const [favorite, setFavorite] = useState('woman');
-  const [email, setEmail] = useState('');
+  const dispatch = useDispatch();
+  const { data, error, loading } = useSelector((state) => state.subscribe);
+  const showSubscribeThanksModal = useSelector((state) => state.app.showSubscribeThanksModal);
+  const showSubscribeErrorModal = useSelector((state) => state.app.showSubscribeErrorModal);
+  const defaultValues = {
+    category: 21,
+    email: '',
+  };
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+    setValue,
+    getValues,
+    reset,
+    clearErrors,
+  } = useForm({
+    defaultValues,
+  });
 
+  useEffect(() => {
+    if (data) {
+      setValue('category', 21);
+      setValue('email', '');
+      clearErrors();
+    }
+  }, [data]);
+
+  const onSubmit = (data) => {
+    console.log(data);
+    dispatch(postSubscribe(data));
+  };
   const handleWomanChange = () => {
-    setFavorite('woman');
+    setValue('category', 21);
   };
-
+  const gender = watch('category');
   const handleMenChange = () => {
-    setFavorite('men');
+    setValue('category', 20);
   };
-
   return (
-    <Wrapper>
-      <Container name="Wrapper" width="30%" direction="column">
-        <Text color="#191919" fontFamily="Gilroy" fontWeight="400" fontSize="32px" textAlign="center">
-          ПОДПИШИТЕСЬ НА РАССЫЛКУ И ПОЛУЧИТЕ СКИДКУ 10%
-        </Text>
-        <Text color="#191919" fontFamily="Manrope" fontWeight="400" fontSize="14px" textAlign="center" margin="20px 0 0 0">
-          Ранний доступ к распродаже, новости о специальных предложениях и подборки лучших новинок — для подписчиков рассылки.
-        </Text>
-        <Flex margin="40px 0 0 0" justify="center">
-          <Radio label="Женщина" value={favorite === 'woman'} onChange={handleWomanChange} />
-          <Radio label="Мужчина" value={favorite === 'men'} onChange={handleMenChange} margin="0 0 0 64px" />
-        </Flex>
-        <Flex margin="31px 0 0 0">
-          <Input type="email" width="100%" label="Электронная почта" placeholder="Эл.почта" value={email} setValue={setEmail} />
-        </Flex>
-        <Button fontFamily="Gilroy" fontSize="14px" fontWeight="400" padding="11px 0" margin="20px 0 0 0" topGreen>
-          Подписаться
-        </Button>
-        <Text fontFamily="Gilroy" fontSize="14px" fontWeight="400" color="#717171" textAlign="center" margin="32px 0 0 0">
-          Подписываясь на рассылку, вы соглашаетесь с этими документами: «Условиями пользования» и «Политикой конфиденциальности».
-        </Text>
-      </Container>
-    </Wrapper>
+    <>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Wrapper>
+          <Container name="Wrapper" width="30%" direction="column">
+            <Text color="#191919" fontFamily="Gilroy" fontWeight="400" fontSize="32px" textAlign="center">
+              ПОДПИШИТЕСЬ НА РАССЫЛКУ И ПОЛУЧИТЕ СКИДКУ 10%
+            </Text>
+            <Text color="#191919" fontFamily="Manrope" fontWeight="400" fontSize="14px" textAlign="center" margin="20px 0 0 0">
+              Ранний доступ к распродаже, новости о специальных предложениях и подборки лучших новинок — для подписчиков рассылки.
+            </Text>
+            <Flex margin="40px 0 0 0" justify="center">
+              <Radio label="Женщина" value={gender === 21} onChange={handleWomanChange} />
+              <Radio label="Мужчина" value={gender === 20} onChange={handleMenChange} margin="0 0 0 64px" />
+            </Flex>
+            <Flex margin="31px 0 0 0">
+              <Input
+                type="email"
+                width="100%"
+                label="Электронная почта"
+                placeholder="Эл.почта"
+                register={register}
+                name="email"
+                rules={{
+                  required: { value: true, message: 'Обязательное поле для заполнения' },
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    message: 'Неправильный формат почты',
+                  },
+                }}
+                errors={errors}
+              />
+            </Flex>
+            <Button type="submit" fontFamily="Gilroy" fontSize="14px" fontWeight="400" padding="11px 0" margin="20px 0 0 0" topGreen>
+              Подписаться
+            </Button>
+            <Text fontFamily="Gilroy" fontSize="14px" fontWeight="400" color="#717171" textAlign="center" margin="32px 0 0 0">
+              Подписываясь на рассылку, вы соглашаетесь с этими документами: «Условиями пользования» и «Политикой конфиденциальности».
+            </Text>
+          </Container>
+          {loading && <Loading />}
+        </Wrapper>
+      </form>
+      <MessageModal open={showSubscribeThanksModal} onClose={() => dispatch(setShowSubscribeThanksModal(false))} title={'Подписка на рассылку оформлена'} desc={'Это текст снизу'} textFirstBtn={'Отлично'} onClickFirstBtn={() => dispatch(setShowSubscribeThanksModal(false))} />
+      <MessageModal open={showSubscribeErrorModal} onClose={() => dispatch(setShowSubscribeErrorModal(false))} title={error?.title} desc={error?.desc} textFirstBtn={'Закрыть'} onClickFirstBtn={() => dispatch(setShowSubscribeErrorModal(false))} />
+    </>
   );
 };
 

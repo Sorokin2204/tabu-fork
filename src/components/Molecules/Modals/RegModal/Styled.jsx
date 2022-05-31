@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Image from 'assets/img/reg.png';
 import { sizes } from 'sizes';
+import { css } from 'styled-components';
 
 export const Wrapper = styled.div`
   transition: 300ms;
@@ -38,9 +39,12 @@ export const Block = styled.div`
   grid-template-columns: 1fr 1fr;
   background-color: #fff;
   @media (max-width: ${sizes.mobile}px) {
+    max-width: none;
+    max-height: none;
     width: 100vw;
     height: 100vh;
     grid-template-columns: 1fr;
+    grid-template-rows: 73px 1fr;
   }
   /* @media (max-width: ${sizes.mobile}px) {
     top: 0;
@@ -126,7 +130,15 @@ export const Title = styled.div`
 
   color: #191919;
 `;
-
+export const Error = styled.div`
+  color: #ee1616;
+  margin-top: 10px;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 140%;
+`;
 export const Description = styled.div`
   font-family: 'Gilroy';
   font-style: normal;
@@ -139,6 +151,11 @@ export const Description = styled.div`
   @media (max-width: ${sizes.mobile}px) {
     margin-top: 12px;
   }
+  ${(props) =>
+    props.error &&
+    css`
+      color: #ee1616;
+    `}
 `;
 
 export const Radios = styled.div`

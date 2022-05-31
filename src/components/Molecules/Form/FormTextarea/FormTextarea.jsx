@@ -1,16 +1,16 @@
 import * as S from './Styled';
 
-const FormTextarea = ({ value, setValue, label, placeholder, type }) => {
+const FormTextarea = ({ errors, watch, setValue, register, label, placeholder, type, rules, name }) => {
   return (
     <S.Wrapper>
       <div
         style={{
           height: '9px',
         }}>
-        <S.Label>{label}</S.Label>
+        <S.Label error={errors?.[name]?.message}>{errors?.[name]?.message ?? label}</S.Label>
       </div>
 
-      <S.Textarea value={value} onChange={(e) => setValue(e.target.value)} placeholder={placeholder} type={type} />
+      <S.Textarea placeholder={placeholder} type={type} {...(register && { ...register(name, { ...(rules && rules) }) })} />
     </S.Wrapper>
   );
 };

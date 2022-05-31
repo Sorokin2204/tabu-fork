@@ -12,14 +12,16 @@ import { setCartProducts } from 'redux/reducers/cartReducer';
 import RegModal from 'components/Molecules/Modals/RegModal/RegModal';
 import LoginModal from 'components/Molecules/Modals/LoginModal/LoginModal';
 import Search from 'components/Molecules/Search/Desktop/Search';
+import { useParams } from 'react-router-dom';
 
 const MainLayout = ({ children }) => {
   const dispatch = useDispatch();
   const isMobile = useSelector((state) => state.app.isMobile);
-
+  const params = useParams();
   const showSearch = useSelector((state) => state.search.show);
-
+  const categories = useSelector((state) => state.categories.categories);
   useEffect(() => {
+    console.log(categories);
     // set cart products
     dispatch(setCartProducts(JSON.parse(localStorage.getItem('cartProducts'))));
   }, []);

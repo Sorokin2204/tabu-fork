@@ -21,15 +21,8 @@ const OpenedProfile = () => {
   };
   return (
     <S.OpenedProfileWrapper>
-      <S.OpenedProfile
-        style={{
-          ...(profileShow && { boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)' }),
-        }}>
-        <OutsideClickHandler
-          onOutsideClick={() => {
-            dispatch(hideProfile());
-          }}>
-          <Flex padding="14.5px 16px" justify="end" align="center">
+      <S.OpenedProfile>
+        {/* <Flex padding="14.5px 16px" justify="end" align="center">
             <Text
               cursor="pointer"
               color="#191919"
@@ -52,10 +45,10 @@ const OpenedProfile = () => {
             <Flex margin="0 0 0 2px">
               <img alt="" src={Expand} />
             </Flex>
-          </Flex>
-          {profileShow && (
-            <>
-              {!isAuth && (
+          </Flex> */}
+        {profileShow && (
+          <div style={{ boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)' }}>
+            {/* {!isAuth && (
                 <Flex direction="row" justify="center" padding="6px 0">
                   <Button
                     grid
@@ -90,22 +83,24 @@ const OpenedProfile = () => {
                     Войти
                   </Button>
                 </Flex>
-              )}
-              <Text fontFamily="Gilroy" fontWeight="400" fontSize="13px" color="#000" padding="14px 20px" cursor="pointer">
-                Мои товары на продажу
-              </Text>
-              <Text fontFamily="Gilroy" fontWeight="400" fontSize="13px" color="#000" padding="14px 20px" cursor="pointer">
-                Мои заказы
-              </Text>
-              <Text fontFamily="Gilroy" fontWeight="400" fontSize="13px" color="#000" padding="14px 20px" cursor="pointer">
-                Список желаний
-              </Text>
-              <Text fontFamily="Gilroy" fontWeight="400" fontSize="13px" color="#000" padding="14px 20px" cursor="pointer">
-                Выйти
-              </Text>
-            </>
-          )}
-        </OutsideClickHandler>
+              )} */}
+            <Text fontFamily="Gilroy" fontWeight="400" fontSize="13px" color="#000" padding="14px 20px" cursor="pointer">
+              Мой профиль
+            </Text>
+            <Text fontFamily="Gilroy" fontWeight="400" fontSize="13px" color="#000" padding="14px 20px" cursor="pointer">
+              Мои товары на продажу
+            </Text>
+            <Text fontFamily="Gilroy" fontWeight="400" fontSize="13px" color="#000" padding="14px 20px" cursor="pointer">
+              Мои заказы
+            </Text>
+            <Text fontFamily="Gilroy" fontWeight="400" fontSize="13px" color="#000" padding="14px 20px" cursor="pointer">
+              Список желаний
+            </Text>
+            <Text fontFamily="Gilroy" fontWeight="400" fontSize="13px" color="#000" padding="14px 20px" cursor="pointer" style={{ color: '#D51313' }}>
+              Выйти
+            </Text>
+          </div>
+        )}
       </S.OpenedProfile>
     </S.OpenedProfileWrapper>
   );

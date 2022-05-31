@@ -6,7 +6,7 @@ export const BreadCrumbs = styled.div`
   flex-direction: row;
   font-family: 'Mont';
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   color: #ababab;
 
   @media ${media.mobile} {
@@ -16,4 +16,5 @@ export const BreadCrumbs = styled.div`
 `;
 export const ActiveCrumb = styled.div`
   color: #717171;
+  margin-left: 4px;
 `;

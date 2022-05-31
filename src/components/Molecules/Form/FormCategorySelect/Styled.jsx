@@ -26,7 +26,7 @@ export const Label = styled.label`
   font-weight: 500;
   font-size: 14px;
 
-  color: #717171;
+  color: ${(props) => (props.error ? '#D51313' : '#717171')};
   @media (max-width: 1110px) {
     top: -10px;
     font-size: 12px;

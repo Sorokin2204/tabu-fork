@@ -9,6 +9,13 @@ export const StyledMobileHeader = styled.header`
   justify-content: space-between;
   background: #ffffff;
   height: 80px;
+  box-sizing: border-box;
+  position: sticky;
+  width: 100%;
+  z-index: 99;
+  top: 39px;
+  left: 0;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
 export const Background = styled.div`
@@ -22,6 +29,7 @@ export const Background = styled.div`
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s;
+  z-index: 100;
   ${(props) =>
     props.active &&
     css`
