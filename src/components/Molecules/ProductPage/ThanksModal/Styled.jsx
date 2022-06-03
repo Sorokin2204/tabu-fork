@@ -27,7 +27,7 @@ export const Block = styled.div`
   align-items: center;
   background: #ffffff;
   width: 647px;
-  height: 389px;
+  height: ${(props) => (props.desc ? '389px' : '340px')};
   max-height: calc(100vh - 40px);
   z-index: 110;
   @media (max-width: 1110px) {

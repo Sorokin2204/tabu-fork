@@ -83,7 +83,15 @@ export const AvatarText = styled.div`
     border: 6px solid #ffffff;
   }
 `;
-
+export const Name = styled.div`
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  color: #191919;
+`;
 export const Title = styled.div`
   font-family: 'Gilroy';
   font-style: normal;
@@ -103,7 +111,7 @@ export const Title = styled.div`
 export const Role = styled.div`
   font-family: 'Mont';
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 12px;
   line-height: 15px;
   text-align: center;
@@ -111,7 +119,7 @@ export const Role = styled.div`
   /* Tabu/Black */
 
   color: #191919;
-  margin-top: 16px;
+  margin-top: 6px;
 `;
 
 export const Position = styled.div`
@@ -122,7 +130,7 @@ export const Position = styled.div`
 
   font-family: 'Mont';
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 12px;
   line-height: 130%;
   /* identical to box height, or 16px */
@@ -168,7 +176,7 @@ export const Button = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  margin-top: 20px;
+  margin-top: 25px;
 `;
 
 export const Menu = styled.div`

@@ -30,7 +30,7 @@ export const MainText = styled.div`
   line-height: 130%;
   /* identical to box height, or 16px */
 
-  color: #000000;
+  color: ${(props) => (props.error ? '#D51313' : '#000000')};
 `;
 
 export const SubTitleBlock = styled.div`

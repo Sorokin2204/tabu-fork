@@ -49,8 +49,9 @@ const SearchInput = (props) => {
         placeholder={props.placeholder}
         onChange={(event) => {
           let str = event.target.value;
+          console.log(str);
           let reg = new RegExp('^[А-Яа-яA-Za-z0-9 .,]*$', 'gi');
-          if (reg.test(str) || str == '') {
+          if (reg.test(str)) {
             props.setValue(event.target.value);
           }
           // if (!str.includes('/') && !str.includes('\\') && !str.includes('[') && !str.includes(']') && !str.includes('{') && !str.includes('}') && !str.includes('.') && !str.includes('?') && !str.includes(',')) {
@@ -58,7 +59,6 @@ const SearchInput = (props) => {
           // }
         }}
         value={props.value}
-        {...props}
       />
     </Wrapper>
   );

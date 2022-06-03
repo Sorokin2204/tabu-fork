@@ -4,22 +4,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import EditProfileModal from '../EditProfileModal/EditProfileModal';
 import { useState } from 'react';
-import { setIsDisableScroll, setShowLogoutModal } from 'redux/reducers/appReducer';
+import { setIsDisableScroll, setShowEditUserModal, setShowEditUserSuccessModal, setShowLogoutModal } from 'redux/reducers/appReducer';
+import MessageModal from 'components/Molecules/ProductPage/ThanksModal/ThanksModal';
+import { API_URL, URL } from 'config';
 
 const ProfileMenu = (props) => {
   const user = useSelector((state) => state.user.currentUser);
-  const [showEdit, setShowEdit] = useState();
   const isMobile = useSelector((state) => state.app.isMobile);
+  const showEditUserSuccessModal = useSelector((state) => state.app.showEditUserSuccessModal);
   const dispath = useDispatch();
   return (
     <div>
       <S.Wrapper {...props}>
-        <EditProfileModal show={showEdit} onClose={setShowEdit} />
-
+        <EditProfileModal />
+        <MessageModal open={showEditUserSuccessModal} onClose={() => dispath(setShowEditUserSuccessModal(false))} title={'Данные профиля успешно обнавлены'} textFirstBtn={'Отлично'} onClickFirstBtn={() => dispath(setShowEditUserSuccessModal(false))} />
         <S.WrapperInner>
-          {user?.avatar ? <S.Avatar src={Avatar} /> : <S.AvatarText>{user?.first_name?.length ? user?.first_name[0]?.toUpperCase() : ''}</S.AvatarText>}
-
-          <S.Title>{user?.first_name}</S.Title>
+          {user?.avatar ? <S.Avatar src={`${URL + user?.avatar}`} /> : <S.AvatarText>{user?.fio?.length ? user?.fio[0]?.toUpperCase() : user?.company_name?.length ? user?.company_name[0]?.toUpperCase() : ''}</S.AvatarText>}
+          {/* <S.Name>{user?.fio}</S.Name> */}
+          <S.Title>{user?.fio ? user?.fio : user?.company_name}</S.Title>
           <S.Role>{user?.user_type === 0 ? 'Частный продавец' : 'Компания'}</S.Role>
           <S.Position>
             <S.PositionIcon>
@@ -29,13 +31,12 @@ const ProfileMenu = (props) => {
                 <path fillRule="evenodd" clipRule="evenodd" d="M6 3C6.82843 3 7.5 3.67157 7.5 4.5C7.5 5.32843 6.82843 6 6 6C5.17157 6 4.5 5.32843 4.5 4.5C4.5 3.67157 5.17157 3 6 3Z" stroke="#717171" strokeLinecap="round" />
               </svg>
             </S.PositionIcon>
-            {user?.position ?? 'Не указано'}
+            {!user?.city && !user?.country ? 'Не указано' : `${user?.country}${user?.city ? `,${user?.city}` : ''}`}
           </S.Position>
 
           <S.Button
             onClick={() => {
-              setShowEdit(true);
-              dispath(setIsDisableScroll(true));
+              dispath(setShowEditUserModal(true));
             }}>
             <S.EditIcon>
               <svg width={12} height={12} viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">

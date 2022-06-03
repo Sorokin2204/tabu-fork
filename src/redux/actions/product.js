@@ -1,9 +1,80 @@
 import axios from 'axios';
 import { API_URL } from 'config.js';
+import { imageTypes } from 'pages/SellProduct/PhotoBlock/PhotoBlock';
 import { useSelector } from 'react-redux';
 import { store } from 'redux/reducers';
 import { setQuery } from 'redux/reducers/filterOptionsReducer';
-import { setNewProducts, setOpenedProduct, setProducts, setProductsLoading, setSizes, setTrends } from 'redux/reducers/productReducer';
+import {
+  addFavoriteError,
+  addFavoriteLoading,
+  addFavoriteSuccess,
+  addProductError,
+  addProductLoading,
+  addProductSuccess,
+  setNewProducts,
+  setOpenedProduct,
+  setProducts,
+  setProductsLoading,
+  setSizes,
+  setTrends,
+  uploadDetailsError,
+  uploadDetailsLoading,
+  uploadDetailsSuccess,
+  uploadImagesError,
+  uploadImagesLoading,
+  uploadImagesSuccess,
+} from 'redux/reducers/productReducer';
+const config = {
+  headers: { 'content-type': 'multipart/form-data' },
+};
+
+export const uploadImages = (images) => {
+  return async (dispatch) => {
+    try {
+      dispatch(uploadImagesLoading(true));
+      let imageRequests = [];
+      for (let image of images) {
+        let formData = new FormData();
+        const imageType = imageTypes[image?.type];
+        formData.append('image', image?.file);
+        formData.append('main_image', imageType === 0 ? true : false);
+        formData.append('image_type', imageTypes[image?.type]);
+        console.log(formData);
+        const response = axios.post(`${API_URL}/products/images/`, formData, config);
+        imageRequests.push(response);
+      }
+      Promise.all(imageRequests)
+        .then((response) => {
+          const imageIds = response.map(({ data: { id } }) => id);
+          dispatch(uploadImagesSuccess(imageIds));
+        })
+        .catch((error) => dispatch(uploadImagesError({ message: 'Произошла непредвиденная ошибка' })));
+    } catch (e) {
+      dispatch(uploadImagesError({ message: 'Произошла непредвиденная ошибка' }));
+    }
+  };
+};
+
+export const uploadDetails = (details) => {
+  return async (dispatch) => {
+    try {
+      dispatch(uploadDetailsLoading(true));
+      let detailRequests = [];
+      for (let detail of details) {
+        const response = axios.post(`${API_URL}/products/details/`, { title: detail });
+        detailRequests.push(response);
+      }
+      Promise.all(detailRequests)
+        .then((response) => {
+          const detailIds = response.map(({ data: { id } }) => id);
+          dispatch(uploadDetailsSuccess(detailIds));
+        })
+        .catch((error) => dispatch(uploadDetailsError({ message: 'Произошла непредвиденная ошибка' })));
+    } catch (e) {
+      dispatch(uploadDetailsError({ message: 'Произошла непредвиденная ошибка' }));
+    }
+  };
+};
 
 export const getProducts = () => {
   return async (dispatch) => {
@@ -63,6 +134,41 @@ export const getProductsByCategory = () => {
       }, 1000);
     } catch (e) {
       dispatch(setProductsLoading(false));
+      console.log(e);
+    }
+  };
+};
+
+export const addFavorite = (productId) => {
+  return async (dispatch) => {
+    try {
+      dispatch(addFavoriteLoading(true));
+      const response = await axios.post(
+        `${API_URL}/products/${productId.toString()}/add_favorite/`,
+        {},
+        {
+          headers: { Authorization: `Token ${localStorage.getItem('token')}` },
+        },
+      );
+      dispatch(addFavoriteSuccess(response.data));
+    } catch (e) {
+      console.log(e.response);
+      dispatch(addFavoriteError('Произошла непредвиденная ошибка'));
+      console.log(e);
+    }
+  };
+};
+
+export const addProduct = (data) => {
+  return async (dispatch) => {
+    try {
+      dispatch(addProductLoading(true));
+      const response = await axios.post(`${API_URL}/products/`, data, {
+        headers: { Authorization: `Token ${localStorage.getItem('token')}` },
+      });
+      dispatch(addProductSuccess(response.data));
+    } catch (e) {
+      dispatch(addProductError('Произошла непредвиденная ошибка'));
       console.log(e);
     }
   };

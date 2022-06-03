@@ -72,6 +72,7 @@ export const Avatar = styled.div`
   background-image: url(${({ src }) => src || ''});
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
 
   @media (max-width: ${sizes.mobile}px) {
     border: 6px solid #ffffff;
@@ -123,7 +124,7 @@ export const Slice = styled.div`
   }
 `;
 
-export const Form = styled.div`
+export const Form = styled.form`
   display: flex;
   flex-direction: column;
   margin-left: 56px;

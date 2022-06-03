@@ -9,7 +9,6 @@ const FormSelectInput = ({ setValue, label, placeholder, options, errors, name, 
   const [searchResault, setSearchResault] = useState(options);
   const [searchTerm, setSearchTerm] = useState('');
   const value = watch(name);
-  console.log(value);
 
   const onClickMultiply = (option) => {
     const findOption = value?.findIndex((item) => item?.id === option?.id);
@@ -44,13 +43,11 @@ const FormSelectInput = ({ setValue, label, placeholder, options, errors, name, 
     }
   };
   useEffect(() => {
-    if (options) {
+    if (options?.length !== 0) {
       const search = options?.filter((item) => new RegExp(searchTerm, 'gi').test(item?.title));
       setSearchResault(search);
-    } else {
-      setSearchResault(options);
     }
-  }, [searchTerm]);
+  }, [searchTerm, options]);
 
   return (
     <OutsideClickHandler

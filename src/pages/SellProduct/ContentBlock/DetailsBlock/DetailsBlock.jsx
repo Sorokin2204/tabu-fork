@@ -5,7 +5,7 @@ import * as S from './Styled';
 const DetailsBlock = ({ watch, setValue, name }) => {
   // const [input, setInput] = useState('');
   const value = watch(name);
-  console.log(value);
+
   // const onSubmit = (e) => {
   //   setDetails([...details, { title: input }]);
   //   setInput(0);
@@ -21,8 +21,9 @@ const DetailsBlock = ({ watch, setValue, name }) => {
   // useEffect(() => {
   //   console.log(details);
   // }, [details]);
+
   const onAddDetail = () => {
-    if (value.length < 10) setValue(name, [...value, '']);
+    if (value?.length < 10) setValue(name, [...value, '']);
   };
   return (
     <S.Wrapper>
@@ -54,7 +55,7 @@ const DetailsBlock = ({ watch, setValue, name }) => {
             )}
           </S.InputWrapper>
         ))}
-        {value.length < 10 && (
+        {value?.length < 10 && (
           <div style={{ cursor: 'pointer', margin: '32px auto 0 auto', width: 'min-content', borderRadius: ' 50%', border: '1px solid #717171' }}>
             <S.Add onClick={onAddDetail}></S.Add>
           </div>

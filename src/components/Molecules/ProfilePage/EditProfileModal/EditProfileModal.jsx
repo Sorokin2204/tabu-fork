@@ -3,41 +3,113 @@ import Radio from 'components/Atoms/Form/Radio';
 import FormInput from 'components/Molecules/Form/FormInput/FormInput';
 import Header from 'components/Molecules/Search/Desktop/Header/Header';
 import { API_URL } from 'config';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsDisableScroll } from 'redux/reducers/appReducer';
+import { setIsDisableScroll, setShowEditUserModal, setShowEditUserSuccessModal } from 'redux/reducers/appReducer';
 import { sizes } from 'sizes';
 import IconCamera from 'assets/svg/camera.svg';
 import * as S from './Styled';
+import { useForm } from 'react-hook-form';
+import Loading from 'components/Loading/Loading';
+import { editUser } from 'redux/actions/user';
+import MessageModal from 'components/Molecules/ProductPage/ThanksModal/ThanksModal';
+import { URL as URL_SITE } from 'config';
 
 const EditProfileModal = ({ show, onClose }) => {
-  const user = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
+  const { showEditUserModal, showEditUserSuccessModal } = useSelector((state) => state.app);
+  const { currentUser: user, editUserLoading } = useSelector((state) => state.user);
+  const defaultValues = {
+    email: '',
+    user_type: '',
+    fio: '',
+    company_name: '',
+    city: '',
+    country: '',
+    avatar: { oldImage: null, newFile: null, newPreview: null },
+  };
+
+  const {
+    setValue,
+    watch,
+    formState: { errors },
+    register,
+    handleSubmit,
+  } = useForm({
+    defaultValues,
+  });
+
+  useEffect(() => {
+    if (user) {
+      setValue('email', user?.email);
+      setValue('user_type', user?.user_type);
+      setValue('fio', user?.fio);
+      setValue('company_name', user?.company_name);
+      setValue('city', user?.city);
+      setValue('country', user?.country);
+      setValue('avatar', { oldImage: user?.avatar, newFile: null, newPreview: null });
+    }
+  }, [user]);
 
   const [favorite, setFavorite] = useState('private');
-
-  const [firstName, setFirstName] = useState('');
-  const [email, setEmail] = useState('');
 
   const isMobile = useSelector((state) => state.app.isMobile);
 
   const handlePrivateChange = () => {
-    setFavorite('private');
+    setValue('user_type', 0);
+    setValue('fio', user?.fio);
   };
 
   const handleCompanyChange = () => {
-    setFavorite('company');
+    setValue('user_type', 1);
+    setValue('company_name', user?.company_name);
   };
   const dispath = useDispatch();
   const handleClose = () => {
-    onClose(false);
-    dispath(setIsDisableScroll(false));
+    dispath(setShowEditUserModal(false));
+  };
+  const avatar = watch('avatar');
+  const userType = watch('user_type');
+  const onUploadImage = (event) => {
+    const file = event.target.files[0];
+    const url = URL.createObjectURL(file);
+    setValue(`avatar`, {
+      oldImage: avatar.oldImage,
+      newFile: file,
+      newPreview: url,
+    });
+  };
+  const onClickAvatar = (event) => {
+    hiddenFileInput.current.click();
+  };
+  const hiddenFileInput = useRef(null);
+  const onSubmit = (data) => {
+    const { token } = user;
+    const newData = { ...data };
+    if (newData.user_type === 0) {
+      newData.company_name = '';
+    }
+    if (newData.user_type === 1) {
+      newData.fio = '';
+    }
+    const formData = new FormData();
+    formData.append('email', newData.email);
+    formData.append('user_type', newData.user_type);
+    formData.append('fio', newData.fio);
+    formData.append('company_name', newData.company_name);
+    formData.append('country', newData.country);
+    if (newData?.avatar?.newFile) {
+      formData.append('avatar', newData?.avatar?.newFile);
+    }
+    formData.append('city', newData.city);
+    dispath(editUser({ data: formData, token }));
   };
 
   return (
     <>
-      <S.Wrapper className={show ? 'visible' : 'hidden'} onClick={handleClose}></S.Wrapper>
+      <S.Wrapper className={showEditUserModal ? 'visible' : 'hidden'} onClick={handleClose}></S.Wrapper>
       <div
-        className={show ? 'visible' : 'hidden'}
+        className={showEditUserModal ? 'visible' : 'hidden'}
         style={{
           transition: 'all 0.3s',
           position: 'fixed',
@@ -60,26 +132,89 @@ const EditProfileModal = ({ show, onClose }) => {
             {!isMobile ? <S.Title>Редактировать профиль</S.Title> : <></>}
 
             <S.BottomBlock>
-              <S.AvatarBox>
-                {user?.avatar ? <S.Avatar src={API_URL} /> : <S.AvatarText>{user?.first_name?.length ? user?.first_name[0]?.toUpperCase() : ''}</S.AvatarText>}
+              <S.AvatarBox onClick={onClickAvatar}>
+                {avatar?.oldImage || avatar?.newPreview ? (
+                  <S.Avatar src={avatar?.newPreview ? avatar?.newPreview : `${URL_SITE + avatar?.oldImage}`} />
+                ) : (
+                  <S.AvatarText>{user?.fio?.length ? user?.fio[0]?.toUpperCase() : user?.company_name?.length ? user?.company_name[0]?.toUpperCase() : ''}</S.AvatarText>
+                )}
                 <S.AvatarBtn>
                   <img src={IconCamera} />
                 </S.AvatarBtn>
               </S.AvatarBox>
-
+              <input type="file" accept="image/png, image/jpeg, image/jpg" ref={hiddenFileInput} onChange={onUploadImage} style={{ display: 'none' }} />
               {isMobile ? <S.Title>Редактировать профиль</S.Title> : <></>}
 
               {/* <S.Slice /> */}
-              <S.Form>
+              <S.Form onSubmit={handleSubmit(onSubmit)}>
                 <S.FormTop>
                   <S.Radios>
-                    <Radio label="Частный продавец" value={favorite === 'private'} onChange={handlePrivateChange} />
-                    <Radio label="Компания" value={favorite === 'company'} onChange={handleCompanyChange} margin="0 0 0 27px" />
+                    <Radio label="Частный продавец" value={userType === 0} onChange={handlePrivateChange} />
+                    <Radio label="Компания" value={userType === 1} onChange={handleCompanyChange} margin="0 0 0 27px" />
                   </S.Radios>
-                  <FormInput value={firstName} setValue={setFirstName} label="Имя пользователя" placeholder="Введите имя пользователя" type="text" />
-                  <FormInput value={email} setValue={setEmail} label="Эл.почта" placeholder="Введите электронную почту" type="text" />
-                  <FormInput value={email} setValue={setEmail} label="Страна" placeholder="Введите страну" type="text" />
-                  <FormInput value={email} setValue={setEmail} label="Город" placeholder="Введите город" type="text" />
+                  {userType === 0 ? (
+                    <FormInput
+                      label="ФИО"
+                      placeholder="Введите Имя, фамилию и отчество"
+                      type="text"
+                      register={register}
+                      name="fio"
+                      rules={{
+                        required: { value: true, message: 'Обязательное поле' },
+                      }}
+                      errors={errors}
+                    />
+                  ) : (
+                    <FormInput
+                      label="Название компании"
+                      placeholder="Введите название компании"
+                      type="text"
+                      register={register}
+                      name="company_name"
+                      rules={{
+                        required: { value: true, message: 'Обязательное поле' },
+                      }}
+                      errors={errors}
+                    />
+                  )}
+
+                  <FormInput
+                    label="Эл.почта"
+                    placeholder="Введите эл.почту"
+                    type="text"
+                    register={register}
+                    name="email"
+                    rules={{
+                      required: { value: true, message: 'Обязательное поле' },
+                      pattern: {
+                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                        message: 'Неправильный формат почты',
+                      },
+                    }}
+                    errors={errors}
+                  />
+                  <FormInput
+                    label="Страна"
+                    placeholder="Введите страну"
+                    type="text"
+                    register={register}
+                    name="country"
+                    rules={{
+                      required: { value: true, message: 'Обязательное поле' },
+                    }}
+                    errors={errors}
+                  />
+                  <FormInput
+                    label="Город"
+                    placeholder="Введите город"
+                    type="text"
+                    register={register}
+                    name="city"
+                    rules={{
+                      required: { value: true, message: 'Обязательное поле' },
+                    }}
+                    errors={errors}
+                  />
                 </S.FormTop>
                 <S.ButtonBlock>
                   <Button
@@ -97,6 +232,7 @@ const EditProfileModal = ({ show, onClose }) => {
             </S.BottomBlock>
           </div>
         </S.Block>
+        {editUserLoading && <Loading />}
         <S.CloseBlock onClick={handleClose}>
           <svg width={32} height={32} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path

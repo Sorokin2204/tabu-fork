@@ -17,7 +17,7 @@ import SellerBlock from './SellerBlock/SellerBlock';
 import StateBlock from './StateBlock/StateBlock';
 import * as S from './Styled';
 
-const ContentBlock = ({ errors, register, setValue, watch, trigger }) => {
+const ContentBlock = ({ errors, register, setValue, watch, trigger, control }) => {
   const dispatch = useDispatch();
   const brands = useSelector((state) => state.filterOptions.brandOptions);
   const colors = useSelector((state) => state.filterOptions.colorOptions);
@@ -33,24 +33,6 @@ const ContentBlock = ({ errors, register, setValue, watch, trigger }) => {
   const [secondCategory, setSecondCategory] = useState(null);
   const [thirdCategory, setThirdCategory] = useState(null);
 
-  const [price, setPrice] = useState(0);
-
-  const [name, setName] = useState('');
-  const [surname, setSurname] = useState('');
-  const [phone, setPhone] = useState('');
-  const [region, setRegion] = useState('');
-  const [city, setCity] = useState('');
-  const [street, setStreet] = useState('');
-  const [homeNumber, setHomeNumber] = useState('');
-  const [apartNumber, setApartNumber] = useState('');
-
-  const [serial, setSerial] = useState('');
-  const [model, setModel] = useState('');
-
-  const [vintage, setVintage] = useState(false);
-  const [anther, setAnther] = useState(false);
-  const [box, setBox] = useState(false);
-
   useEffect(() => {
     dispatch(getBrandsOptions());
     dispatch(getColorOptions());
@@ -61,7 +43,7 @@ const ContentBlock = ({ errors, register, setValue, watch, trigger }) => {
   const onSubmit = () => {
     const token = localStorage.getItem('token');
     const data = {
-      title: name,
+      // title: name,
       description: 'string',
       seller: 1,
       category: 92,
@@ -100,7 +82,6 @@ const ContentBlock = ({ errors, register, setValue, watch, trigger }) => {
     register('category', { required: { value: true, message: 'Выберите категорию' } });
   }, [register]);
   useEffect(() => {
-    console.log(thirdCategory);
     setValue('category', thirdCategory);
   }, [thirdCategory]);
 
@@ -139,26 +120,9 @@ const ContentBlock = ({ errors, register, setValue, watch, trigger }) => {
       </S.Form>
       <StateBlock watch={watch} name={'condition'} setValue={setValue} />
       <DetailsBlock watch={watch} name={'details_list'} setValue={setValue} />
-      <PriceBlock price={price} setPrice={setPrice} />
-      <SellerBlock
-        name={name}
-        setName={setName}
-        surname={surname}
-        setSurname={setSurname}
-        phone={phone}
-        setPhone={setPhone}
-        region={region}
-        setRegion={setRegion}
-        city={city}
-        setCity={setCity}
-        street={street}
-        setStreet={setStreet}
-        homeNumber={homeNumber}
-        setHomeNumber={setHomeNumber}
-        apartNumber={apartNumber}
-        setApartNumber={setApartNumber}
-      />
-      <Authenticity serial={serial} setSerial={setSerial} model={model} setModel={setModel} vintage={vintage} anther={anther} box={box} setVintage={setVintage} setAnther={setAnther} setBox={setBox} />
+      <PriceBlock errors={errors} register={register} watch={watch} control={control} />
+      <SellerBlock errors={errors} register={register} control={control} />
+      <Authenticity errors={errors} register={register} watch={watch} setValue={setValue} />
     </S.ContentBlock>
   );
 };

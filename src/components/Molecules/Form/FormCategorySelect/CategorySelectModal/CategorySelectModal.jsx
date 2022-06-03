@@ -38,7 +38,7 @@ const CategorySelectModal = ({ firstCategory, setFirstCategory, secondCategory, 
       dispatch(setIsDisableScroll(false));
     }
   };
-  console.log(thirdCategories);
+
   return (
     <>
       <S.Background className={active ? 'visible' : 'hidden'} />

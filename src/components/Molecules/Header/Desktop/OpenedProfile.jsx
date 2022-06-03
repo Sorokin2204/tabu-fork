@@ -5,15 +5,16 @@ import Button from 'components/Atoms/Button';
 import Expand from 'assets/svg/expand_profile.svg';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { hideProfile, setShowAuthModal, setShowRegModal, showProfile } from 'redux/reducers/appReducer';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { hideProfile, setShowAuthModal, setShowLogoutModal, setShowRegModal, showProfile } from 'redux/reducers/appReducer';
 
 const OpenedProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isAuth = useSelector((state) => state.user.isAuth);
   const profileShow = useSelector((state) => state.app.showProfile);
-
+  const location = useLocation();
+  console.log(location);
   const openProfilePage = () => {
     if (showProfile) {
       navigate('/profile');
@@ -84,19 +85,81 @@ const OpenedProfile = () => {
                   </Button>
                 </Flex>
               )} */}
-            <Text fontFamily="Gilroy" fontWeight="400" fontSize="13px" color="#000" padding="14px 20px" cursor="pointer">
+            {/* <Text
+              fontFamily="Gilroy"
+              fontWeight="400"
+              fontSize="13px"
+              color="#000"
+              padding="14px 20px"
+              cursor="pointer"
+              onClick={() => {
+                dispatch(hideProfile());
+                navigate('/profile');
+              }}>
               Мой профиль
-            </Text>
-            <Text fontFamily="Gilroy" fontWeight="400" fontSize="13px" color="#000" padding="14px 20px" cursor="pointer">
-              Мои товары на продажу
-            </Text>
-            <Text fontFamily="Gilroy" fontWeight="400" fontSize="13px" color="#000" padding="14px 20px" cursor="pointer">
+            </Text> */}
+            <Text
+              fontFamily="Gilroy"
+              fontWeight="400"
+              fontSize="13px"
+              color="#000"
+              padding="14px 20px"
+              cursor="pointer"
+              style={{
+                fontWeight: location?.pathname === '/profile/orders' ? '600' : '400',
+              }}
+              onClick={() => {
+                dispatch(hideProfile());
+                navigate('/profile/orders');
+              }}>
               Мои заказы
             </Text>
-            <Text fontFamily="Gilroy" fontWeight="400" fontSize="13px" color="#000" padding="14px 20px" cursor="pointer">
+            <Text
+              fontFamily="Gilroy"
+              fontWeight="400"
+              fontSize="13px"
+              color="#000"
+              padding="14px 20px"
+              cursor="pointer"
+              style={{
+                fontWeight: location?.pathname === '/profile/sellitems' ? '600' : '400',
+              }}
+              onClick={() => {
+                dispatch(hideProfile());
+                navigate('/profile/sellitems');
+              }}>
+              Мои товары на продажу
+            </Text>
+
+            <Text
+              fontFamily="Gilroy"
+              fontWeight="400"
+              fontSize="13px"
+              color="#000"
+              padding="14px 20px"
+              cursor="pointer"
+              style={{
+                fontWeight: location?.pathname === '/profile/wishlist' ? '600' : '400',
+              }}
+              onClick={() => {
+                dispatch(hideProfile());
+                navigate('/profile/wishlist');
+              }}>
               Список желаний
             </Text>
-            <Text fontFamily="Gilroy" fontWeight="400" fontSize="13px" color="#000" padding="14px 20px" cursor="pointer" style={{ color: '#D51313' }}>
+
+            <Text
+              fontFamily="Gilroy"
+              fontWeight="400"
+              fontSize="13px"
+              color="#000"
+              padding="14px 20px"
+              cursor="pointer"
+              style={{ color: '#D51313' }}
+              onClick={() => {
+                dispatch(hideProfile());
+                dispatch(setShowLogoutModal(true));
+              }}>
               Выйти
             </Text>
           </div>

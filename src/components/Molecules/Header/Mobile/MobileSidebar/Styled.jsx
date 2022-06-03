@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-
+import Chevron from 'assets/svg/chevron.svg';
 export const Wrapper = styled.div`
   position: fixed;
   top: 0;
@@ -28,8 +28,25 @@ export const MobileSidebar = styled.div`
   background-color: #fff;
   height: 100%;
 `;
-
-export const Login = styled.div`
+export const Login = styled.div``;
+export const Profile = styled.div`
+  display: flex;
+  align-items: center;
+  color: #025b37;
+  &::after {
+    content: '';
+    display: block;
+    mask-image: url(${Chevron});
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    background-color: #025b37;
+    width: 6px;
+    height: 10px;
+    margin-left: 16px;
+    margin-bottom: 2px;
+  }
+`;
+export const SidebarHead = styled.div`
   margin: 64px 25px 40px 25px;
   white-space: nowrap;
   width: min-content;

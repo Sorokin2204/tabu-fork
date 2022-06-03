@@ -24,7 +24,6 @@ const Tags = () => {
     }
   };
   const onRemoveTag = (type, prop) => {
-    console.log('flskdjf');
     if (type === 'category') {
       removeTag(categoryOptions, prop, setCategoryOptions, 'slug');
     }

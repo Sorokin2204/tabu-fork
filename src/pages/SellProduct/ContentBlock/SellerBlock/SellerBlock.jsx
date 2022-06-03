@@ -2,35 +2,22 @@ import FormInput from 'components/Molecules/Form/FormInput/FormInput';
 import { useSelector } from 'react-redux';
 import * as S from './Styled';
 
-const SellerBlock = (props) => {
+const SellerBlock = ({ control, errors, register }) => {
   const isMobile = useSelector((state) => state.app.isMobile);
   return (
     <S.Wrapper>
       <S.Title>Продавец</S.Title>
       <S.Inputs>
         <FormInput
-          label="Имя"
-          placeholder={'Введите имя'}
-          value={props.name}
-          setValue={props.setName}
-          style={{
-            marginTop: isMobile ? '0px' : '21px',
-          }}
-        />
-        <FormInput
-          label="Фамилия"
-          placeholder={'Введите фамилию'}
-          value={props.surname}
-          setValue={props.setSurname}
-          style={{
-            marginTop: isMobile ? '34px' : '41px',
-          }}
-        />
-        <FormInput
           label="Телефон"
-          placeholder={'Введите телефон'}
-          value={props.phone}
-          setValue={props.setPhone}
+          placeholder="Введите ваш номер телефона"
+          type="phone"
+          control={control}
+          name="phone_number"
+          errors={errors}
+          rules={{
+            required: { value: true, message: 'Заполните телефон' },
+          }}
           style={{
             marginTop: isMobile ? '34px' : '41px',
           }}
@@ -38,8 +25,12 @@ const SellerBlock = (props) => {
         <FormInput
           label="Регион"
           placeholder={'Введите регион'}
-          value={props.region}
-          setValue={props.setRegion}
+          register={register}
+          name="region"
+          rules={{
+            required: { value: true, message: 'Заполните регион' },
+          }}
+          errors={errors}
           style={{
             marginTop: isMobile ? '34px' : '41px',
           }}
@@ -47,8 +38,12 @@ const SellerBlock = (props) => {
         <FormInput
           label="Город"
           placeholder={'Введите город'}
-          value={props.city}
-          setValue={props.setCity}
+          register={register}
+          name="city"
+          rules={{
+            required: { value: true, message: 'Заполните город' },
+          }}
+          errors={errors}
           style={{
             marginTop: isMobile ? '34px' : '41px',
           }}
@@ -56,26 +51,42 @@ const SellerBlock = (props) => {
         <FormInput
           label="Улица"
           placeholder={'Введите улицу'}
-          value={props.street}
-          setValue={props.setStreet}
+          register={register}
+          name="street"
+          rules={{
+            required: { value: true, message: 'Заполните улицу' },
+          }}
+          errors={errors}
           style={{
             marginTop: isMobile ? '34px' : '41px',
           }}
         />
         <FormInput
+          type="number"
+          control={control}
           label="Номер дома"
           placeholder={'Введите номер дома'}
-          value={props.homeNumber}
-          setValue={props.setHomeNumber}
+          register={register}
+          name="number_of_house"
+          rules={{
+            required: { value: true, message: 'Заполните номер дома' },
+          }}
+          errors={errors}
           style={{
             marginTop: isMobile ? '34px' : '41px',
           }}
         />
         <FormInput
+          type="number"
+          control={control}
           label="Квартира"
           placeholder={'Введите номер квартиры'}
-          value={props.apartNumber}
-          setValue={props.setApartNumber}
+          register={register}
+          name="number_of_flat"
+          rules={{
+            required: { value: true, message: 'Заполните номер квартиры' },
+          }}
+          errors={errors}
           style={{
             marginTop: isMobile ? '34px' : '41px',
           }}

@@ -1,4 +1,4 @@
-import { LOGOUT, SET_BUY_ITEMS, SET_SELL_ITEMS, SET_USER, SET_WISH_LIST, USER_ERROR, USER_LOADING, USER_RESET, USER_SUCCESS } from '../types/userTypes';
+import { EDIT_USER_ERROR, EDIT_USER_LOADING, EDIT_USER_SUCCESS, LOGOUT, SET_ACTIVE_TAB, SET_BUY_ITEMS, SET_SELL_ITEMS, SET_USER, SET_WISH_LIST, USER_ERROR, USER_LOADING, USER_RESET, USER_SUCCESS } from '../types/userTypes';
 
 const defaultState = {
   currentUser: {},
@@ -9,6 +9,7 @@ const defaultState = {
   buyItems: [],
   sellItems: [],
   wishList: [],
+  activeTab: null,
 };
 
 export default function userReducer(state = defaultState, action) {
@@ -36,13 +37,21 @@ export default function userReducer(state = defaultState, action) {
     case SET_WISH_LIST:
       return { ...state, wishList: action.payload };
     case USER_SUCCESS:
-      return { loading: false, error: null, data: action.payload };
+      return { ...state, loading: false, error: null, data: action.payload };
     case USER_LOADING:
-      return { error: null, data: null, loading: true };
+      return { ...state, error: null, data: null, loading: true };
     case USER_ERROR:
-      return { data: null, loading: false, error: action.payload };
+      return { ...state, data: null, loading: false, error: action.payload };
     case USER_RESET:
-      return { data: null, loading: false, error: null };
+      return { ...state, data: null, loading: false, error: null };
+    case EDIT_USER_ERROR:
+      return { ...state, editUserError: action.payload, editUserLoading: false, editUserData: null };
+    case EDIT_USER_SUCCESS:
+      return { ...state, editUserError: null, editUserLoading: false, editUserData: action.payload };
+    case EDIT_USER_LOADING:
+      return { ...state, editUserLoading: true };
+    case SET_ACTIVE_TAB:
+      return { ...state, activeTab: action.payload };
     default:
       return state;
   }
@@ -71,5 +80,21 @@ export const userError = (data) => ({
 });
 export const userSuccess = (data) => ({
   type: USER_SUCCESS,
+  payload: data,
+});
+export const editUserSuccess = (data) => ({
+  type: EDIT_USER_SUCCESS,
+  payload: data,
+});
+export const editUserError = (data) => ({
+  type: EDIT_USER_ERROR,
+  payload: data,
+});
+export const editUserLoading = (data) => ({
+  type: EDIT_USER_LOADING,
+  payload: data,
+});
+export const setActiveTab = (data) => ({
+  type: SET_ACTIVE_TAB,
   payload: data,
 });

@@ -7,7 +7,7 @@ import * as S from './Styled';
 const Categories = () => {
   const searchCategories = useSelector((state) => state.search.searchCategories);
   const searchText = useSelector((state) => state.search.searchText);
-  console.log(searchText);
+ 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   return (

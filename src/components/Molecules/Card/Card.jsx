@@ -9,7 +9,8 @@ import { setOpenedProduct, showModal } from 'redux/reducers/productReducer';
 import { sizes } from '../../../sizes';
 import { useNavigate } from 'react-router-dom';
 import Flex from 'components/Atoms/Flex';
-import { setIsDisableScroll } from 'redux/reducers/appReducer';
+import { setIsDisableScroll, setShowAuthModal, setShowRegModal } from 'redux/reducers/appReducer';
+import { addFavorite } from 'redux/actions/product';
 
 export const HoverWrapper = styled.div`
   position: relative;
@@ -36,7 +37,7 @@ const Card = (props) => {
   const [hover, setHover] = useState(false);
   const [widthHoverBlock, setWidthHoverBlock] = useState();
   const isMobile = useSelector((state) => state.app.isMobile);
-
+  const isAuth = useSelector((state) => state.user.isAuth);
   const onHover = () => {
     const cardWidth = document.getElementsByClassName('card')[0].offsetWidth;
     setWidthHoverBlock(cardWidth * 1.14);
@@ -65,7 +66,15 @@ const Card = (props) => {
         <HoverWrapper>
           <HoverCard width={`${widthHoverBlock}px`}>
             <Grid>
-              <S.HoverFavoriteIcon>
+              <S.HoverFavoriteIcon
+                onClick={() => {
+                  if (isAuth) {
+                    dispatch(addFavorite(props?.product?.id));
+                  } else {
+                    dispatch(setShowAuthModal(true));
+                    dispatch(setShowRegModal(true));
+                  }
+                }}>
                 <svg width={20} height={18} viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     fillRule="evenodd"
@@ -110,7 +119,15 @@ const Card = (props) => {
       )}
 
       {!isMobile && (
-        <S.FavoriteIcon>
+        <S.FavoriteIcon
+          onClick={() => {
+            if (isAuth) {
+              dispatch(addFavorite(props?.product?.id));
+            } else {
+              dispatch(setShowAuthModal(true));
+              dispatch(setShowRegModal(true));
+            }
+          }}>
           <svg width={20} height={18} viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               fillRule="evenodd"

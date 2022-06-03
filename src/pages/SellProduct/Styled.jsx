@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding-bottom: 260px;
+  padding-bottom: 62px;
   @media (max-width: 1110px) {
     box-sizing: border-box;
     padding-bottom: 170px;

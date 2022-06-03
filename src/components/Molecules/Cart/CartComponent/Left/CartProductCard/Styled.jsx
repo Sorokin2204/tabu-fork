@@ -1,20 +1,17 @@
 import styled from 'styled-components';
 import { css } from 'styled-components';
 import { sizes } from '../../../../../../sizes';
-
+export const CardWrapper = styled.div`
+  border-bottom: 1px solid #e5e5e5;
+`;
 export const Card = styled.div`
   display: grid;
   position: relative;
   width: 100%;
   grid-template-columns: 29% 53% 18%;
-  border-bottom: 1px solid #e5e5e5;
-  padding: 24px 0;
 
-  ${(props) =>
-    props.profile &&
-    css`
-      padding: 40px 0;
-    `}
+  max-width: 917px;
+  padding: ${(props) => (props.type === 'cart' ? '24px 0' : '40px 0 32px 0')};
 
   @media (max-width: ${sizes.mobile}px) {
     display: grid;
@@ -30,8 +27,7 @@ export const Card = styled.div`
 export const LeftCol = styled.div`
   display: flex;
   flex-direction: column;
-  padding-right: 24px;
-  padding-left: 16px;
+  padding: ${(props) => (props.type === 'cart' ? '0 16px 0 24px' : '0')};
 `;
 
 export const Profile = styled.div`
@@ -91,13 +87,13 @@ export const ProfileRole = styled.div`
 `;
 
 export const ProductImage = styled.div`
-  margin-top: 24px;
+  margin-top: ${(props) => (props.type === 'cart' ? '24px' : '0')};
   width: 140px;
   height: 175px;
   background-image: url(${({ src }) => src || ''});
   background-size: cover;
   background-position: center;
-
+  background-color: #f4f4f6;
   @media (max-width: ${sizes.mobile}px) {
     margin-top: 0px;
   }
@@ -105,7 +101,7 @@ export const ProductImage = styled.div`
 
 export const DescriptionCol = styled.div`
   display: grid;
-  margin-top: 56px;
+  /* margin-top: 56px; */
   grid-template-columns: 1fr 32%;
 
   @media (max-width: ${sizes.mobile}px) {
@@ -115,9 +111,11 @@ export const DescriptionCol = styled.div`
 `;
 
 export const DescBlock = styled.div`
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   padding-right: 24px;
+  min-width: ${(props) => (props.type === 'cart' ? '0' : '310px')};
   @media (max-width: ${sizes.mobile}px) {
     margin-left: 14px;
     padding-right: 0px;
@@ -142,7 +140,14 @@ export const DescriptionText = styled.div`
     margin-top: 12px;
   }
 `;
-
+export const Btns = styled.div`
+  grid-column: 1/3;
+  display: grid;
+  margin-top: auto;
+  grid-template-rows: 42px;
+  grid-template-columns: 156px 156px;
+  column-gap: 18px;
+`;
 export const SizeBlock = styled.div`
   display: flex;
   justify-content: center;
@@ -177,7 +182,7 @@ export const Size = styled.div`
 `;
 
 export const PriceCol = styled.div`
-  margin-top: 66px;
+  margin-top: ${(props) => (props.type === 'cart' ? '66px' : '0')};
   font-family: Gilroy;
   font-weight: 600;
   font-size: 12px;

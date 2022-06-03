@@ -46,11 +46,19 @@ const Header = () => {
           </Link>
         </S.Logo>
         <S.UserBlock>
-          <a href="/sellproduct">
-            <Button outlined={true} width="149px">
-              Продать товар
-            </Button>
-          </a>
+          <Button
+            outlined={true}
+            width="149px"
+            onClick={() => {
+              if (isAuth) {
+                navigate('/sellproduct');
+              } else {
+                dispatch(setShowAuthModal(true));
+                dispatch(setShowRegModal(true));
+              }
+            }}>
+            Продать товар
+          </Button>
 
           <S.Cart onClick={() => navigate('/cart')}>
             <svg width={17} height={18} viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -22,6 +22,8 @@ import {
   SET_SHOW_REQUEST_THANKS_MODAL,
   SET_SHOW_REQUEST_ERROR_MODAL,
   SET_BREADCRUMBS,
+  SET_SHOW_EDIT_USER_SUCCESS_MODAL,
+  SET_SHOW_EDIT_USER_MODAL,
 } from '../types/appTypes';
 
 const defaultState = {
@@ -46,6 +48,8 @@ const defaultState = {
   showSubscribeErrorModal: false,
   showRequestThanksModal: false,
   showRequestErrorModal: false,
+  showEditUserSuccessModal: false,
+  showEditUserModal: false,
   breadcrumbs: [],
 };
 
@@ -103,6 +107,10 @@ export default function productReducer(state = defaultState, action) {
       return { ...state, showRequestThanksModal: action.payload, isDisableScroll: action.payload };
     case SET_SHOW_REQUEST_ERROR_MODAL:
       return { ...state, showRequestErrorModal: action.payload, isDisableScroll: action.payload };
+    case SET_SHOW_EDIT_USER_SUCCESS_MODAL:
+      return { ...state, showEditUserSuccessModal: action.payload, isDisableScroll: action.payload, ...(action.payload === true && { showEditUserModal: false }) };
+    case SET_SHOW_EDIT_USER_MODAL:
+      return { ...state, showEditUserModal: action.payload, isDisableScroll: action.payload };
     case SET_BREADCRUMBS:
       return { ...state, breadcrumbs: action.payload };
     default:
@@ -188,6 +196,14 @@ export const setShowMobileFilterModal = (show) => ({
 });
 export const setShowMobileSortModal = (show) => ({
   type: SET_MOBILE_SORT_MODAL,
+  payload: show,
+});
+export const setShowEditUserSuccessModal = (show) => ({
+  type: SET_SHOW_EDIT_USER_SUCCESS_MODAL,
+  payload: show,
+});
+export const setShowEditUserModal = (show) => ({
+  type: SET_SHOW_EDIT_USER_MODAL,
   payload: show,
 });
 export const setShowMobileCartModal = (show) => ({
