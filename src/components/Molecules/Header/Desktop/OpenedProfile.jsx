@@ -14,7 +14,6 @@ const OpenedProfile = () => {
   const isAuth = useSelector((state) => state.user.isAuth);
   const profileShow = useSelector((state) => state.app.showProfile);
   const location = useLocation();
-  console.log(location);
   const openProfilePage = () => {
     if (showProfile) {
       navigate('/profile');

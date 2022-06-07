@@ -4,15 +4,19 @@ import Logo from 'assets/img/logo.png';
 import MobileTopHeader from './MobileTopHeader/MobileTopHeader';
 import MobileSidebar from './MobileSidebar/MobileSidebar';
 import { useDispatch, useSelector } from 'react-redux';
-import { hideMobileSidebar, setIsDisableScroll, showMobileSidebar } from '../../../../redux/reducers/appReducer';
+import { hideMobileSidebar, setIsDisableScroll, setShowAuthModal, setShowRegModal, showMobileSidebar } from '../../../../redux/reducers/appReducer';
 import { useNavigate } from 'react-router-dom';
 import { setShowSearch } from 'redux/reducers/searchReducer';
+import { updateCountCart } from 'redux/reducers/productReducer';
+import { getCategories } from 'redux/actions/categories';
+import { useEffect } from 'react';
 
 const MobileHeader = () => {
   const dispatch = useDispatch();
+  const { countCart } = useSelector((state) => state.product);
   const showMobSidebar = useSelector((state) => state.app.showMobileSidebar);
   let navigate = useNavigate();
-
+  const isAuth = useSelector((state) => state.user.isAuth);
   const onClickLogo = () => {
     navigate('/');
   };
@@ -36,7 +40,15 @@ const MobileHeader = () => {
               <path d="M4 18H20" stroke="black" strokeLinecap="round" />
             </svg>
           </S.Burger>
-          <S.AddItem onClick={() => navigate('/sellproduct')}>
+          <S.AddItem
+            onClick={() => {
+              if (isAuth) {
+                navigate('/sellproduct');
+              } else {
+                dispatch(setShowAuthModal(true));
+                dispatch(setShowRegModal(true));
+              }
+            }}>
             <svg width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 fillRule="evenodd"
@@ -67,6 +79,7 @@ const MobileHeader = () => {
               <path fillRule="evenodd" clipRule="evenodd" d="M6 7H18L19 20H5L6 7Z" stroke="black" strokeLinecap="round" />
               <path d="M9 9V6C9 4.34315 10.3431 3 12 3C13.6569 3 15 4.34315 15 6V9" stroke="black" strokeLinecap="round" />
             </svg>
+            {countCart === 0 ? '' : <S.CartNumber>{countCart}</S.CartNumber>}
           </S.Cart>
         </S.UserBlock>
       </S.StyledMobileHeader>

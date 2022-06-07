@@ -1,4 +1,6 @@
+import { URL as SITE_URL } from 'config';
 import { useEffect, useRef, useState } from 'react';
+import { getUrlExtension } from 'utils/getUrlExtension';
 import { imageTypes } from '../PhotoBlock';
 import * as S from './Styled';
 
@@ -24,6 +26,7 @@ const MainPhoto = (props) => {
 
   const handleChange = (event) => {
     const file = event.target.files[0];
+    console.log(file);
     const url = URL.createObjectURL(file);
     props.setValue(`images[${imageTypes[props.type]}]`, {
       type: props.type,
@@ -31,19 +34,18 @@ const MainPhoto = (props) => {
       url,
     });
   };
-
   return (
     <S.Wrapper {...props}>
       <S.MainPhoto
         onClick={handleClick}
-        background={img?.url}
+        background={img?.url ? img?.url : img?.oldImage}
         error={props.error}
         style={{
-          backgroundColor: img?.url && img?.file?.type == 'image/png' ? '#f6f6f9' : 'none',
-          backgroundSize: img?.file?.type == 'image/png' ? '80%' : '100%',
-          border: img?.url ? 'none' : `1px dashed ${props.error ? '#D51313' : 'rgba(0, 0, 0, 0.1)'}`,
+          backgroundColor: img?.file?.type === 'image/png' || getUrlExtension(img?.oldImage) ? '#f6f6f9' : 'none',
+          backgroundSize: img?.file?.type == 'image/png' || getUrlExtension(img?.oldImage) === 'png' ? '80%' : '100%',
+          border: img?.url || img?.oldImage ? 'none' : `1px dashed ${props.error ? '#D51313' : 'rgba(0, 0, 0, 0.1)'}`,
         }}>
-        {!img?.file && !img?.url && (
+        {!img?.file && !img?.url && !img?.oldImage && (
           <svg width={45} height={33} viewBox="0 0 45 33" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               fillRule="evenodd"

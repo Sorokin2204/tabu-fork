@@ -4,16 +4,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import Jacket from 'assets/img/jacket.png';
 import * as S from './Styled';
 import { setShowMobileCartModal } from 'redux/reducers/appReducer';
+import { currencyFormat } from 'utils/currencyFormat';
 
 const MobileOrderShortBlock = () => {
-  const cartProducts = useSelector((state) => state.cart.cartProducts);
+  const { cartProducts, cartTotal } = useSelector((state) => state.cart);
   console.log(cartProducts);
   const showMobileCartModal = useSelector((state) => state.app.showMobileCartModal);
   const dispatch = useDispatch();
   return (
     <>
       <S.Wrapper active={showMobileCartModal} onClick={() => dispatch(setShowMobileCartModal(true))}>
-        <S.Count>2</S.Count>
+        <S.Count>{cartProducts?.length}</S.Count>
         <div
           style={{
             overflow: 'overlay',
@@ -31,7 +32,7 @@ const MobileOrderShortBlock = () => {
         </div>
         <S.Total>
           <S.TotalLabel>Всего</S.TotalLabel>
-          <S.TotalPrice>$2178</S.TotalPrice>
+          <S.TotalPrice>{currencyFormat(cartTotal)}</S.TotalPrice>
         </S.Total>
       </S.Wrapper>
     </>

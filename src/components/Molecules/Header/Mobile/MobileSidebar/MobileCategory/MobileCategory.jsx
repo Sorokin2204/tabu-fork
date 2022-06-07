@@ -29,12 +29,12 @@ const MobileCategory = (props) => {
       </S.Back>
       <S.Title
         onClick={() => {
-          navigate('/categories/' + menuCategory.parentCategory.title);
+          navigate('/categories/' + menuCategory.parentCategory.slug);
           dispatch(hideMobileSidebar());
         }}>
         {!menuCategory.parentCategory ? '' : menuCategory.parentCategory.title}
       </S.Title>
-      <S.Categories>{!menuCategory.parentCategory ? '' : menuCategory.parentCategory.children.map((subcat, i) => <S.Category onClick={() => onCategoryClick(subcat.title)}>{subcat.title}</S.Category>)}</S.Categories>
+      <S.Categories>{!menuCategory.parentCategory ? '' : menuCategory.parentCategory.children.map((subcat, i) => <S.Category onClick={() => onCategoryClick(subcat.slug)}>{subcat.title}</S.Category>)}</S.Categories>
     </S.Wrapper>
   );
 };

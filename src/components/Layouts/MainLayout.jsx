@@ -13,6 +13,7 @@ import RegModal from 'components/Molecules/Modals/RegModal/RegModal';
 import LoginModal from 'components/Molecules/Modals/LoginModal/LoginModal';
 import Search from 'components/Molecules/Search/Desktop/Search';
 import { useParams } from 'react-router-dom';
+import LogoutModal from 'components/Molecules/ProfilePage/LogoutModal/LogoutModal';
 
 const MainLayout = ({ children }) => {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ const MainLayout = ({ children }) => {
   useEffect(() => {
     console.log(categories);
     // set cart products
-    dispatch(setCartProducts(JSON.parse(localStorage.getItem('cartProducts'))));
+    // dispatch(setCartProducts(JSON.parse(localStorage.getItem('cartProducts'))));
   }, []);
 
   return (
@@ -31,6 +32,7 @@ const MainLayout = ({ children }) => {
       {showSearch ? <Search /> : ''}
       <RegModal />
       <LoginModal />
+      <LogoutModal />
       {isMobile ? <MobileHeader /> : <Header />}
       {children}
       {isMobile ? <MobileFooter /> : <Footer />}

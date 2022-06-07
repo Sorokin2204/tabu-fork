@@ -1,4 +1,5 @@
 import ActionBlock from 'components/Molecules/ProductPage/Desktop/ActionBlock';
+import { URL } from 'config';
 import { useSelector } from 'react-redux';
 import * as S from './Styled';
 
@@ -10,7 +11,7 @@ const Seller = (props) => {
       return 'Частный продавец';
     }
     if (role === 1) {
-      return 'Клиент';
+      return 'Компания';
     }
   };
 
@@ -19,9 +20,9 @@ const Seller = (props) => {
       <S.Title>Продавец</S.Title>
       <S.DetailsContainer>
         <S.Bottom>
-          <S.Avatar src={'https://i.pravatar.cc/64'} />
+          <S.Avatar src={URL + openedProduct?.seller?.avatar} />
           <S.Details>
-            <S.Name>{openedProduct ? (openedProduct.seller ? openedProduct.seller.first_name : '') : ''}</S.Name>
+            <S.Name>{openedProduct?.seller?.fio ? openedProduct?.seller?.fio : openedProduct?.seller?.company_name}</S.Name>
             <S.Role>{openedProduct ? (openedProduct.seller ? returnRole(openedProduct.seller.user_type) : '') : ''}</S.Role>
             <S.Location>
               <S.LocationIcon>
@@ -31,11 +32,11 @@ const Seller = (props) => {
                   <path fillRule="evenodd" clipRule="evenodd" d="M6 3C6.82843 3 7.5 3.67157 7.5 4.5C7.5 5.32843 6.82843 6 6 6C5.17157 6 4.5 5.32843 4.5 4.5C4.5 3.67157 5.17157 3 6 3Z" stroke="#717171" strokeLinecap="round" />
                 </svg>
               </S.LocationIcon>
-              <S.LocationName>Almaty</S.LocationName>
+              <S.LocationName>{`${openedProduct?.region}, ${openedProduct?.city}`}</S.LocationName>
             </S.Location>
           </S.Details>
         </S.Bottom>
-        <S.Comment>Покупала за 3000 евро в Париже. Укороченная куртка свободного силуэта из плотной джинсы, рукава 7/8. Состояние отличное.</S.Comment>
+        <S.Comment>{openedProduct?.comment}</S.Comment>
       </S.DetailsContainer>
     </S.Container>
   );

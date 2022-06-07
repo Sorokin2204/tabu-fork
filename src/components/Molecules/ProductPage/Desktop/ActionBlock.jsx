@@ -12,6 +12,9 @@ import Message from 'assets/svg/message.svg';
 import { setIsDisableScroll, setShowSizesModal } from 'redux/reducers/appReducer';
 import { setCartProducts } from '../../../../redux/reducers/cartReducer';
 import { useEffect, useState } from 'react';
+import { currencyFormat } from 'utils/currencyFormat';
+import { isWhatPercentOf } from 'utils/isWhatPercentOf';
+import { findInLocalCart, onClickAddToCart } from 'components/Molecules/Modals/ProductModal';
 
 const Container = styled.div``;
 
@@ -19,45 +22,52 @@ const ActionBlock = () => {
   const dispatch = useDispatch();
   const opened_product = useSelector((state) => state.product.openedProduct);
   const [addedToCart, setAddedToCard] = useState(false);
-
+  const [activeSize, setActiveSize] = useState();
   const openTableSizes = () => {
     dispatch(setShowSizesModal(true));
   };
 
-  const addToCart = () => {
-    let cartProductsArray = JSON.parse(localStorage.getItem('cartProducts')) || [];
+  // const addToCart = () => {
+  //   let cartProductsArray = JSON.parse(localStorage.getItem('cartProducts')) || [];
 
-    // Если в корзине есть товар удалить его
-    if (cartProductsArray.filter((x) => x.id === opened_product.id).length) {
-      cartProductsArray = cartProductsArray.filter((x) => x.id !== opened_product.id);
-      localStorage.setItem('cartProducts', JSON.stringify(cartProductsArray));
+  //   // Если в корзине есть товар удалить его
+  //   if (cartProductsArray.filter((x) => x.id === opened_product.id).length) {
+  //     cartProductsArray = cartProductsArray.filter((x) => x.id !== opened_product.id);
+  //     localStorage.setItem('cartProducts', JSON.stringify(cartProductsArray));
 
-      dispatch(setCartProducts(cartProductsArray));
-      setAddedToCard(false);
-    }
+  //     dispatch(setCartProducts(cartProductsArray));
+  //     setAddedToCard(false);
+  //   }
 
-    // Если в корзине нет товара добавить его
-    else {
-      cartProductsArray.push(opened_product);
-      localStorage.setItem('cartProducts', JSON.stringify(cartProductsArray));
+  //   // Если в корзине нет товара добавить его
+  //   else {
+  //     cartProductsArray.push(opened_product);
+  //     localStorage.setItem('cartProducts', JSON.stringify(cartProductsArray));
 
-      dispatch(setCartProducts(cartProductsArray));
-      setAddedToCard(true);
-    }
-  };
+  //     dispatch(setCartProducts(cartProductsArray));
+  //     setAddedToCard(true);
+  //   }
+  // };
 
+  // useEffect(() => {
+  //   if (opened_product.id) {
+  //     let cartProductsArray = JSON.parse(localStorage.getItem('cartProducts')) || [];
+
+  //     if (cartProductsArray.filter((x) => x.id === opened_product.id).length) {
+  //       setAddedToCard(true);
+  //     } else {
+  //       setAddedToCard(false);
+  //     }
+  //   }
+  // }, [opened_product]);
+  const [inCart, setInCart] = useState(false);
   useEffect(() => {
-    if (opened_product.id) {
-      let cartProductsArray = JSON.parse(localStorage.getItem('cartProducts')) || [];
+    if (opened_product?.id) {
+      setActiveSize(opened_product.size[0].id);
 
-      if (cartProductsArray.filter((x) => x.id === opened_product.id).length) {
-        setAddedToCard(true);
-      } else {
-        setAddedToCard(false);
-      }
+      setInCart(findInLocalCart(opened_product?.id));
     }
   }, [opened_product]);
-
   return (
     <Container>
       <Flex direction="column">
@@ -68,33 +78,20 @@ const ActionBlock = () => {
         <Text margin="32px 0 0 0" fontFamily="Gilroy" fontWeight="600" fontSize="16px" color="#191919" textTransform="uppercase">
           {opened_product ? opened_product.title : ''}
         </Text>
-        <Text margin="16px 0 0 0" fontFamily="Mont" fontWeight="600" fontSize="14px" color="#191919" textTransform="uppercase">
+        <Text margin="16px 0 0 0" fontFamily="Mont" fontWeight="600" fontSize="14px" color="#191919">
           {opened_product ? opened_product.description : ''}
         </Text>
         <Flex direction="row" margin="24px 0 0 0">
           <Text fontFamily="Gilroy" fontWeight="600" fontSize="16px" color="#191919">
-            {opened_product ? '$ ' + opened_product.price : ''}
+            {opened_product?.price && currencyFormat(opened_product?.price)}
           </Text>
           {/* Скидка */}
-          {/* <Text
-          margin="0 0 0 20px"
-          fontFamily="Gilroy"
-          fontWeight="600"
-          fontSize="14px"
-          color="#ababab"
-          decoration="line-through"
-        >
-          $1 815
-        </Text>
-        <Text
-          margin="0 0 0 20px"
-          fontFamily="Gilroy"
-          fontWeight="600"
-          fontSize="14px"
-          color="#EE1616"
-        >
-          -40%
-        </Text> */}
+          <Text margin="0 0 0 20px" fontFamily="Gilroy" fontWeight="600" fontSize="14px" color="#ababab" decoration="line-through">
+            {currencyFormat(opened_product.old_price)}
+          </Text>
+          <Text margin="0 0 0 20px" fontFamily="Gilroy" fontWeight="600" fontSize="14px" color="#EE1616">
+            {`${isWhatPercentOf(opened_product.price, opened_product.old_price)}%`}
+          </Text>
         </Flex>
         <Flex margin="40px 0 0 0" direction="column" cursor="pointer">
           <Flex justify="space-between">
@@ -106,7 +103,7 @@ const ActionBlock = () => {
             </Text>
           </Flex>
 
-          <SelectSize sizes={default_sizes} />
+          <SelectSize sizes={opened_product ? opened_product.size : ''} activeSize={activeSize} setActiveSize={setActiveSize} />
         </Flex>
         <div
           style={{
@@ -116,8 +113,8 @@ const ActionBlock = () => {
             columnGap: '32px',
             paddingBottom: '4px',
           }}>
-          <Button background="#F4F4F6" fontFamily="Mont" fontWeight="600" color="#717171" fontSize="14px" padding="14px 0" border="none" w100 onClick={() => addToCart()} style={{ gridColumn: '1/3', gridRow: '1/2' }}>
-            {addedToCart ? 'Добавлено в корзину' : 'Добавить в корзину'}
+          <Button background="#F4F4F6" fontFamily="Mont" fontWeight="600" color="#717171" fontSize="14px" padding="14px 0" border="none" w100 onClick={() => onClickAddToCart(setInCart, opened_product?.id, activeSize)} style={{ gridColumn: '1/3', gridRow: '1/2' }}>
+            {inCart ? 'Добавлено в корзину' : 'Добавить в корзину'}
           </Button>
           <Button margin="12px 0 0 0" fontFamily="Mont" fontWeight="600" fontSize="14px" padding="14px 0" border="none" topGreen w100 style={{ gridColumn: '1/3', gridRow: '2/3' }}>
             Купить сейчас
@@ -146,7 +143,7 @@ const ActionBlock = () => {
             <Flex margin="0 0 0 8.42px">Свяжитесь с нами</Flex>
           </Button>
         </div>
-        <AddFavoriteBtn />
+        <AddFavoriteBtn productId={opened_product.id} />
       </Flex>
     </Container>
   );

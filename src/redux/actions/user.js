@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { API_URL } from 'config';
 import { setShowAuthModal, setShowEditUserSuccessModal } from 'redux/reducers/appReducer';
-import { editUserError, editUserLoading, editUserSuccess, setUser, userError, userLoading, userSuccess } from 'redux/reducers/userReducer';
+import { editUserError, editUserLoading, editUserSuccess, logout, setUser, userError, userLoading, userSuccess } from 'redux/reducers/userReducer';
 import _ from 'lodash';
+import { getFavoritesError, getFavoritesLoading, getFavoritesSuccess, updateCountFavorite } from 'redux/reducers/productReducer';
 const config = {
   headers: { 'content-type': 'multipart/form-data' },
 };
@@ -49,6 +50,29 @@ export const editUser = ({ data, token }) => {
     }
   };
 };
+
+export const getFavorites = () => {
+  return async (dispatch) => {
+    try {
+      dispatch(getFavoritesLoading(true));
+      const response = await axios.get(
+        `${API_URL}/users/get_favorites/`,
+
+        {
+          headers: { Authorization: `Token ${localStorage.getItem('token')}` },
+        },
+      );
+      // const favoriteIds = response.data.results.map((item) => item.id);
+      // console.log(response.data);
+
+      dispatch(getFavoritesSuccess(response.data.results));
+    } catch (error) {
+      console.log(error);
+      dispatch(getFavoritesError('Произошла непредвиденная ошибка. Повторите позже.'));
+    }
+  };
+};
+
 export const login = (data) => {
   return async (dispatch) => {
     try {
@@ -59,7 +83,6 @@ export const login = (data) => {
       localStorage.setItem('user', JSON.stringify(response.data.user));
 
       document.location.href = '/profile';
-      dispatch(setShowAuthModal(false));
     } catch (error) {
       const errorMessage = error?.response?.data?.error_message ?? 'Произошла непредвиденная ошибка. Повторите позже.';
       dispatch(userError(errorMessage));
@@ -81,13 +104,14 @@ export const auth = () => {
       const response = await axios.get(`${API_URL}/users/me/?format=json`, {
         headers: { Authorization: `Token ${localStorage.getItem('token')}` },
       });
-
+      dispatch(updateCountFavorite(response.data.favorites_count));
       const groupProducts = groupByStatus(response.data.product_set);
-
       dispatch(setUser({ ...response.data, product_set: groupProducts, token: localStorage.getItem('token') }));
 
-      // localStorage.setItem("token", response.data);
+      // localStorage.setItem('token', response.data.token);
     } catch (e) {
+      dispatch(logout());
+      console.log(e);
       localStorage.removeItem('token');
       localStorage.removeItem('user');
     }

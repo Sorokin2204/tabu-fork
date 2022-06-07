@@ -3,13 +3,13 @@ import * as S from './Styled';
 const Steps = ({ step, setStep }) => {
   return (
     <S.Wrapper>
-      <S.Step onClick={() => setStep(1)}>
+      <S.Step>
         <S.StepCircle active>01</S.StepCircle>
         <S.StepName>Доставка</S.StepName>
       </S.Step>
       <S.Line />
 
-      <S.Step onClick={() => setStep(2)}>
+      <S.Step>
         <S.StepCircle active={step === 2 && true}>02</S.StepCircle>
         <S.StepName>Оплата</S.StepName>
       </S.Step>

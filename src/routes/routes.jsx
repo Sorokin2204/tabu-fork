@@ -6,11 +6,13 @@ import ProductPage from 'pages/ProductPage/ProductPage';
 import ProfilePage from 'pages/ProfilePages/ProfileBuyPage/ProfileBuyPage';
 import ProfileOrderListPage from 'pages/ProfilePages/ProfileOrderListPage/ProfileOrderListPage';
 import ProfileSellPage from 'pages/ProfilePages/ProfileSellPage/ProfileSellPage';
-import ProfileWishListPage from 'pages/ProfilePages/ProfileWishListPage/ProfileSalePage';
+import ProfileWishListPage from 'pages/ProfilePages/ProfileWishListPage/ProfileWishListPage';
+
 import SellProduct from 'pages/SellProduct/SellProduct';
+import SellProductMain from 'pages/SellProduct/SellProductMain';
 import { Navigate } from 'react-router-dom';
 import HomePage from '../pages/HomePage';
-
+import { v4 as uuidv4 } from 'uuid';
 const routes = (isAuth, isMobile) => [
   {
     path: '/',
@@ -45,10 +47,18 @@ const routes = (isAuth, isMobile) => [
     ),
   },
   {
+    path: '/sellproduct/:product_id',
+    element: (
+      <MainLayout>
+        <SellProductMain key={1} />
+      </MainLayout>
+    ),
+  },
+  {
     path: '/sellproduct',
     element: (
       <MainLayout>
-        <SellProduct />
+        <SellProductMain key={0} />
       </MainLayout>
     ),
   },

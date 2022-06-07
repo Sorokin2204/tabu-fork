@@ -47,13 +47,14 @@ export const Avatar = styled.div`
   min-height: 100px;
   width: 100px;
   height: 100px;
-
+  box-sizing: border-box;
   border-radius: 50%;
   background-image: url(${({ src }) => src || ''});
-  background-size: cover;
+  background-size: 90%;
+  background-repeat: no-repeat;
   background-position: center;
-
   @media (max-width: ${sizes.mobile}px) {
+    background-color: #ffffff;
     border: 6px solid #ffffff;
   }
 `;

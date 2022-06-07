@@ -10,7 +10,7 @@ import { sizes } from '../../../sizes';
 import { useNavigate } from 'react-router-dom';
 import Flex from 'components/Atoms/Flex';
 import { setIsDisableScroll, setShowAuthModal, setShowRegModal } from 'redux/reducers/appReducer';
-import { addFavorite } from 'redux/actions/product';
+import { addFavorite, removeFavorite } from 'redux/actions/product';
 
 export const HoverWrapper = styled.div`
   position: relative;
@@ -33,7 +33,7 @@ export const HoverCard = styled.div`
 const Card = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const products = useSelector((state) => state.product.products);
+  const { products, getFavoritesData, getFavoritesLoading, addFavoriteLoading, removeFavoriteLoading } = useSelector((state) => state.product);
   const [hover, setHover] = useState(false);
   const [widthHoverBlock, setWidthHoverBlock] = useState();
   const isMobile = useSelector((state) => state.app.isMobile);
@@ -43,9 +43,17 @@ const Card = (props) => {
     setWidthHoverBlock(cardWidth * 1.14);
     setHover(true);
   };
+  const [isFavorite, setIsFavorite] = useState();
 
+  useEffect(() => {
+    const isFavorite = getFavoritesData?.find((item) => item?.id === props?.product?.id);
+    setIsFavorite(!!isFavorite);
+  }, [getFavoritesData]);
+
+  console.log(isFavorite);
   const onClickView = () => {
     const targetProduct = products.results.find((x) => x.id === props.product_id);
+
     dispatch(setOpenedProduct(targetProduct));
     dispatch(showModal());
     dispatch(setIsDisableScroll(true));
@@ -67,15 +75,20 @@ const Card = (props) => {
           <HoverCard width={`${widthHoverBlock}px`}>
             <Grid>
               <S.HoverFavoriteIcon
+                disabled={getFavoritesLoading || addFavoriteLoading || removeFavoriteLoading}
                 onClick={() => {
                   if (isAuth) {
-                    dispatch(addFavorite(props?.product?.id));
+                    if (isFavorite) {
+                      dispatch(removeFavorite(props?.product?.id));
+                    } else {
+                      dispatch(addFavorite(props?.product?.id));
+                    }
                   } else {
                     dispatch(setShowAuthModal(true));
                     dispatch(setShowRegModal(true));
                   }
                 }}>
-                <svg width={20} height={18} viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width={20} height={18} viewBox="0 0 20 18" fill={isFavorite ? '#191919' : 'none'} xmlns="http://www.w3.org/2000/svg">
                   <path
                     fillRule="evenodd"
                     clipRule="evenodd"
@@ -98,7 +111,7 @@ const Card = (props) => {
                   {props.description?.length > 65 ? props.description.slice(0, 65) + ' ...' : props.description}
                 </Text>
                 <Text name="size" color="#717171" margin="6px 0 0 0" fontFamily="Mont" fontWeight="400" fontSize="12px">
-                  {props?.product?.size?.length && `UE ${props?.product?.size[0].title}`}
+                  {props?.product?.size?.length && `${props?.product?.size?.map((item) => item.title)?.join(' | ')}`}
                 </Text>
               </Flex>
               <Flex direction="column" justify="start" align="end">
@@ -122,13 +135,17 @@ const Card = (props) => {
         <S.FavoriteIcon
           onClick={() => {
             if (isAuth) {
-              dispatch(addFavorite(props?.product?.id));
+              if (isFavorite) {
+                dispatch(removeFavorite(props?.product?.id));
+              } else {
+                dispatch(addFavorite(props?.product?.id));
+              }
             } else {
               dispatch(setShowAuthModal(true));
               dispatch(setShowRegModal(true));
             }
           }}>
-          <svg width={20} height={18} viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width={20} height={18} viewBox="0 0 20 18" fill={isFavorite ? '#191919' : 'none'} xmlns="http://www.w3.org/2000/svg">
             <path
               fillRule="evenodd"
               clipRule="evenodd"
@@ -168,7 +185,7 @@ const Card = (props) => {
               style={{
                 marginTop: isMobile ? '4px' : '6px',
               }}>
-              {props?.product?.size?.length && `UE ${props?.product?.size[0].title}`}
+              {props?.product?.size?.length && `${props?.product?.size?.map((item) => item.title)?.join(' | ')}`}
             </Text>
           )}
 

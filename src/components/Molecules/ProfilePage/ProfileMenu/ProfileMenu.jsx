@@ -7,12 +7,17 @@ import { useState } from 'react';
 import { setIsDisableScroll, setShowEditUserModal, setShowEditUserSuccessModal, setShowLogoutModal } from 'redux/reducers/appReducer';
 import MessageModal from 'components/Molecules/ProductPage/ThanksModal/ThanksModal';
 import { API_URL, URL } from 'config';
-
+import _ from 'lodash';
 const ProfileMenu = (props) => {
   const user = useSelector((state) => state.user.currentUser);
   const isMobile = useSelector((state) => state.app.isMobile);
   const showEditUserSuccessModal = useSelector((state) => state.app.showEditUserSuccessModal);
+  const { countFavorite } = useSelector((state) => state.product);
   const dispath = useDispatch();
+  const {
+    currentUser: { product_set, products_count, favorites_count, purchased_count },
+    activeTab,
+  } = useSelector((state) => state.user);
   return (
     <div>
       <S.Wrapper {...props}>
@@ -51,15 +56,15 @@ const ProfileMenu = (props) => {
           <S.Menu>
             <NavLink to="/profile/orders" className={({ isActive }) => (isActive && !isMobile ? 'profile_menu_item active' : 'profile_menu_item')}>
               <S.ItemTitle>Все заказы</S.ItemTitle>
-              <S.ItemNumber>12</S.ItemNumber>
+              <S.ItemNumber>{purchased_count}</S.ItemNumber>
             </NavLink>
             <NavLink to="/profile/sellitems" className={({ isActive }) => (isActive && !isMobile ? 'profile_menu_item active' : 'profile_menu_item')}>
               <S.ItemTitle>Товары на продажу</S.ItemTitle>
-              <S.ItemNumber>3</S.ItemNumber>
+              {product_set && <S.ItemNumber>{products_count}</S.ItemNumber>}
             </NavLink>
             <NavLink to="/profile/wishlist" className={({ isActive }) => (isActive && !isMobile ? 'profile_menu_item active' : 'profile_menu_item')}>
               <S.ItemTitle>Избранное</S.ItemTitle>
-              <S.ItemNumber>50</S.ItemNumber>
+              <S.ItemNumber>{favorites_count}</S.ItemNumber>
             </NavLink>
 
             <S.Item logout onClick={() => dispath(setShowLogoutModal(true))}>

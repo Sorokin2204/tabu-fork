@@ -23,7 +23,7 @@ const ProductsSlider = (props) => {
         {props.products?.results?.map((product, i) => {
           return (
             <SwiperSlide>
-              <Card key={i} noHover img={URL + product.images?.filter((x) => x.main_image === true)[0]?.image} title={product?.title} description={product?.description} price={product?.price} product_id={product?.id} />
+              <Card key={i} noHover img={URL + URL + product.images[0]?.image} title={product?.title} description={product?.description} price={product?.price} product_id={product?.id} />
             </SwiperSlide>
           );
         })}

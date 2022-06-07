@@ -4,6 +4,8 @@ import { css } from 'styled-components';
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  position: relative;
+  min-height: 500px;
   @media (max-width: 1110px) {
     overflow: overlay;
   }
@@ -22,9 +24,6 @@ export const Title = styled.div`
   ${(props) =>
     props.wishlist &&
     css`
-      @media (max-width: 1110px) {
-        margin-bottom: 50px;
-      }
       margin-bottom: 0px;
     `}
 `;

@@ -14,7 +14,7 @@ export const BreadCrumb = styled.div`
 
 export const TwoBlocks = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   grid-gap: 0 59px;
   margin-top: 24px;
 `;

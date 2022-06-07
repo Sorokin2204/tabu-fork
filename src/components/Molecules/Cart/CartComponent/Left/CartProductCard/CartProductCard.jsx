@@ -6,6 +6,14 @@ import { useEffect, useState } from 'react';
 import { sizes } from '../../../../../../sizes';
 import IconClose from 'assets/svg/close.svg';
 import Button from 'components/Atoms/Button';
+import { returnRole } from 'components/Molecules/ProductPage/Desktop/RightBlock/Seller/Seller';
+import { currencyFormat } from 'utils/currencyFormat';
+import { removeFromCart } from 'utils/removeFromCart';
+import { getCartProducts } from 'redux/actions/cart';
+import { useNavigate } from 'react-router-dom';
+import { removeFavorite } from 'redux/actions/product';
+import { setShowRemoveFromSaleModal } from 'redux/reducers/appReducer';
+import { setSelectedProductProfile } from 'redux/reducers/productReducer';
 
 const CartProductCard = ({ profile, product, type }) => {
   // const cartProducts = useSelector((state) => state.cart.cartProducts);
@@ -20,42 +28,78 @@ const CartProductCard = ({ profile, product, type }) => {
   //   localStorage.setItem('cartProducts', JSON.stringify(copyCartProducts));
   //   console.log(id);
   // };
-
+  const navigate = useNavigate();
   return (
     <S.CardWrapper>
       <S.Card type={type}>
         <S.LeftCol>
           {type == 'cart' && (
             <S.Profile>
-              <S.ProfileAvatar src={'https://i.pravatar.cc/64'} />
+              <S.ProfileAvatar src={URL + product?.seller?.avatar} />
               <S.ProfileDetails>
-                <S.ProfileName>{product?.seller?.first_name}</S.ProfileName>
-                <S.ProfileRole>Частный продавец</S.ProfileRole>
+                <S.ProfileName>{product?.seller?.fio ? product?.seller?.fio : product?.seller?.company_name}</S.ProfileName>
+                <S.ProfileRole>{returnRole(product?.seller?.user_type)}</S.ProfileRole>
               </S.ProfileDetails>
             </S.Profile>
           )}
 
-          <S.ProductImage type={type} src={URL + product?.images?.find((x) => x.main_image === true)?.image} />
+          <S.ProductImage type={type} src={URL + product.images[0]?.image} />
         </S.LeftCol>
-        <S.DescriptionCol>
+        <S.DescriptionCol type={type}>
           <S.DescBlock type={type}>
-            <S.DescriptionTitle>{product?.title}</S.DescriptionTitle>
+            <S.DescriptionTitle
+              type={type}
+              onClick={() => {
+                if (type === 'cart' || type === 'favorite' || type === 'publish') {
+                  navigate(`/products/${product?.id}`);
+                }
+              }}>
+              {product?.title}
+            </S.DescriptionTitle>
             <S.DescriptionText>{product?.description?.length > 65 ? product?.description?.slice(0, 65) + ' ...' : product?.description}</S.DescriptionText>
           </S.DescBlock>
-          <S.SizeBlock>{product?.size?.filter((x) => x.selected === true)[0]?.title}</S.SizeBlock>
-          <S.Btns>
-            <Button grayBorder style={{ padding: '12px' }}>
-              Снять с продажи
-            </Button>
-            <Button topGreen>Редактировать</Button>
-          </S.Btns>
+          {type !== 'favorite' && <S.SizeBlock>{product?.size?.title ? product?.size?.title : product?.size?.map((item) => item.title).join(', ')}</S.SizeBlock>}
+
+          {type !== 'cart' && type !== 'favorite' && (
+            <S.Btns>
+              <Button
+                grayBorder
+                style={{ padding: '12px' }}
+                onClick={() => {
+                  if (type == 'publish') {
+                    dispatch(setSelectedProductProfile(product?.id));
+                    dispatch(setShowRemoveFromSaleModal(true));
+                  }
+                }}>
+                {type == 'publish' ? 'Снять с продажи' : type == 'moderate' || type == 'canceled' ? 'Удалить' : type == 'removed' ? 'Опубликовать' : 'Снять с продажи'}
+              </Button>
+              <Button
+                topGreen
+                onClick={() => {
+                  navigate(`/sellproduct/${product?.id}`);
+                }}>
+                Редактировать
+              </Button>
+            </S.Btns>
+          )}
         </S.DescriptionCol>
         <div>
-          <S.PriceCol>${product?.price}</S.PriceCol>
-          {type === 'cart' && (
+          <S.PriceCol type={type}>
+            <S.Price type={type}>{currencyFormat(product?.price)}</S.Price>
+
+            <S.OldPrice>{currencyFormat(product?.old_price)}</S.OldPrice>
+          </S.PriceCol>
+          {(type === 'cart' || type === 'favorite') && (
             <S.CloseBtn
-            // onClick={() => deleteItem(product?.id)}
-            >
+              onClick={() => {
+                if (type === 'cart') {
+                  removeFromCart(product?.id);
+                  dispatch(getCartProducts());
+                }
+                if (type === 'favorite') {
+                  dispatch(removeFavorite(product?.id));
+                }
+              }}>
               {/* <img src={IconClose} /> */}
               <svg viewBox="0 0 10 10" fill="none" width={10} height={10} xmlns="http://www.w3.org/2000/svg">
                 <path

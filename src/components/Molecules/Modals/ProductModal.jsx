@@ -12,11 +12,15 @@ import AddFavoriteBtn from '../AddFavoriteBtn';
 import closeModal from 'assets/svg/closeModal.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { URL } from 'config';
-import { hideModal, setShareProduct } from 'redux/reducers/productReducer';
+import { hideModal, setShareProduct, updateCountCart } from 'redux/reducers/productReducer';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { setCartProducts } from 'redux/reducers/cartReducer';
 import { setIsDisableScroll } from 'redux/reducers/appReducer';
+import { isWhatPercentOf } from 'utils/isWhatPercentOf';
+import { addToCart } from 'utils/addToCart';
+import { removeFromCart } from 'utils/removeFromCart';
+import { store } from 'redux/reducers';
 
 export const StyledWrapper = styled.div`
   position: fixed;
@@ -29,16 +33,9 @@ export const StyledWrapper = styled.div`
   top: 0;
   left: 0;
 
-  visibility: hidden;
-  opacity: 0;
+  visibility: ${(props) => (props.showModal ? 'inherit' : 'hidden')};
+  opacity: ${(props) => (props.showModal ? 1 : 0)};
   transition: 0.3s;
-
-  ${(props) =>
-    props.showModal &&
-    css`
-      visibility: inherit;
-      opacity: 1;
-    `}
 `;
 
 export const WrapperModal = styled.div`
@@ -52,15 +49,9 @@ export const WrapperModal = styled.div`
   align-self: center;
   justify-content: center;
   z-index: 100;
-  visibility: hidden;
-  opacity: 0;
+  visibility: ${(props) => (props.showModal ? 'inherit' : 'hidden')};
+  opacity: ${(props) => (props.showModal ? 1 : 0)};
   transition: 0.3s;
-  ${(props) =>
-    props.showModal &&
-    css`
-      visibility: inherit;
-      opacity: 1;
-    `}
 `;
 
 export const StyledModal = styled.div`
@@ -85,25 +76,40 @@ export const CloseBlock = styled.div`
 export const CloseImg = styled.img`
   cursor: pointer;
 `;
+export const findInLocalCart = (productId) => {
+  let cartProductsArray = JSON.parse(localStorage.getItem('cart')) || [];
 
+  if (cartProductsArray.filter((x) => x.id === productId).length) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+export const onClickAddToCart = (setInCart, productId, productSize) => {
+  const findProductInCart = findInLocalCart(productId);
+  if (findProductInCart) {
+    removeFromCart(productId);
+  } else {
+    addToCart(productId, productSize);
+  }
+  store.dispatch(updateCountCart());
+  setInCart(findInLocalCart(productId));
+};
 const ProductModal = (props) => {
   const opened_product = useSelector((state) => state.product.openedProduct);
+  const { products, getFavoritesData, getFavoritesLoading, addFavoriteLoading, removeFavoriteLoading } = useSelector((state) => state.product);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [addedToCart, setAddedToCard] = useState(false);
-
+  const [inCart, setInCart] = useState(false);
+  const [activeSize, setActiveSize] = useState();
   const showModal = props.showModal;
   const handleClose = props.handleClose;
 
   useEffect(() => {
-    if (opened_product.id) {
-      let cartProductsArray = JSON.parse(localStorage.getItem('cartProducts')) || [];
-
-      if (cartProductsArray.filter((x) => x.id === opened_product.id).length) {
-        setAddedToCard(true);
-      } else {
-        setAddedToCard(false);
-      }
+    if (opened_product?.id) {
+      setInCart(findInLocalCart(opened_product?.id));
+      setActiveSize(opened_product?.size[0].id);
     }
   }, [opened_product]);
 
@@ -112,27 +118,27 @@ const ProductModal = (props) => {
     dispatch(setShareProduct({ link: '', showShare: true }));
   };
 
-  const addToCart = () => {
-    let cartProductsArray = JSON.parse(localStorage.getItem('cartProducts')) || [];
+  // const addToCart = () => {
+  //   let cartProductsArray = JSON.parse(localStorage.getItem('cartProducts')) || [];
 
-    // Если в корзине есть товар удалить его
-    if (cartProductsArray.filter((x) => x.id === opened_product.id).length) {
-      cartProductsArray = cartProductsArray.filter((x) => x.id !== opened_product.id);
-      localStorage.setItem('cartProducts', JSON.stringify(cartProductsArray));
+  //   // Если в корзине есть товар удалить его
+  //   if (cartProductsArray.filter((x) => x.id === opened_product.id).length) {
+  //     cartProductsArray = cartProductsArray.filter((x) => x.id !== opened_product.id);
+  //     localStorage.setItem('cartProducts', JSON.stringify(cartProductsArray));
 
-      dispatch(setCartProducts(cartProductsArray));
-      setAddedToCard(false);
-    }
+  //     dispatch(setCartProducts(cartProductsArray));
+  //     setAddedToCard(false);
+  //   }
 
-    // Если в корзине нет товара добавить его
-    else {
-      cartProductsArray.push(opened_product);
-      localStorage.setItem('cartProducts', JSON.stringify(cartProductsArray));
+  //   // Если в корзине нет товара добавить его
+  //   else {
+  //     cartProductsArray.push(opened_product);
+  //     localStorage.setItem('cartProducts', JSON.stringify(cartProductsArray));
 
-      dispatch(setCartProducts(cartProductsArray));
-      setAddedToCard(true);
-    }
-  };
+  //     dispatch(setCartProducts(cartProductsArray));
+  //     setAddedToCard(true);
+  //   }
+  // };
 
   return (
     <>
@@ -144,7 +150,7 @@ const ProductModal = (props) => {
         </CloseBlock>
         <StyledModal>
           <GridModal>
-            {opened_product.images ? <DivImage backgroundSize={'cover'} src={URL + opened_product.images[0].image} /> : ''}
+            {opened_product.images ? <DivImage style={{ backgroundSize: 'contain' }} backgroundSize={'cover'} src={URL + opened_product.images[0].image} /> : ''}
 
             <Flex direction="column" padding="20px 20px 0 20px">
               <Text fontFamily="Gilroy" fontWeight="600" fontSize="12px" color="#717171">
@@ -161,23 +167,22 @@ const ProductModal = (props) => {
                 <Text fontFamily="Gilroy" fontWeight="600" fontSize="14px" color="#191919">
                   {opened_product ? '$ ' + opened_product.price : ''}
                 </Text>
-                {/* Скидка */}
                 <Text margin="0 0 0 20px" fontFamily="Gilroy" fontWeight="400" fontSize="14px" color="#ababab" decoration="line-through">
-                  $1 815
+                  {`$ ${opened_product.old_price}`}
                 </Text>
                 <Text margin="0 0 0 20px" fontFamily="Gilroy" fontWeight="400" fontSize="14px" color="#EE1616">
-                  -40%
+                  {`${isWhatPercentOf(opened_product.price, opened_product.old_price)}%`}
                 </Text>
               </Flex>
               <Flex margin="32px 0 0 0" direction="column" cursor="pointer">
                 <Text fontFamily="Gilroy" fontWeight="600" fontSize="12px" color="#191919" textTransform="uppercase" cursor="pointer">
                   Размер:
                 </Text>
-                <SelectSize sizes={opened_product ? opened_product.size : ''} />
+                <SelectSize sizes={opened_product ? opened_product.size : ''} activeSize={activeSize} setActiveSize={setActiveSize} />
               </Flex>
               <Flex name="buttons" margin="32px 0 0 0" direction="column">
-                <Button background="#F4F4F6" fontFamily="Mont" fontWeight="600" color="#717171" fontSize="14px" padding="16px 0" border="none" w100 onClick={addToCart}>
-                  {addedToCart ? 'Добавлено в корзину' : 'Добавить в корзину'}
+                <Button background="#F4F4F6" fontFamily="Mont" fontWeight="600" color="#717171" fontSize="14px" padding="16px 0" border="none" w100 onClick={() => onClickAddToCart(setInCart, opened_product?.id, activeSize)}>
+                  {inCart ? 'Добавлено в корзину' : 'Добавить в корзину'}
                 </Button>
                 <Button margin="12px 0 0 0" fontFamily="Mont" fontWeight="600" fontSize="14px" padding="16px 0" border="none" topGreen w100>
                   Купить сейчас
@@ -191,7 +196,7 @@ const ProductModal = (props) => {
                   <Flex margin="0 0 0 8.42px">Свяжитесь с нами</Flex>
                 </Button>
               </Flex>
-              <AddFavoriteBtn />
+              <AddFavoriteBtn productId={opened_product.id} />
             </Flex>
           </GridModal>
           <Flex w100 padding="19px 0" justify="center">

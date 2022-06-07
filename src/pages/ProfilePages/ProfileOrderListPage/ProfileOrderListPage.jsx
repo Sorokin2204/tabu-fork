@@ -23,16 +23,17 @@ const ProfileOrderListPage = ({ title }) => {
     },
   ];
   const isMobile = useSelector((state) => state.app.isMobile);
-
+  const {
+    currentUser: { purchased_count },
+  } = useSelector((state) => state.user);
   return (
     <S.Wrapper>
-      <LogoutModal />
       {!isMobile && <TopBackground />}
 
       <S.Container>
         {!isMobile && <ProfileMenu />}
 
-        <ProfileContent tabs={tabs} title={'Мои заказы: 12'} />
+        <ProfileContent tabs={tabs} title={`Мои заказы: ${purchased_count}`} />
       </S.Container>
     </S.Wrapper>
   );

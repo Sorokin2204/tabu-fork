@@ -4,10 +4,11 @@ import * as S from './Styled';
 import { useEffect, useState } from 'react';
 import { sizes } from '../../../../../../sizes';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { currencyFormat } from 'utils/currencyFormat';
 
 const Order = () => {
   const navigate = useNavigate();
-  const cartProducts = useSelector((state) => state.cart.cartProducts);
+  const { cartTotal } = useSelector((state) => state.cart);
   const isMobile = useSelector((state) => state.app.isMobile);
 
   return (
@@ -16,10 +17,7 @@ const Order = () => {
       <S.Calc>
         <S.CalcRow>
           <S.CalcName>Товары:</S.CalcName>
-          <S.CalcValue>
-            $&nbsp;
-            {cartProducts.reduce((accumulator, current) => accumulator + current.price, 0)}
-          </S.CalcValue>
+          <S.CalcValue>{currencyFormat(cartTotal)}</S.CalcValue>
         </S.CalcRow>
         <S.CalcRow>
           <S.CalcName>Экспертиза:</S.CalcName>
@@ -33,10 +31,7 @@ const Order = () => {
       <S.Line />
       <S.ResultRow>
         <S.ResultName>Всего:</S.ResultName>
-        <S.ResultValue>
-          $&nbsp;
-          {cartProducts?.length > 0 && cartProducts?.reduce((accumulator, current) => accumulator + current.price, 0)}
-        </S.ResultValue>
+        <S.ResultValue>{currencyFormat(cartTotal)}</S.ResultValue>
       </S.ResultRow>
       <S.Information>
         <S.InfoIcon>

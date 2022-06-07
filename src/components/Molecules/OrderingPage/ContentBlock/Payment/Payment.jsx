@@ -4,7 +4,7 @@ import { API_URL } from 'config';
 import { useSelector } from 'react-redux';
 import * as S from './Styled';
 
-const Payment = ({ name, setName, surname, setSurname, phone, setPhone, email, setEmail, city, setCity, street, setStreet, homeNumber, setHomeNumber, apartNumber, setApartNumber, comment, setComment, setStep, active }) => {
+const Payment = ({ setStep, active, values }) => {
   const cartProducts = useSelector((state) => state.cart.cartProducts);
 
   const onPayClick = async () => {
@@ -25,7 +25,9 @@ const Payment = ({ name, setName, surname, setSurname, phone, setPhone, email, s
     document.location.href = response.data.payment_page_url;
   };
   const isMobile = useSelector((state) => state.app.isMobile);
-
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
   return (
     <S.Wrapper active={active}>
       <S.Line />
@@ -34,14 +36,12 @@ const Payment = ({ name, setName, surname, setSurname, phone, setPhone, email, s
         <S.Edit onClick={() => setStep(1)}>Изменить</S.Edit>
       </S.TitleLine>
       <S.Ul>
-        <S.Li>{name + ' ' + surname}</S.Li>
-        <S.Li>{phone}</S.Li>
-        <S.Li>{email}</S.Li>
-        <S.Li>{city}</S.Li>
-        <S.Li>{street}</S.Li>
-        <S.Li>{homeNumber}</S.Li>
-        <S.Li>{apartNumber}</S.Li>
-        <S.Li>{comment}</S.Li>
+        <S.Li>{`${capitalizeFirstLetter(values?.name)} ${capitalizeFirstLetter(values?.surname)}`}</S.Li>
+        <S.Li>{values?.phone}</S.Li>
+        <S.Li>{values?.email}</S.Li>
+        <S.Li>{`${values?.region}, ${values?.city}`}</S.Li>
+        <S.Li>{`ул.${values?.street}, д.${values?.house}, кв.${values?.flat}`}</S.Li>
+        <S.Li>{values?.comment}</S.Li>
       </S.Ul>
       <S.Line2 />
       <Button

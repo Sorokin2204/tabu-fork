@@ -1,6 +1,6 @@
 import * as S from './Styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { hideMobileSidebar, setIsDisableScroll, setShowAuthModal, setShowRegModal, showMobileSidebar } from '../../../../../redux/reducers/appReducer';
+import { hideMobileSidebar, hideProfile, setIsDisableScroll, setShowAuthModal, setShowRegModal, showMobileSidebar } from '../../../../../redux/reducers/appReducer';
 import MobileCategory from './MobileCategory/MobileCategory';
 import MobileCategories from './MobileCategories/MobileCategories';
 import { setMainCategory } from 'redux/reducers/categoriesReducer';
@@ -34,10 +34,10 @@ const MobileSidebar = (props) => {
             ) : (
               <S.Login
                 onClick={() => {
-                  dispatch(setIsDisableScroll(true));
                   dispatch(setShowAuthModal(true));
                   dispatch(setShowRegModal(true));
                   dispatch(hideMobileSidebar());
+                  dispatch(setIsDisableScroll(true));
                 }}>
                 Регистрация / Войти
               </S.Login>

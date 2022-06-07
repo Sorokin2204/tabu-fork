@@ -5,7 +5,7 @@ export const StyledCard = styled.div`
   display: grid;
   position: relative;
   cursor: pointer;
-  max-width: 460px;
+  max-width: 360px;
   padding: ${({ padding }) => padding || ''};
 
   @media (max-width: 1110px) {
@@ -28,9 +28,10 @@ export const ImageBlock = styled.div`
   justify-items: center;
   /* padding-top: 25px; */
   background-image: url(${({ src }) => src || ''});
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
   background-position: center;
-
+  background-color: #f4f4f6;
   @media (max-width: ${sizes.mobile}px) {
     height: 156px;
     padding-top: 0px;
@@ -62,7 +63,7 @@ export const FavoriteIcon = styled.div`
   cursor: pointer;
 `;
 
-export const HoverFavoriteIcon = styled.div`
+export const HoverFavoriteIcon = styled.button`
   display: grid;
   justify-self: end;
   position: absolute;
@@ -70,4 +71,7 @@ export const HoverFavoriteIcon = styled.div`
   margin: 20px 20px 0 0;
   cursor: pointer;
   margin-top: 20px;
+  background-color: transparent;
+  border: none;
+  outline: none;
 `;

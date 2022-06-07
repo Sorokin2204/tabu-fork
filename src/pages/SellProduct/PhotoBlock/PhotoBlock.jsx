@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { getOldImageIds } from 'redux/actions/product';
 import { sizes } from 'sizes';
 import ExamplePhoto from './ExamplePhoto/ExamplePhoto';
 import MainPhoto from './MainPhoto/MainPhoto';
@@ -16,6 +17,8 @@ export const imageTypes = {
 const PhotoBlock = ({ setValue, errors, watch, name }) => {
   const isMobile = useSelector((state) => state.app.isMobile);
   const images = watch(name);
+  console.log(images);
+  console.log(getOldImageIds(images));
   const condition = watch('condition');
   return (
     <>

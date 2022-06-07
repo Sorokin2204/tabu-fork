@@ -1,17 +1,16 @@
-import * as S from "./Styled";
+import { useSelector } from 'react-redux';
+import * as S from './Styled';
 
 const Details = () => {
+  const { openedProduct } = useSelector((state) => state.product);
   return (
     <S.Container>
       <S.Title>ДЕТАЛИ ПРОДУКТА</S.Title>
       <S.List>
         <ul>
-          <li>Lorem ipsum</li>
-          <li>Lorem ipsum</li>
-          <li>Lorem ipsum</li>
-          <li>Lorem ipsum</li>
-          <li>Lorem ipsum</li>
-          <li>Lorem ipsum</li>
+          {openedProduct?.details_list?.map((item) => (
+            <li>{item.title}</li>
+          ))}
         </ul>
       </S.List>
     </S.Container>

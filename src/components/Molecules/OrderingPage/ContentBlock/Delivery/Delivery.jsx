@@ -2,49 +2,142 @@ import Button from 'components/Atoms/Button';
 import Radio from 'components/Atoms/Form/Radio';
 import FormInput from 'components/Molecules/Form/FormInput/FormInput';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import * as S from './Styled';
-
-const Delivery = ({ name, setName, surname, setSurname, phone, setPhone, email, setEmail, city, setCity, street, setStreet, homeNumber, setHomeNumber, apartNumber, setApartNumber, comment, setComment, setStep, active }) => {
-  const [error, setError] = useState('');
-
-  const continueClick = () => {
-    if (name === '' || surname === '' || phone === '' || email === '' || city === '' || street === '' || homeNumber === '' || apartNumber === '' || comment === '') {
-      return setError('Заполните все поля');
-    }
-
-    // if all inputs done
-    else {
-      setStep(2);
-      window.scrollTo(0, 0);
-      setError('');
-    }
-  };
+import FormTextarea from 'components/Molecules/Form/FormTextarea/FormTextarea';
+const Delivery = ({ register, handleSubmit, watch, errors, setValue, control, setStep, active }) => {
+  const continueClick = () => {};
   const isMobile = useSelector((state) => state.app.isMobile);
-
+  const onSubmit = (data) => {
+    console.log(data);
+    setStep(2);
+    window.scrollTo(0, 0);
+  };
   return (
     <S.Wrapper active={active}>
       <S.Form>
         <S.TitleForm>Контактная информация</S.TitleForm>
         <S.DescriptionForm>Пожалуйста, заполните все поля</S.DescriptionForm>
-        <FormInput width="100%" value={name} setValue={setName} type="text" placeholder={'Введите имя'} label="Имя" />
-        <FormInput width="100%" value={surname} setValue={setSurname} type="text" placeholder={'Введите фамилию'} label="Фамилия" />
-        <FormInput width="100%" value={phone} setValue={setPhone} type="text" placeholder={'Введите телефон'} label="Телефон" />
-        <FormInput width="100%" value={email} setValue={setEmail} type="text" placeholder={'Введите адрес эл.почты'} label="Адрес эл. почты" />
+        <FormInput
+          width="100%"
+          label="Имя"
+          placeholder={'Введите имя'}
+          register={register}
+          name="name"
+          rules={{
+            required: { value: true, message: 'Заполните имя' },
+          }}
+          errors={errors}
+        />
+        <FormInput
+          width="100%"
+          label="Фамилия"
+          placeholder={'Введите фамилию'}
+          register={register}
+          name="surname"
+          rules={{
+            required: { value: true, message: 'Заполните фамилию' },
+          }}
+          errors={errors}
+        />
+        <FormInput
+          width="100%"
+          label="Телефон"
+          placeholder="Введите ваш номер телефона"
+          type="phone"
+          control={control}
+          name="phone"
+          errors={errors}
+          rules={{
+            required: { value: true, message: 'Заполните телефон' },
+          }}
+        />
+        <FormInput
+          width="100%"
+          type="email"
+          register={register}
+          name="email"
+          rules={{
+            required: { value: true, message: 'Обязательное поле для заполнения' },
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+              message: 'Неправильный формат почты',
+            },
+          }}
+          errors={errors}
+          placeholder={'Введите адрес эл.почты'}
+          label="Адрес эл. почты"
+        />
       </S.Form>
 
       <S.Form>
         <S.TitleForm>Адрес и регион доставки</S.TitleForm>
         <S.DescriptionForm>Пожалуйста, заполните все поля</S.DescriptionForm>
-        <FormInput width="100%" value={city} setValue={setCity} type="text" placeholder={'Введите город'} label="Город" />
-        <FormInput width="100%" value={street} setValue={setStreet} type="text" placeholder={'Введите улицу'} label="Улица" />
-        <FormInput width="100%" value={homeNumber} setValue={setHomeNumber} type="text" placeholder={'Введите номер дома'} label="Номер дома" />
-        <FormInput width="100%" value={apartNumber} setValue={setApartNumber} type="text" placeholder={'Введите квартиру'} label="Квартира" />
+        <FormInput
+          width="100%"
+          label="Страна"
+          placeholder={'Введите вашу страну'}
+          register={register}
+          name="region"
+          rules={{
+            required: { value: true, message: 'Заполните страну' },
+          }}
+          errors={errors}
+        />
+        <FormInput
+          width="100%"
+          label="Город"
+          placeholder={'Введите город'}
+          register={register}
+          name="city"
+          rules={{
+            required: { value: true, message: 'Заполните город' },
+          }}
+          errors={errors}
+        />
+        <FormInput
+          width="100%"
+          label="Улица"
+          placeholder={'Введите улицу'}
+          register={register}
+          name="street"
+          rules={{
+            required: { value: true, message: 'Заполните улицу' },
+          }}
+          errors={errors}
+        />
+        <FormInput
+          width="100%"
+          type="number"
+          control={control}
+          label="Номер дома"
+          placeholder={'Введите номер дома'}
+          register={register}
+          name="house"
+          rules={{
+            required: { value: true, message: 'Заполните номер дома' },
+          }}
+          errors={errors}
+        />
+        <FormInput
+          width="100%"
+          type="number"
+          control={control}
+          label="Квартира"
+          placeholder={'Введите номер квартиры'}
+          register={register}
+          name="flat"
+          rules={{
+            required: { value: true, message: 'Заполните номер квартиры' },
+          }}
+          errors={errors}
+        />
       </S.Form>
 
       <S.Form>
         <S.TitleForm>Комментарий к заказу</S.TitleForm>
-        <S.Textarea placeholder="Ваш комментарий" value={comment} onChange={(e) => setComment(e.target.value)} />
+        <FormTextarea style={{ width: '100%' }} errors={errors} watch={watch} setValue={setValue} register={register} placeholder="" label="Описание" name="comment" rules={{ required: false, maxLength: { value: 1000, message: 'Количество симовлов не более 1000' } }} />
       </S.Form>
 
       <S.Form padding="0 0 80px 0">
@@ -54,8 +147,6 @@ const Delivery = ({ name, setName, surname, setSurname, phone, setPhone, email, 
         </S.Radios>
       </S.Form>
 
-      {error && <S.Error>* {error}</S.Error>}
-
       <div
         style={{
           width: isMobile ? '100%' : '233px',
@@ -63,7 +154,7 @@ const Delivery = ({ name, setName, surname, setSurname, phone, setPhone, email, 
           padding: isMobile ? '0 25px' : '0',
           boxSizing: 'border-box',
         }}>
-        <Button onClick={continueClick} topGreen padding="14px 0" width="100%">
+        <Button onClick={handleSubmit(onSubmit)} topGreen padding="14px 0" width="100%">
           Продолжить
         </Button>
       </div>

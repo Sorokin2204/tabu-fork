@@ -23,17 +23,16 @@ const MobileProductPage = (props) => {
 
   return (
     <>
-      <Swiper spaceBetween={40} id="swiper-product-page" modules={[Navigation, Pagination]} pagination={{ el: '.swiper-product-page-pagination' }} navigation={true}>
-        <SwiperSlide>
-          <S.Image src={URL + opened_product?.images?.filter((x) => x.main_image === true)[0]?.image} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <S.Image src={URL + opened_product?.images?.filter((x) => x.main_image === true)[0]?.image} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <S.Image src={URL + opened_product?.images?.filter((x) => x.main_image === true)[0]?.image} />
-        </SwiperSlide>
-      </Swiper>
+      {opened_product?.images && (
+        <Swiper spaceBetween={40} id="swiper-product-page" modules={[Navigation, Pagination]} pagination={{ el: '.swiper-product-page-pagination' }} navigation={true}>
+          {opened_product?.images.map((image) => (
+            <SwiperSlide>
+              <S.Image src={URL + image.image} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      )}
+
       <div className="swiper-product-page-pagination"></div>
       <S.Container {...props}>
         <TableSizes active={showSizesModal} />

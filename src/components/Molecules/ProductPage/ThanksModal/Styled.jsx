@@ -16,7 +16,7 @@ export const Wrapper = styled.div`
 
 export const Block = styled.div`
   box-sizing: border-box;
-  padding: 109px 76px;
+  padding: 95px 76px;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -31,8 +31,11 @@ export const Block = styled.div`
   max-height: calc(100vh - 40px);
   z-index: 110;
   @media (max-width: 1110px) {
-    width: 343px;
-    height: 267px;
+    padding: 56px 50px 50px 50px;
+    width: calc(100% - 40px);
+    max-width: ${(props) => (props.desc ? '360px' : '343px')};
+    min-height: 217px;
+    height: min-content;
   }
 `;
 export const Description = styled.div`
@@ -45,6 +48,9 @@ export const Description = styled.div`
   max-width: 450px;
   color: #6a6a6a;
   margin-top: 24px;
+  @media (max-width: 1110px) {
+    font-size: 12px;
+  }
 `;
 export const Title = styled.div`
   font-family: 'Gilroy';
@@ -65,11 +71,14 @@ export const ButtonsSingle = styled.div`
   display: grid;
   grid-template-columns: 240px;
   margin: auto auto 0 auto;
-  /* @media (max-width: 1110px) {
-    margin-top: 40px;
-    grid-template-columns: repeat(1, 215px);
-    grid-gap: 12px;
-  } */
+  @media (max-width: 1110px) {
+    width: 100%;
+    grid-template-columns: auto;
+    & button {
+      width: 100% !important;
+    }
+    margin: 0;
+  }
 `;
 export const Buttons = styled.div`
   display: grid;
@@ -78,8 +87,9 @@ export const Buttons = styled.div`
   grid-gap: 20px;
   margin-top: auto;
   @media (max-width: 1110px) {
-    margin-top: 40px;
-    grid-template-columns: repeat(1, 215px);
+    margin-top: 30px;
+    grid-template-columns: auto;
+    grid-template-rows: 46px 46px;
     grid-gap: 12px;
   }
 `;

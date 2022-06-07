@@ -13,7 +13,6 @@ const ProfileBuyPage = () => {
   console.log(isMobile);
   return (
     <S.Wrapper>
-      <LogoutModal />
       <TopBackground />
       <S.Container>
         <ProfileMenu />

@@ -17,6 +17,26 @@ export const StyledMobileHeader = styled.header`
   left: 0;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 `;
+export const CartNumber = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 14px;
+  height: 14px;
+
+  color: #fff;
+  background: #191919;
+  font-size: 8px;
+  font-weight: 700;
+  font-family: 'Mont';
+
+  position: absolute;
+  right: -6px;
+  top: -5px;
+
+  border-radius: 50%;
+`;
 
 export const Background = styled.div`
   background: rgba(0, 0, 0, 0.32);
@@ -60,6 +80,7 @@ export const Search = styled.div`
 export const Cart = styled.div`
   margin-left: 20px;
   cursor: pointer;
+  position: relative;
 `;
 
 export const AddItem = styled.div`

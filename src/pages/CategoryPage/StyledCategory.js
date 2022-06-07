@@ -50,12 +50,12 @@ export const StyledProducts = styled.div`
   margin-top: 24px;
   display: grid;
   width: 100%;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 313px));
   align-self: start;
   grid-gap: 48px 24px;
   justify-content: start;
   @media ${media.mobile} {
     grid-gap: 24px 16px;
-    grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(155px, 155px));
   }
 `;

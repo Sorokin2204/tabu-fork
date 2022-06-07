@@ -4,14 +4,14 @@ import { setActiveTab } from 'redux/reducers/userReducer';
 import * as S from './Styled';
 import Tab from './Tab';
 
-const Tabs = ({ tabs }) => {
+const Tabs = ({ tabs, style }) => {
   const [selected, setSelected] = useState(tabs[0]);
   const dispatch = useDispatch();
   const activeTab = useSelector((state) => state.user.activeTab);
   return (
     <S.Wrapper>
       <S.Container>
-        <S.Tabs>
+        <S.Tabs style={style}>
           {tabs?.map((item, i) => (
             <Tab key={i} onClick={() => dispatch(setActiveTab(item))} active={activeTab?.id === item?.id ? true : false}>
               {item?.name}

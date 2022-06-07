@@ -10,6 +10,9 @@ const defaultState = {
   sellItems: [],
   wishList: [],
   activeTab: null,
+  editUserError: null,
+  editUserLoading: false,
+  editUserData: null,
 };
 
 export default function userReducer(state = defaultState, action) {
@@ -50,6 +53,7 @@ export default function userReducer(state = defaultState, action) {
       return { ...state, editUserError: null, editUserLoading: false, editUserData: action.payload };
     case EDIT_USER_LOADING:
       return { ...state, editUserLoading: true };
+
     case SET_ACTIVE_TAB:
       return { ...state, activeTab: action.payload };
     default:

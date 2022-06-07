@@ -7,7 +7,7 @@ import * as S from './Styled';
 const Categories = () => {
   const searchCategories = useSelector((state) => state.search.searchCategories);
   const searchText = useSelector((state) => state.search.searchText);
- 
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   return (
@@ -23,7 +23,7 @@ const Categories = () => {
               <S.Category
                 onClick={() => {
                   dispatch(searchReset(false));
-                  navigate(`/categories/${searchCat?.title}`);
+                  navigate(`/categories/${searchCat?.slug}`);
                 }}>
                 <Interweave tagName="div" content={title} />
               </S.Category>

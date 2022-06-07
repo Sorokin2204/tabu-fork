@@ -15,25 +15,24 @@ const CategorySelectModal = ({ firstCategory, setFirstCategory, secondCategory, 
   const [thirdCategories, setThirdCategories] = useState(null);
 
   useEffect(() => {
-    dispatch(getCategories());
-  }, []);
-
+    setSecondCategories(firstCategory?.children);
+    setStep(2);
+  }, [firstCategory]);
+  useEffect(() => {
+    setThirdCategories(secondCategory?.children);
+    setStep(3);
+  }, [secondCategory]);
   const onCategoryClick = (columnNumber, category) => {
     if (columnNumber === 1) {
       setFirstCategory(category);
-      setSecondCategories(category?.children);
-      setStep(2);
     }
 
     if (columnNumber === 2) {
-      setThirdCategories(category?.children);
       setSecondCategory(category);
-      setStep(3);
     }
 
     if (columnNumber === 3) {
       setThirdCategory(category);
-      // setStep(3);
       setActive(false);
       dispatch(setIsDisableScroll(false));
     }

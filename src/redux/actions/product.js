@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_URL } from 'config.js';
+import { API_URL, URL } from 'config.js';
 import { imageTypes } from 'pages/SellProduct/PhotoBlock/PhotoBlock';
 import { useSelector } from 'react-redux';
 import { store } from 'redux/reducers';
@@ -11,8 +11,25 @@ import {
   addProductError,
   addProductLoading,
   addProductSuccess,
+  editProductError,
+  editProductLoading,
+  editProductSuccess,
+  getEditProductError,
+  getEditProductLoading,
+  getEditProductSuccess,
+  getFavoriteProductsError,
+  getFavoriteProductsLoading,
+  getFavoriteProductsSuccess,
+  removeFavoriteError,
+  removeFavoriteLoading,
+  removeFavoriteSuccess,
+  removeFromSaleError,
+  removeFromSaleLoading,
+  removeFromSaleSuccess,
   setNewProducts,
   setOpenedProduct,
+  setOpenedProductError,
+  setOpenedProductLoading,
   setProducts,
   setProductsLoading,
   setSizes,
@@ -24,8 +41,19 @@ import {
   uploadImagesLoading,
   uploadImagesSuccess,
 } from 'redux/reducers/productReducer';
+import { convertToMaskPhone } from 'utils/convertToMaskPhone';
+import { currencyFormat } from 'utils/currencyFormat';
+import { getKeyByValue } from 'utils/getKeyByValue';
+import { findCategoryLocal } from './categories';
+import { auth, getFavorites } from './user';
 const config = {
   headers: { 'content-type': 'multipart/form-data' },
+};
+const getNewImages = (images) => {
+  return images.map();
+};
+export const getOldImageIds = (images) => {
+  return images?.filter((img) => !img?.file && img?.oldImage && img?.id).map((img) => img.id);
 };
 
 export const uploadImages = (images) => {
@@ -34,21 +62,27 @@ export const uploadImages = (images) => {
       dispatch(uploadImagesLoading(true));
       let imageRequests = [];
       for (let image of images) {
-        let formData = new FormData();
-        const imageType = imageTypes[image?.type];
-        formData.append('image', image?.file);
-        formData.append('main_image', imageType === 0 ? true : false);
-        formData.append('image_type', imageTypes[image?.type]);
-        console.log(formData);
-        const response = axios.post(`${API_URL}/products/images/`, formData, config);
-        imageRequests.push(response);
+        if (image && image?.file) {
+          let formData = new FormData();
+          const imageType = imageTypes[image?.type];
+          formData.append('image', image?.file);
+          formData.append('main_image', imageType === 0 ? true : false);
+          formData.append('image_type', imageTypes[image?.type]);
+          console.log(formData);
+          const response = axios.post(`${API_URL}/products/images/`, formData, config);
+          imageRequests.push(response);
+        }
       }
-      Promise.all(imageRequests)
-        .then((response) => {
-          const imageIds = response.map(({ data: { id } }) => id);
-          dispatch(uploadImagesSuccess(imageIds));
-        })
-        .catch((error) => dispatch(uploadImagesError({ message: 'Произошла непредвиденная ошибка' })));
+      if (imageRequests.length !== 0) {
+        Promise.all(imageRequests)
+          .then((response) => {
+            const imageIds = response.map(({ data: { id } }) => id);
+            dispatch(uploadImagesSuccess(imageIds));
+          })
+          .catch((error) => dispatch(uploadImagesError({ message: 'Произошла непредвиденная ошибка' })));
+      } else {
+        dispatch(uploadImagesSuccess([]));
+      }
     } catch (e) {
       dispatch(uploadImagesError({ message: 'Произошла непредвиденная ошибка' }));
     }
@@ -86,13 +120,66 @@ export const getProducts = () => {
     }
   };
 };
+export const setOpenedProductCategory = (productId, categories) => {
+  return async (dispatch, getState) => {
+    try {
+      const {
+        product: { openedProduct },
+      } = getState();
+
+      const cat = findCategoryLocal(productId, categories);
+      dispatch(setOpenedProduct({ ...openedProduct, category: cat }));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+const convertDataForEditPage = (data) => {
+  return {
+    ...data,
+    phone_number: convertToMaskPhone(data.phone_number),
+    price: currencyFormat(data.price),
+    old_price: currencyFormat(data.old_price),
+    details_list: data.details_list.map((detail) => detail.title),
+    images: Object.keys(imageTypes).map((type) => {
+      const findImg = data.images.find((img) => img.image_type === imageTypes[type]);
+      if (findImg) {
+        return { id: findImg.id, type, oldImage: URL + findImg.image, url: null, file: null };
+      }
+    }),
+  };
+};
+export const getEditProduct = (id) => {
+  return async (dispatch, getState) => {
+    try {
+      const {
+        categories: { categories },
+      } = getState();
+      dispatch(getEditProductLoading(true));
+      const response = await axios.get(`${API_URL}/products/${id}/?format=json`);
+      const cat = findCategoryLocal(response.data.category, categories, true);
+      const data = convertDataForEditPage(response.data);
+      dispatch(getEditProductSuccess({ ...data, category: cat }));
+    } catch (e) {
+      dispatch(getEditProductError(true));
+      console.log(e);
+    }
+  };
+};
 
 export const getProductById = (id) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     try {
+      const {
+        categories: { categories },
+      } = getState();
+      dispatch(setOpenedProductLoading(true));
       const response = await axios.get(`${API_URL}/products/${id}/?format=json`);
-      dispatch(setOpenedProduct(response.data));
+      const cat = findCategoryLocal(response.data.category, categories);
+      dispatch(setOpenedProduct({ ...response.data, category: cat }));
     } catch (e) {
+      dispatch(setOpenedProductError('Товар не найден'));
       console.log(e);
     }
   };
@@ -138,6 +225,50 @@ export const getProductsByCategory = () => {
     }
   };
 };
+export const removeFromSale = () => {
+  return async (dispatch, getState) => {
+    try {
+      const {
+        product: { selectedProductProfile },
+      } = getState();
+      dispatch(removeFromSaleLoading(true));
+      const response = await axios.patch(
+        `${API_URL}/products/${selectedProductProfile.toString()}/remove_from_sale/`,
+        {},
+        {
+          headers: { Authorization: `Token ${localStorage.getItem('token')}` },
+        },
+      );
+      dispatch(auth());
+      dispatch(removeFromSaleSuccess(response.data));
+    } catch (e) {
+      console.log(e.response);
+      dispatch(removeFromSaleError('Произошла непредвиденная ошибка'));
+      console.log(e);
+    }
+  };
+};
+export const removeFavorite = (productId) => {
+  return async (dispatch) => {
+    try {
+      dispatch(removeFavoriteLoading(true));
+      const response = await axios.post(
+        `${API_URL}/products/${productId.toString()}/remove_favorite/`,
+        {},
+        {
+          headers: { Authorization: `Token ${localStorage.getItem('token')}` },
+        },
+      );
+      dispatch(getFavorites());
+      dispatch(auth());
+      dispatch(removeFavoriteSuccess(response.data));
+    } catch (e) {
+      console.log(e.response);
+      dispatch(removeFavoriteError('Произошла непредвиденная ошибка'));
+      console.log(e);
+    }
+  };
+};
 
 export const addFavorite = (productId) => {
   return async (dispatch) => {
@@ -150,6 +281,8 @@ export const addFavorite = (productId) => {
           headers: { Authorization: `Token ${localStorage.getItem('token')}` },
         },
       );
+      dispatch(getFavorites());
+      dispatch(auth());
       dispatch(addFavoriteSuccess(response.data));
     } catch (e) {
       console.log(e.response);
@@ -158,7 +291,20 @@ export const addFavorite = (productId) => {
     }
   };
 };
-
+export const editProduct = (data) => {
+  return async (dispatch) => {
+    try {
+      dispatch(editProductLoading(true));
+      const response = await axios.patch(`${API_URL}/products/${data.id}/`, data, {
+        headers: { Authorization: `Token ${localStorage.getItem('token')}` },
+      });
+      dispatch(editProductSuccess(response.data));
+    } catch (e) {
+      dispatch(editProductError('Произошла непредвиденная ошибка'));
+      console.log(e);
+    }
+  };
+};
 export const addProduct = (data) => {
   return async (dispatch) => {
     try {
@@ -170,6 +316,21 @@ export const addProduct = (data) => {
     } catch (e) {
       dispatch(addProductError('Произошла непредвиденная ошибка'));
       console.log(e);
+    }
+  };
+};
+
+export const getFavoriteProducts = () => {
+  return async (dispatch, getState) => {
+    try {
+      const {
+        product: { getFavoritesData },
+      } = getState();
+      dispatch(getFavoriteProductsLoading(true));
+      const response = await axios.get(`${API_URL}/products/?id__in=${getFavoritesData.join(',')}`);
+      dispatch(getFavoriteProductsSuccess(response.data.results));
+    } catch (e) {
+      dispatch(getFavoriteProductsError('Произошла непредвиденная ошибка'));
     }
   };
 };

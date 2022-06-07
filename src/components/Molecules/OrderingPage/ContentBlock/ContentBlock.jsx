@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import Delivery from './Delivery/Delivery';
 import Payment from './Payment/Payment';
@@ -7,21 +8,33 @@ import * as S from './Styled';
 
 const ContentBlock = () => {
   const [step, setStep] = useState(1);
-
-  // contact information
-  const [name, setName] = useState();
-  const [surname, setSurname] = useState();
-  const [phone, setPhone] = useState();
-  const [email, setEmail] = useState();
-
-  // adress and region
-  const [city, setCity] = useState();
-  const [street, setStreet] = useState();
-  const [homeNumber, setHomeNumber] = useState();
-  const [apartNumber, setApartNumber] = useState();
-
-  const [comment, setComment] = useState();
-
+  const defaultValues = {
+    name: '',
+    surname: '',
+    phone: '',
+    email: '',
+    city: '',
+    street: '',
+    house: '',
+    flat: '',
+    comment: '',
+    region: '',
+  };
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+    setValue,
+    control,
+    getValues,
+    reset,
+    clearErrors,
+    trigger,
+    setError,
+  } = useForm({
+    defaultValues: defaultValues,
+  });
   return (
     <S.ContentBlock>
       <S.Header>
@@ -29,52 +42,10 @@ const ContentBlock = () => {
           <S.HeaderLogo src={'/img/logo.png'} alt="" />
         </Link>
       </S.Header>
-      <Steps step={step} setStep={setStep} />
+      <Steps step={step} />
       <S.Container>
-        <Delivery
-          name={name}
-          setName={setName}
-          surname={surname}
-          setSurname={setSurname}
-          phone={phone}
-          setPhone={setPhone}
-          email={email}
-          setEmail={setEmail}
-          city={city}
-          setCity={setCity}
-          street={street}
-          setStreet={setStreet}
-          homeNumber={homeNumber}
-          setHomeNumber={setHomeNumber}
-          apartNumber={apartNumber}
-          setApartNumber={setApartNumber}
-          comment={comment}
-          setComment={setComment}
-          setStep={setStep}
-          active={step === 1 && true}
-        />
-        <Payment
-          name={name}
-          setName={setName}
-          surname={surname}
-          setSurname={setSurname}
-          phone={phone}
-          setPhone={setPhone}
-          email={email}
-          setEmail={setEmail}
-          city={city}
-          setCity={setCity}
-          street={street}
-          setStreet={setStreet}
-          homeNumber={homeNumber}
-          setHomeNumber={setHomeNumber}
-          apartNumber={apartNumber}
-          setApartNumber={setApartNumber}
-          comment={comment}
-          setComment={setComment}
-          setStep={setStep}
-          active={step === 2 && true}
-        />
+        <Delivery register={register} handleSubmit={handleSubmit} watch={watch} errors={errors} setValue={setValue} control={control} setStep={setStep} active={step === 1 && true} />
+        <Payment values={watch()} setStep={setStep} active={step === 2 && true} />
       </S.Container>
     </S.ContentBlock>
   );

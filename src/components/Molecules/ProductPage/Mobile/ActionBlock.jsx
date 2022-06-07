@@ -12,6 +12,9 @@ import Message from 'assets/svg/message.svg';
 import { setIsDisableScroll, setShowSizesModal } from 'redux/reducers/appReducer';
 import { useEffect, useState } from 'react';
 import { setCartProducts } from '../../../../redux/reducers/cartReducer';
+import { isWhatPercentOf } from 'utils/isWhatPercentOf';
+import { currencyFormat } from 'utils/currencyFormat';
+import { findInLocalCart, onClickAddToCart } from 'components/Molecules/Modals/ProductModal';
 
 const Container = styled.div``;
 const ButtonLink = styled.button`
@@ -64,42 +67,17 @@ const ActionBlock = () => {
 
   const isMobile = useSelector((state) => state.app.isMobile);
   const [addedToCart, setAddedToCard] = useState(false);
-
+  const [activeSize, setActiveSize] = useState();
   const openTableSizes = () => {
     dispatch(setShowSizesModal(true));
   };
 
-  const addToCart = () => {
-    let cartProductsArray = JSON.parse(localStorage.getItem('cartProducts')) || [];
-
-    // Если в корзине есть товар удалить его
-    if (cartProductsArray.filter((x) => x.id === opened_product.id).length) {
-      cartProductsArray = cartProductsArray.filter((x) => x.id !== opened_product.id);
-      localStorage.setItem('cartProducts', JSON.stringify(cartProductsArray));
-
-      dispatch(setCartProducts(cartProductsArray));
-      setAddedToCard(false);
-    }
-
-    // Если в корзине нет товара добавить его
-    else {
-      cartProductsArray.push(opened_product);
-      localStorage.setItem('cartProducts', JSON.stringify(cartProductsArray));
-
-      dispatch(setCartProducts(cartProductsArray));
-      setAddedToCard(true);
-    }
-  };
-
+  const [inCart, setInCart] = useState(false);
   useEffect(() => {
-    if (opened_product.id) {
-      let cartProductsArray = JSON.parse(localStorage.getItem('cartProducts')) || [];
+    if (opened_product?.id) {
+      setActiveSize(opened_product.size[0].id);
 
-      if (cartProductsArray.filter((x) => x.id === opened_product.id).length) {
-        setAddedToCard(true);
-      } else {
-        setAddedToCard(false);
-      }
+      setInCart(findInLocalCart(opened_product?.id));
     }
   }, [opened_product]);
 
@@ -148,12 +126,16 @@ const ActionBlock = () => {
             {opened_product ? '$ ' + opened_product.price : ''}
           </Text>
           {/* Скидка */}
-          <Text margin="0 0 0 20px" fontFamily="Gilroy" fontWeight="400" fontSize="16px" color="#ababab" decoration="line-through">
-            $1 815
-          </Text>
-          <Text margin="0 0 0 20px" fontFamily="Gilroy" fontWeight="400" fontSize="16px" color="#EE1616">
-            -40%
-          </Text>
+          {opened_product?.old_price && (
+            <>
+              <Text margin="0 0 0 20px" fontFamily="Gilroy" fontWeight="400" fontSize="16px" color="#ababab" decoration="line-through">
+                {currencyFormat(opened_product.old_price)}
+              </Text>
+              <Text margin="0 0 0 20px" fontFamily="Gilroy" fontWeight="400" fontSize="16px" color="#EE1616">
+                {`${isWhatPercentOf(opened_product.price, opened_product.old_price)}%`}
+              </Text>
+            </>
+          )}
         </Flex>
         <Flex margin="32px 0 0 0" direction="column" cursor="pointer">
           <Flex justify="space-between">
@@ -165,7 +147,7 @@ const ActionBlock = () => {
             </Text>
           </Flex>
 
-          <SelectSize sizes={default_sizes} />
+          <SelectSize sizes={opened_product ? opened_product.size : ''} activeSize={activeSize} setActiveSize={setActiveSize} />
         </Flex>
         <Flex
           name="buttons"
@@ -176,8 +158,8 @@ const ActionBlock = () => {
               margin: '40px 0 0 0',
             }),
           }}>
-          <Button background="#F4F4F6" fontFamily="Mont" fontWeight="600" color="#717171" fontSize="14px" padding="14px 0" border="none" w100 onClick={() => addToCart()}>
-            {addedToCart ? 'Добавлено в корзину' : 'Добавить в корзину'}
+          <Button background="#F4F4F6" fontFamily="Mont" fontWeight="600" color="#717171" fontSize="14px" padding="14px 0" border="none" w100 onClick={() => onClickAddToCart(setInCart, opened_product?.id, activeSize)}>
+            {inCart ? 'Добавлено в корзину' : 'Добавить в корзину'}
           </Button>
           <Button margin="12px 0 0 0" fontFamily="Mont" fontWeight="600" fontSize="14px" padding="14px 0" border="none" topGreen w100>
             Купить сейчас
@@ -197,7 +179,7 @@ const ActionBlock = () => {
             </ButtonLink>
           </ButtonLinkBox>
         </Flex>
-        <AddFavoriteBtn button />
+        <AddFavoriteBtn button productId={opened_product.id} />
       </Flex>
     </Container>
   );

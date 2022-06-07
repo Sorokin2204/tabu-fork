@@ -15,10 +15,6 @@ const FormCategorySelect = ({ errors, name, value, setValue, label, placeholder,
   const [open, setOpen] = useState(false);
   const [activeCat, setActiveCat] = useState(false);
 
-  useEffect(() => {
-    dispatch(getCategories());
-  }, []);
-
   return (
     <S.Wrapper>
       <CategorySelectModal firstCategory={firstCategory} setFirstCategory={setFirstCategory} secondCategory={secondCategory} setSecondCategory={setSecondCategory} thirdCategory={thirdCategory} setThirdCategory={setThirdCategory} active={activeCat} setActive={setActiveCat} />
@@ -28,6 +24,7 @@ const FormCategorySelect = ({ errors, name, value, setValue, label, placeholder,
 
       <S.Input
         onChange={(e) => setValue(e.target.value)}
+        style={{ userSelect: 'none' }}
         onClick={() => {
           setOpen(!open);
           setActiveCat(true);

@@ -14,7 +14,7 @@ export const getCategories = () => {
   };
 };
 
-const findCategoryLocal = (id, list) => {
+export const findCategoryLocal = (id, list, withChildren) => {
   let cat = '';
   list.map(({ children: childrenOne, ...oneOther }) => {
     childrenOne?.map(({ children: childrenTwo, ...twoOther }) => {
@@ -23,7 +23,7 @@ const findCategoryLocal = (id, list) => {
       }
       childrenTwo?.map((threeItem) => {
         if (threeItem.id === id) {
-          cat = { ...threeItem, oneParent: oneOther, twoParent: twoOther };
+          cat = { ...threeItem, oneParent: { ...(withChildren && { children: childrenOne }), ...oneOther }, twoParent: { ...(withChildren && { children: childrenTwo }), ...twoOther } };
         }
       });
     });

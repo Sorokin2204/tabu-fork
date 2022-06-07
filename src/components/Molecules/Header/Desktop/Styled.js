@@ -77,13 +77,34 @@ export const Cart = styled.div`
   width: 40px;
   z-index: 100;
 `;
+export const FavoriteNumber = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
+  width: 14px;
+  height: 14px;
+
+  color: #fff;
+  background: #191919;
+  font-size: 8px;
+  font-weight: 700;
+  font-family: 'Mont';
+
+  position: absolute;
+  right: -7px;
+  top: -9px;
+
+  border-radius: 50%;
+`;
 export const Favorite = styled.div`
   display: flex;
   align-items: center;
   margin-left: 12px;
   cursor: pointer;
   z-index: 100;
+  position: relative;
+  margin-top: 3px;
   /* margin-right: -104px; */
 `;
 
@@ -137,7 +158,7 @@ export const CartNumber = styled.div`
 
   position: absolute;
   right: 14px;
-  top: 1px;
+  top: 3px;
 
   border-radius: 50%;
 `;

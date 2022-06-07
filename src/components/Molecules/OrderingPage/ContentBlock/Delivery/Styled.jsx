@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   padding-bottom: 123px;
-
+  width: 600px;
   ${(props) =>
     props.active &&
     css`

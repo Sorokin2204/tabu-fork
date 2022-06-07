@@ -1,8 +1,8 @@
 import * as S from './Styled';
 
-const FormTextarea = ({ errors, watch, setValue, register, label, placeholder, type, rules, name }) => {
+const FormTextarea = ({ errors, style, watch, setValue, register, label, placeholder, type, rules, name }) => {
   return (
-    <S.Wrapper>
+    <S.Wrapper style={style}>
       <div
         style={{
           height: '9px',

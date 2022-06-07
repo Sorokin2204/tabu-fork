@@ -1,5 +1,5 @@
 import { API_URL } from 'config';
-import { SET_BRAND_OPTIONS, SET_COLOR_OPTIONS, SET_SIZE_OPTIONS, SET_QUERY, SET_CONDITION_OPTIONS, SET_MATERIAL_OPTIONS, SET_CATEGORY_OPTIONS, SET_TYPE_SORT, RESET_FILTERS } from '../types/filterOptionsTypes';
+import { SET_BRAND_OPTIONS, SET_COLOR_OPTIONS, SET_SIZE_OPTIONS, SET_QUERY, SET_CONDITION_OPTIONS, SET_MATERIAL_OPTIONS, SET_CATEGORY_OPTIONS, SET_TYPE_SORT, RESET_FILTERS, SET_TYPE_SIZE } from '../types/filterOptionsTypes';
 
 const defaultState = {
   categoryOptions: [],
@@ -8,6 +8,7 @@ const defaultState = {
   sizeOptions: [],
   materialOptions: [],
   conditionOptions: [],
+  typeSize: -1,
   query: `${API_URL}/products`,
   typeSort: { name: 'Сначала новые', slug: 'created_at' },
 };
@@ -34,7 +35,8 @@ export default function filterOptionsReducer(state = defaultState, action) {
 
     case SET_QUERY:
       return { ...state, query: action.payload };
-
+    case SET_TYPE_SIZE:
+      return { ...state, typeSize: action.payload };
     case SET_TYPE_SORT:
       return { ...state, typeSort: action.payload };
     case RESET_FILTERS:
@@ -85,7 +87,10 @@ export const setTypeSort = (sort) => ({
   type: SET_TYPE_SORT,
   payload: sort,
 });
-
+export const setTypeSize = (size) => ({
+  type: SET_TYPE_SIZE,
+  payload: size,
+});
 export const setQuery = (newQuery) => ({
   type: SET_QUERY,
   payload: newQuery,

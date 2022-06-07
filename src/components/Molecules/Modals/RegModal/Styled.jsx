@@ -39,6 +39,11 @@ export const Block = styled.div`
   grid-template-columns: 1fr 1fr;
   background-color: #fff;
   @media (max-width: ${sizes.mobile}px) {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: none;
     max-width: none;
     max-height: none;
     width: 100vw;

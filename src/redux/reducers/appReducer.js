@@ -24,6 +24,8 @@ import {
   SET_BREADCRUMBS,
   SET_SHOW_EDIT_USER_SUCCESS_MODAL,
   SET_SHOW_EDIT_USER_MODAL,
+  SET_REMOVE_FROM_SALE_MODAL,
+  SET_REMOVE_FROM_SALE_SUCCESS_MODAL,
 } from '../types/appTypes';
 
 const defaultState = {
@@ -50,6 +52,8 @@ const defaultState = {
   showRequestErrorModal: false,
   showEditUserSuccessModal: false,
   showEditUserModal: false,
+  showRemoveFromSaleModal: false,
+  showRemoveFromSaleSuccessModal: false,
   breadcrumbs: [],
 };
 
@@ -113,6 +117,10 @@ export default function productReducer(state = defaultState, action) {
       return { ...state, showEditUserModal: action.payload, isDisableScroll: action.payload };
     case SET_BREADCRUMBS:
       return { ...state, breadcrumbs: action.payload };
+    case SET_REMOVE_FROM_SALE_MODAL:
+      return { ...state, showRemoveFromSaleModal: action.payload };
+    case SET_REMOVE_FROM_SALE_SUCCESS_MODAL:
+      return { ...state, showRemoveFromSaleSuccessModal: action.payload };
     default:
       return state;
   }
@@ -213,4 +221,12 @@ export const setShowMobileCartModal = (show) => ({
 export const setBreadcrumbs = (breadcrumbs) => ({
   type: SET_BREADCRUMBS,
   payload: breadcrumbs,
+});
+export const setShowRemoveFromSaleModal = (breadcrumbs) => ({
+  type: SET_REMOVE_FROM_SALE_MODAL,
+  payload: breadcrumbs,
+});
+export const setShowRemoveFromSaleSuccessModal = (data) => ({
+  type: SET_REMOVE_FROM_SALE_SUCCESS_MODAL,
+  payload: data,
 });

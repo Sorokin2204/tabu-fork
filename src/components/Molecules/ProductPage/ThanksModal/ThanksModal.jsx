@@ -18,7 +18,12 @@ const MessageModal = ({ title, desc, onClickFirstBtn, onClickSecondBtn, textFirs
             />
           </svg>
         </S.Close>
-        <S.Title>{title}</S.Title>
+        <S.Title
+          style={{
+            textAlign: 'center',
+          }}>
+          {title}
+        </S.Title>
         <S.Description>{desc}</S.Description>
         {textSecondBtn ? (
           <S.Buttons>

@@ -2,14 +2,15 @@ import Button from 'components/Atoms/Button';
 import Loading from 'components/Loading/Loading';
 import MessageModal from 'components/Molecules/ProductPage/ThanksModal/ThanksModal';
 import ThankModal from 'components/Molecules/ProductPage/ThanksModal/ThanksModal';
+import NotFound from 'components/NotFound/NotFound';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { addProduct, uploadDetails, uploadImages } from 'redux/actions/product';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { addProduct, editProduct, getEditProduct, getOldImageIds, uploadDetails, uploadImages } from 'redux/actions/product';
 import { auth } from 'redux/actions/user';
 import { setShowMobileCartModal, setShowSellerThanksModal } from 'redux/reducers/appReducer';
-import { resetAddProducts } from 'redux/reducers/productReducer';
+import { resetAddProducts, resetSellProductPage } from 'redux/reducers/productReducer';
 import { sizes } from 'sizes';
 import ContentBlock from './ContentBlock/ContentBlock';
 import PhotoBlock, { imageTypes } from './PhotoBlock/PhotoBlock';
@@ -17,7 +18,7 @@ import * as S from './Styled';
 // import { useHistory } from 'react-router';
 
 const SellProduct = () => {
-  const defaultTestValues = {
+  const defaultValuess = {
     title: '',
     description: 'Это текст описания',
     seller: null,
@@ -118,7 +119,7 @@ const SellProduct = () => {
     number_of_house: '',
     number_of_flat: '',
     details_list: [''],
-    sizeType: { id: 0, title: 'Все размеры' },
+    sizeType: { id: -1, title: 'Все размеры' },
   };
   const {
     register,
@@ -135,10 +136,29 @@ const SellProduct = () => {
   } = useForm({
     defaultValues: defaultValues,
   });
-  const { uploadDetailsLoading, uploadImagesLoading, addProductLoading, addProductData } = useSelector((state) => state.product);
+
+  const { uploadDetailsLoading, uploadImagesLoading, addProductLoading, addProductData, getEditProductData, getEditProductLoading, getEditProductError, editProductLoading, editProductData } = useSelector((state) => state.product);
+  const { categories } = useSelector((state) => state.categories);
+
   const isMobile = useSelector((state) => state.app.isMobile);
   const showSellerThanksModal = useSelector((state) => state.app.showSellerThanksModal);
   const { uploadDetailsData, uploadImagesData } = useSelector((state) => state.product);
+  const { currentUser } = useSelector((state) => state.user);
+  const { product_id } = useParams();
+  useEffect(() => {
+    if (product_id) {
+      if (categories.length !== 0) {
+        dispath(getEditProduct(product_id));
+      }
+    } else {
+      // window.location.reload();
+      // reset();
+      // dispath(resetSellProductPage());
+      // Object.keys(defaultValues).map((key) => {
+      //   setValue(key, defaultValues[key]);
+      // });
+    }
+  }, [product_id, categories]);
 
   const dispath = useDispatch();
   const validateImage = (images, type, nameError, messageError) => {
@@ -166,35 +186,48 @@ const SellProduct = () => {
     return validFront && validBehind && validTags;
   };
   const imagesWatch = watch('images');
+  useEffect(() => {
+    return () => {
+      dispath(resetSellProductPage());
+    };
+  }, []);
 
   useEffect(() => {
     if (uploadDetailsData && uploadImagesData) {
       const newData = { ...getValues() };
+      let images = [];
+      let oldImages = getOldImageIds(newData.images);
+      images = [...oldImages, ...uploadImagesData];
+
       delete newData.sizeType;
-      const sellerId = JSON.parse(localStorage.getItem('user'))?.id;
+
       newData.title = `${newData.brand.title} ${newData.sample}`;
       newData.category = newData.category.id;
       newData.brand = newData.brand.id;
       newData.color = newData.color.id;
       newData.material = newData.material.id;
       newData.details_list = uploadDetailsData;
-      newData.condition_images = uploadImagesData;
-      newData.images = uploadImagesData;
+      newData.condition_images = images;
+      newData.images = images;
       newData.number_of_flat = parseInt(newData.number_of_flat);
       newData.number_of_house = parseInt(newData.number_of_house);
       newData.price = newData.price.replace(/[^0-9]+/g, '');
       newData.old_price = newData?.old_price?.replace(/[^0-9]+/g, '');
       newData.phone_number = newData.phone_number.replace(/[^0-9\+]+/g, '');
-      newData.seller = sellerId;
+      newData.seller = currentUser.id;
       newData.size = newData.size.map((item) => item.id);
 
       console.log(newData);
-      dispath(addProduct(newData));
+      if (getEditProductData) {
+        dispath(editProduct(newData));
+      } else {
+        dispath(addProduct(newData));
+      }
     }
   }, [uploadDetailsData, uploadImagesData]);
   useEffect(() => {
     const subscription = watch((value, { name, type }) => {
-      if (name.includes('images') || name === 'condition') {
+      if (name?.includes('images') || name === 'condition') {
         clearErrors('images[2]');
         const validImages = validateImages(value.images, value.condition);
         if (validImages) {
@@ -204,31 +237,36 @@ const SellProduct = () => {
     });
     return () => subscription.unsubscribe();
   }, [watch]);
-
+  useEffect(() => {
+    if (getEditProductData) {
+      Object.keys(getEditProductData).map((key) => {
+        setValue(key, getEditProductData[key]);
+      });
+    }
+  }, [getEditProductData]);
   const navigate = useNavigate();
   useEffect(() => {
-    if (addProductData) {
-      dispath(auth());
-      dispath(resetAddProducts());
-
+    if (addProductData || editProductData) {
       dispath(setShowSellerThanksModal(true));
     }
-  }, [addProductData]);
+  }, [addProductData, editProductData]);
 
   const onSubmit = (data) => {
     const { images, condition, details_list } = data;
     console.log(images);
     const validImages = validateImages(images, condition);
     if (validImages) {
+      if (getEditProductData) {
+      }
       dispath(uploadImages(images));
       dispath(uploadDetails(details_list));
     }
   };
   const location = useLocation();
   console.log(errors);
-  return (
+  return (!getEditProductLoading && getEditProductData) || (!getEditProductData && !product_id) ? (
     <S.Wrapper>
-      <S.Title>Продать товар</S.Title>
+      <S.Title>{product_id ? 'Редактировать товар' : 'Продать товар'}</S.Title>
       <S.Description>Подарите своему гардеробу вторую жизнь - продайте то, что вы не носите</S.Description>
       <S.Blocks>
         <PhotoBlock setValue={setValue} watch={watch} errors={errors} name="images" />
@@ -241,7 +279,7 @@ const SellProduct = () => {
           dispath(setShowSellerThanksModal(false));
         }}
         title={'Спасибо! Объявление на проверке'}
-        desc={'Спасибо! Объявление на проверке'}
+        desc={'Покупатели увидят его сразу после проверки'}
         textFirstBtn={'Добавить еще товар'}
         onClickSecondBtn={() => {
           dispath(setShowSellerThanksModal(false));
@@ -250,7 +288,7 @@ const SellProduct = () => {
         onClickFirstBtn={() => window.location.reload(false)}
         textSecondBtn={'Закрыть'}
       />
-      {(uploadDetailsLoading || uploadImagesLoading || addProductLoading) && <Loading />}
+      {(uploadDetailsLoading || uploadImagesLoading || addProductLoading || editProductLoading) && <Loading />}
       <S.Buttons>
         <Button
           onClick={handleSubmit(onSubmit)}
@@ -263,6 +301,12 @@ const SellProduct = () => {
         </Button>
       </S.Buttons>
     </S.Wrapper>
+  ) : getEditProductError ? (
+    <NotFound title={'Товар не найден'} />
+  ) : (
+    <div style={{ minHeight: '500px', position: 'relative' }}>
+      <Loading relative />
+    </div>
   );
 };
 

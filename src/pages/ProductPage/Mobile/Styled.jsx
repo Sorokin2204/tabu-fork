@@ -18,6 +18,7 @@ export const Image = styled.div`
   background-image: url(${({ src }) => src || ''});
   background-size: contain;
   background-position: center;
+  background-repeat: no-repeat;
 `;
 
 export const Slides = styled.div`

@@ -83,14 +83,14 @@ const ProfileProducts = ({ products, type }) => {
       {isMobile ? (
         <>
           {products?.map((product) => (
-            <MobileCartProductCard product={product} type={type} />
+            <MobileCartProductCard key={product.id} product={product} type={type} />
           ))}
         </>
       ) : (
         <>
           {' '}
           {products?.map((product) => (
-            <CartProductCard profile product={product} type={type} />
+            <CartProductCard key={product.id} profile product={product} type={type} />
           ))}
         </>
       )}
