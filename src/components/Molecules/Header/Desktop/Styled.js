@@ -24,7 +24,7 @@ export const Category = styled.div`
   cursor: pointer;
   user-select: none;
   color: #717171;
-
+  white-space: nowrap;
   &:nth-child(1) {
     margin-left: 0;
   }
@@ -170,7 +170,7 @@ export const Background = styled.div`
   z-index: 9;
   bottom: 0;
   left: 0;
-  height: 400px;
+  height: calc(100vh - 171px);
   background: #191919;
   opacity: 0.8;
 `;

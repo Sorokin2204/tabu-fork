@@ -1,2 +1,2 @@
-export const API_URL = 'http://195.49.215.73:8000/api';
-export const URL = 'http://195.49.215.73:8000';
+export const API_URL = 'https://api.taabu.kz/api';
+export const URL = 'https://api.taabu.kz';

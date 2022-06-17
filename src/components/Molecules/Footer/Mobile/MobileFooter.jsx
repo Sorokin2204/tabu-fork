@@ -1,7 +1,6 @@
 import React from 'react';
 import FooterExpander from '../FooterExpander/FooterExpander';
 import * as S from './Styled';
-
 const footerData = [
   {
     title: 'Taabu',
@@ -136,10 +135,14 @@ const MobileFooter = () => {
         </S.Net>
       </S.SocialNets>
       <S.Rules>
-        <S.Rule>Политика конфиденциальности</S.Rule>
-        <S.Rule>Правила использования</S.Rule>
+        <S.Rule href={process.env.PUBLIC_URL + '/info/pdf/politika-konfidencialnosti.pdf'} target={'_blank'}>
+          Политика конфиденциальности
+        </S.Rule>
+        <S.Rule href={process.env.PUBLIC_URL + '/info/pdf/terms-of-use.pdf'} target={'_blank'}>
+          Правила использования
+        </S.Rule>
       </S.Rules>
-      <S.Copyright>© 2019-2022 TaabuGroup. Все права защищены .</S.Copyright>
+      <S.Copyright>© 2022 TaabuGroup. Все права защищены .</S.Copyright>
     </S.StyledMobileFooter>
   );
 };

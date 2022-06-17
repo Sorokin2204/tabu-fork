@@ -3,8 +3,10 @@ import Grid from 'components/Atoms/Grid';
 import Text from 'components/Atoms/Text';
 import * as S from './Styled';
 import { Youtube, Instagram, Telegram, Whatsapp, Facebook } from 'components/Atoms/Icons/Social';
+import { useNavigate } from 'react-router-dom';
 
 const Footer = () => {
+  const navigate = useNavigate();
   return (
     <S.Footer>
       <Flex>
@@ -66,11 +68,15 @@ const Footer = () => {
         </Flex>
       </Flex>
       <Flex align="center" justify="space-between" margin="78px 0 0 0">
-        <S.DarkText>© 2019-2022 TabuGroup. Все права защищены .</S.DarkText>
+        <S.DarkText>© 2022 TabuGroup. Все права защищены .</S.DarkText>
         <Flex>
-          <S.DarkText>Политика конфиденциальности</S.DarkText>
+          <S.DarkText href={process.env.PUBLIC_URL + '/info/pdf/politika-konfidencialnosti.pdf'} target={'_blank'}>
+            Политика конфиденциальности
+          </S.DarkText>
           <S.Line> | </S.Line>
-          <S.DarkText>Правила использования</S.DarkText>
+          <S.DarkText href={process.env.PUBLIC_URL + '/info/pdf/terms-of-use.pdf'} target={'_blank'}>
+            Правила использования
+          </S.DarkText>
         </Flex>
       </Flex>
     </S.Footer>

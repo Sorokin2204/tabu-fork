@@ -25,10 +25,11 @@ export const TextColumn = styled.div`
   }
 `;
 
-export const DarkText = styled.div`
+export const DarkText = styled.a`
   font-family: Manrope;
   font-weight: 400;
   font-size: 14px;
+  cursor: pointer;
   color: rgba(255, 255, 255, 0.8);
 `;
 

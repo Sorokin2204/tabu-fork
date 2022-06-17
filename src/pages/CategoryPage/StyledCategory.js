@@ -44,6 +44,10 @@ export const ProductsNotFound = styled.div`
   justify-content: center;
   height: 400px;
   color: #717171;
+  grid-column: 1/7;
+  @media ${media.mobile} {
+    grid-column: 1/12;
+  }
 `;
 
 export const StyledProducts = styled.div`

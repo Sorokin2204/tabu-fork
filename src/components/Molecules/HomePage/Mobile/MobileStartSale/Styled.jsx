@@ -1,10 +1,9 @@
 import styled from 'styled-components';
-import Background from 'assets/img/startSell.png';
 
 export const Wrapper = styled.div`
   display: flex;
   padding: 130px 39px;
-  background-image: url(${Background});
+  background-image: url(${(props) => props.img});
   background-size: cover;
   flex-direction: column;
 `;

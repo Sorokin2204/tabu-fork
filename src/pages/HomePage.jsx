@@ -31,7 +31,8 @@ import StartContainer from 'components/Molecules/HomePage/Desktop/Start/StartCon
 import MobileStartContainer from 'components/Molecules/HomePage/Mobile/MobileStart/MobileStartContainer';
 import Request from 'components/Molecules/Modals/Request/Request';
 import { getAds } from 'redux/actions/ads';
-
+import Background from 'assets/img/startSell.png';
+import WeSellingImg from 'assets/img/weSelling2.png';
 const HomePage = () => {
   const isMobile = useSelector((state) => state.app.isMobile);
   const dispatch = useDispatch();
@@ -56,12 +57,24 @@ const HomePage = () => {
           <MobileBanners />
           <MobileNowInTrand />
           <MobileSections />
-          <MobileStartSale />
+          <MobileStartSale
+            title={'Начните продавать'}
+            text={'Продавая вещи, которые пылятся в гардеробе, вы не консервируете деньги у себя в шкафу, а зарабатываете на будущие покупки. На нашем сайте достаточно двух кликов, чтобы выставить свои вещи на продажу.'}
+            btnText={'Продать товар'}
+            img={Background}
+          />
           {/*<MobileMedia />*/}
           <MobileCards />
           <MobileInstagram />
-          <WeSelling />
-          <MobileHowWorks />
+          <MobileStartSale
+            style={{ backgroundColor: '#000', backgroundSize: 'auto', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 40px top 80px' }}
+            title={'Сделаем всё за вас'}
+            text={'Заберем ваши вещи, которые пылятся в гардеробе, вы не консервируете деньги у себя в шкафу, а зарабатываете на будущие покупки.'}
+            btnText={'Получить вип-сервис'}
+            img={WeSellingImg}
+          />
+          {/* <WeSelling /> */}
+          <MobileHowWorks vip />
           <MobileHowExpand />
           <MobileSubscribe />
         </>
@@ -74,11 +87,27 @@ const HomePage = () => {
           <Banners />
           <Trends />
           <TwoSections />
-          <StartSell />
+          <StartSell
+            style={{
+              backgroundSize: '105%',
+              backgroundPosition: 'center 5%',
+            }}
+            title={'Начните продавать'}
+            text={'Продавая вещи, которые пылятся в гардеробе, вы не консервируете деньги у себя в шкафу, а зарабатываете на будущие покупки. На нашем сайте достаточно двух кликов, чтобы выставить свои вещи на продажу.'}
+            btnText={'Продать товар'}
+            img={Background}
+          />
           {/*<Media />*/}
           <Advantages />
-          <WeSelling />
-          <MobileHowWorks />
+          <StartSell
+            style={{ backgroundColor: '#000', backgroundRepeat: 'no-repeat', backgroundPosition: 'left 90% top 38px', height: '470px' }}
+            title={'Сделаем всё за вас'}
+            text={'Заберем ваши вещи, которые пылятся в гардеробе, вы не консервируете деньги у себя в шкафу, а зарабатываете на будущие покупки.'}
+            btnText={'Получить вип-сервис'}
+            img={WeSellingImg}
+          />
+          {/* <WeSelling /> */}
+          <MobileHowWorks vip />
           <Instagram />
           <Answers />
           <Subscribe />

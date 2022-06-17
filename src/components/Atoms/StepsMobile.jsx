@@ -163,7 +163,7 @@ const StepsMobile = ({ active }) => {
                     fontSize: isMobile ? '12px' : '14px',
                     margin: isMobile ? '8px 0 0 0' : '12px 0 0 0',
                   }}>
-                  Выбрать и оплачивать товар можно посредством сайта или в нашем мобильном приложении для операционных систем Android и iOS
+                  Выбрать и оплатить товар онлайн
                 </Text>
               </Flex>
             </Step>
@@ -180,7 +180,7 @@ const StepsMobile = ({ active }) => {
                   style={{
                     fontSize: isMobile ? '14px' : '20px',
                   }}>
-                  Проверка подлинности
+                  Проверка качества
                 </Text>
                 <Text
                   color="#191919"
@@ -192,7 +192,7 @@ const StepsMobile = ({ active }) => {
                     fontSize: isMobile ? '12px' : '14px',
                     margin: isMobile ? '8px 0 0 0' : '12px 0 0 0',
                   }}>
-                  Мы забираем товар у продавца и проверяем его у нашего эксперта. После мы прикрепляем к посылке сертификат подлинности и качества
+                  Мы забираем товар у продавца и проверяем его у нашего специалиста. После проверки мы прикрепляем к посылке сертификат качества и подлинности Taabu
                 </Text>
               </Flex>
             </Step>
@@ -209,7 +209,7 @@ const StepsMobile = ({ active }) => {
                   style={{
                     fontSize: isMobile ? '14px' : '20px',
                   }}>
-                  Отправка товара
+                  Доставка
                 </Text>
                 <Text
                   color="#191919"
@@ -220,7 +220,7 @@ const StepsMobile = ({ active }) => {
                   style={{
                     fontSize: isMobile ? '12px' : '14px',
                   }}>
-                  После проверки курьер привозит посылку к вам домой или в офис в течение 3-х рабочих дней. За доставкой можно следить в личном кабинете
+                  Курьер привозит посылку на указанный вами адрес в день отправки товара, после чего продавец получает оплату
                 </Text>
               </Flex>
             </Step>
@@ -253,7 +253,7 @@ const StepsMobile = ({ active }) => {
                   style={{
                     fontSize: isMobile ? '14px' : '20px',
                   }}>
-                  Выбор и оплата продавцов
+                  Размещение товара
                 </Text>
                 <Text
                   color="#191919"
@@ -265,7 +265,7 @@ const StepsMobile = ({ active }) => {
                     fontSize: isMobile ? '12px' : '14px',
                     margin: isMobile ? '8px 0 0 0' : '12px 0 0 0',
                   }}>
-                  Выбрать и оплачивать товар можно посредством сайта или в нашем мобильном приложении для операционных систем Android и iOS
+                  Зарегистрироваться и выставить товар на продажу на нашем сайте
                 </Text>
               </Flex>
             </Step>
@@ -282,7 +282,7 @@ const StepsMobile = ({ active }) => {
                   style={{
                     fontSize: isMobile ? '14px' : '20px',
                   }}>
-                  Проверка подлинности продавцов
+                  Проверка качества
                 </Text>
                 <Text
                   color="#191919"
@@ -294,7 +294,7 @@ const StepsMobile = ({ active }) => {
                     fontSize: isMobile ? '12px' : '14px',
                     margin: isMobile ? '8px 0 0 0' : '12px 0 0 0',
                   }}>
-                  Мы забираем товар у продавца и проверяем его у нашего эксперта. После мы прикрепляем к посылке сертификат подлинности и качества
+                  После того как покупатель внес оплату, мы забираем у вас товар. Наш специалист проверяет его состояние и подлинность. После проверки мы отправляем товар покупателю
                 </Text>
               </Flex>
             </Step>
@@ -311,7 +311,7 @@ const StepsMobile = ({ active }) => {
                   style={{
                     fontSize: isMobile ? '14px' : '20px',
                   }}>
-                  Отправка товара продавцов
+                  Перевод денег
                 </Text>
                 <Text
                   color="#191919"
@@ -322,7 +322,109 @@ const StepsMobile = ({ active }) => {
                   style={{
                     fontSize: isMobile ? '12px' : '14px',
                   }}>
-                  После проверки курьер привозит посылку к вам домой или в офис в течение 3-х рабочих дней. За доставкой можно следить в личном кабинете
+                  Как только покупатель получил товар, мы переводим его оплату на вашу карту
+                </Text>
+              </Flex>
+            </Step>
+          </StyledSteps>
+          <StepsVideo>
+            {showVideoTabSecond ? (
+              <StepsIframe id="existing-iframe-example" width="100%" height="100%" src={'https://www.youtube.com/embed/fJ9rUzIMcZQ?autoplay=1&mute=1&enablejsapi=1'} frameborder="0"></StepsIframe>
+            ) : (
+              <StepsVideoPreview
+                style={{
+                  backgroundImage: `url(${VideoPrev})`,
+                }}>
+                <StepsVideoPlay onClick={() => setShowVideoTabSecond(true)}></StepsVideoPlay>
+              </StepsVideoPreview>
+            )}
+          </StepsVideo>
+        </StepsWrapper>
+      ) : active == 'vip' ? (
+        <StepsWrapper>
+          <StyledSteps>
+            <Step>
+              <NumberStep>01</NumberStep>
+              <Flex direction={'column'} margin={'0 0 0 16px'} justify={'center'}>
+                <Text
+                  color="#191919"
+                  fontFamily="Gilroy"
+                  fontWeight="400"
+                  fontSize="14px"
+                  textTransform="uppercase"
+                  style={{
+                    fontSize: isMobile ? '14px' : '20px',
+                  }}>
+                  Оставьте заявку
+                </Text>
+                <Text
+                  color="#191919"
+                  fontFamily="Mont"
+                  fontWeight="600"
+                  fontSize="12px"
+                  margin="8px 0 0 0"
+                  style={{
+                    fontSize: isMobile ? '12px' : '14px',
+                    margin: isMobile ? '8px 0 0 0' : '12px 0 0 0',
+                  }}>
+                  Мы свяжемся с вами и заберем ваши вещи
+                </Text>
+              </Flex>
+            </Step>
+
+            <Step>
+              <NumberStep>02</NumberStep>
+              <Flex direction={'column'} margin={'0 0 0 16px'} justify={'center'}>
+                <Text
+                  color="#191919"
+                  fontFamily="Gilroy"
+                  fontWeight="400"
+                  fontSize="14px"
+                  textTransform="uppercase"
+                  style={{
+                    fontSize: isMobile ? '14px' : '20px',
+                  }}>
+                  Доверьтесь нам
+                </Text>
+                <Text
+                  color="#191919"
+                  fontFamily="Mont"
+                  fontWeight="600"
+                  fontSize="12px"
+                  margin="8px 0 0 0"
+                  style={{
+                    fontSize: isMobile ? '12px' : '14px',
+                    margin: isMobile ? '8px 0 0 0' : '12px 0 0 0',
+                  }}>
+                  Наши эксперты подготовят, сфотографируют, установят цену, опубликуют ваши вещи в самом выгодном свете и продадут их
+                </Text>
+              </Flex>
+            </Step>
+
+            <Step>
+              <NumberStep>03</NumberStep>
+              <Flex direction={'column'} margin={'0 0 0 16px'} justify={'center'}>
+                <Text
+                  color="#191919"
+                  fontFamily="Gilroy"
+                  fontWeight="400"
+                  fontSize="14px"
+                  textTransform="uppercase"
+                  style={{
+                    fontSize: isMobile ? '14px' : '20px',
+                  }}>
+                  Получите деньги
+                </Text>
+                <Text
+                  color="#191919"
+                  fontFamily="Mont"
+                  fontWeight="600"
+                  fontSize="12px"
+                  margin="8px 0 0 0"
+                  style={{
+                    fontSize: isMobile ? '12px' : '14px',
+                  }}>
+                  Как только ваши вещи будут проданы, мы перечислим вам ваши деньги
                 </Text>
               </Flex>
             </Step>
@@ -341,7 +443,7 @@ const StepsMobile = ({ active }) => {
           </StepsVideo>
         </StepsWrapper>
       ) : (
-        ''
+        <></>
       )}
     </>
   );
