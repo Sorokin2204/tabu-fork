@@ -21,6 +21,7 @@ import { isWhatPercentOf } from 'utils/isWhatPercentOf';
 import { addToCart } from 'utils/addToCart';
 import { removeFromCart } from 'utils/removeFromCart';
 import { store } from 'redux/reducers';
+import { currencyFormat } from 'utils/currencyFormat';
 
 export const StyledWrapper = styled.div`
   position: fixed;
@@ -165,10 +166,10 @@ const ProductModal = (props) => {
               </Text>
               <Flex direction="row" margin="32px 0 0 0">
                 <Text fontFamily="Gilroy" fontWeight="600" fontSize="14px" color="#191919">
-                  {opened_product ? '$ ' + opened_product.price : ''}
+                  {opened_product ? currencyFormat(opened_product.price) : ''}
                 </Text>
                 <Text margin="0 0 0 20px" fontFamily="Gilroy" fontWeight="400" fontSize="14px" color="#ababab" decoration="line-through">
-                  {`$ ${opened_product.old_price}`}
+                  {`${currencyFormat(opened_product.old_price)}`}
                 </Text>
                 <Text margin="0 0 0 20px" fontFamily="Gilroy" fontWeight="400" fontSize="14px" color="#EE1616">
                   {`${isWhatPercentOf(opened_product.price, opened_product.old_price)}%`}

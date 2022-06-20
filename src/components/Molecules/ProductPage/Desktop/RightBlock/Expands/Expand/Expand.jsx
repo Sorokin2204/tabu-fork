@@ -15,34 +15,12 @@ const Expand = (props) => {
         </S.Left>
         <S.ExpandIcon>
           {open ? (
-            <svg
-              width={24}
-              height={24}
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M8 14L12 10L16 14"
-                stroke="#191919"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
+            <svg width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 14L12 10L16 14" stroke="#191919" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           ) : (
-            <svg
-              width={24}
-              height={24}
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M16 10L12 14L8 10"
-                stroke="#191919"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
+            <svg width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 10L12 14L8 10" stroke="#191919" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           )}
         </S.ExpandIcon>
@@ -57,16 +35,15 @@ const Expand = (props) => {
           </S.Text>
           <S.Text>
             Мы пользуемся услугами Major Express. Отслеживать <br />
-            статус доставки вы можете в личном кабинете Taabu.
+            статус доставки вы можете в личном кабинете TAABU.
           </S.Text>
           <S.Text>
-            Бесплатный возврат <br /> Если вещь от бутика не подошла, оформить
-            возврат <br />
+            Бесплатный возврат <br /> Если вещь от бутика не подошла, оформить возврат <br />
             можно в течении 7 дней
           </S.Text>
         </S.TextBox>
       ) : (
-        ""
+        ''
       )}
     </S.Expand>
   );

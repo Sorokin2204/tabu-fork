@@ -107,7 +107,7 @@ const RegModal = () => {
                 <>
                   <FormInput
                     label="ФИО"
-                    placeholder="Введите Имя, фамилию и отчество"
+                    placeholder="Введите имя, фамилию и отчество"
                     type="text"
                     register={regForm.register}
                     name="fullName"

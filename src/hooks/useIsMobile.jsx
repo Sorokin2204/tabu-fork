@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 const { sizes } = require('sizes');
 
-function checkCurrentWidth() {
+export function checkCurrentWidth() {
   if (window.innerWidth < sizes.mobile) {
     return true;
   } else {

@@ -155,7 +155,7 @@ const EditProfileModal = ({ show, onClose }) => {
                   {userType === 0 ? (
                     <FormInput
                       label="ФИО"
-                      placeholder="Введите Имя, фамилию и отчество"
+                      placeholder="Введите имя, фамилию и отчество"
                       type="text"
                       register={register}
                       name="fio"

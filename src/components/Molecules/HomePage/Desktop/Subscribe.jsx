@@ -81,7 +81,7 @@ const Subscribe = () => {
         <Wrapper>
           <Container name="Wrapper" width="30%" direction="column">
             <Text color="#191919" fontFamily="Gilroy" fontWeight="400" fontSize="32px" textAlign="center">
-              ПОДПИШИТЕСЬ НА РАССЫЛКУ И ПОЛУЧИТЕ СКИДКУ 10%
+              ПОДПИШИТЕСЬ НА РАССЫЛКУ
             </Text>
             <Text color="#191919" fontFamily="Manrope" fontWeight="400" fontSize="14px" textAlign="center" margin="20px 0 0 0">
               Ранний доступ к распродаже, новости о специальных предложениях и подборки лучших новинок — для подписчиков рассылки.
@@ -112,7 +112,7 @@ const Subscribe = () => {
               Подписаться
             </Button>
             <Text fontFamily="Gilroy" fontSize="14px" fontWeight="400" color="#717171" textAlign="center" margin="32px 0 0 0">
-              Подписываясь на рассылку, вы соглашаетесь с этими документами: «Условиями пользования» и «Политикой конфиденциальности».
+              Подписываясь на рассылку, вы соглашаетесь с «Правилами пользования», «Публичной офертой» и «Политикой конфиденциальности».
             </Text>
           </Container>
           {loading && <Loading />}

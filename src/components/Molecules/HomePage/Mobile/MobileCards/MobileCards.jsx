@@ -12,7 +12,7 @@ const MobileCards = () => {
         </S.Left>
         <S.Right>
           <S.Title>Новая и почти новая одежда</S.Title>
-          <S.Description>Частные продавцы размещают новую одежду с бирками и почти новую одежду в отличном состоянии</S.Description>
+          <S.Description>Частные продавцы размещают новую одежду с бирками и почти новую одежду в отличном состоянии.</S.Description>
           <S.ButtonBox></S.ButtonBox>
         </S.Right>
       </S.Card>
@@ -25,7 +25,7 @@ const MobileCards = () => {
         </S.Left>
         <S.Right>
           <S.Title>Новая и почти новая одежда</S.Title>
-          <S.Description>Частные продавцы размещают новую одежду с бирками и почти новую одежду в отличном состоянии</S.Description>
+          <S.Description>Частные продавцы размещают новую одежду с бирками и почти новую одежду в отличном состоянии.</S.Description>
           <S.ButtonBox></S.ButtonBox>
         </S.Right>
       </S.Card>
@@ -38,7 +38,7 @@ const MobileCards = () => {
         </S.Left>
         <S.Right>
           <S.Title>Новая и почти новая одежда</S.Title>
-          <S.Description>Частные продавцы размещают новую одежду с бирками и почти новую одежду в отличном состоянии</S.Description>
+          <S.Description>Частные продавцы размещают новую одежду с бирками и почти новую одежду в отличном состоянии.</S.Description>
           <S.ButtonBox></S.ButtonBox>
         </S.Right>
       </S.Card>
@@ -51,7 +51,7 @@ const MobileCards = () => {
         </S.Left>
         <S.Right>
           <S.Title>Новая и почти новая одежда</S.Title>
-          <S.Description>Частные продавцы размещают новую одежду с бирками и почти новую одежду в отличном состоянии</S.Description>
+          <S.Description>Частные продавцы размещают новую одежду с бирками и почти новую одежду в отличном состоянии.</S.Description>
           <S.ButtonBox></S.ButtonBox>
         </S.Right>
       </S.Card>

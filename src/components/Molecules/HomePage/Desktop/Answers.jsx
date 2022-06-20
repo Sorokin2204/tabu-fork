@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import Text from "../../../Atoms/Text";
-import Questions from "components/Molecules/HomePage/Desktop/Questions/Questions";
+import styled from 'styled-components';
+import Text from '../../../Atoms/Text';
+import Questions from 'components/Molecules/HomePage/Desktop/Questions/Questions';
 
 const StyledAnswers = styled.div`
   display: flex;
@@ -19,16 +19,9 @@ const Wrapper = styled.div`
 
 const Answers = () => {
   return (
-    <StyledAnswers>
+    <StyledAnswers name="faq-block">
       <Wrapper>
-        <Text
-          color="#191919"
-          fontFamily="Gilroy"
-          fontWeight="400"
-          fontSize="32px"
-          textAlign="center"
-          uppercase
-        >
+        <Text color="#191919" fontFamily="Gilroy" fontWeight="400" fontSize="32px" textAlign="center" uppercase>
           FAQ
         </Text>
         <Questions />

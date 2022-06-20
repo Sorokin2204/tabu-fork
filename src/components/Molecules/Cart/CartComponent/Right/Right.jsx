@@ -9,8 +9,8 @@ const Right = () => {
       <S.DefaultText>1. Отправлен продавцом в наш центр контроля и проверки подлинности (за исключением случаев, когда товар уже есть на складе или отправлен через Direct Shipping).</S.DefaultText>
       <S.DefaultText marginTop="19px">2. Контролируется и проверяется нашими экспертами (если только товар не отправляется через прямую доставку).</S.DefaultText>
       <S.DefaultText marginTop="19px">3. Отправлен вам!</S.DefaultText>
-      <S.DefaultText marginTop="19px">Если вы выбрали опцию Direct Shipping, ваш товар будет отправлен непосредственно на ваш адрес, без проверки Tabu.</S.DefaultText>
-      <S.DefaultText marginTop="19px">Если вы выбрали вариант Экспресс-доставки, ваш товар уже находится на складе Tabu и будет доставлен в течение 2-5 дней.</S.DefaultText>
+      <S.DefaultText marginTop="19px">Если вы выбрали опцию Direct Shipping, ваш товар будет отправлен непосредственно на ваш адрес, без проверки TAABU.</S.DefaultText>
+      <S.DefaultText marginTop="19px">Если вы выбрали вариант Экспресс-доставки, ваш товар уже находится на складе TAABU и будет доставлен в течение 2-5 дней.</S.DefaultText>
 
       <S.TitleText marginTop="40px">ПОЧТОВЫЕ РАСХОДЫ</S.TitleText>
 

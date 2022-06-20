@@ -1,12 +1,8 @@
+import TikTokIcon from 'assets/svg/tiktok.png';
+
 export const Youtube = () => {
   return (
-    <svg
-      width={40}
-      height={40}
-      viewBox="0 0 40 40"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width={40} height={40} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -22,26 +18,23 @@ export const Youtube = () => {
     </svg>
   );
 };
-
+export const TikTok = () => {
+  return (
+    <div style={{ width: '40px', height: '40px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <img src={TikTokIcon} width="26px" height="26px" />
+    </div>
+  );
+};
 export const Instagram = () => {
   return (
-    <svg
-      width={40}
-      height={40}
-      viewBox="0 0 40 40"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width={40} height={40} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         fillRule="evenodd"
         clipRule="evenodd"
         d="M19.9997 24.6667C22.577 24.6667 24.6663 22.5774 24.6663 20C24.6663 17.4227 22.577 15.3334 19.9997 15.3334C17.4223 15.3334 15.333 17.4227 15.333 20C15.333 22.5774 17.4223 24.6667 19.9997 24.6667ZM19.9997 23.3334C21.8406 23.3334 23.333 21.841 23.333 20C23.333 18.1591 21.8406 16.6667 19.9997 16.6667C18.1587 16.6667 16.6663 18.1591 16.6663 20C16.6663 21.841 18.1587 23.3334 19.9997 23.3334Z"
         fill="white"
       />
-      <path
-        d="M25.9997 15.3334C26.3679 15.3334 26.6663 15.0349 26.6663 14.6667C26.6663 14.2985 26.3679 14 25.9997 14C25.6315 14 25.333 14.2985 25.333 14.6667C25.333 15.0349 25.6315 15.3334 25.9997 15.3334Z"
-        fill="white"
-      />
+      <path d="M25.9997 15.3334C26.3679 15.3334 26.6663 15.0349 26.6663 14.6667C26.6663 14.2985 26.3679 14 25.9997 14C25.6315 14 25.333 14.2985 25.333 14.6667C25.333 15.0349 25.6315 15.3334 25.9997 15.3334Z" fill="white" />
       <path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -54,13 +47,7 @@ export const Instagram = () => {
 
 export const Telegram = () => {
   return (
-    <svg
-      width={40}
-      height={40}
-      viewBox="0 0 40 40"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width={40} height={40} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -73,13 +60,7 @@ export const Telegram = () => {
 
 export const Whatsapp = () => {
   return (
-    <svg
-      width={40}
-      height={40}
-      viewBox="0 0 40 40"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width={40} height={40} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -98,13 +79,7 @@ export const Whatsapp = () => {
 
 export const Facebook = () => {
   return (
-    <svg
-      width={40}
-      height={40}
-      viewBox="0 0 40 40"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width={40} height={40} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         fillRule="evenodd"
         clipRule="evenodd"

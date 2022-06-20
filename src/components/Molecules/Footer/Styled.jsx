@@ -13,7 +13,7 @@ export const TitleColumn = styled.div`
   text-transform: uppercase;
 `;
 
-export const TextColumn = styled.div`
+export const TextColumn = styled.a`
   font-family: Manrope;
   font-weight: 300;
   font-size: 14px;

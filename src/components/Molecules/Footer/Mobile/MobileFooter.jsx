@@ -1,35 +1,35 @@
+import { TikTok } from 'components/Atoms/Icons/Social';
 import React from 'react';
+import TikTokIcon from 'assets/svg/tiktok.png';
 import FooterExpander from '../FooterExpander/FooterExpander';
 import * as S from './Styled';
-const footerData = [
+export const footerData = [
   {
-    title: 'Taabu',
-    list: [
-      { name: 'О проекте', link: '#' },
-      { name: 'Гарантии от TABU', link: '#' },
-    ],
+    title: 'TAABU',
+    list: [{ name: 'О нас', link: '/about-us' }],
   },
   {
     title: 'ПОКУПАТЕЛЯМ',
     list: [
-      { name: 'Как покупать', link: '#' },
-      { name: 'Гарантия подлинности', link: '#' },
-      { name: 'Безопасная сделка', link: '#' },
-      { name: 'Доставка и возврат', link: '#' },
-      { name: 'Полезные советы', link: '#' },
+      { name: 'Как покупать', link: '/how-to-buy/#how-to-block' },
+      { name: 'Гарантия подлинности', link: '/how-to-buy/#guarante-block' },
+      { name: 'Безопасная сделка', link: '/how-to-buy/#safe-block' },
+      { name: 'Доставка и возврат', link: '/how-to-buy/#delivery-block' },
     ],
   },
   {
     title: 'ПРОДАВЦАМ',
-    list: [{ name: 'Как продавать', link: '#' }],
-    list: [{ name: 'Экспертиза', link: '#' }],
-    list: [{ name: 'Безопасная сделка', link: '#' }],
-    list: [{ name: 'Комиссия', link: '#' }],
-    list: [{ name: 'Полезные советы', link: '#' }],
+    list: [
+      { name: 'Как продовать', link: '/how-to-sell/#how-to-block' },
+      { name: 'Гарантия подлинности', link: '/how-to-sell/#guarante-block' },
+      { name: 'Безопасная сделка', link: '/how-to-sell/#safe-block' },
+      { name: 'Доставка и возврат', link: '/how-to-sell/#delivery-block' },
+      { name: 'Комиссия', link: '/how-to-sell/#commission-block' },
+    ],
   },
   {
     title: 'ПОМОЩЬ',
-    list: [{ name: 'FAQ', link: '#' }],
+    list: [{ name: 'FAQ', link: '/#faq-block' }],
   },
 ];
 
@@ -65,20 +65,7 @@ const MobileFooter = () => {
       </S.Category> */}
       <S.SocialNets>
         <S.Net>
-          <svg width="22" height="15" viewBox="0 0 22 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              fillRule="evenodd"
-              clipRule="evenodd"
-              d="M8.97889 4.89623C8.97889 4.60884 9.29 4.42922 9.53889 4.57291L13.5911 6.91243C13.8399 7.05613 13.8399 7.41537 13.5911 7.55907L9.53889 9.89858C9.29 10.0423 8.97889 9.86266 8.97889 9.57527V4.89623ZM12.5511 7.23575L9.77889 8.83626V5.63524L12.5511 7.23575Z"
-              fill="white"
-            />
-            <path
-              fillRule="evenodd"
-              clipRule="evenodd"
-              d="M18.21 13.9014C19.6073 13.7799 20.7427 12.7203 20.9003 11.3266C21.0529 9.9767 21.1334 8.57469 21.1334 7.13642C21.1334 5.69815 21.0529 4.29614 20.9003 2.94623C20.7427 1.55251 19.6073 0.492889 18.21 0.371473C15.9288 0.173256 13.508 0.0666504 11 0.0666504C8.49206 0.0666504 6.07125 0.173254 3.79007 0.371467C2.39273 0.492883 1.25736 1.5525 1.09976 2.94623C0.947123 4.29614 0.866699 5.69815 0.866699 7.13642C0.866699 8.57469 0.947123 9.9767 1.09976 11.3266C1.25736 12.7203 2.39273 13.78 3.79007 13.9014C6.07125 14.0996 8.49206 14.2062 11 14.2062C13.508 14.2062 15.9288 14.0996 18.21 13.9014ZM20.0667 7.13642C20.0667 8.53507 19.9885 9.89706 19.8404 11.2068C19.7424 12.073 19.0326 12.7592 18.1177 12.8387C15.8681 13.0342 13.4781 13.1395 11 13.1395C8.52196 13.1395 6.13198 13.0342 3.88241 12.8387C2.96748 12.7592 2.25763 12.073 2.15968 11.2068C2.01158 9.89706 1.93337 8.53507 1.93337 7.13642C1.93337 5.73777 2.01158 4.37577 2.15968 3.06607C2.25763 2.19981 2.96748 1.51363 3.88241 1.43413C6.13198 1.23866 8.52196 1.13332 11 1.13332C13.4781 1.13332 15.8681 1.23867 18.1177 1.43414C19.0326 1.51363 19.7424 2.19982 19.8404 3.06608C19.9885 4.37578 20.0667 5.73777 20.0667 7.13642Z"
-              fill="white"
-            />
-          </svg>
+          <img src={TikTokIcon} width="22" height="22" />
         </S.Net>
         <S.Net>
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -136,13 +123,13 @@ const MobileFooter = () => {
       </S.SocialNets>
       <S.Rules>
         <S.Rule href={process.env.PUBLIC_URL + '/info/pdf/politika-konfidencialnosti.pdf'} target={'_blank'}>
-          Политика конфиденциальности
+          Публичная оферта и Политика конфиденциальности
         </S.Rule>
         <S.Rule href={process.env.PUBLIC_URL + '/info/pdf/terms-of-use.pdf'} target={'_blank'}>
-          Правила использования
+          Правила пользования
         </S.Rule>
       </S.Rules>
-      <S.Copyright>© 2022 TaabuGroup. Все права защищены .</S.Copyright>
+      <S.Copyright>© 2022 TAABU. Все права защищены .</S.Copyright>
     </S.StyledMobileFooter>
   );
 };

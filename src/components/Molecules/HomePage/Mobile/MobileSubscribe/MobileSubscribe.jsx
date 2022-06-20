@@ -66,7 +66,7 @@ const MobileSubscribe = () => {
                 maxWidth: '245px',
                 margin: '0 auto',
               }}>
-              ПОДПИШИТЕСЬ НА РАССЫЛКУ И ПОЛУЧИТЕ СКИДКУ 10%
+              ПОДПИШИТЕСЬ НА РАССЫЛКУ
             </Text>
             <Text
               color="#191919"
@@ -129,7 +129,7 @@ const MobileSubscribe = () => {
               Подписаться
             </Button>
             <Text fontFamily="Gilroy" fontSize="14px" fontWeight="400" color="#717171" textAlign="center" margin="32px 0 0 0" style={{ maxWidth: '326px', margin: '32px auto 0 auto' }}>
-              Подписываясь на рассылку, вы соглашаетесь с этими документами: «Условиями пользования» и «Политикой конфиденциальности».
+              Подписываясь на рассылку, вы соглашаетесь с «Правилами пользования», «Публичной офертой» и «Политикой конфиденциальности».
             </Text>
           </Flex>
           {loading && <Loading />}

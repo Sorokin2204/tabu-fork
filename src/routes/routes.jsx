@@ -13,12 +13,39 @@ import SellProductMain from 'pages/SellProduct/SellProductMain';
 import { Navigate } from 'react-router-dom';
 import HomePage from '../pages/HomePage';
 import { v4 as uuidv4 } from 'uuid';
+import HowToBuy from 'components/HowToBuy/HowToBuy';
+import HowToSell from 'components/HowToSell/HowToSell';
+import AboutUs from 'components/AboutUs/AboutUs';
 const routes = (isAuth, isMobile) => [
   {
     path: '/',
     element: (
       <MainLayout>
         <HomePage />
+      </MainLayout>
+    ),
+  },
+  {
+    path: '/about-us',
+    element: (
+      <MainLayout>
+        <AboutUs />
+      </MainLayout>
+    ),
+  },
+  {
+    path: '/how-to-buy',
+    element: (
+      <MainLayout>
+        <HowToBuy />
+      </MainLayout>
+    ),
+  },
+  {
+    path: '/how-to-sell',
+    element: (
+      <MainLayout>
+        <HowToSell />
       </MainLayout>
     ),
   },

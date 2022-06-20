@@ -23,7 +23,7 @@ const StartSlide = ({ ad }) => {
           <ImageBlock src={ad?.helper_image} alt="" />
           <Grid alignContent="center">
             <div>
-              <Text color="#191919" fontFamily="Gilroy" fontWeight="600" fontSize="14px">
+              <Text color="#191919" fontFamily="Gilroy" fontWeight="400" fontSize="20px">
                 {ad?.description}
               </Text>
               <MoreButton margin="66px 0 0 0" link={ad?.link}>

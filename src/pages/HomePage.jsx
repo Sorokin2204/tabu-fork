@@ -33,16 +33,26 @@ import Request from 'components/Molecules/Modals/Request/Request';
 import { getAds } from 'redux/actions/ads';
 import Background from 'assets/img/startSell.png';
 import WeSellingImg from 'assets/img/weSelling2.png';
+
+import { scrollToSection } from 'utils/scrollToSection';
+import { useParams } from 'react-router-dom';
+
 const HomePage = () => {
+  const { newProducts, trends } = useSelector((state) => state.product);
+  const { ads } = useSelector((state) => state.ads);
+  const params = useParams();
+  useEffect(() => {
+    if (newProducts.length !== 0 && trends.length !== 0 && ads.length !== 0) {
+      scrollToSection();
+    }
+  }, [newProducts, trends, ads, params]);
+
   const isMobile = useSelector((state) => state.app.isMobile);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // get new products and trends
     dispatch(getNewProducts());
     dispatch(getTrends());
-
-    // get ads
     dispatch(getAds());
   }, []);
 
@@ -69,7 +79,7 @@ const HomePage = () => {
           <MobileStartSale
             style={{ backgroundColor: '#000', backgroundSize: 'auto', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 40px top 80px' }}
             title={'Сделаем всё за вас'}
-            text={'Заберем ваши вещи, которые пылятся в гардеробе, вы не консервируете деньги у себя в шкафу, а зарабатываете на будущие покупки.'}
+            text={'Заберем ваши вещи. Подготовим, опубликуем и продадим. Переведем вам деньги'}
             btnText={'Получить вип-сервис'}
             img={WeSellingImg}
           />

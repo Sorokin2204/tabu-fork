@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import Flex from 'components/Atoms/Flex';
 import { setIsDisableScroll, setShowAuthModal, setShowRegModal } from 'redux/reducers/appReducer';
 import { addFavorite, removeFavorite } from 'redux/actions/product';
+import { currencyFormat } from 'utils/currencyFormat';
 
 export const HoverWrapper = styled.div`
   position: relative;
@@ -116,11 +117,11 @@ const Card = (props) => {
               </Flex>
               <Flex direction="column" justify="start" align="end">
                 <Text color="#191919" fontFamily="Mont" fontWeight="600" fontSize="12px">
-                  {props.price ? '$ ' + props.price : ''}
+                  {props.price ? currencyFormat(props.price) : ''}
                 </Text>
 
                 <Text color="#ABABAB" fontFamily="Mont" fontWeight="600" fontSize="12px" decoration="line-through">
-                  {props?.product?.old_price && '$ ' + props?.product?.old_price}
+                  {props?.product?.old_price && currencyFormat(props?.product?.old_price)}
                 </Text>
               </Flex>
             </S.Details>
@@ -191,7 +192,7 @@ const Card = (props) => {
 
           {isMobile ? (
             <Text color="#191919" fontFamily="Mont" fontWeight="600" fontSize="12px" margin={'6px 0 0 0'}>
-              {props.price ? '$ ' + props.price : ''}
+              {props.price ? currencyFormat(props.price) : ''}
             </Text>
           ) : (
             ''
@@ -200,11 +201,11 @@ const Card = (props) => {
         {!isMobile ? (
           <Flex direction="column" justify="start" align="end">
             <Text color="#191919" fontFamily="Mont" fontWeight="600" fontSize="12px">
-              {props.price ? '$ ' + props.price : ''}
+              {props.price ? currencyFormat(props.price) : ''}
             </Text>
 
             <Text color="#ABABAB" fontFamily="Mont" fontWeight="600" fontSize="12px" decoration="line-through">
-              {props?.product?.old_price && '$ ' + props?.product?.old_price}
+              {props?.product?.old_price && currencyFormat(props?.product?.old_price)}
             </Text>
           </Flex>
         ) : (

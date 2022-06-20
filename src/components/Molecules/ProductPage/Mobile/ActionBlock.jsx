@@ -123,7 +123,7 @@ const ActionBlock = () => {
             }),
           }}>
           <Text fontFamily="Gilroy" fontWeight="600" fontSize="16px" color="#191919">
-            {opened_product ? '$ ' + opened_product.price : ''}
+            {opened_product ? currencyFormat(opened_product.price) : ''}
           </Text>
           {/* Скидка */}
           {opened_product?.old_price && (

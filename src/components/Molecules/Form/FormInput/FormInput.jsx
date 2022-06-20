@@ -19,7 +19,7 @@ const FormInput = ({ value, setValue, label, placeholder, type, disabled, width,
             ...(type === 'phone' && {
               pattern: {
                 value: /^(8|\+7)[ ][(][7](00|01|02|07|08|05|71|76|77|75|78|47)[)][ ]\d{3}[-]\d{2}[-]\d{2}$/gm,
-                message: 'Не правильный формат телефона',
+                message: 'Неправильный формат телефона',
               },
             }),
           }}
