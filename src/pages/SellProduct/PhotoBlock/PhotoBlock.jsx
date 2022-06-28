@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getOldImageIds } from 'redux/actions/product';
 import { sizes } from 'sizes';
 import ExamplePhoto from './ExamplePhoto/ExamplePhoto';
 import MainPhoto from './MainPhoto/MainPhoto';
 import * as S from './Styled';
+import InfoIcon from 'assets/svg/info.svg';
+import { setShowPhotoRecomendModal } from 'redux/reducers/appReducer';
 export const imageTypes = {
   FRONT: 0,
   BEHIND: 1,
@@ -20,10 +22,17 @@ const PhotoBlock = ({ setValue, errors, watch, name }) => {
   console.log(images);
   console.log(getOldImageIds(images));
   const condition = watch('condition');
+  const dispatch = useDispatch();
   return (
     <>
       <S.PhotoBlock>
         <S.TitleBlock>ФОТО</S.TitleBlock>
+        <S.PhotoInfo>
+          <S.IconInfo src={InfoIcon} />
+          <S.TextInfo>
+            Чтобы быстрее продать товар рекомендуем следовать <S.LinkInfo onClick={() => dispatch(setShowPhotoRecomendModal(true))}>инструкции</S.LinkInfo>
+          </S.TextInfo>
+        </S.PhotoInfo>
         <S.SubTitleBlock>
           <S.TitleSection>Основное фото</S.TitleSection>
           <S.TitleSection>Пример фото</S.TitleSection>

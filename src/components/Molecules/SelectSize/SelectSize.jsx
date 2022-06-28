@@ -52,8 +52,8 @@ const SelectSize = ({ sizes, activeSize, setActiveSize }) => {
   return (
     <Flex margin="16px 0 0 0" style={{ display: 'inline-flex', flexWrap: 'wrap' }}>
       {sizes?.map((size, i) => (
-        <StyledSize key={i} onClick={() => setActiveSize(size.id)} active={activeSize === size.id}>
-          {size.title}
+        <StyledSize key={i} onClick={() => setActiveSize({ id: size?.id, title: size?.size?.title })} active={activeSize?.id === size.id}>
+          {size?.size?.title}
         </StyledSize>
       ))}
     </Flex>

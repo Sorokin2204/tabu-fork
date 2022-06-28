@@ -10,6 +10,25 @@ export const Wrapper = styled.div`
     overflow: overlay;
   }
 `;
+export const Back = styled.div`
+  svg {
+    width: 12.5px;
+    margin-right: 8px;
+  }
+  width: min-content;
+  user-select: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  color: #717171;
+  padding-left: 25px;
+  margin-top: 16px;
+`;
 export const Title = styled.div`
   font-family: 'Gilroy';
   font-style: normal;

@@ -1,7 +1,7 @@
 import * as S from './Styled';
 import { Controller } from 'react-hook-form';
 import NumberFormat from 'react-number-format';
-const FormInput = ({ value, setValue, label, placeholder, type, disabled, width, style, control, name, register, rules, errors }) => {
+const FormInput = ({ value, setValue, label, placeholder, type, disabled, width, style, control, name, register, rules, errors, styleInput }) => {
   return (
     <S.Wrapper width={width} style={style}>
       <div
@@ -23,7 +23,7 @@ const FormInput = ({ value, setValue, label, placeholder, type, disabled, width,
               },
             }),
           }}
-          render={({ field: { onChange, name, value } }) => <NumberFormat {...(type !== 'phone' || { format: '+7 (7##) ###-##-##', mask: '_' })} name={name} value={value} onChange={onChange} placeholder={placeholder} autoComplete="off" customInput={CustomInput} />}
+          render={({ field: { onChange, name, value } }) => <NumberFormat style={styleInput} {...(type !== 'phone' || { format: '+7 (7##) ###-##-##', mask: '_' })} name={name} value={value} onChange={onChange} placeholder={placeholder} autoComplete="off" customInput={CustomInput} />}
         />
       ) : type === 'price' ? (
         <Controller
@@ -32,7 +32,7 @@ const FormInput = ({ value, setValue, label, placeholder, type, disabled, width,
           rules={{
             ...rules,
           }}
-          render={({ field: { onChange, name, value } }) => <NumberFormat name={name} value={value} onChange={onChange} placeholder={placeholder} autoComplete="off" customInput={CustomInput} prefix="₸ " thousandSeparator=" " />}
+          render={({ field: { onChange, name, value } }) => <NumberFormat style={styleInput} name={name} value={value} onChange={onChange} placeholder={placeholder} autoComplete="off" customInput={CustomInput} prefix="₸ " thousandSeparator=" " />}
         />
       ) : type === 'number' ? (
         <Controller
@@ -41,10 +41,10 @@ const FormInput = ({ value, setValue, label, placeholder, type, disabled, width,
           rules={{
             ...rules,
           }}
-          render={({ field: { onChange, name, value } }) => <NumberFormat name={name} value={value} onChange={onChange} placeholder={placeholder} autoComplete="off" customInput={CustomInput} />}
+          render={({ field: { onChange, name, value } }) => <NumberFormat style={styleInput} name={name} value={value} onChange={onChange} placeholder={placeholder} autoComplete="off" customInput={CustomInput} />}
         />
       ) : (
-        <S.Input autoComplete="off" value={value} onChange={(e) => !disabled && setValue(e.target.value)} placeholder={placeholder} type={type} {...(register && { ...register(name, { ...(rules && rules) }) })} />
+        <S.Input style={styleInput} autoComplete="off" value={value} onChange={(e) => !disabled && setValue(e.target.value)} placeholder={placeholder} type={type} {...(register && { ...register(name, { ...(rules && rules) }) })} />
       )}
     </S.Wrapper>
   );

@@ -13,13 +13,13 @@ const StateBlock = ({ name, setValue, watch }) => {
           </S.VariantRow>
           <S.VariantDescription>Абсолютно новая вещь, которая ни разу не была в носке. Все фирменные бирки и упаковка прилагаются.</S.VariantDescription>
         </S.Variant>
-        <S.Variant onClick={() => setValue(name, 1)}>
+        {/* <S.Variant onClick={() => setValue(name, 1)}>
           <S.VariantRow>
             <S.VariantStatus active={value === 1}></S.VariantStatus>
             <S.VariantTitle>Новое, без бирки</S.VariantTitle>
           </S.VariantRow>
           <S.VariantDescription>Абсолютно новая вещь, которая ни разу не была в носке. Бирок нет и наличие упаковки надо уточнять.</S.VariantDescription>
-        </S.Variant>
+        </S.Variant> */}
         <S.Variant onClick={() => setValue(name, 2)}>
           <S.VariantRow>
             <S.VariantStatus active={value === 2}></S.VariantStatus>

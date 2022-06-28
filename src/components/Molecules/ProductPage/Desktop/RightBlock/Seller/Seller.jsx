@@ -2,7 +2,7 @@ import ActionBlock from 'components/Molecules/ProductPage/Desktop/ActionBlock';
 import { URL } from 'config';
 import { useSelector } from 'react-redux';
 import * as S from './Styled';
-
+import ProfileIcon from 'assets/svg/profile.svg';
 export const returnRole = (role) => {
   if (role === 0) {
     return 'Частный продавец';
@@ -19,7 +19,7 @@ const Seller = (props) => {
       <S.Title>Продавец</S.Title>
       <S.DetailsContainer>
         <S.Bottom>
-          <S.Avatar src={URL + openedProduct?.seller?.avatar} />
+          <S.Avatar empty={!openedProduct?.seller?.avatar} src={openedProduct?.seller?.avatar ? `${URL}${openedProduct?.seller?.avatar}` : ProfileIcon} />
           <S.Details>
             <S.Name>{openedProduct?.seller?.fio ? openedProduct?.seller?.fio : openedProduct?.seller?.company_name}</S.Name>
             <S.Role>{openedProduct ? (openedProduct.seller ? returnRole(openedProduct.seller.user_type) : '') : ''}</S.Role>

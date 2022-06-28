@@ -1,5 +1,4 @@
 import { Interweave } from 'interweave';
-import { useRouter } from 'next/router';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import * as S from './Styled';
@@ -16,7 +15,7 @@ const Help = () => {
             </S.Text>
             <S.Text style={{ marginBottom: isMobile ? '28px' : '30px' }}>
               По вопросам сотрудничества можете написать&nbsp;
-              <S.TextLine href="mailto:sales@taabu.kz">sales@taabu.kz</S.TextLine>
+              <S.TextLine href="mailto:info@taabu.kz">info@taabu.kz</S.TextLine>
             </S.Text>
             <S.Text>
               Телефон&nbsp;

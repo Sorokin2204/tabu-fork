@@ -5,7 +5,7 @@ import FormInput from 'components/Molecules/Form/FormInput/FormInput';
 import Header from 'components/Molecules/Search/Desktop/Header/Header';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setShowAuthModal, setShowRegModal } from 'redux/reducers/appReducer';
+import { setShowAuthModal, setShowRegModal, setShowResetPassModal } from 'redux/reducers/appReducer';
 import { sizes } from 'sizes';
 import * as S from './Styled';
 import { login, registration } from 'redux/actions/user';
@@ -24,6 +24,7 @@ const RegModal = () => {
     user_type: 0,
     email: '',
     password: '',
+    phone: '',
   };
   const defaultValuesLogin = {
     email: '',
@@ -62,13 +63,11 @@ const RegModal = () => {
   const onLoginSubmit = (data) => {
     console.log(data);
     dispatch(login(data));
-    // if (firstName === '' || lastName === '' || email === '' || password === '' || favorite === '') {
-    //   alert('Заполните все поля');
-    // } else {
   };
   const onRegSubmit = (data) => {
     console.log(data);
-    dispatch(registration(data));
+    const phone = data.phone.replace(/-/g, ' ').replace(/ /g, '').replace(/\(/g, '').replace(/\)/g, '');
+    dispatch(registration({ ...data, phone }));
   };
   const userType = regForm.watch('user_type');
   console.log(userType);
@@ -96,12 +95,12 @@ const RegModal = () => {
             <S.Title>{showAuthModal ? 'Войти' : 'Зарегистрироваться'}</S.Title>
             <S.Description error={error}>{error && typeof error === 'string' ? error : 'Введите свои учетные данные'}</S.Description>
 
-            {!showAuthModal && (
+            {/* {!showAuthModal && (
               <S.Radios>
                 <Radio label="Частный продавец" value={userType === 0} onChange={handlePrivateChange} />
                 <Radio label="Компания" value={userType === 1} onChange={handleCompanyChange} margin="0 0 0 27px" />
               </S.Radios>
-            )}
+            )} */}
             <form>
               {userType === 0 && !showAuthModal && (
                 <>
@@ -115,6 +114,17 @@ const RegModal = () => {
                       required: { value: true, message: 'Обязательное поле ' },
                     }}
                     errors={regForm.formState.errors}
+                  />
+                  <FormInput
+                    label="Телефон"
+                    placeholder="Введите ваш номер телефона"
+                    type="phone"
+                    control={regForm.control}
+                    name="phone"
+                    errors={regForm.formState.errors}
+                    rules={{
+                      required: { value: true, message: 'Обязательное поле' },
+                    }}
                   />
                 </>
               )}
@@ -205,7 +215,13 @@ const RegModal = () => {
               <S.RememberBlock>
                 <CheckBox name="Запомнить информацию" />
               </S.RememberBlock>
-              <S.Forgot>Забыли пароль?</S.Forgot>
+              <S.Forgot
+                onClick={() => {
+                  dispatch(setShowRegModal(false));
+                  dispatch(setShowResetPassModal(true));
+                }}>
+                Забыли пароль?
+              </S.Forgot>
             </S.BottomBlock>
             {showAuthModal ? (
               <Button onClick={loginForm.handleSubmit(onLoginSubmit)} topGreen padding="14px 0" margin="62px 0 0 0">

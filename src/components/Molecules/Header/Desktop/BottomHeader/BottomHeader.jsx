@@ -13,10 +13,6 @@ const BottomHeader = () => {
   const categories = useSelector((state) => state.categories.categories);
   const main_category = useSelector((state) => state.categories.main_category);
 
-  // useEffect(() => {
-  //   dispatch(getCategories());
-  // }, []);
-
   const onHover = (category) => {
     dispatch(setCategory(category));
     dispatch(showHoverMenu());

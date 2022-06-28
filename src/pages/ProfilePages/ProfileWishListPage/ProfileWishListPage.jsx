@@ -24,7 +24,7 @@ const ProfileWishListPage = () => {
       <S.Container>
         {!isMobile && <ProfileMenu />}
 
-        <ProfileContent type="favorite" loading={getFavoriteProductsLoading} wishlist title={`Избранные: ${countFavorite}`} products={getFavoritesData} />
+        <ProfileContent type="favorite" loading={getFavoriteProductsLoading} wishlist title={`Избранные: ${getFavoritesData?.length ?? 0}`} products={getFavoritesData} />
       </S.Container>
     </S.Wrapper>
   );

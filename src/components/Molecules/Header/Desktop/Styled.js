@@ -52,12 +52,20 @@ export const Logo = styled.div`
 export const AvatarProfile = styled.div`
   width: 36px;
   height: 36px;
-  background: #e8e8e8;
+  cursor: pointer;
   border-radius: 50%;
-  background-image: url(${ProfileIcon});
+  background-size: contain;
   background-repeat: no-repeat;
+  background-image: url(${({ src }) => src || ''});
+  background-position: center;
   background-position: 54% 48%;
   margin-left: 26px;
+  ${({ empty }) =>
+    empty &&
+    css`
+      background-color: #e8e8e8;
+      background-size: 75%;
+    `}
 `;
 
 export const UserBlock = styled.div`

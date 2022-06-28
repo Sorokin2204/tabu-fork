@@ -5,7 +5,7 @@ import Header from 'components/Molecules/Search/Desktop/Header/Header';
 import { API_URL } from 'config';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsDisableScroll, setShowEditUserModal, setShowEditUserSuccessModal } from 'redux/reducers/appReducer';
+import { setIsDisableScroll, setShowChangePassModal, setShowEditUserModal, setShowEditUserSuccessModal } from 'redux/reducers/appReducer';
 import { sizes } from 'sizes';
 import IconCamera from 'assets/svg/camera.svg';
 import * as S from './Styled';
@@ -21,11 +21,12 @@ const EditProfileModal = ({ show, onClose }) => {
   const { currentUser: user, editUserLoading } = useSelector((state) => state.user);
   const defaultValues = {
     email: '',
-    user_type: '',
+    user_type: 0,
     fio: '',
-    company_name: '',
+    // company_name: '',
     city: '',
     country: '',
+    phone: '',
     avatar: { oldImage: null, newFile: null, newPreview: null },
   };
 
@@ -35,21 +36,24 @@ const EditProfileModal = ({ show, onClose }) => {
     formState: { errors },
     register,
     handleSubmit,
+    control,
   } = useForm({
     defaultValues,
   });
 
   useEffect(() => {
-    if (user) {
+    console.log(user);
+    if (user && showEditUserModal) {
       setValue('email', user?.email);
-      setValue('user_type', user?.user_type);
-      setValue('fio', user?.fio);
-      setValue('company_name', user?.company_name);
+      setValue('fio', user?.user_type === 0 ? user?.fio : user?.company_name);
+      setValue('phone', user?.phone);
+      // setValue('company_name', user?.company_name);
       setValue('city', user?.city);
       setValue('country', user?.country);
       setValue('avatar', { oldImage: user?.avatar, newFile: null, newPreview: null });
+      setValue('user_type', user?.user_type);
     }
-  }, [user]);
+  }, [user, showEditUserModal]);
 
   const [favorite, setFavorite] = useState('private');
 
@@ -86,17 +90,21 @@ const EditProfileModal = ({ show, onClose }) => {
   const onSubmit = (data) => {
     const { token } = user;
     const newData = { ...data };
-    if (newData.user_type === 0) {
-      newData.company_name = '';
-    }
-    if (newData.user_type === 1) {
-      newData.fio = '';
-    }
+    // if (newData.user_type === 0) {
+    //   newData.company_name = '';
+    // }
+    // if (newData.user_type === 1) {
+    //   newData.fio = '';
+    // }
     const formData = new FormData();
     formData.append('email', newData.email);
+    if (newData.user_type === 0) {
+      formData.append('fio', newData.fio);
+    } else {
+      formData.append('company_name', newData.fio);
+    }
     formData.append('user_type', newData.user_type);
-    formData.append('fio', newData.fio);
-    formData.append('company_name', newData.company_name);
+    formData.append('phone', newData.phone);
     formData.append('country', newData.country);
     if (newData?.avatar?.newFile) {
       formData.append('avatar', newData?.avatar?.newFile);
@@ -148,36 +156,43 @@ const EditProfileModal = ({ show, onClose }) => {
               {/* <S.Slice /> */}
               <S.Form onSubmit={handleSubmit(onSubmit)}>
                 <S.FormTop>
-                  <S.Radios>
+                  {/* <S.Radios>
                     <Radio label="Частный продавец" value={userType === 0} onChange={handlePrivateChange} />
                     <Radio label="Компания" value={userType === 1} onChange={handleCompanyChange} margin="0 0 0 27px" />
-                  </S.Radios>
-                  {userType === 0 ? (
-                    <FormInput
-                      label="ФИО"
-                      placeholder="Введите имя, фамилию и отчество"
-                      type="text"
-                      register={register}
-                      name="fio"
-                      rules={{
-                        required: { value: true, message: 'Обязательное поле' },
-                      }}
-                      errors={errors}
-                    />
-                  ) : (
-                    <FormInput
-                      label="Название компании"
-                      placeholder="Введите название компании"
-                      type="text"
-                      register={register}
-                      name="company_name"
-                      rules={{
-                        required: { value: true, message: 'Обязательное поле' },
-                      }}
-                      errors={errors}
-                    />
-                  )}
-
+                  </S.Radios> */}
+                  <FormInput
+                    label={user?.user_type === 0 ? 'ФИО' : 'Название компании'}
+                    placeholder={user?.user_type === 0 ? 'Введите имя, фамилию и отчество' : 'Введите название компании'}
+                    type="text"
+                    register={register}
+                    name="fio"
+                    rules={{
+                      required: { value: true, message: 'Обязательное поле' },
+                    }}
+                    errors={errors}
+                  />
+                  {/* <FormInput
+                    label="Название компании"
+                    placeholder="Введите название компании"
+                    type="text"
+                    register={register}
+                    name="company_name"
+                    rules={{
+                      required: { value: true, message: 'Обязательное поле' },
+                    }}
+                    errors={errors}
+                  /> */}
+                  <FormInput
+                    label="Телефон"
+                    placeholder="Введите ваш номер телефона"
+                    type="phone"
+                    control={control}
+                    name="phone"
+                    errors={errors}
+                    rules={{
+                      required: { value: true, message: 'Обязательное поле' },
+                    }}
+                  />
                   <FormInput
                     label="Эл.почта"
                     placeholder="Введите эл.почту"
@@ -215,6 +230,13 @@ const EditProfileModal = ({ show, onClose }) => {
                     }}
                     errors={errors}
                   />
+                  <S.ChangePassLink
+                    onClick={() => {
+                      dispatch(setShowEditUserModal(false));
+                      dispatch(setShowChangePassModal(true));
+                    }}>
+                    Сменить пароль
+                  </S.ChangePassLink>
                 </S.FormTop>
                 <S.ButtonBlock>
                   <Button
@@ -223,7 +245,7 @@ const EditProfileModal = ({ show, onClose }) => {
                     padding="14px 0"
                     style={{
                       width: isMobile ? '100%' : '233px',
-                      margin: isMobile ? '64px 0 0 0' : '85px 0 0 57px',
+                      margin: isMobile ? '64px 0 0 0' : '52px 0 0 57px',
                     }}>
                     Сохранить
                   </Button>

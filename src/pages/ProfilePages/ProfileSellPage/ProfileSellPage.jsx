@@ -12,12 +12,11 @@ import { auth } from 'redux/actions/user';
 import { setShowRemoveFromSaleModal, setShowRemoveFromSaleSuccessModal } from 'redux/reducers/appReducer';
 import MessageModal from 'components/Molecules/ProductPage/ThanksModal/ThanksModal';
 import Loading from 'components/Loading/Loading';
-import { removeFromSale } from 'redux/actions/product';
+import { getSellProducts, removeFromSale } from 'redux/actions/product';
+import ProfileLayout from '../ProfileLayout/ProfileLayout';
 const ProfileSellPage = () => {
-  const isMobile = useSelector((state) => state.app.isMobile);
   const [tabs, setTabs] = useState();
-  const { showRemoveFromSaleModal, showRemoveFromSaleSuccessModal } = useSelector((state) => state.app);
-  const { removeFromSaleLoading, removeFromSaleData } = useSelector((state) => state.product);
+  const dispatch = useDispatch();
   const tabsNoCount = [
     {
       id: 1,
@@ -27,71 +26,36 @@ const ProfileSellPage = () => {
     { id: 0, name: 'На модерации', slug: 'moderate' },
     { id: 2, name: 'Снят с продажи', slug: 'removed' },
     { id: 3, name: 'Отклонено', slug: 'canceled' },
-    { id: 4, name: 'Продано', slug: 'sales' },
+    { id: 4, name: 'Продано', slug: 'sold' },
   ];
-  const dispatch = useDispatch();
-
   const {
-    currentUser: { product_set },
+    currentUser: { products_count, product_set, published_count, moderate_count, remove_from_sale_count, canceled_count, sales_count },
     activeTab,
   } = useSelector((state) => state.user);
+  const { currentUser } = useSelector((state) => state.user);
+  const { getSellProductsData, getSellProductsLoading } = useSelector((state) => state.product);
   useEffect(() => {
-    if (product_set) {
-      const tabsWithCount = tabsNoCount.map((tab) => ({ ...tab, name: `${tab.name} ${product_set[tab.id]?.length ?? 0}` }));
+    if (currentUser) {
+      const tabsWithCount = [...tabsNoCount];
+      tabsWithCount[0].name = `${tabsWithCount[0].name} ${published_count}`;
+      tabsWithCount[1].name = `${tabsWithCount[1].name} ${moderate_count}`;
+      tabsWithCount[2].name = `${tabsWithCount[2].name} ${remove_from_sale_count}`;
+      tabsWithCount[3].name = `${tabsWithCount[3].name} ${canceled_count}`;
+      tabsWithCount[4].name = `${tabsWithCount[4].name} ${sales_count}`;
       setTabs(tabsWithCount);
       if (!activeTab) {
         dispatch(setActiveTab(tabsWithCount[0]));
       }
     }
-  }, [product_set]);
+  }, [currentUser]);
+
   useEffect(() => {
-    dispatch(auth());
-  }, []);
-  useEffect(() => {
-    if (removeFromSaleData) {
-      dispatch(setShowRemoveFromSaleModal(false));
-      dispatch(setShowRemoveFromSaleSuccessModal(true));
+    if (activeTab) {
+      dispatch(getSellProducts(activeTab.id));
     }
-  }, [removeFromSaleData]);
+  }, [activeTab]);
 
-  return (
-    <S.Wrapper>
-      {!isMobile && <TopBackground />}
-
-      <S.Container>
-        {!isMobile && <ProfileMenu />}
-        {activeTab && product_set && tabs && <ProfileContent products={product_set[activeTab?.id]} type={activeTab?.slug} tabs={tabs} title={`Товары на продажу:  ${_.sum(Object.values(product_set)?.map((item) => item.length))}`} />}
-      </S.Container>
-      <MessageModal
-        open={showRemoveFromSaleModal}
-        onClose={() => {
-          dispatch(setShowRemoveFromSaleModal(false));
-        }}
-        title={'Вы уверены что хотите снять товар с продажи ?'}
-        desc={'Товар будет снят с продажи. В дальнейшем вы сможете его вернуть.'}
-        textFirstBtn={'Снять с продажи'}
-        onClickSecondBtn={() => {
-          dispatch(setShowRemoveFromSaleModal(false));
-        }}
-        onClickFirstBtn={() => {
-          dispatch(removeFromSale());
-        }}
-        textSecondBtn={'Закрыть'}
-      />
-      <MessageModal
-        open={showRemoveFromSaleSuccessModal}
-        onClose={() => {
-          dispatch(setShowRemoveFromSaleSuccessModal(false));
-        }}
-        title={'Товар снят с продажи'}
-        textFirstBtn={'Отлично'}
-        onClickFirstBtn={() => {
-          dispatch(setShowRemoveFromSaleSuccessModal(false));
-        }}
-      />
-      {removeFromSaleLoading && <Loading />}
-    </S.Wrapper>
-  );
+  return <ProfileLayout>{activeTab && tabs && <ProfileContent products={getSellProductsData?.results} type={activeTab?.slug} tabs={tabs} title={`Товары на продажу:  ${products_count}`} loading={getSellProductsLoading} />}</ProfileLayout>;
 };
 
 export default ProfileSellPage;

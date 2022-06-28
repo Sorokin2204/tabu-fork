@@ -4,7 +4,7 @@ import WeSelling from 'assets/img/about-us.png';
 import Invoice from 'components/Molecules/AboutUsPage/Invoice/Invoice';
 import TaabuImg from 'assets/img/logo-green.png';
 import BagSchema from 'assets/img/bag-schema.png';
-
+import GuaranteImg from 'assets/img/guarante-how-to-buy.jpeg';
 import Mission from 'components/Molecules/AboutUsPage/Mission/Mission';
 import Guarante from 'components/Molecules/AboutUsPage/Guarante/Guarante';
 import Help from 'components/Molecules/AboutUsPage/Help/Help';
@@ -16,7 +16,7 @@ const whyData = {
 Табу в переводе с казахского языка значит “найти” или “находка” и это как раз то, для чего предназначается наша компания.
 
 TAABU - это первый онлайн сервис для покупки и перепродажи брендовых вещей в Казахстане. Здесь любой желающий может не только продать свои вещи быстро и самостоятельно, но и купить качественную вещь категории люкс по выгодной цене с 100% гарантией аутентичности. Мы превращаем покупку подержанных вещей в высококачественный, прозрачный, и легкий процесс.`,
-  img: WeSelling,
+  img: GuaranteImg,
 };
 
 const invoiceData = {

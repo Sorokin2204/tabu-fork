@@ -48,7 +48,7 @@ const Sales = () => {
           </Text>
         )}
         <a href={typeAd?.link}>
-          <Text fontFamily="Gilroy" fontSize={'20px'} textTransform="uppercase" fontWeight="600" decLine="underline" color="#ffffff" margin="32px 0 0 0" cursor="pointer" decLine="1px solid #fff">
+          <Text fontFamily="Gilroy" fontSize={'20px'} textTransform="uppercase" fontWeight="600" decLine="underline" color="#ffffff" margin="auto 0 auto 0" cursor="pointer" decLine="1px solid #fff">
             {typeAd?.helper_text}
           </Text>
         </a>

@@ -144,7 +144,7 @@ const OpenedProfile = () => {
                 dispatch(hideProfile());
                 navigate('/profile/wishlist');
               }}>
-              Список желаний
+              Избранное
             </Text>
 
             <Text

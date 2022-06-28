@@ -34,7 +34,7 @@ const PriceBlock = ({ register, errors, watch, control }) => {
           <S.Description>Если вы хотите, чтобы ваш товар продался быстрее, вы можете сделать на него скидку </S.Description>
         </div>
         <div>
-          <FormInput style={{ marginTop: '30px' }} value={price ? Math.floor((price.replace(/[^0-9.]/g, '') / 100) * 25) : ''} disabled label={'Ваша прибыль'} /> <S.Description style={{ fontSize: '14px', marginTop: '36px' }}>Комиссия составляет 25% </S.Description>
+          <FormInput style={{ marginTop: '30px' }} value={price ? '₸ ' + Math.floor((price.replace(/[^0-9.]/g, '') / 100) * 75) : ''} disabled label={'Ваша прибыль'} /> <S.Description style={{ fontSize: '14px', marginTop: '36px' }}>Комиссия составляет 25% </S.Description>
         </div>
       </S.Inputs>
     </S.Wrapper>

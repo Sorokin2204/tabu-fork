@@ -51,7 +51,7 @@ export const Block = styled.div`
   align-items: start;
   background: #ffffff;
   width: 1024px;
-  height: 726px;
+  height: 778px;
   align-items: center;
   overflow: overlay;
   max-height: calc(100vh - 40px);
@@ -134,7 +134,23 @@ export const Form = styled.form`
     margin-left: 0;
   }
 `;
+export const ChangePassLink = styled.div`
+  cursor: pointer;
+  user-select: none;
+  font-family: 'Mont';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 130%;
+  margin-left: auto;
+  /* or 18px */
+  margin-top: 20px;
+  text-decoration-line: underline;
 
+  /* grey */
+
+  color: #025b37;
+`;
 export const FormTop = styled.div`
   display: flex;
   flex-direction: column;

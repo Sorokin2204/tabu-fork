@@ -4,15 +4,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import EditProfileModal from '../EditProfileModal/EditProfileModal';
 import { useState } from 'react';
-import { setIsDisableScroll, setShowEditUserModal, setShowEditUserSuccessModal, setShowLogoutModal } from 'redux/reducers/appReducer';
+import { setIsDisableScroll, setShowChangePassModal, setShowChangePassSuccessModal, setShowEditUserModal, setShowEditUserSuccessModal, setShowLogoutModal } from 'redux/reducers/appReducer';
 import MessageModal from 'components/Molecules/ProductPage/ThanksModal/ThanksModal';
 import { API_URL, URL } from 'config';
 import _ from 'lodash';
+import FormInput from 'components/Molecules/Form/FormInput/FormInput';
+import { useForm } from 'react-hook-form';
+import { useEffect } from 'react';
+import { changePassword } from 'redux/actions/user';
+import Loading from 'components/Loading/Loading';
+import { changePasswordSuccess } from 'redux/reducers/userReducer';
+import EditPasswordModal from '../EditPasswordModal/EditPasswordModal';
 const ProfileMenu = (props) => {
   const user = useSelector((state) => state.user.currentUser);
   const isMobile = useSelector((state) => state.app.isMobile);
-  const showEditUserSuccessModal = useSelector((state) => state.app.showEditUserSuccessModal);
+  const { showEditUserSuccessModal, showChangePassModal, showChangePassSuccessModal } = useSelector((state) => state.app);
   const { countFavorite } = useSelector((state) => state.product);
+  const { changePasswordLoading, changePasswordData, changePasswordError } = useSelector((state) => state.user);
   const dispath = useDispatch();
   const {
     currentUser: { product_set, products_count, favorites_count, purchased_count },
@@ -22,6 +30,8 @@ const ProfileMenu = (props) => {
     <div>
       <S.Wrapper {...props}>
         <EditProfileModal />
+        <EditPasswordModal />
+        <MessageModal open={showChangePassSuccessModal} onClose={() => dispath(setShowChangePassSuccessModal(false))} title={'Пароль успешно изменен'} textFirstBtn={'Отлично'} onClickFirstBtn={() => dispath(setShowChangePassSuccessModal(false))} />
         <MessageModal open={showEditUserSuccessModal} onClose={() => dispath(setShowEditUserSuccessModal(false))} title={'Данные профиля успешно обнавлены'} textFirstBtn={'Отлично'} onClickFirstBtn={() => dispath(setShowEditUserSuccessModal(false))} />
         <S.WrapperInner>
           {user?.avatar ? <S.Avatar src={`${URL + user?.avatar}`} /> : <S.AvatarText>{user?.fio?.length ? user?.fio[0]?.toUpperCase() : user?.company_name?.length ? user?.company_name[0]?.toUpperCase() : ''}</S.AvatarText>}
@@ -60,7 +70,7 @@ const ProfileMenu = (props) => {
             </NavLink>
             <NavLink to="/profile/sellitems" className={({ isActive }) => (isActive && !isMobile ? 'profile_menu_item active' : 'profile_menu_item')}>
               <S.ItemTitle>Товары на продажу</S.ItemTitle>
-              {product_set && <S.ItemNumber>{products_count}</S.ItemNumber>}
+              <S.ItemNumber>{products_count}</S.ItemNumber>
             </NavLink>
             <NavLink to="/profile/wishlist" className={({ isActive }) => (isActive && !isMobile ? 'profile_menu_item active' : 'profile_menu_item')}>
               <S.ItemTitle>Избранное</S.ItemTitle>

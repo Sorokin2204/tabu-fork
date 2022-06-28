@@ -25,9 +25,10 @@ export const getCartProducts = () => {
         const response = await axios.get(`${API_URL}/products/?id__in=${currentCart.map((item) => item.id).join(',')}`);
         let total = 0;
         const cartProducts = response.data.results.map((item) => {
-          const selectSize = item.size.filter((s) => !!currentCart.find((ss) => ss.size === s.id));
+          const cartVariation = currentCart.find((curCart) => curCart.id === item.id).size.id;
+          const selectSize = item.size_variations.find((s) => s.size.id == cartVariation);
           total += item.price;
-          return { ...item, size: selectSize[0] };
+          return { ...item, size_variations: [selectSize] };
         });
         dispatch(updateCountCart());
         dispatch(setCartProducts(cartProducts));

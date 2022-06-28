@@ -191,9 +191,15 @@ const Card = (props) => {
           )}
 
           {isMobile ? (
-            <Text color="#191919" fontFamily="Mont" fontWeight="600" fontSize="12px" margin={'6px 0 0 0'}>
-              {props.price ? currencyFormat(props.price) : ''}
-            </Text>
+            <>
+              <Text color="#191919" fontFamily="Mont" fontWeight="600" fontSize="12px" margin={'6px 0 0 0'}>
+                {props.price ? currencyFormat(props.price) : ''}
+              </Text>
+
+              <Text color="#ABABAB" fontFamily="Mont" fontWeight="600" fontSize="12px" decoration="line-through">
+                {props?.product?.old_price && currencyFormat(props?.product?.old_price)}
+              </Text>
+            </>
           ) : (
             ''
           )}

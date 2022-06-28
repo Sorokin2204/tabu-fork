@@ -7,13 +7,16 @@ import { getCartProducts } from 'redux/actions/cart';
 import * as S from './Styled';
 
 const Cart = () => {
+  const { countCart } = useSelector((state) => state.product);
   const cartProducts = useSelector((state) => state.cart.cartProducts);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getCartProducts());
+    if (localStorage.getItem('cart')) {
+      dispatch(getCartProducts());
+    }
   }, []);
-
-  return <>{JSON.parse(localStorage.getItem('cart'))?.length !== 0 ? <CartComponent /> : <EmptyCart />}</>;
+  console.log();
+  return <>{JSON.parse(localStorage.getItem('cart'))?.length !== 0 && countCart && localStorage.getItem('cart') ? <CartComponent /> : <EmptyCart />}</>;
 };
 
 export default Cart;

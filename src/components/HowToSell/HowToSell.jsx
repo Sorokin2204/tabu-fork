@@ -5,7 +5,7 @@ import * as S from './Styled';
 import GuaranteImg from 'assets/img/guarante-how-to-sell.jpeg';
 import StepsLeft from 'components/Molecules/StepsLeft/StepsLeft';
 import Commission from 'components/Molecules/Guarante/Сommission/Сommission';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { scrollToSection } from 'utils/scrollToSection';
 import { useEffect } from 'react';
 const HowToSell = () => {
@@ -37,10 +37,10 @@ const HowToSell = () => {
       list: ['  Вы не несете никаких затрат. Комиссия TAABU взымается только после доставки товара покупателю', 'Минимальное количество времени на размещение товара благодаря отзывчивому интерфейсу и советам TAABU по продаже товара', 'Все товары доставляются покупателю в фирменной упаковке TAABU'],
     },
   ];
-  const params = useParams();
+  const { hash } = useLocation();
   useEffect(() => {
     scrollToSection();
-  }, [params]);
+  }, [hash]);
   return (
     <>
       <Steps steps={steps} mobLineHeight={'78%'} columns={'minmax(0,362px) minmax(0,398px) minmax(0,377px)'} title={'Как продавать? '} />

@@ -11,29 +11,19 @@ import { getCartProducts } from 'redux/actions/cart';
 import Button from 'components/Atoms/Button';
 import { useNavigate } from 'react-router-dom';
 import { removeFavorite } from 'redux/actions/product';
-import { setShowRemoveFromSaleModal } from 'redux/reducers/appReducer';
-import { setSelectedProductProfile } from 'redux/reducers/productReducer';
-
+import { setShowRemoveFromSaleModal, setShowRemoveModal } from 'redux/reducers/appReducer';
+import { setSelectedProductProfile, updateCountCart } from 'redux/reducers/productReducer';
+import ProfileIcon from 'assets/svg/profile.svg';
 const CartProductCard = ({ product, type }) => {
   const cartProducts = useSelector((state) => state.cart.cartProducts);
   const dispatch = useDispatch();
-
-  const deleteItem = (id) => {
-    let copyCartProducts = cartProducts;
-    copyCartProducts = copyCartProducts.filter((x) => x.id !== id);
-    // dispatch(setCartProducts());
-
-    // Сохранение в localstorage
-    localStorage.setItem('cartProducts', JSON.stringify(copyCartProducts));
-    console.log(id);
-  };
   const navigate = useNavigate();
   return (
     <S.Card>
       <S.Profile>
         {type === 'cart' && (
           <S.ProfileMobile>
-            <S.ProfileAvatar src={URL + product?.seller?.avatar} />
+            <S.ProfileAvatar empty={!product?.seller?.avatar} src={product?.seller?.avatar ? `${product?.seller?.avatar}` : ProfileIcon} />
             <S.ProfileDetails>
               <S.ProfileName>{product?.seller?.fio ? product?.seller?.fio : product?.seller?.company_name}</S.ProfileName>
               <S.ProfileRole>{returnRole(product?.seller?.user_type)}</S.ProfileRole>
@@ -46,7 +36,7 @@ const CartProductCard = ({ product, type }) => {
               onClick={() => {
                 if (type === 'cart') {
                   removeFromCart(product?.id);
-                  dispatch(getCartProducts());
+                  dispatch(updateCountCart());
                 }
                 if (type === 'favorite') {
                   dispatch(removeFavorite(product?.id));
@@ -80,20 +70,20 @@ const CartProductCard = ({ product, type }) => {
             {product?.title}
           </S.DescriptionTitle>
           <S.DescriptionText>{product?.description?.length > 65 ? product?.description?.slice(0, 65) + ' ...' : product?.description}</S.DescriptionText>
-          <S.Size>Размер: {product?.size?.title ? product?.size?.title : product?.size?.map((item) => item.title).join(', ')}</S.Size>{' '}
+          <S.Size>Размер: {product?.size_variations?.map((item) => item.size.title).join(', ')}</S.Size>{' '}
           <div
             style={{
               width: 'min-content',
             }}>
             <S.PriceCol type={type}>
               <S.Price type={type}>{currencyFormat(product?.price)}</S.Price>
-
-              <S.OldPrice>{currencyFormat(product?.old_price)}</S.OldPrice>
+              {product?.old_price && <S.OldPrice>{currencyFormat(product?.old_price)}</S.OldPrice>}
             </S.PriceCol>
           </div>
         </S.DescBlock>
       </S.DescriptionCol>
-      {type !== 'cart' && type !== 'favorite' && (
+
+      {type !== 'cart' && type !== 'favorite' && type != 'sold' && (
         <S.Btns>
           <Button
             grayBorder
@@ -102,6 +92,9 @@ const CartProductCard = ({ product, type }) => {
               if (type == 'publish') {
                 dispatch(setSelectedProductProfile(product?.id));
                 dispatch(setShowRemoveFromSaleModal(true));
+              } else if (type == 'moderate' || type == 'canceled' || type == 'removed') {
+                dispatch(setSelectedProductProfile(product?.id));
+                dispatch(setShowRemoveModal(true));
               }
             }}>
             {type == 'publish' ? 'Снять с продажи' : type == 'moderate' || type == 'canceled' ? 'Удалить' : type == 'removed' ? 'Опубликовать' : 'Снять с продажи'}

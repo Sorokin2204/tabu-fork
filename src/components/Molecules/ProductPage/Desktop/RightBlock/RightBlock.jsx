@@ -15,7 +15,7 @@ const RightBlock = () => {
       <GeneralInformation />
       <Details />
       <Expands />
-      <Warning />
+      {/* <Warning /> */}
     </S.Container>
   );
 };

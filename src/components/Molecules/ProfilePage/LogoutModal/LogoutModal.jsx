@@ -1,14 +1,14 @@
 import Button from 'components/Atoms/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { setShowLogoutModal } from 'redux/reducers/appReducer';
+import { logout } from 'redux/reducers/userReducer';
 import * as S from './Styled';
 
 const LogoutModal = () => {
   const showLogoutModal = useSelector((state) => state.app.showLogoutModal);
   const dispath = useDispatch();
   const onLogoutClick = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    dispath(logout());
 
     document.location.href = '/';
   };

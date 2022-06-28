@@ -6,7 +6,7 @@ import Header from 'components/Molecules/Search/Desktop/Header/Header';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from 'redux/actions/user';
-import { setShowAuthModal, setShowRegModal } from 'redux/reducers/appReducer';
+import { setShowAuthModal, setShowRegModal, setShowResetPassModal } from 'redux/reducers/appReducer';
 import { sizes } from 'sizes';
 import * as S from './Styled';
 
@@ -66,7 +66,13 @@ const LoginModal = () => {
               <S.RememberBlock>
                 <CheckBox name="Запомнить информацию" />
               </S.RememberBlock>
-              <S.Forgot>Забыли пароль?</S.Forgot>
+              <S.Forgot
+                onClick={() => {
+                  dispatch(setShowAuthModal(false));
+                  dispatch(setShowResetPassModal(true));
+                }}>
+                Забыли пароль?
+              </S.Forgot>
             </S.BottomBlock>
             <Button onClick={() => onLogin()} topGreen padding="14px 0" margin="62px 0 0 0">
               Вход

@@ -26,6 +26,13 @@ import {
   SET_SHOW_EDIT_USER_MODAL,
   SET_REMOVE_FROM_SALE_MODAL,
   SET_REMOVE_FROM_SALE_SUCCESS_MODAL,
+  SET_REMOVE_SUCCESS_MODAL,
+  SET_REMOVE_MODAL,
+  SET_PHOTO_RECOMEND_MODAL,
+  SET_CHANGE_PASS_MODAL,
+  SET_CHANGE_PASS_SUCCESS_MODAL,
+  SET_RESET_PASS_MODAL,
+  SET_RESET_PASS_SUCCESS_MODAL,
 } from '../types/appTypes';
 
 const defaultState = {
@@ -54,6 +61,13 @@ const defaultState = {
   showEditUserModal: false,
   showRemoveFromSaleModal: false,
   showRemoveFromSaleSuccessModal: false,
+  showRemoveModal: false,
+  showRemoveSuccessModal: false,
+  showPhotoRecomendModal: false,
+  showChangePassModal: false,
+  showChangePassSuccessModal: false,
+  showResetPassModal: false,
+  showResetPassSuccessModal: false,
   breadcrumbs: [],
 };
 
@@ -121,6 +135,20 @@ export default function productReducer(state = defaultState, action) {
       return { ...state, showRemoveFromSaleModal: action.payload };
     case SET_REMOVE_FROM_SALE_SUCCESS_MODAL:
       return { ...state, showRemoveFromSaleSuccessModal: action.payload };
+    case SET_REMOVE_MODAL:
+      return { ...state, showRemoveModal: action.payload };
+    case SET_REMOVE_SUCCESS_MODAL:
+      return { ...state, showRemoveSuccessModal: action.payload };
+    case SET_PHOTO_RECOMEND_MODAL:
+      return { ...state, showPhotoRecomendModal: action.payload };
+    case SET_CHANGE_PASS_MODAL:
+      return { ...state, showChangePassModal: action.payload };
+    case SET_CHANGE_PASS_SUCCESS_MODAL:
+      return { ...state, showChangePassSuccessModal: action.payload };
+    case SET_RESET_PASS_MODAL:
+      return { ...state, showResetPassModal: action.payload };
+    case SET_RESET_PASS_SUCCESS_MODAL:
+      return { ...state, showResetPassSuccessModal: action.payload };
     default:
       return state;
   }
@@ -222,11 +250,43 @@ export const setBreadcrumbs = (breadcrumbs) => ({
   type: SET_BREADCRUMBS,
   payload: breadcrumbs,
 });
-export const setShowRemoveFromSaleModal = (breadcrumbs) => ({
+export const setShowRemoveFromSaleModal = (id) => ({
   type: SET_REMOVE_FROM_SALE_MODAL,
-  payload: breadcrumbs,
+  payload: id,
 });
+
+export const setShowRemoveModal = (id) => ({
+  type: SET_REMOVE_MODAL,
+  payload: id,
+});
+
+export const setShowRemoveSuccessModal = (id) => ({
+  type: SET_REMOVE_SUCCESS_MODAL,
+  payload: id,
+});
+
 export const setShowRemoveFromSaleSuccessModal = (data) => ({
   type: SET_REMOVE_FROM_SALE_SUCCESS_MODAL,
+  payload: data,
+});
+
+export const setShowPhotoRecomendModal = (data) => ({
+  type: SET_PHOTO_RECOMEND_MODAL,
+  payload: data,
+});
+export const setShowChangePassModal = (data) => ({
+  type: SET_CHANGE_PASS_MODAL,
+  payload: data,
+});
+export const setShowChangePassSuccessModal = (data) => ({
+  type: SET_CHANGE_PASS_SUCCESS_MODAL,
+  payload: data,
+});
+export const setShowResetPassModal = (data) => ({
+  type: SET_RESET_PASS_MODAL,
+  payload: data,
+});
+export const setShowResetPassSuccessModal = (data) => ({
+  type: SET_RESET_PASS_SUCCESS_MODAL,
   payload: data,
 });

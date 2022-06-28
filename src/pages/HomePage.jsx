@@ -35,17 +35,18 @@ import Background from 'assets/img/startSell.png';
 import WeSellingImg from 'assets/img/weSelling2.png';
 
 import { scrollToSection } from 'utils/scrollToSection';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 const HomePage = () => {
   const { newProducts, trends } = useSelector((state) => state.product);
   const { ads } = useSelector((state) => state.ads);
   const params = useParams();
+  const { hash } = useLocation();
   useEffect(() => {
     if (newProducts.length !== 0 && trends.length !== 0 && ads.length !== 0) {
       scrollToSection();
     }
-  }, [newProducts, trends, ads, params]);
+  }, [newProducts, trends, ads, hash]);
 
   const isMobile = useSelector((state) => state.app.isMobile);
   const dispatch = useDispatch();
@@ -79,7 +80,7 @@ const HomePage = () => {
           <MobileStartSale
             style={{ backgroundColor: '#000', backgroundSize: 'auto', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 40px top 80px' }}
             title={'Сделаем всё за вас'}
-            text={'Заберем ваши вещи. Подготовим, опубликуем и продадим. Переведем вам деньги'}
+            text={'Заберем ваши вещи. Подготовим, опубликуем и продадим. Переведем вам деньги.'}
             btnText={'Получить вип-сервис'}
             img={WeSellingImg}
           />
@@ -112,7 +113,7 @@ const HomePage = () => {
           <StartSell
             style={{ backgroundColor: '#000', backgroundRepeat: 'no-repeat', backgroundPosition: 'left 90% top 38px', height: '470px' }}
             title={'Сделаем всё за вас'}
-            text={'Заберем ваши вещи, которые пылятся в гардеробе, вы не консервируете деньги у себя в шкафу, а зарабатываете на будущие покупки.'}
+            text={'Заберем ваши вещи. Подготовим, опубликуем и продадим. Переведем вам деньги.'}
             btnText={'Получить вип-сервис'}
             img={WeSellingImg}
           />

@@ -25,6 +25,8 @@ export const Content = styled.div`
 export const Img = styled.img`
   display: block;
   width: 100%;
+  height: 100%;
+  object-fit: cover;
   grid-column: 2/3;
   grid-row: 1/3;
   @media (max-width: 1110px) {

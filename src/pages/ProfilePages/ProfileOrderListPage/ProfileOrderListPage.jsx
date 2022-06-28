@@ -6,6 +6,7 @@ import ProfileProducts from 'components/Molecules/ProfilePage/ProfileProducts/Pr
 import TopBackground from 'components/Molecules/ProfilePage/TopBackground/TopBackground';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import ProfileLayout from '../ProfileLayout/ProfileLayout';
 import * as S from '../ProfileSellPage/Styled';
 const ProfileOrderListPage = ({ title }) => {
   const tabs = [
@@ -27,15 +28,9 @@ const ProfileOrderListPage = ({ title }) => {
     currentUser: { purchased_count },
   } = useSelector((state) => state.user);
   return (
-    <S.Wrapper>
-      {!isMobile && <TopBackground />}
-
-      <S.Container>
-        {!isMobile && <ProfileMenu />}
-
-        <ProfileContent tabs={tabs} title={`Мои заказы: ${purchased_count}`} />
-      </S.Container>
-    </S.Wrapper>
+    <ProfileLayout>
+      <ProfileContent tabs={tabs} title={`Мои заказы: ${purchased_count}`} />
+    </ProfileLayout>
   );
 };
 

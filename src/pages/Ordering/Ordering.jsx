@@ -13,7 +13,9 @@ const Ordering = () => {
   const dispatch = useDispatch();
   const { cartProductsLoading, cartProducts } = useSelector((state) => state.cart);
   useEffect(() => {
-    dispatch(getCartProducts());
+    if (localStorage.getItem('cart')) {
+      dispatch(getCartProducts());
+    }
     // set cart products
     // dispatch(setCartProducts(JSON.parse(localStorage.getItem('cartProducts'))));
   }, []);

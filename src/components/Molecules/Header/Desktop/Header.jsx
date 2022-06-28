@@ -15,7 +15,8 @@ import { getCategories } from 'redux/actions/categories';
 import { setMainCategory } from 'redux/reducers/categoriesReducer';
 import OutsideClickHandler from 'react-outside-click-handler/build/OutsideClickHandler';
 import { updateCountCart, updateCountFavorite } from 'redux/reducers/productReducer';
-
+import ProfileIcon from 'assets/svg/profile.svg';
+import { URL } from 'config';
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -25,11 +26,9 @@ const Header = () => {
   const cartProducts = useSelector((state) => state.cart.cartProducts);
   const showHover = useSelector((state) => state.app.showHoverMenu);
   const profileShow = useSelector((state) => state.app.showProfile);
-  useEffect(() => {
-    dispatch(getCategories());
-    dispatch(updateCountCart());
-  }, []);
+
   const isAuth = useSelector((state) => state.user.isAuth);
+  const { currentUser } = useSelector((state) => state.user);
   return (
     <>
       <TopHeader />
@@ -88,7 +87,8 @@ const Header = () => {
                 fill="black"
               />
             </svg>
-            {countFavorite !== 0 && <S.FavoriteNumber>{countFavorite}</S.FavoriteNumber>}
+
+            {getFavoritesData?.length !== 0 && <S.FavoriteNumber>{getFavoritesData?.length ?? ''}</S.FavoriteNumber>}
           </S.Favorite>
           {/* {!profileShow ? (
             <S.Profile onClick={() => dispatch(showProfile())}>
@@ -104,6 +104,8 @@ const Header = () => {
                 dispatch(hideProfile());
               }}>
               <S.AvatarProfile
+                empty={!currentUser?.avatar}
+                src={currentUser?.avatar ? `${URL}${currentUser?.avatar}` : ProfileIcon}
                 onClick={() => {
                   if (profileShow) {
                     dispatch(hideProfile());

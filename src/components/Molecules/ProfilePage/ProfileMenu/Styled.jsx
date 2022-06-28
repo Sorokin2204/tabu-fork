@@ -42,6 +42,7 @@ export const WrapperInner = styled.div`
 `;
 export const AvatarBox = styled.div``;
 export const AvatarBtn = styled.div``;
+
 export const Avatar = styled.div`
   min-width: 100px;
   min-height: 100px;
@@ -53,6 +54,7 @@ export const Avatar = styled.div`
   background-size: 90%;
   background-repeat: no-repeat;
   background-position: center;
+  background-size: cover;
   @media (max-width: ${sizes.mobile}px) {
     background-color: #ffffff;
     border: 6px solid #ffffff;

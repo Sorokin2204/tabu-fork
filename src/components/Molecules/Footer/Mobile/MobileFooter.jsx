@@ -23,7 +23,7 @@ export const footerData = [
       { name: 'Как продовать', link: '/how-to-sell/#how-to-block' },
       { name: 'Гарантия подлинности', link: '/how-to-sell/#guarante-block' },
       { name: 'Безопасная сделка', link: '/how-to-sell/#safe-block' },
-      { name: 'Доставка и возврат', link: '/how-to-sell/#delivery-block' },
+
       { name: 'Комиссия', link: '/how-to-sell/#commission-block' },
     ],
   },

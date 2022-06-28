@@ -1,5 +1,6 @@
-import { useState } from "react";
-import * as S from "./Styled";
+import { Interweave } from 'interweave';
+import { useState } from 'react';
+import * as S from './Styled';
 
 const Expand = (props) => {
   const [open, setOpen] = useState(false);
@@ -27,20 +28,11 @@ const Expand = (props) => {
       </S.ExpandContainer>
       {open ? (
         <S.TextBox>
-          <S.Text>Доставка заказа занимает до 7 дней</S.Text>
-          <S.Text>
-            Сначала товар приходит в наш офис, проходит <br />
-            экпертизу, и только потом мы отправляем его <br />
-            покупателю в фирменной упаковке.
-          </S.Text>
-          <S.Text>
-            Мы пользуемся услугами Major Express. Отслеживать <br />
-            статус доставки вы можете в личном кабинете TAABU.
-          </S.Text>
-          <S.Text>
-            Бесплатный возврат <br /> Если вещь от бутика не подошла, оформить возврат <br />
-            можно в течении 7 дней
-          </S.Text>
+          <Interweave
+            style={{
+              fontFamily: 'Mont',
+            }}
+            content={props.desc}></Interweave>
         </S.TextBox>
       ) : (
         ''

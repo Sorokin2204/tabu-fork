@@ -147,7 +147,8 @@ const CategoryPage = () => {
           }}>
           <Sidebar />
           <Flex direction="column" style={{ position: 'relative' }}>
-            <Tags />
+            {!isMobile && <Tags />}
+
             <S.StyledProducts className="w100">
               {products.length === 0 || productsLoading || pageCategoryLoading ? (
                 <></>

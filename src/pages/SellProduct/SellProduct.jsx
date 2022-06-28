@@ -7,9 +7,9 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { addProduct, editProduct, getEditProduct, getOldImageIds, uploadDetails, uploadImages } from 'redux/actions/product';
+import { addProduct, editProduct, getEditProduct, getOldImageIds, uploadDetails, uploadImages, uploadVariations } from 'redux/actions/product';
 import { auth } from 'redux/actions/user';
-import { setShowMobileCartModal, setShowSellerThanksModal } from 'redux/reducers/appReducer';
+import { setShowMobileCartModal, setShowPhotoRecomendModal, setShowSellerThanksModal } from 'redux/reducers/appReducer';
 import { resetAddProducts, resetSellProductPage } from 'redux/reducers/productReducer';
 import { sizes } from 'sizes';
 import ContentBlock from './ContentBlock/ContentBlock';
@@ -137,12 +137,12 @@ const SellProduct = () => {
     defaultValues: defaultValues,
   });
 
-  const { uploadDetailsLoading, uploadImagesLoading, addProductLoading, addProductData, getEditProductData, getEditProductLoading, getEditProductError, editProductLoading, editProductData } = useSelector((state) => state.product);
+  const { uploadDetailsLoading, uploadImagesLoading, uploadDetailsData, uploadImagesData, uploadVariationsData, uploadVariationsLoading, addProductLoading, addProductData, getEditProductData, getEditProductLoading, getEditProductError, editProductLoading, editProductData } = useSelector(
+    (state) => state.product,
+  );
   const { categories } = useSelector((state) => state.categories);
-
   const isMobile = useSelector((state) => state.app.isMobile);
-  const showSellerThanksModal = useSelector((state) => state.app.showSellerThanksModal);
-  const { uploadDetailsData, uploadImagesData } = useSelector((state) => state.product);
+  const { showSellerThanksModal, showPhotoRecomendModal } = useSelector((state) => state.app);
   const { currentUser } = useSelector((state) => state.user);
   const { product_id } = useParams();
   useEffect(() => {
@@ -193,7 +193,7 @@ const SellProduct = () => {
   }, []);
 
   useEffect(() => {
-    if (uploadDetailsData && uploadImagesData) {
+    if (uploadDetailsData && uploadImagesData && uploadVariationsData) {
       const newData = { ...getValues() };
       let images = [];
       let oldImages = getOldImageIds(newData.images);
@@ -209,14 +209,14 @@ const SellProduct = () => {
       newData.details_list = uploadDetailsData;
       newData.condition_images = images;
       newData.images = images;
+      newData.sample = newData.sample.toUpperCase();
       newData.number_of_flat = parseInt(newData.number_of_flat);
       newData.number_of_house = parseInt(newData.number_of_house);
       newData.price = newData.price.replace(/[^0-9]+/g, '');
       newData.old_price = newData?.old_price?.replace(/[^0-9]+/g, '');
       newData.phone_number = newData.phone_number.replace(/[^0-9\+]+/g, '');
       newData.seller = currentUser.id;
-      newData.size = newData.size.map((item) => item.id);
-
+      newData.productvariations_set = uploadVariationsData;
       console.log(newData);
       if (getEditProductData) {
         dispath(editProduct(newData));
@@ -224,7 +224,7 @@ const SellProduct = () => {
         dispath(addProduct(newData));
       }
     }
-  }, [uploadDetailsData, uploadImagesData]);
+  }, [uploadDetailsData, uploadImagesData, uploadVariationsData]);
   useEffect(() => {
     const subscription = watch((value, { name, type }) => {
       if (name?.includes('images') || name === 'condition') {
@@ -252,7 +252,7 @@ const SellProduct = () => {
   }, [addProductData, editProductData]);
 
   const onSubmit = (data) => {
-    const { images, condition, details_list } = data;
+    const { images, condition, details_list, size } = data;
     console.log(images);
     const validImages = validateImages(images, condition);
     if (validImages) {
@@ -260,6 +260,7 @@ const SellProduct = () => {
       }
       dispath(uploadImages(images));
       dispath(uploadDetails(details_list));
+      dispath(uploadVariations(size.map((item) => item.id)));
     }
   };
   const location = useLocation();
@@ -288,7 +289,7 @@ const SellProduct = () => {
         onClickFirstBtn={() => window.location.reload(false)}
         textSecondBtn={'Закрыть'}
       />
-      {(uploadDetailsLoading || uploadImagesLoading || addProductLoading || editProductLoading) && <Loading />}
+      {(uploadDetailsLoading || uploadImagesLoading || addProductLoading || editProductLoading || uploadVariationsLoading) && <Loading />}
       <S.Buttons>
         <Button
           onClick={handleSubmit(onSubmit)}
@@ -300,6 +301,21 @@ const SellProduct = () => {
           Опубликовать этот товар
         </Button>
       </S.Buttons>
+      <MessageModal
+        open={showPhotoRecomendModal}
+        onClose={() => dispath(setShowPhotoRecomendModal(false))}
+        title={''}
+        desc={
+          <div style={{ textAlign: 'left', marginTop: '-50px' }}>
+            Чтобы быстрее продать товар, следуйте следующим рекомендациям: <br />
+            <br />
+            1. Загрузите четкие фото с учетом следов носки, если они имеются. Например, если есть небольшие царапины, потёртости, ваши описание и фото должны их отображать. <br />
+            2. В описании пишите актуальную информацию о товаре. Например, маломерит ли он, отличается ли цвет от фото и тд. <br />
+            3. Постарайтесь фотографировать вещи на белом фоне - так они смотрятся более выигрышно. <br />
+            4. Если вы передумали продавать товар, удалите его с вашего аккаунта.
+          </div>
+        }
+      />
     </S.Wrapper>
   ) : getEditProductError ? (
     <NotFound title={'Товар не найден'} />

@@ -1,8 +1,35 @@
-import { EDIT_USER_ERROR, EDIT_USER_LOADING, EDIT_USER_SUCCESS, LOGOUT, SET_ACTIVE_TAB, SET_BUY_ITEMS, SET_SELL_ITEMS, SET_USER, SET_WISH_LIST, USER_ERROR, USER_LOADING, USER_RESET, USER_SUCCESS } from '../types/userTypes';
+import {
+  CHANGE_PASSWORD_ERROR,
+  CHANGE_PASSWORD_LOADING,
+  CHANGE_PASSWORD_SUCCESS,
+  EDIT_USER_ERROR,
+  EDIT_USER_LOADING,
+  EDIT_USER_SUCCESS,
+  LOGOUT,
+  RESET_PASSWORD_ERROR,
+  RESET_PASSWORD_LOADING,
+  RESET_PASSWORD_SUCCESS,
+  SET_ACTIVE_TAB,
+  SET_BUY_ITEMS,
+  SET_IS_AUTH,
+  SET_SELL_ITEMS,
+  SET_USER,
+  SET_WISH_LIST,
+  USER_ERROR,
+  USER_LOADING,
+  USER_RESET,
+  USER_SUCCESS,
+} from '../types/userTypes';
 
 const defaultState = {
-  currentUser: {},
-  isAuth: localStorage.getItem('token') || false,
+  currentUser: {
+    published_count: 1,
+    moderate_count: 2,
+    remove_from_sale_count: 3,
+    canceled_count: 4,
+    sales_count: 5,
+  },
+  isAuth: false,
   data: null,
   error: null,
   loading: false,
@@ -13,6 +40,12 @@ const defaultState = {
   editUserError: null,
   editUserLoading: false,
   editUserData: null,
+  changePasswordError: null,
+  changePasswordLoading: false,
+  changePasswordData: null,
+  resetPasswordError: null,
+  resetPasswordLoading: false,
+  resetPasswordData: null,
 };
 
 export default function userReducer(state = defaultState, action) {
@@ -20,7 +53,7 @@ export default function userReducer(state = defaultState, action) {
     case SET_USER:
       return {
         ...state,
-        currentUser: action.payload,
+        currentUser: { ...state.currentUser, ...action.payload },
         isAuth: true,
       };
     case LOGOUT:
@@ -30,7 +63,8 @@ export default function userReducer(state = defaultState, action) {
         currentUser: {},
         isAuth: false,
       };
-
+    case SET_IS_AUTH:
+      return { ...state, isAuth: action.payload };
     case SET_BUY_ITEMS:
       return { ...state, buyItems: action.payload };
 
@@ -53,6 +87,18 @@ export default function userReducer(state = defaultState, action) {
       return { ...state, editUserError: null, editUserLoading: false, editUserData: action.payload };
     case EDIT_USER_LOADING:
       return { ...state, editUserLoading: true };
+    case CHANGE_PASSWORD_ERROR:
+      return { ...state, changePasswordError: action.payload, changePasswordLoading: false, changePasswordData: null };
+    case CHANGE_PASSWORD_SUCCESS:
+      return { ...state, changePasswordError: null, changePasswordLoading: false, changePasswordData: action.payload };
+    case CHANGE_PASSWORD_LOADING:
+      return { ...state, changePasswordLoading: true };
+    case RESET_PASSWORD_ERROR:
+      return { ...state, resetPasswordError: action.payload, resetPasswordLoading: false, resetPasswordData: null };
+    case RESET_PASSWORD_SUCCESS:
+      return { ...state, resetPasswordError: null, resetPasswordLoading: false, resetPasswordData: action.payload };
+    case RESET_PASSWORD_LOADING:
+      return { ...state, resetPasswordLoading: true };
 
     case SET_ACTIVE_TAB:
       return { ...state, activeTab: action.payload };
@@ -98,7 +144,38 @@ export const editUserLoading = (data) => ({
   type: EDIT_USER_LOADING,
   payload: data,
 });
+
+export const changePasswordSuccess = (data) => ({
+  type: CHANGE_PASSWORD_SUCCESS,
+  payload: data,
+});
+export const changePasswordError = (data) => ({
+  type: CHANGE_PASSWORD_ERROR,
+  payload: data,
+});
+export const changePasswordLoading = (data) => ({
+  type: CHANGE_PASSWORD_LOADING,
+  payload: data,
+});
+
 export const setActiveTab = (data) => ({
   type: SET_ACTIVE_TAB,
+  payload: data,
+});
+export const setIsAuth = (data) => ({
+  type: SET_IS_AUTH,
+  payload: data,
+});
+
+export const resetPasswordSuccess = (data) => ({
+  type: RESET_PASSWORD_SUCCESS,
+  payload: data,
+});
+export const resetPasswordError = (data) => ({
+  type: RESET_PASSWORD_ERROR,
+  payload: data,
+});
+export const resetPasswordLoading = (data) => ({
+  type: RESET_PASSWORD_LOADING,
   payload: data,
 });

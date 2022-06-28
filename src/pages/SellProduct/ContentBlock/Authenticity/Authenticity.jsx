@@ -22,6 +22,7 @@ const Authenticity = ({ errors, register, watch, setValue }) => {
             errors={errors}
             label={'Серийный номер'}
             style={{ marginTop: 0 }}
+            styleInput={{ textTransform: 'uppercase' }}
           />
           <FormInput
             register={register}
@@ -31,7 +32,9 @@ const Authenticity = ({ errors, register, watch, setValue }) => {
             }}
             errors={errors}
             label={'Модель'}
-            style={{ marginTop: isMobile ? '34px' : '47px' }}
+            style={{
+              marginTop: isMobile ? '34px' : '47px',
+            }}
           />
         </S.Left>
         <S.Left>

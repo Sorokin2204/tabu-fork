@@ -46,11 +46,26 @@ import {
   SET_SELECTED_PRODUCT_PROFILE,
   SET_OPENED_PRODUCT_ERROR,
   SET_OPENED_PRODUCT_LOADING,
+  GET_SELL_PRODUCTS_SUCCESS,
+  GET_SELL_PRODUCTS_ERROR,
+  GET_SELL_PRODUCTS_LOADING,
+  UPLOAD_VARIATIONS_SUCCESS,
+  UPLOAD_VARIATIONS_ERROR,
+  UPLOAD_VARIATIONS_LOADING,
+  REMOVE_SOFT_LOADING,
+  REMOVE_SOFT_ERROR,
+  REMOVE_SOFT_SUCCESS,
 } from 'redux/types/productTypes';
 const uploadImagesState = {
   uploadImagesData: null,
   uploadImagesLoading: false,
   uploadImagesError: null,
+};
+
+const uploadVariationsState = {
+  uploadVariationsData: null,
+  uploadVariationsLoading: false,
+  uploadVariationsError: null,
 };
 
 const uploadDetailsState = {
@@ -99,6 +114,17 @@ const removeFromSaleState = {
   removeFromSaleLoading: false,
   removeFromSaleData: null,
 };
+const removeSoftState = {
+  removeSoftError: null,
+  removeSoftLoading: false,
+  removeSoftData: null,
+};
+const getSellProductsState = {
+  getSellProductsError: null,
+  getSellProductsLoading: false,
+  getSellProductsData: null,
+};
+
 const productsState = {
   products: [],
   productsLoading: false,
@@ -120,6 +146,9 @@ const defaultState = {
   ...uploadImagesState,
   ...getEditProductState,
   ...removeFromSaleState,
+  ...getSellProductsState,
+  ...uploadVariationsState,
+  ...removeSoftState,
   shareProduct: {
     link: '',
     showShare: false,
@@ -179,6 +208,14 @@ export default function productReducer(state = defaultState, action) {
       return { ...state, uploadDetailsData: null, uploadDetailsError: action.payload, uploadDetailsLoading: false };
     case UPLOAD_DETAILS_SUCCESS:
       return { ...state, uploadDetailsData: action.payload, uploadDetailsError: null, uploadDetailsLoading: false };
+
+    case UPLOAD_VARIATIONS_LOADING:
+      return { ...state, uploadVariationsLoading: true };
+    case UPLOAD_VARIATIONS_ERROR:
+      return { ...state, uploadVariationsData: null, uploadVariationsError: action.payload, uploadVariationsLoading: false };
+    case UPLOAD_VARIATIONS_SUCCESS:
+      return { ...state, uploadVariationsData: action.payload, uploadVariationsError: null, uploadVariationsLoading: false };
+
     case ADD_PRODUCT_LOADING:
       return { ...state, addProductLoading: true };
     case ADD_PRODUCT_ERROR:
@@ -223,6 +260,13 @@ export default function productReducer(state = defaultState, action) {
     case GET_EDIT_PRODUCT_LOADING:
       return { ...state, getEditProductLoading: true };
 
+    case GET_SELL_PRODUCTS_ERROR:
+      return { ...state, getSellProductsError: action.payload, getSellProductsLoading: false, getSellProductsData: null };
+    case GET_SELL_PRODUCTS_SUCCESS:
+      return { ...state, getSellProductsError: null, getSellProductsLoading: false, getSellProductsData: action.payload };
+    case GET_SELL_PRODUCTS_LOADING:
+      return { ...state, getSellProductsLoading: true };
+
     case UPDATE_COUNT_CART: {
       let countCart = JSON.parse(localStorage.getItem('cart'));
       countCart = countCart ? countCart?.length : 0;
@@ -237,6 +281,14 @@ export default function productReducer(state = defaultState, action) {
       return { ...state, removeFromSaleError: action.payload, removeFromSaleLoading: false, removeFromSaleData: null };
     case REMOVE_FROM_SALE_SUCCESS:
       return { ...state, removeFromSaleError: null, removeFromSaleLoading: false, removeFromSaleData: action.payload };
+
+    case REMOVE_SOFT_LOADING:
+      return { ...state, removeSoftLoading: true };
+    case REMOVE_SOFT_ERROR:
+      return { ...state, removeSoftError: action.payload, removeSoftLoading: false, removeSoftData: null };
+    case REMOVE_SOFT_SUCCESS:
+      return { ...state, removeSoftError: null, removeSoftLoading: false, removeSoftData: action.payload };
+
     case SET_SELECTED_PRODUCT_PROFILE:
       return { ...state, selectedProductProfile: action.payload };
     case RESET_SELL_PRODUCT_PAGE:
@@ -310,6 +362,10 @@ export const uploadDetailsLoading = (data) => ({ type: UPLOAD_DETAILS_LOADING, p
 export const uploadDetailsError = (data) => ({ type: UPLOAD_DETAILS_ERROR, payload: data });
 export const uploadDetailsSuccess = (data) => ({ type: UPLOAD_DETAILS_SUCCESS, payload: data });
 
+export const uploadVariationsLoading = (data) => ({ type: UPLOAD_VARIATIONS_LOADING, payload: data });
+export const uploadVariationsError = (data) => ({ type: UPLOAD_VARIATIONS_ERROR, payload: data });
+export const uploadVariationsSuccess = (data) => ({ type: UPLOAD_VARIATIONS_SUCCESS, payload: data });
+
 export const addProductLoading = (data) => ({ type: ADD_PRODUCT_LOADING, payload: data });
 export const addProductError = (data) => ({ type: ADD_PRODUCT_ERROR, payload: data });
 export const addProductSuccess = (data) => ({ type: ADD_PRODUCT_SUCCESS, payload: data });
@@ -327,6 +383,11 @@ export const removeFavoriteSuccess = (data) => ({ type: REMOVE_FAVORITE_SUCCESS,
 export const getFavoritesLoading = (data) => ({ type: GET_FAVORITES_LOADING, payload: data });
 export const getFavoritesError = (data) => ({ type: GET_FAVORITES_ERROR, payload: data });
 export const getFavoritesSuccess = (data) => ({ type: GET_FAVORITES_SUCCESS, payload: data });
+
+export const getFavoritesIdsLoading = (data) => ({ type: GET_FAVORITES_LOADING, payload: data });
+export const getFavoritesIdsError = (data) => ({ type: GET_FAVORITES_ERROR, payload: data });
+export const getFavoritesIdsSuccess = (data) => ({ type: GET_FAVORITES_SUCCESS, payload: data });
+
 export const updateCountCart = (data) => ({ type: UPDATE_COUNT_CART, payload: data });
 export const updateCountFavorite = (data) => ({ type: UPDATE_COUNT_FAVORITE, payload: data });
 export const getFavoriteProductsLoading = (data) => ({ type: GET_FAVORITE_PRODUCTS_LOADING, payload: data });
@@ -339,4 +400,13 @@ export const resetSellProductPage = (data) => ({ type: RESET_SELL_PRODUCT_PAGE, 
 export const removeFromSaleLoading = (data) => ({ type: REMOVE_FROM_SALE_LOADING, payload: data });
 export const removeFromSaleError = (data) => ({ type: REMOVE_FROM_SALE_ERROR, payload: data });
 export const removeFromSaleSuccess = (data) => ({ type: REMOVE_FROM_SALE_SUCCESS, payload: data });
+
+export const removeSoftLoading = (data) => ({ type: REMOVE_SOFT_LOADING, payload: data });
+export const removeSoftError = (data) => ({ type: REMOVE_SOFT_ERROR, payload: data });
+export const removeSoftSuccess = (data) => ({ type: REMOVE_SOFT_SUCCESS, payload: data });
+
 export const setSelectedProductProfile = (data) => ({ type: SET_SELECTED_PRODUCT_PROFILE, payload: data });
+
+export const getSellProductsLoading = (data) => ({ type: GET_SELL_PRODUCTS_LOADING, payload: data });
+export const getSellProductsError = (data) => ({ type: GET_SELL_PRODUCTS_ERROR, payload: data });
+export const getSellProductsSuccess = (data) => ({ type: GET_SELL_PRODUCTS_SUCCESS, payload: data });

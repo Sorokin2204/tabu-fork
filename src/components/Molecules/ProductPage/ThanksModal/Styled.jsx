@@ -73,11 +73,13 @@ export const ButtonsSingle = styled.div`
   margin: auto auto 0 auto;
   @media (max-width: 1110px) {
     width: 100%;
+
     grid-template-columns: auto;
     & button {
       width: 100% !important;
     }
     margin: 0;
+    margin-top: 30px;
   }
 `;
 export const Buttons = styled.div`

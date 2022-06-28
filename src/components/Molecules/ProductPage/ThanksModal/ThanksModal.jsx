@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setShowSellerThanksModal } from 'redux/reducers/appReducer';
 import * as S from './Styled';
 
-const MessageModal = ({ title, desc, onClickFirstBtn, onClickSecondBtn, textFirstBtn, textSecondBtn, onClose, open }) => {
+const MessageModal = ({ title, desc, onClickFirstBtn, onClickSecondBtn, textFirstBtn, textSecondBtn, onClose, open, style }) => {
   return (
     <>
       <S.Wrapper className={open ? 'visible' : 'hidden'} onClick={onClose}></S.Wrapper>
-      <S.Block className={open ? 'visible' : 'hidden'} desc={desc}>
+      <S.Block style={style} className={open ? 'visible' : 'hidden'} desc={desc}>
         <S.Close onClick={onClose}>
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -35,11 +35,13 @@ const MessageModal = ({ title, desc, onClickFirstBtn, onClickSecondBtn, textFirs
             </Button>
           </S.Buttons>
         ) : (
-          <S.ButtonsSingle>
-            <Button onClick={onClickFirstBtn} w100 topGreen padding="14px 0">
-              {textFirstBtn}
-            </Button>
-          </S.ButtonsSingle>
+          textFirstBtn && (
+            <S.ButtonsSingle>
+              <Button onClick={onClickFirstBtn} w100 topGreen padding="14px 0">
+                {textFirstBtn}
+              </Button>
+            </S.ButtonsSingle>
+          )
         )}
       </S.Block>
     </>

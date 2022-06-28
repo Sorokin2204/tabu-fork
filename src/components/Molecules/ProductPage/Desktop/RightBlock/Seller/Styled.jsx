@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -26,9 +26,17 @@ export const Avatar = styled.div`
   width: 64px;
   border-radius: 50%;
 
+  background-size: contain;
+  background-repeat: no-repeat;
   background-image: url(${({ src }) => src || ''});
-  background-size: cover;
   background-position: center;
+
+  ${({ empty }) =>
+    empty &&
+    css`
+      background-color: #f9f9f9;
+      background-size: 75%;
+    `}
 `;
 
 export const Details = styled.div`

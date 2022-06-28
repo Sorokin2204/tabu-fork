@@ -65,9 +65,17 @@ export const ProfileAvatar = styled.div`
   min-width: 32px;
   min-height: 32px;
   border-radius: 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
   background-image: url(${({ src }) => src || ''});
-  background-size: cover;
   background-position: center;
+  background-position: 54% 48%;
+  ${({ empty }) =>
+    empty &&
+    css`
+      background-color: #f9f9f9;
+      background-size: 75%;
+    `}
 `;
 
 export const ProfileDetails = styled.div`

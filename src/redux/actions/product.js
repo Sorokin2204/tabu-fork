@@ -20,12 +20,18 @@ import {
   getFavoriteProductsError,
   getFavoriteProductsLoading,
   getFavoriteProductsSuccess,
+  getSellProductsError,
+  getSellProductsLoading,
+  getSellProductsSuccess,
   removeFavoriteError,
   removeFavoriteLoading,
   removeFavoriteSuccess,
   removeFromSaleError,
   removeFromSaleLoading,
   removeFromSaleSuccess,
+  removeSoftError,
+  removeSoftLoading,
+  removeSoftSuccess,
   setNewProducts,
   setOpenedProduct,
   setOpenedProductError,
@@ -40,6 +46,9 @@ import {
   uploadImagesError,
   uploadImagesLoading,
   uploadImagesSuccess,
+  uploadVariationsError,
+  uploadVariationsLoading,
+  uploadVariationsSuccess,
 } from 'redux/reducers/productReducer';
 import { convertToMaskPhone } from 'utils/convertToMaskPhone';
 import { currencyFormat } from 'utils/currencyFormat';
@@ -110,6 +119,29 @@ export const uploadDetails = (details) => {
   };
 };
 
+export const uploadVariations = (sizes) => {
+  return async (dispatch) => {
+    try {
+      dispatch(uploadVariationsLoading(true));
+      let variationsRequests = [];
+      for (let size of sizes) {
+        let formData = new FormData();
+        formData.append('size', size);
+        const response = axios.post(`${API_URL}/products/variations/`, formData);
+        variationsRequests.push(response);
+      }
+      Promise.all(variationsRequests)
+        .then((response) => {
+          const variationsIds = response.map(({ data: { id } }) => id);
+          dispatch(uploadVariationsSuccess(variationsIds));
+        })
+        .catch((error) => dispatch(uploadVariationsError({ message: 'Произошла непредвиденная ошибка' })));
+    } catch (e) {
+      dispatch(uploadVariationsError({ message: 'Произошла непредвиденная ошибка' }));
+    }
+  };
+};
+
 export const getProducts = () => {
   return async (dispatch) => {
     try {
@@ -138,9 +170,9 @@ export const setOpenedProductCategory = (productId, categories) => {
 const convertDataForEditPage = (data) => {
   return {
     ...data,
-    phone_number: convertToMaskPhone(data.phone_number),
+    phone_number: '', //convertToMaskPhone(data?.phone_number),
     price: currencyFormat(data.price),
-    old_price: currencyFormat(data.old_price),
+    old_price: currencyFormat(data?.old_price),
     details_list: data.details_list.map((detail) => detail.title),
     images: Object.keys(imageTypes).map((type) => {
       const findImg = data.images.find((img) => img.image_type === imageTypes[type]);
@@ -157,12 +189,37 @@ export const getEditProduct = (id) => {
         categories: { categories },
       } = getState();
       dispatch(getEditProductLoading(true));
-      const response = await axios.get(`${API_URL}/products/${id}/?format=json`);
+      const response = await axios.get(`${API_URL}/products/${id}/?format=json`, {
+        // headers: { Authorization: `Token ${localStorage.getItem('token')}` },
+      });
+      if (response.data) {
+      }
       const cat = findCategoryLocal(response.data.category, categories, true);
+      console.log(response.data);
       const data = convertDataForEditPage(response.data);
       dispatch(getEditProductSuccess({ ...data, category: cat }));
     } catch (e) {
       dispatch(getEditProductError(true));
+      console.log(e);
+    }
+  };
+};
+
+export const getSellProducts = (status) => {
+  return async (dispatch, getState) => {
+    try {
+      dispatch(getSellProductsLoading(true));
+      const response = await axios.get(`${API_URL}/users/sell-products/`, {
+        headers: { Authorization: `Token ${localStorage.getItem('token')}` },
+        params: {
+          status,
+          page: 1,
+          page_size: 4,
+        },
+      });
+      dispatch(getSellProductsSuccess(response.data));
+    } catch (e) {
+      dispatch(getSellProductsError('Товар не найден'));
       console.log(e);
     }
   };
@@ -248,6 +305,26 @@ export const removeFromSale = () => {
     }
   };
 };
+export const removeSoft = () => {
+  return async (dispatch, getState) => {
+    try {
+      const {
+        product: { selectedProductProfile },
+      } = getState();
+      dispatch(removeSoftLoading(true));
+      const response = await axios.delete(`${API_URL}/products/${selectedProductProfile.toString()}/`, {
+        headers: { Authorization: `Token ${localStorage.getItem('token')}` },
+      });
+      console.log('DELETE ', response.data);
+      dispatch(removeSoftSuccess(response.data));
+    } catch (e) {
+      console.log(e.response);
+      dispatch(removeSoftError('Произошла непредвиденная ошибка'));
+      console.log(e);
+    }
+  };
+};
+
 export const removeFavorite = (productId) => {
   return async (dispatch) => {
     try {
@@ -314,8 +391,7 @@ export const addProduct = (data) => {
       });
       dispatch(addProductSuccess(response.data));
     } catch (e) {
-      dispatch(addProductError('Произошла непредвиденная ошибка'));
-      console.log(e);
+      dispatch(addProductError(e.response.data));
     }
   };
 };
@@ -323,11 +399,8 @@ export const addProduct = (data) => {
 export const getFavoriteProducts = () => {
   return async (dispatch, getState) => {
     try {
-      const {
-        product: { getFavoritesData },
-      } = getState();
       dispatch(getFavoriteProductsLoading(true));
-      const response = await axios.get(`${API_URL}/products/?id__in=${getFavoritesData.join(',')}`);
+      const response = await axios.get(`${API_URL}/users/get_favorites/`);
       dispatch(getFavoriteProductsSuccess(response.data.results));
     } catch (e) {
       dispatch(getFavoriteProductsError('Произошла непредвиденная ошибка'));

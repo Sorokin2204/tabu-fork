@@ -15,6 +15,7 @@ import { setCartProducts } from '../../../../redux/reducers/cartReducer';
 import { isWhatPercentOf } from 'utils/isWhatPercentOf';
 import { currencyFormat } from 'utils/currencyFormat';
 import { findInLocalCart, onClickAddToCart } from 'components/Molecules/Modals/ProductModal';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div``;
 const ButtonLink = styled.button`
@@ -75,12 +76,12 @@ const ActionBlock = () => {
   const [inCart, setInCart] = useState(false);
   useEffect(() => {
     if (opened_product?.id) {
-      setActiveSize(opened_product.size[0].id);
+      setActiveSize({ id: opened_product?.size_variations[0].id, title: opened_product?.size_variations[0].size.title });
 
       setInCart(findInLocalCart(opened_product?.id));
     }
   }, [opened_product]);
-
+  const navigate = useNavigate();
   return (
     <Container>
       <Flex direction="column">
@@ -147,7 +148,7 @@ const ActionBlock = () => {
             </Text>
           </Flex>
 
-          <SelectSize sizes={opened_product ? opened_product.size : ''} activeSize={activeSize} setActiveSize={setActiveSize} />
+          {opened_product?.size_variations && <SelectSize sizes={opened_product?.size_variations} activeSize={activeSize} setActiveSize={setActiveSize} />}
         </Flex>
         <Flex
           name="buttons"
@@ -161,7 +162,23 @@ const ActionBlock = () => {
           <Button background="#F4F4F6" fontFamily="Mont" fontWeight="600" color="#717171" fontSize="14px" padding="14px 0" border="none" w100 onClick={() => onClickAddToCart(setInCart, opened_product?.id, activeSize)}>
             {inCart ? 'Добавлено в корзину' : 'Добавить в корзину'}
           </Button>
-          <Button margin="12px 0 0 0" fontFamily="Mont" fontWeight="600" fontSize="14px" padding="14px 0" border="none" topGreen w100>
+          <Button
+            margin="12px 0 0 0"
+            fontFamily="Mont"
+            fontWeight="600"
+            fontSize="14px"
+            padding="14px 0"
+            border="none"
+            topGreen
+            w100
+            onClick={() => {
+              const findProductInCart = findInLocalCart(opened_product?.id);
+              if (!findProductInCart) {
+                onClickAddToCart(setInCart, opened_product?.id, activeSize);
+              }
+
+              navigate('/ordering');
+            }}>
             Купить сейчас
           </Button>
           <ButtonLinkBox>

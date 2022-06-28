@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Expand = styled.div`
   display: flex;
@@ -40,8 +40,17 @@ export const ExpandName = styled.div`
 export const ExpandIcon = styled.div``;
 
 export const TextBox = styled.div`
+  span {
+    font-family: Mont;
+    font-size: 12px;
+    font-weight: 600;
+    color: #191919;
+    a {
+      text-decoration: underline;
+    }
+  }
   display: flex;
-  margin-top: 40px;
+  margin-top: 35px;
   margin-left: 60px;
   flex-direction: column;
 `;

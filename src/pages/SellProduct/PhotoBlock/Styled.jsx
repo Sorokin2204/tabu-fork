@@ -8,6 +8,44 @@ export const PhotoBlock = styled.div`
     order: 2;
   }
 `;
+export const PhotoInfo = styled.div`
+  padding: 14px 13px 14px 9px;
+  background: #f9f9f9;
+  display: flex;
+  margin-top: 13px;
+  width: 400px;
+`;
+export const IconInfo = styled.img`
+  width: 17px;
+  height: 17px;
+  margin-right: 9px;
+`;
+export const TextInfo = styled.div`
+  display: inline;
+  font-family: 'Mont';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  align-items: center;
+
+  /* Tabu/Black */
+
+  color: #191919;
+`;
+export const LinkInfo = styled.div`
+  display: inline;
+  font-family: 'Mont';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  align-items: center;
+  text-decoration: underline;
+  /* Tabu/Black */
+  color: #025b37;
+  cursor: pointer;
+`;
 
 export const Section = styled.div`
   width: 100%;
