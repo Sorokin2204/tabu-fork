@@ -20,9 +20,7 @@ const ShareProduct = (props) => {
   };
   const [copy, setCopy] = useState(false);
   const isMobile = useSelector((state) => state.app.isMobile);
-  const {
-    currentUser: { id },
-  } = useSelector((state) => state.user);
+  const { openedProduct } = useSelector((state) => state.product);
   return (
     <>
       <S.WrapperOverlay {...props} onClick={onClose}>
@@ -133,10 +131,10 @@ const ShareProduct = (props) => {
             <S.LinkBlock>
               <S.Label>Или скопируйте ссылку :</S.Label>
               <S.Input>
-                <S.InputText>{`${window.location.origin}/products/${id}`}</S.InputText>
+                <S.InputText>{`${window.location.origin}/products/${openedProduct?.id}`}</S.InputText>
                 <S.InputCopy
                   onClick={() => {
-                    navigator.clipboard.writeText(`${window.location.origin}/products/${id}`);
+                    navigator.clipboard.writeText(`${window.location.origin}/products/${openedProduct?.id}`);
                     setCopy(true);
                     setTimeout(() => {
                       setCopy(false);

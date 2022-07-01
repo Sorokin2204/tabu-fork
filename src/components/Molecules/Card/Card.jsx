@@ -47,7 +47,7 @@ const Card = (props) => {
   const [isFavorite, setIsFavorite] = useState();
 
   useEffect(() => {
-    const isFavorite = getFavoritesData?.find((item) => item?.id === props?.product?.id);
+    const isFavorite = getFavoritesData?.find((item) => item === props?.product?.id);
     setIsFavorite(!!isFavorite);
   }, [getFavoritesData]);
 

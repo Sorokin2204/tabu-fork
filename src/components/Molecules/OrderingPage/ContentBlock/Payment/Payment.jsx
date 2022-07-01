@@ -1,28 +1,30 @@
 import axios from 'axios';
 import Button from 'components/Atoms/Button';
 import { API_URL } from 'config';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { ordering } from 'redux/actions/cart';
 import * as S from './Styled';
 
-const Payment = ({ setStep, active, values }) => {
+const Payment = ({ setStep, active, values, data }) => {
   const cartProducts = useSelector((state) => state.cart.cartProducts);
-
+  const dispatch = useDispatch();
   const onPayClick = async () => {
-    let product = cartProducts?.length && cartProducts[0];
-
-    const token = localStorage.getItem('token');
-    const data = {
-      data: { product },
-      id: product.id,
+    // dispatch(ordering(data))
+    const postData = {
+      size_variation_ids: JSON.parse(localStorage.getItem('cart'))?.map((item) => item?.size?.id),
+      f_name: data.name,
+      l_name: data.surname,
+      phone: data.phone,
+      email: data.email,
+      city: data.city,
+      street: data.street,
+      number_of_house: parseInt(data.house),
+      number_of_apartament: parseInt(data.flat),
+      comment: data.comment,
     };
-
-    const response = await axios.post(`${API_URL}/products/${product.id}/purchase/`, data, {
-      headers: {
-        Authorization: `Token ${token}`,
-      },
-    });
-
-    document.location.href = response.data.payment_page_url;
+    console.log(postData);
+    dispatch(ordering(postData));
+    // document.location.href = response.data.payment_page_url;
   };
   const isMobile = useSelector((state) => state.app.isMobile);
   function capitalizeFirstLetter(string) {

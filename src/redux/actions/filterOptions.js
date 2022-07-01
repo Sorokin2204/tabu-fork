@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { API_URL } from 'config';
-import { setBrandOptions, setColorOptions, setMaterialOptions, setSizeOptions } from 'redux/reducers/filterOptionsReducer';
+import { setBrandOptions, setBrandOptionsLoading, setColorOptions, setMaterialOptions, setSizeOptions } from 'redux/reducers/filterOptionsReducer';
 
 export const getBrandsOptions = () => {
   return async (dispatch) => {
     try {
+      dispatch(setBrandOptionsLoading(true));
       const response = await axios.get(`${API_URL}/products/brand/?format=json`);
       dispatch(setBrandOptions(response.data));
     } catch (e) {
@@ -35,16 +36,16 @@ export const getSizeOptions = () => {
   };
 };
 
-export const getConditionOptions = () => {
-  return async (dispatch) => {
-    try {
-      const response = await axios.get(`${API_URL}/products/material/?format=json`);
-      dispatch(setSizeOptions(response.data));
-    } catch (e) {
-      console.log(e);
-    }
-  };
-};
+// export const getConditionOptions = () => {
+//   return async (dispatch) => {
+//     try {
+//       const response = await axios.get(`${API_URL}/products/material/?format=json`);
+//       dispatch(setSizeOptions(response.data));
+//     } catch (e) {
+//       console.log(e);
+//     }
+//   };
+// };
 
 export const getMaterialOptions = () => {
   return async (dispatch) => {

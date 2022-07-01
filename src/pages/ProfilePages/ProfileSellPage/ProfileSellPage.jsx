@@ -29,21 +29,21 @@ const ProfileSellPage = () => {
     { id: 4, name: 'Продано', slug: 'sold' },
   ];
   const {
-    currentUser: { products_count, product_set, published_count, moderate_count, remove_from_sale_count, canceled_count, sales_count },
+    currentUser: { products_count, product_set, publish_count, moderate_count, remove_from_sale_count, canceled_count, sales_count, rejected_count },
     activeTab,
   } = useSelector((state) => state.user);
   const { currentUser } = useSelector((state) => state.user);
-  const { getSellProductsData, getSellProductsLoading } = useSelector((state) => state.product);
+  const { getSellProductsData, getSellProductsLoading, currentPage } = useSelector((state) => state.product);
   useEffect(() => {
     if (currentUser) {
       const tabsWithCount = [...tabsNoCount];
-      tabsWithCount[0].name = `${tabsWithCount[0].name} ${published_count}`;
-      tabsWithCount[1].name = `${tabsWithCount[1].name} ${moderate_count}`;
-      tabsWithCount[2].name = `${tabsWithCount[2].name} ${remove_from_sale_count}`;
-      tabsWithCount[3].name = `${tabsWithCount[3].name} ${canceled_count}`;
-      tabsWithCount[4].name = `${tabsWithCount[4].name} ${sales_count}`;
+      tabsWithCount[0].name = `${tabsWithCount[0].name} ${publish_count ?? 0}`;
+      tabsWithCount[1].name = `${tabsWithCount[1].name} ${moderate_count ?? 0}`;
+      tabsWithCount[2].name = `${tabsWithCount[2].name} ${remove_from_sale_count ?? 0}`;
+      tabsWithCount[3].name = `${tabsWithCount[3].name} ${rejected_count ?? 0}`;
+      tabsWithCount[4].name = `${tabsWithCount[4].name} ${sales_count ?? 0}`;
       setTabs(tabsWithCount);
-      if (!activeTab) {
+      if (!activeTab || !tabs) {
         dispatch(setActiveTab(tabsWithCount[0]));
       }
     }
@@ -51,11 +51,28 @@ const ProfileSellPage = () => {
 
   useEffect(() => {
     if (activeTab) {
-      dispatch(getSellProducts(activeTab.id));
+      dispatch(getSellProducts(activeTab.id, 1));
     }
   }, [activeTab]);
 
-  return <ProfileLayout>{activeTab && tabs && <ProfileContent products={getSellProductsData?.results} type={activeTab?.slug} tabs={tabs} title={`Товары на продажу:  ${products_count}`} loading={getSellProductsLoading} />}</ProfileLayout>;
+  return (
+    <ProfileLayout>
+      {activeTab && tabs && (
+        <ProfileContent
+          products={getSellProductsData?.results}
+          type={activeTab?.slug}
+          tabs={tabs}
+          title={`Товары на продажу:  ${products_count}`}
+          loading={getSellProductsLoading}
+          currentPage={currentPage}
+          productsCount={getSellProductsData?.count}
+          onPageClick={(val) => {
+            dispatch(getSellProducts(activeTab?.id, val));
+          }}
+        />
+      )}{' '}
+    </ProfileLayout>
+  );
 };
 
 export default ProfileSellPage;

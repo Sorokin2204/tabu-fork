@@ -12,8 +12,13 @@ import {
   SET_ACTIVE_TAB,
   SET_BUY_ITEMS,
   SET_IS_AUTH,
+  SET_IS_AUTH_ERROR,
+  SET_IS_AUTH_LOADING,
+  SET_IS_AUTH_SUCCESS,
   SET_SELL_ITEMS,
   SET_USER,
+  SET_USER_ERROR,
+  SET_USER_LOADING,
   SET_WISH_LIST,
   USER_ERROR,
   USER_LOADING,
@@ -22,14 +27,13 @@ import {
 } from '../types/userTypes';
 
 const defaultState = {
-  currentUser: {
-    published_count: 1,
-    moderate_count: 2,
-    remove_from_sale_count: 3,
-    canceled_count: 4,
-    sales_count: 5,
-  },
+  currentUser: {},
+  currentUserLoading: {},
+  currentUserError: {},
   isAuth: false,
+  isAuthLoading: false,
+  isAuthSuccess: null,
+  isAuthError: null,
   data: null,
   error: null,
   loading: false,
@@ -53,8 +57,20 @@ export default function userReducer(state = defaultState, action) {
     case SET_USER:
       return {
         ...state,
+        currentUserLoading: false,
         currentUser: { ...state.currentUser, ...action.payload },
         isAuth: true,
+      };
+    case SET_USER_LOADING:
+      return {
+        ...state,
+        currentUserLoading: true,
+      };
+    case SET_USER_ERROR:
+      return {
+        ...state,
+        currentUser: {},
+        isAuth: false,
       };
     case LOGOUT:
       localStorage.removeItem('token');
@@ -64,7 +80,13 @@ export default function userReducer(state = defaultState, action) {
         isAuth: false,
       };
     case SET_IS_AUTH:
-      return { ...state, isAuth: action.payload };
+      return { ...state, isAuth: action.payload, isAuthLoading: false };
+    case SET_IS_AUTH_LOADING:
+      return { ...state, isAuthLoading: action.payload };
+    case SET_IS_AUTH_SUCCESS:
+      return { ...state, isAuthLoading: false, isAuthSuccess: action.payload };
+    case SET_IS_AUTH_ERROR:
+      return { ...state, isAuthLoading: false, isAuthError: action.payload };
     case SET_BUY_ITEMS:
       return { ...state, buyItems: action.payload };
 
@@ -108,6 +130,8 @@ export default function userReducer(state = defaultState, action) {
 }
 
 export const setUser = (user) => ({ type: SET_USER, payload: user });
+export const setUserLoading = (user) => ({ type: SET_USER_LOADING, payload: user });
+export const setUserError = (user) => ({ type: SET_USER_ERROR, payload: user });
 export const logout = () => ({ type: LOGOUT });
 
 export const setBuyItems = (items) => ({ type: SET_BUY_ITEMS, payload: items });
@@ -160,6 +184,19 @@ export const changePasswordLoading = (data) => ({
 
 export const setActiveTab = (data) => ({
   type: SET_ACTIVE_TAB,
+  payload: data,
+});
+
+export const setIsAuthLoading = (data) => ({
+  type: SET_IS_AUTH_LOADING,
+  payload: data,
+});
+export const setIsAuthSuccess = (data) => ({
+  type: SET_IS_AUTH_SUCCESS,
+  payload: data,
+});
+export const setIsAuthError = (data) => ({
+  type: SET_IS_AUTH_ERROR,
   payload: data,
 });
 export const setIsAuth = (data) => ({

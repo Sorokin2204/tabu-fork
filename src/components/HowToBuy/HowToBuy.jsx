@@ -6,6 +6,7 @@ import GuaranteImg from 'assets/img/guarante-how-to-sell.jpeg';
 import StepsLeft from 'components/Molecules/StepsLeft/StepsLeft';
 import { scrollToSection } from 'utils/scrollToSection';
 import { useLocation, useParams } from 'react-router-dom';
+import DeliveryAndReturn from 'components/Molecules/DeliveryAndReturn/DeliveryAndReturn';
 const HowToBuy = () => {
   const { hash } = useLocation();
   const steps = [
@@ -29,6 +30,7 @@ const HowToBuy = () => {
       <Steps steps={steps} mobLineHeight={'85%'} columns={'minmax(0,362px) minmax(0,356px) minmax(0,338px)'} title={'Как покупать'} />
       <Guarante title={'Гарантия подлинности'} img={GuaranteImg} list={guaranteList} />
       <StepsLeft steps={safeSteps} title={'Безопасная сделка'} />
+      <DeliveryAndReturn />
     </>
   );
 };

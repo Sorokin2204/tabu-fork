@@ -1,9 +1,30 @@
 import axios from 'axios';
 import { API_URL } from 'config';
 import { setShowAuthModal, setShowEditUserSuccessModal } from 'redux/reducers/appReducer';
-import { changePasswordError, changePasswordLoading, changePasswordSuccess, editUserError, editUserLoading, editUserSuccess, logout, resetPasswordError, resetPasswordLoading, resetPasswordSuccess, setIsAuth, setUser, userError, userLoading, userSuccess } from 'redux/reducers/userReducer';
+import {
+  changePasswordError,
+  changePasswordLoading,
+  changePasswordSuccess,
+  editUserError,
+  editUserLoading,
+  editUserSuccess,
+  logout,
+  resetPasswordError,
+  resetPasswordLoading,
+  resetPasswordSuccess,
+  setIsAuth,
+  setIsAuthError,
+  setIsAuthLoading,
+  setIsAuthSuccess,
+  setUser,
+  setUserLoading,
+  userError,
+  userLoading,
+  userSuccess,
+} from 'redux/reducers/userReducer';
 import _ from 'lodash';
 import { getFavoritesError, getFavoritesLoading, getFavoritesSuccess, updateCountFavorite } from 'redux/reducers/productReducer';
+import { authError } from 'utils/authError';
 const config = {
   headers: { 'content-type': 'multipart/form-data' },
 };
@@ -26,11 +47,8 @@ export const registration = (data) => {
       localStorage.setItem('token', response.data.token);
       document.location.href = '/profile';
     } catch (error) {
-      const { code } = error?.response;
-      if (code == 401) {
-        logout();
-        return;
-      }
+      authError(error);
+
       console.log(error.response);
       const errorMessage = error?.response?.data?.detail ?? 'Произошла непредвиденная ошибка. Повторите позже.';
       dispatch(userError(errorMessage));
@@ -48,34 +66,28 @@ export const editUser = ({ data, token }) => {
       dispatch(setShowEditUserSuccessModal(true));
       dispatch(getUser());
     } catch (error) {
-      const { code } = error?.response;
-      if (code == 401) {
-        logout();
-        return;
-      }
+      authError(error);
       const errorMessage = error?.response?.data?.detail ?? 'Произошла непредвиденная ошибка. Повторите позже.';
       dispatch(editUserError(errorMessage));
     }
   };
 };
 
-export const getFavorites = (onlyIds) => {
+export const getFavorites = () => {
   return async (dispatch) => {
     try {
       dispatch(getFavoritesLoading(true));
-      const response = await axios.get(`${API_URL}/users/get_favorites/${onlyIds ? '?ids=true/' : ''}`, {
+      const response = await axios.get(`${API_URL}/users/get_favorites_id/`, {
         headers: { Authorization: `Token ${localStorage.getItem('token')}` },
       });
+      const favorites = response.data.map((item) => item[0]);
+      console.log(favorites);
       // const favoriteIds = response.data.results.map((item) => item.id);
       // console.log(response.data);
 
-      dispatch(getFavoritesSuccess(response.data.results));
+      dispatch(getFavoritesSuccess(favorites));
     } catch (error) {
-      const { code } = error?.response;
-      if (code == 401) {
-        logout();
-        return;
-      }
+      authError(error);
       dispatch(getFavoritesError('Произошла непредвиденная ошибка. Повторите позже.'));
     }
   };
@@ -92,10 +104,7 @@ export const login = (data) => {
       document.location.href = '/profile';
     } catch (error) {
       const { code } = error?.response;
-      if (code == 401) {
-        logout();
-        return;
-      }
+      authError(error);
       const errorMessage = error?.response?.data?.detail ?? 'Произошла непредвиденная ошибка. Повторите позже.';
       dispatch(userError(errorMessage));
     }
@@ -114,14 +123,14 @@ const groupByStatus = (products) => {
 export const auth = () => {
   return async (dispatch) => {
     try {
+      dispatch(setIsAuthLoading(true));
       const response = await axios.get(`${API_URL}/users/auth/`, {
         headers: { Authorization: `Token ${localStorage.getItem('token')}` },
       });
       dispatch(setIsAuth(true));
-      // dispatch(updateCountFavorite(response.data.favorites_count));
-      // const groupProducts = groupByStatus(response.data.product_set);
-      // dispatch(setUser({ ...response.data, product_set: groupProducts, token: localStorage.getItem('token') }));
+      dispatch(setIsAuthSuccess('ok'));
     } catch (e) {
+      dispatch(setIsAuthError('error'));
       dispatch(logout());
     }
   };
@@ -130,9 +139,11 @@ export const auth = () => {
 export const getUser = () => {
   return async (dispatch) => {
     try {
+      dispatch(setUserLoading(true));
       const response = await axios.get(`${API_URL}/users/me/?format=json`, {
         headers: { Authorization: `Token ${localStorage.getItem('token')}` },
       });
+      dispatch(getFavorites());
       // dispatch(updateCountFavorite(response.data.favorites_count));
       dispatch(setUser({ ...response.data }));
     } catch (e) {
@@ -157,11 +168,7 @@ export const changePassword = (data) => {
       );
       dispatch(changePasswordSuccess(response.data));
     } catch (e) {
-      const { code } = e?.response;
-      if (code == 401) {
-        logout();
-        return;
-      }
+      authError(e);
       const error = e?.response?.data?.detail ?? 'Произошла ошибка';
       console.log(e.response);
       dispatch(changePasswordError(error));
@@ -179,11 +186,7 @@ export const resetPassword = (data) => {
       // const response = await axios.post(`${API_URL}/users/edit/resetPassword/`, data);
       // dispatch(resetPasswordSuccess(response.data));
     } catch (e) {
-      const { code } = e?.response;
-      if (code == 401) {
-        logout();
-        return;
-      }
+      authError(e);
       const error = e?.response?.data?.detail ?? 'Произошла ошибка';
       console.log(e.response);
       dispatch(resetPasswordError(error));

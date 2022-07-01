@@ -10,10 +10,13 @@ import { removeFromCart } from 'utils/removeFromCart';
 import { getCartProducts } from 'redux/actions/cart';
 import Button from 'components/Atoms/Button';
 import { useNavigate } from 'react-router-dom';
-import { removeFavorite } from 'redux/actions/product';
-import { setShowRemoveFromSaleModal, setShowRemoveModal } from 'redux/reducers/appReducer';
+import { getFavoriteProducts, removeFavorite } from 'redux/actions/product';
+import { setShowPublishModal, setShowRemoveFromSaleModal, setShowRemoveModal } from 'redux/reducers/appReducer';
 import { setSelectedProductProfile, updateCountCart } from 'redux/reducers/productReducer';
 import ProfileIcon from 'assets/svg/profile.svg';
+import RestoreIcon from 'assets/svg/restore.svg';
+import { getUser } from 'redux/actions/user';
+
 const CartProductCard = ({ product, type }) => {
   const cartProducts = useSelector((state) => state.cart.cartProducts);
   const dispatch = useDispatch();
@@ -37,9 +40,12 @@ const CartProductCard = ({ product, type }) => {
                 if (type === 'cart') {
                   removeFromCart(product?.id);
                   dispatch(updateCountCart());
+                  // dispatch(getCartProducts());
                 }
                 if (type === 'favorite') {
                   dispatch(removeFavorite(product?.id));
+                  dispatch(getFavoriteProducts(1));
+                  dispatch(getUser());
                 }
               }}
               width="10px"
@@ -83,30 +89,51 @@ const CartProductCard = ({ product, type }) => {
         </S.DescBlock>
       </S.DescriptionCol>
 
-      {type !== 'cart' && type !== 'favorite' && type != 'sold' && (
-        <S.Btns>
-          <Button
-            grayBorder
-            style={{ padding: '12px' }}
-            onClick={() => {
-              if (type == 'publish') {
-                dispatch(setSelectedProductProfile(product?.id));
-                dispatch(setShowRemoveFromSaleModal(true));
-              } else if (type == 'moderate' || type == 'canceled' || type == 'removed') {
-                dispatch(setSelectedProductProfile(product?.id));
-                dispatch(setShowRemoveModal(true));
-              }
-            }}>
-            {type == 'publish' ? 'Снять с продажи' : type == 'moderate' || type == 'canceled' ? 'Удалить' : type == 'removed' ? 'Опубликовать' : 'Снять с продажи'}
-          </Button>
-          <Button
-            topGreen
-            onClick={() => {
-              navigate(`/sellproduct/${product?.id}`);
-            }}>
-            Редактировать
-          </Button>
-        </S.Btns>
+      {type !== 'cart' && type !== 'favorite' && type !== 'sold' && type !== 'sent' && type !== 'expertise' && type !== 'delivered' && (
+        <>
+          <S.Btns>
+            <Button
+              disabled={(type == 'moderate' || type == 'canceled') && product?.size_variations.filter((size) => size?.sold).length !== 0}
+              grayBorder
+              style={{ padding: '12px' }}
+              onClick={() => {
+                if (type == 'publish') {
+                  dispatch(setSelectedProductProfile(product?.id));
+                  dispatch(setShowRemoveFromSaleModal(true));
+                } else if (type == 'moderate' || type == 'canceled') {
+                  dispatch(setSelectedProductProfile(product?.id));
+                  dispatch(setShowRemoveModal(true));
+                }
+                if (type == 'removed') {
+                  dispatch(setSelectedProductProfile(product?.id));
+                  dispatch(setShowPublishModal(true));
+                }
+              }}>
+              {type == 'publish' ? 'Снять с продажи' : type == 'moderate' || type == 'canceled' ? 'Удалить' : type == 'removed' ? 'Опубликовать' : 'Снять с продажи'}
+            </Button>
+            <Button
+              topGreen
+              onClick={() => {
+                navigate(`/sellproduct/${product?.id}`);
+              }}>
+              Редактировать
+            </Button>
+          </S.Btns>{' '}
+          {type === 'delivered' && (
+            <S.Btns>
+              <Button
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '140px', border: ' 1px solid #E2E2E2', color: '#191919' }}
+                grayBorder
+                onClick={() => {
+                  dispatch(setSelectedProductProfile(product?.id));
+                  dispatch(setShowPublishModal(true));
+                }}>
+                <img src={RestoreIcon} style={{ marginBottom: '2px', marginRight: '9.5px' }} />
+                Продать
+              </Button>
+            </S.Btns>
+          )}
+        </>
       )}
     </S.Card>
   );

@@ -12,7 +12,7 @@ const BottomHeader = () => {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.categories.categories);
   const main_category = useSelector((state) => state.categories.main_category);
-
+  const brandOptions = useSelector((state) => state.filterOptions.brandOptions);
   const onHover = (category) => {
     dispatch(setCategory(category));
     dispatch(showHoverMenu());
@@ -21,9 +21,12 @@ const BottomHeader = () => {
   return (
     <S.BottomHeader>
       <S.BottomCategories>
-        {!main_category.children
-          ? ''
-          : main_category.children.map((category, i) => (
+        {!main_category.children && brandOptions ? (
+          ''
+        ) : (
+          <>
+            {' '}
+            {main_category.children.map((category, i) => (
               <S.BottomCategory
                 key={i}
                 onMouseEnter={() => {
@@ -31,7 +34,6 @@ const BottomHeader = () => {
                 }}>
                 <Link
                   onClick={() => {
-                    // dispatch(getProductsByCategory({ category: category.slug }));
                     dispatch(hideHoverMenu());
                   }}
                   to={`/categories/${category.slug}`}>
@@ -39,6 +41,27 @@ const BottomHeader = () => {
                 </Link>
               </S.BottomCategory>
             ))}
+            <S.BottomCategory
+              key={123456}
+              onMouseEnter={() => {
+                onHover({
+                  slug: `${main_category?.slug}`,
+                  title: 'Бренды',
+                  brandParam: true,
+                  children: brandOptions?.map((brand) => ({ slug: brand.title, title: brand.title })),
+                });
+              }}>
+              <Link
+                onClick={() => {
+                  dispatch(hideHoverMenu());
+                }}
+                to={`/categories/${main_category?.slug}`}
+                replace>
+                Бренды
+              </Link>
+            </S.BottomCategory>
+          </>
+        )}
       </S.BottomCategories>
       <S.SearchBtn
         onClick={() => {

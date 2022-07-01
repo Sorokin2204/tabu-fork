@@ -11,7 +11,8 @@ import { getCartProducts } from 'redux/actions/cart';
 
 const Ordering = () => {
   const dispatch = useDispatch();
-  const { cartProductsLoading, cartProducts } = useSelector((state) => state.cart);
+  const { cartProductsLoading, cartProducts, orderingLoading } = useSelector((state) => state.cart);
+
   useEffect(() => {
     if (localStorage.getItem('cart')) {
       dispatch(getCartProducts());
@@ -20,12 +21,13 @@ const Ordering = () => {
     // dispatch(setCartProducts(JSON.parse(localStorage.getItem('cartProducts'))));
   }, []);
 
-  return JSON.parse(localStorage.getItem('cart')) ? (
+  return JSON.parse(localStorage.getItem('cart')) && JSON.parse(localStorage.getItem('cart'))?.length !== 0 ? (
     !cartProductsLoading && cartProducts?.length !== 0 ? (
       <S.Wrapper>
         <ContentBlock />
         <OrderBlock />
         <MobileOrderShortBlock />
+        {orderingLoading && <Loading />}
       </S.Wrapper>
     ) : (
       <div>

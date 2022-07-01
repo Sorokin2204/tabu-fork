@@ -45,7 +45,7 @@ const ContentBlock = () => {
       <Steps step={step} />
       <S.Container>
         <Delivery register={register} handleSubmit={handleSubmit} watch={watch} errors={errors} setValue={setValue} control={control} setStep={setStep} active={step === 1 && true} />
-        <Payment values={watch()} setStep={setStep} active={step === 2 && true} />
+        <Payment data={getValues()} values={watch()} setStep={setStep} active={step === 2 && true} />
       </S.Container>
     </S.ContentBlock>
   );

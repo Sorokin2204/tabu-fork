@@ -1,6 +1,8 @@
-import { useState } from "react";
-import styled from "styled-components";
-import Expand from "assets/svg/Expand.svg";
+import { useState } from 'react';
+import styled from 'styled-components';
+import Expand from 'assets/svg/Expand.svg';
+import { useDispatch } from 'react-redux';
+import { setTypeSize } from 'redux/reducers/filterOptionsReducer';
 
 const StyledSelect = styled.select`
   display: flex;
@@ -9,7 +11,7 @@ const StyledSelect = styled.select`
   padding: 11px 14px;
   outline: none;
   border: 1px solid #e5e5e5;
-  font-family: "Gilroy";
+  font-family: 'Gilroy';
   font-size: 12px;
   color: #717171;
   font-weight: 400;
@@ -24,7 +26,7 @@ const StyledSelect = styled.select`
   /* for FF */
   -moz-appearance: none;
   text-indent: 0.01px;
-  text-overflow: "";
+  text-overflow: '';
   /* for IE */
   -ms-appearance: none;
   appearance: none !important;
@@ -37,12 +39,12 @@ const StyledOption = styled.option`
 
 const DefaultSelect = (props) => {
   const Add = props.optionsSelect.map((Add) => Add);
-
+  const dispatch = useDispatch();
   return (
-    <StyledSelect>
+    <StyledSelect onChange={(e) => dispatch(setTypeSize(parseInt(e.target.value)))}>
       {Add.map((address, key) => (
-        <StyledOption key={key} value={key}>
-          {address}
+        <StyledOption key={key} value={address?.id}>
+          {address?.title}
         </StyledOption>
       ))}
     </StyledSelect>

@@ -5,7 +5,7 @@ import * as S from './Styled';
 const OrderingProduct = ({ product }) => {
   let productTitle = product?.title;
   let productDescription = product?.description;
-  let productSize = product?.size?.title;
+  let productSize = product?.size_variations[0]?.size?.title;
   let productPrice = product?.price;
 
   if (productDescription.length > 76) {

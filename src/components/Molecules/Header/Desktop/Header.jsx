@@ -88,7 +88,7 @@ const Header = () => {
               />
             </svg>
 
-            {getFavoritesData?.length !== 0 && <S.FavoriteNumber>{getFavoritesData?.length ?? ''}</S.FavoriteNumber>}
+            {getFavoritesData?.length >= 1 && <S.FavoriteNumber>{getFavoritesData?.length ?? ''}</S.FavoriteNumber>}
           </S.Favorite>
           {/* {!profileShow ? (
             <S.Profile onClick={() => dispatch(showProfile())}>

@@ -8,3 +8,6 @@ export const SET_QUERY = 'SET_QUERY';
 export const SET_TYPE_SORT = 'SET_TYPE_SORT';
 export const SET_TYPE_SIZE = 'SET_TYPE_SIZE';
 export const RESET_FILTERS = 'RESET_FILTERS';
+export const SET_PRICE_RANGE = 'SET_PRICE_RANGE';
+export const SET_BRAND_LOADING = 'SET_BRAND_LOADING';
+export const SET_BRAND_PARAMS = 'SET_BRAND_PARAMS';

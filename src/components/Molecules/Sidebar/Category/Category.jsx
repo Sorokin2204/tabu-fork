@@ -6,11 +6,12 @@ import Hr from 'components/Atoms/Hr';
 import ExpandIcon from 'components/Atoms/Icons/ExpandIcon';
 import Text from 'components/Atoms/Text';
 import MultiRangeSlider from 'components/Molecules/multiRangeSlider/MultiRangeSlider';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { getProductsByCategory } from 'redux/actions/product';
-import { setBrandOptions, setCategoryOptions, setColorOptions, setMaterialOptions, setSizeOptions } from 'redux/reducers/filterOptionsReducer';
+import { store } from 'redux/reducers';
+import { resetFilters, setBrandOptions, setCategoryOptions, setColorOptions, setConditionOptions, setMaterialOptions, setSizeOptions } from 'redux/reducers/filterOptionsReducer';
 import styled from 'styled-components';
 
 const StyledCategory = styled.div`
@@ -51,51 +52,59 @@ const Checks = styled.div`
     border-radius: 16px;
   }
 `;
+function useQuery() {
+  const { search } = useLocation();
+
+  return useMemo(() => new URLSearchParams(search), [search]);
+}
+export const filterCheckbox = (list, title, dispatchOptions, prop) => {
+  let findOption = list.find((x) => x[prop ?? 'title'] === title);
+  let listCopy = list;
+  let foundIndex = list.findIndex((x) => x[prop ?? 'title'] === title);
+
+  if (findOption) {
+    findOption.selected = !findOption.selected;
+    listCopy[foundIndex] = findOption;
+
+    store.dispatch(dispatchOptions(listCopy));
+    store.dispatch(getProductsByCategory({ page: 1 }));
+  }
+};
 
 const Category = (props) => {
   let query = '';
   const dispatch = useDispatch();
-  const params = useParams();
+  let [searchParams, setSearchParams] = useSearchParams();
+  // let queryy = useQuery();
+  // const params = useParams();
+  // const [searchParams] = useSearchParams();
+  // const { search } = useLocation();
+  // useEffect(() => {
+  //   if (props.type === 'brand' && queryy.get('brand')) {
+  //     dispatch(resetFilters());
+  //     // console.log(searchParams.get('brand'));
+  //     toggleCheckbox('brand', queryy.get('brand'));
+  //   }
+  // }, [queryy.get('brand')]);
 
-  const brandOptions = useSelector((state) => state.filterOptions.brandOptions);
+  const { brandOptions, brandParams } = useSelector((state) => state.filterOptions);
   const sizeOptions = useSelector((state) => state.filterOptions.sizeOptions);
   const colorOptions = useSelector((state) => state.filterOptions.colorOptions);
   const materialOptions = useSelector((state) => state.filterOptions.materialOptions);
   const categoryOptions = useSelector((state) => state.filterOptions.categoryOptions);
+  const conditionOptions = useSelector((state) => state.filterOptions.conditionOptions);
+  const typeSize = useSelector((state) => state.filterOptions.typeSize);
   const [openOptions, setOpenOptions] = useState(true);
   const [searchBrands, setSearchBrands] = useState('');
   const { pageCategory } = useSelector((state) => state.categories);
-  // const getProductsByFilter = () => {
-  //   // let selectedCategories = categoryOptions.filter((x) => x.selected === true);
-  //   // let selectedBrands = brandOptions.filter((x) => x.selected === true);
-  //   // let selectedColors = colorOptions.filter((x) => x.selected === true);
-  //   // let selectedSizes = sizeOptions.filter((x) => x.selected === true);
-  //   // let selectedMaterials = materialOptions.filter((x) => x.selected === true);
-  //   dispatch(getProductsByCategory({ categoryOptions: [pageCategory], brandOptions, colorOptions, sizeOptions, materialOptions, pageCategory }));
-  // };
 
   const filterAllCheckbox = (list, dispatchOptions) => {
     let selectedAllOptions = list.map((x) => ({ ...x, selected: false }));
     dispatch(dispatchOptions(selectedAllOptions));
-    dispatch(getProductsByCategory());
+
+    dispatch(getProductsByCategory({ page: 1 }));
   };
-  useEffect(() => {
-    // console.log(materialOptions);
-  }, [materialOptions]);
 
-  const filterCheckbox = (list, title, dispatchOptions, prop) => {
-    let findOption = list.find((x) => x[prop ?? 'title'] === title);
-    let listCopy = list;
-    let foundIndex = list.findIndex((x) => x[prop ?? 'title'] === title);
-
-    if (findOption) {
-      findOption.selected = !findOption.selected;
-      listCopy[foundIndex] = findOption;
-
-      dispatch(dispatchOptions(listCopy));
-      dispatch(getProductsByCategory());
-    }
-  };
   const toggleAllCheckbox = (type) => {
     if (type === 'category') {
       filterAllCheckbox(categoryOptions, setCategoryOptions);
@@ -107,7 +116,9 @@ const Category = (props) => {
     if (type === 'material') {
       filterAllCheckbox(materialOptions, setMaterialOptions);
     }
-
+    if (type === 'condition') {
+      filterAllCheckbox(conditionOptions, setConditionOptions);
+    }
     if (type === 'color') {
       filterAllCheckbox(colorOptions, setColorOptions);
     }
@@ -117,8 +128,11 @@ const Category = (props) => {
     }
   };
   const toggleCheckbox = (type, title) => {
-    if (type === 'brand') {
-      filterCheckbox(brandOptions, title, setBrandOptions);
+    // if (type === 'brand') {
+    //   filterCheckbox(brandOptions, title, setBrandOptions);
+    // }
+    if (type === 'condition') {
+      filterCheckbox(conditionOptions, title, setConditionOptions, 'value');
     }
 
     if (type === 'material') {
@@ -154,7 +168,22 @@ const Category = (props) => {
           {/* Кнопка выбрать всё */}
           {props?.type !== 'price' && (
             <div>
-              <Text fontFamily="Gilroy" fontWeight="400" fontSize="14px" color="#191919" margin="25px 0 0 0" decLine="1px solid #191919" inlineGrid cursor="pointer" onClick={() => toggleAllCheckbox(props?.type)}>
+              <Text
+                fontFamily="Gilroy"
+                fontWeight="400"
+                fontSize="14px"
+                color="#191919"
+                margin="25px 0 0 0"
+                decLine="1px solid #191919"
+                inlineGrid
+                cursor="pointer"
+                onClick={() => {
+                  if (props?.type !== 'brand') {
+                    toggleAllCheckbox(props?.type);
+                  } else {
+                    setSearchParams({ brand: '' });
+                  }
+                }}>
                 Снять все
               </Text>
             </div>
@@ -166,17 +195,34 @@ const Category = (props) => {
             {/* Если тип категории default, выводятся обычные чекбоксы */}
             {props.type === 'brand' &&
               props.options.map((option, i) => {
+                const brandsParam = searchParams.get('brand')?.split(',');
+                const isBrandInUrl = !!brandsParam?.find((brand) => brand === option?.title);
                 const regex = new RegExp(searchBrands, 'gi');
                 if (regex.test(option.title)) {
-                  return <CheckBox value={option.selected} dark onClick={(e) => toggleCheckbox('brand', option.title)} key={i} name={option.title} />;
+                  return (
+                    <CheckBox
+                      value={isBrandInUrl}
+                      dark
+                      onClick={(e) => {
+                        if (isBrandInUrl) {
+                          const removeBrands = brandsParam?.filter((item) => item !== option.title).join(',');
+                          setSearchParams({ brand: removeBrands });
+                        } else {
+                          setSearchParams({ brand: brandsParam + `,${option.title}` });
+                        }
+                      }}
+                      key={option.title}
+                      name={option.title}
+                    />
+                  );
                 }
               })}
 
-            {props.type === 'size' && props.options.map((option, i) => <CheckBox value={option.selected} dark onClick={() => toggleCheckbox('size', option.title)} key={i} name={option.title} />)}
+            {props.type === 'size' && props.options.map((option, i) => (option?.size_type === typeSize || typeSize === -1) && <CheckBox value={option.selected} dark onClick={() => toggleCheckbox('size', option.title)} key={i} name={option.title} />)}
 
             {/* Если тип категории colored, выводятся цветные чекбоксы */}
             {props.type === 'color' && props.options.map((option, i) => <CheckBox value={option.selected} dark key={i} onClick={() => toggleCheckbox('color', option.title)} color={option.color_code} name={option.title} />)}
-
+            {props?.type === 'condition' && props?.options?.map((option, i) => <CheckBox value={option.selected} dark onClick={(e) => toggleCheckbox('condition', option.value)} key={i} name={option.label} />)}
             {/* Если тип категории material, выводятся обычные чекбоксы */}
             {props.type === 'material' &&
               props.options.map((option, i) => {
@@ -184,7 +230,7 @@ const Category = (props) => {
               })}
 
             {/* Если тип категории price, выводится инпут с ценой */}
-            {props.type === 'price' && <MultiRangeSlider min={0} max={1000} onChange={({ min, max }) => console.log(`min = ${min}, max = ${max}`)} />}
+            {props.type === 'price' && <MultiRangeSlider min={0} max={10000000} />}
           </Checks>
         </Options>
         <Hr margin="24px 0 0 0" color="#EEEEEE" />

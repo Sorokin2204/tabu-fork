@@ -9,6 +9,7 @@ import Loading from 'components/Loading/Loading';
 
 const CartComponent = (props) => {
   const { cartProducts, cartProductsLoading } = useSelector((state) => state.cart);
+  const { relevantCartLoading } = useSelector((state) => state.product);
 
   const isMobile = useSelector((state) => state.app.isMobile);
 
@@ -28,7 +29,7 @@ const CartComponent = (props) => {
           marginTop: isMobile ? '35px' : '56px',
           gridTemplateColumns: isMobile ? '1fr' : '7.5fr 2.5fr',
         }}>
-        {!cartProductsLoading && cartProducts?.length !== 0 ? (
+        {!cartProductsLoading && cartProducts?.length !== 0 && !relevantCartLoading ? (
           <Left />
         ) : (
           <>

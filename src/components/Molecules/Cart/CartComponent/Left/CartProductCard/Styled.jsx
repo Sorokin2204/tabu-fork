@@ -8,7 +8,7 @@ export const Card = styled.div`
   display: grid;
   position: relative;
   width: 100%;
-  grid-template-columns: ${(props) => (props.type === 'cart' ? '29% 53% 18%' : props.type === 'favorite' ? '30% 42% 28%' : '25% 42% 32%')};
+  grid-template-columns: ${(props) => (props.type === 'cart' ? '29% 53% 18%' : props.type === 'favorite' ? '30% 42% 28%' : 'minmax(164px,25%) 42% auto')};
 
   max-width: 840px;
   padding: ${(props) => (props.type === 'cart' ? '24px 0' : '40px 0 32px 0')};
@@ -117,7 +117,7 @@ export const ProductImage = styled.div`
 export const DescriptionCol = styled.div`
   display: grid;
   margin-top: ${(props) => (props.type === 'cart' ? '56px' : '0')};
-  grid-template-columns: 1fr minmax(95px, auto);
+  grid-template-columns: minmax(220px, 1fr) minmax(95px, auto);
 
   @media (max-width: ${sizes.mobile}px) {
     grid-column: 1/3;
@@ -130,7 +130,8 @@ export const DescBlock = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  padding-right: 24px;
+  padding-right: 18px;
+  max-width: 190px;
   /* min-width: ${(props) => (props.type === 'cart' ? '0' : '300px')}; */
   @media (max-width: ${sizes.mobile}px) {
     margin-left: 14px;

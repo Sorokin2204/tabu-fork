@@ -26,7 +26,7 @@ export const Avatar = styled.div`
   width: 64px;
   border-radius: 50%;
 
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
   background-image: url(${({ src }) => src || ''});
   background-position: center;

@@ -1,16 +1,19 @@
 import Button from 'components/Atoms/Button';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as S from './Styled';
 import { useEffect, useState } from 'react';
 import { sizes } from '../../../../../../sizes';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { currencyFormat } from 'utils/currencyFormat';
+import { hideProfile, setShowAuthModal, setShowRegModal } from 'redux/reducers/appReducer';
 
 const Order = () => {
   const navigate = useNavigate();
   const { cartTotal } = useSelector((state) => state.cart);
   const isMobile = useSelector((state) => state.app.isMobile);
+  const dispatch = useDispatch();
 
+  const isAuth = useSelector((state) => state.user.isAuth);
   return (
     <S.Container>
       <S.Title>СУММА ЗАКАЗА</S.Title>
@@ -21,11 +24,11 @@ const Order = () => {
         </S.CalcRow>
         <S.CalcRow>
           <S.CalcName>Экспертиза:</S.CalcName>
-          <S.CalcValue>$0</S.CalcValue>
+          <S.CalcValue>₸ 0</S.CalcValue>
         </S.CalcRow>
         <S.CalcRow>
           <S.CalcName>Доставка:</S.CalcName>
-          <S.CalcValue>$0</S.CalcValue>
+          <S.CalcValue>₸ 0</S.CalcValue>
         </S.CalcRow>
       </S.Calc>
       <S.Line />
@@ -57,7 +60,21 @@ const Order = () => {
         <Button border="1px solid #717171" borderRadius="2px" background="#fff" color="#717171" padding="14px" width={isMobile ? '100%' : 'auto'} style={{ whiteSpace: 'nowrap', order: isMobile ? 2 : 1 }}>
           Продолжить покупки
         </Button>
-        <Button onClick={() => navigate('/ordering')} green borderRadius="2px" padding="14px" width={isMobile ? '100%' : 'auto'} style={{ whiteSpace: 'nowrap', order: isMobile ? 1 : 2 }}>
+        <Button
+          onClick={() => {
+            if (isAuth) {
+              navigate('/ordering');
+            } else {
+              dispatch(setShowAuthModal(true));
+              dispatch(setShowRegModal(true));
+              dispatch(hideProfile());
+            }
+          }}
+          green
+          borderRadius="2px"
+          padding="14px"
+          width={isMobile ? '100%' : 'auto'}
+          style={{ whiteSpace: 'nowrap', order: isMobile ? 1 : 2 }}>
           Оформить заказ
         </Button>
       </S.Buttons>

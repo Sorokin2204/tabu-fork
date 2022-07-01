@@ -11,26 +11,17 @@ import { currencyFormat } from 'utils/currencyFormat';
 import { removeFromCart } from 'utils/removeFromCart';
 import { getCartProducts } from 'redux/actions/cart';
 import { useNavigate } from 'react-router-dom';
-import { removeFavorite } from 'redux/actions/product';
-import { setShowRemoveFromSaleModal, setShowRemoveModal } from 'redux/reducers/appReducer';
+import { getFavoriteProducts, publish, removeFavorite } from 'redux/actions/product';
+import { setShowPublishModal, setShowRemoveFromSaleModal, setShowRemoveModal } from 'redux/reducers/appReducer';
 import { setSelectedProductProfile, updateCountCart } from 'redux/reducers/productReducer';
+import RestoreIcon from 'assets/svg/restore.svg';
 import ProfileIcon from 'assets/svg/profile.svg';
+import { getUser } from 'redux/actions/user';
 const CartProductCard = ({ profile, product, type }) => {
-  // const cartProducts = useSelector((state) => state.cart.cartProducts);
   const dispatch = useDispatch();
-
-  // const deleteItem = (id) => {
-  //   let copyCartProducts = cartProducts;
-  //   copyCartProducts = copyCartProducts.filter((x) => x.id !== id);
-  //   dispatch(setCartProducts());
-
-  //   // Сохранение в localstorage
-  //   localStorage.setItem('cartProducts', JSON.stringify(copyCartProducts));
-  //   console.log(id);
-  // };
   const navigate = useNavigate();
   return (
-    <S.CardWrapper>
+    <S.CardWrapper key={product?.id}>
       <S.Card type={type}>
         <S.LeftCol>
           {type == 'cart' && (
@@ -43,7 +34,7 @@ const CartProductCard = ({ profile, product, type }) => {
             </S.Profile>
           )}
 
-          <S.ProductImage type={type} src={URL + product.images[0]?.image} />
+          <S.ProductImage type={type} src={URL + product?.images[0]?.image} />
         </S.LeftCol>
         <S.DescriptionCol type={type}>
           <S.DescBlock type={type}>
@@ -60,7 +51,7 @@ const CartProductCard = ({ profile, product, type }) => {
           </S.DescBlock>
           {type !== 'favorite' && <S.SizeBlock>{product?.size_variations?.map((item) => item.size.title).join(', ')}</S.SizeBlock>}
 
-          {type !== 'cart' && type !== 'favorite' && type !== 'sold' && (
+          {type !== 'cart' && type !== 'favorite' && type !== 'sold' && type !== 'sent' && type !== 'expertise' && type !== 'delivered' && (
             <S.Btns>
               <Button
                 disabled={(type == 'moderate' || type == 'canceled') && product?.size_variations.filter((size) => size?.sold).length !== 0}
@@ -77,9 +68,13 @@ const CartProductCard = ({ profile, product, type }) => {
                   if (type == 'publish') {
                     dispatch(setSelectedProductProfile(product?.id));
                     dispatch(setShowRemoveFromSaleModal(true));
-                  } else if (type == 'moderate' || type == 'canceled' || type == 'removed') {
+                  } else if (type == 'moderate' || type == 'canceled') {
                     dispatch(setSelectedProductProfile(product?.id));
                     dispatch(setShowRemoveModal(true));
+                  }
+                  if (type == 'removed') {
+                    dispatch(setSelectedProductProfile(product?.id));
+                    dispatch(setShowPublishModal(true));
                   }
                 }}>
                 {type == 'publish' ? 'Снять с продажи' : type == 'moderate' || type == 'canceled' ? 'Удалить' : type == 'removed' ? 'Опубликовать' : 'Снять с продажи'}
@@ -90,6 +85,20 @@ const CartProductCard = ({ profile, product, type }) => {
                   navigate(`/sellproduct/${product?.id}`);
                 }}>
                 Редактировать
+              </Button>
+            </S.Btns>
+          )}
+          {type === 'delivered' && (
+            <S.Btns>
+              <Button
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '140px', border: ' 1px solid #E2E2E2', color: '#191919' }}
+                grayBorder
+                onClick={() => {
+                  dispatch(setSelectedProductProfile(product?.id));
+                  dispatch(setShowPublishModal(true));
+                }}>
+                <img src={RestoreIcon} style={{ marginBottom: '2px', marginRight: '9.5px' }} />
+                Продать
               </Button>
             </S.Btns>
           )}
@@ -109,6 +118,8 @@ const CartProductCard = ({ profile, product, type }) => {
                 }
                 if (type === 'favorite') {
                   dispatch(removeFavorite(product?.id));
+                  dispatch(getFavoriteProducts(1));
+                  dispatch(getUser());
                 }
               }}>
               {/* <img src={IconClose} /> */}

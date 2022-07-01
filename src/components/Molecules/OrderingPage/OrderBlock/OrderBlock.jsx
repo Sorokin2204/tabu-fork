@@ -39,12 +39,12 @@ const OrderBlock = () => {
 
             <S.PriceItem>
               <S.PriceItemName>Экспертиза:</S.PriceItemName>
-              <S.PriceItemNumber>$0</S.PriceItemNumber>
+              <S.PriceItemNumber>₸ 0</S.PriceItemNumber>
             </S.PriceItem>
 
             <S.PriceItem>
               <S.PriceItemName>Доставка:</S.PriceItemName>
-              <S.PriceItemNumber>$0</S.PriceItemNumber>
+              <S.PriceItemNumber>₸ 0</S.PriceItemNumber>
             </S.PriceItem>
           </S.PriceItems>
 

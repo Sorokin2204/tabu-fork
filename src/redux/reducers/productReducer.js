@@ -55,6 +55,23 @@ import {
   REMOVE_SOFT_LOADING,
   REMOVE_SOFT_ERROR,
   REMOVE_SOFT_SUCCESS,
+  SET_CURRENT_PAGE,
+  RESET_REMOVE_FROM_SALE,
+  RESET_REMOVE_SOFT,
+  GET_PURCHASED_PRODUCTS_ERROR,
+  GET_PURCHASED_PRODUCTS_SUCCESS,
+  GET_PURCHASED_PRODUCTS_LOADING,
+  RESALE_LOADING,
+  RESALE_ERROR,
+  RESALE_SUCCESS,
+  RESET_RESALE,
+  PUBLISH_LOADING,
+  PUBLISH_ERROR,
+  PUBLISH_SUCCESS,
+  RESET_PUBLISH,
+  RELEVANT_CART_SUCCESS,
+  RELEVANT_CART_LOADING,
+  RELEVANT_CART_ERROR,
 } from 'redux/types/productTypes';
 const uploadImagesState = {
   uploadImagesData: null,
@@ -124,7 +141,27 @@ const getSellProductsState = {
   getSellProductsLoading: false,
   getSellProductsData: null,
 };
+const resaleState = {
+  resaleError: null,
+  resaleLoading: false,
+  resaleData: null,
+};
+const publishState = {
+  publishError: null,
+  publishLoading: false,
+  publishData: null,
+};
+const relevantCartState = {
+  relevantCartError: null,
+  relevantCartLoading: false,
+  relevantCartData: null,
+};
 
+const getPurchasedProductsState = {
+  getPurchasedProductsError: null,
+  getPurchasedProductsLoading: false,
+  getPurchasedProductsData: null,
+};
 const productsState = {
   products: [],
   productsLoading: false,
@@ -149,6 +186,10 @@ const defaultState = {
   ...getSellProductsState,
   ...uploadVariationsState,
   ...removeSoftState,
+  ...getPurchasedProductsState,
+  ...resaleState,
+  ...publishState,
+  ...relevantCartState,
   shareProduct: {
     link: '',
     showShare: false,
@@ -158,6 +199,7 @@ const defaultState = {
   sizes: [],
   countCart: 0,
   countFavorite: 0,
+  currentPage: 1,
   selectedProductProfile: null,
 };
 
@@ -267,6 +309,13 @@ export default function productReducer(state = defaultState, action) {
     case GET_SELL_PRODUCTS_LOADING:
       return { ...state, getSellProductsLoading: true };
 
+    case GET_PURCHASED_PRODUCTS_ERROR:
+      return { ...state, getPurchasedProductsError: action.payload, getPurchasedProductsLoading: false, getPurchasedProductsData: null };
+    case GET_PURCHASED_PRODUCTS_SUCCESS:
+      return { ...state, getPurchasedProductsError: null, getPurchasedProductsLoading: false, getPurchasedProductsData: action.payload };
+    case GET_PURCHASED_PRODUCTS_LOADING:
+      return { ...state, getPurchasedProductsLoading: true };
+
     case UPDATE_COUNT_CART: {
       let countCart = JSON.parse(localStorage.getItem('cart'));
       countCart = countCart ? countCart?.length : 0;
@@ -281,7 +330,10 @@ export default function productReducer(state = defaultState, action) {
       return { ...state, removeFromSaleError: action.payload, removeFromSaleLoading: false, removeFromSaleData: null };
     case REMOVE_FROM_SALE_SUCCESS:
       return { ...state, removeFromSaleError: null, removeFromSaleLoading: false, removeFromSaleData: action.payload };
-
+    case RESET_REMOVE_FROM_SALE:
+      return { ...state, ...removeFromSaleState };
+    case SET_CURRENT_PAGE:
+      return { ...state, currentPage: action.payload };
     case REMOVE_SOFT_LOADING:
       return { ...state, removeSoftLoading: true };
     case REMOVE_SOFT_ERROR:
@@ -289,6 +341,32 @@ export default function productReducer(state = defaultState, action) {
     case REMOVE_SOFT_SUCCESS:
       return { ...state, removeSoftError: null, removeSoftLoading: false, removeSoftData: action.payload };
 
+    case RESALE_LOADING:
+      return { ...state, resaleLoading: true };
+    case RESALE_ERROR:
+      return { ...state, resaleError: action.payload, resaleLoading: false, resaleData: null };
+    case RESALE_SUCCESS:
+      return { ...state, resaleError: null, resaleLoading: false, resaleData: action.payload };
+    case RESET_RESALE:
+      return { ...state, ...resaleState };
+
+    case RELEVANT_CART_LOADING:
+      return { ...state, relevantLoading: true };
+    case RELEVANT_CART_ERROR:
+      return { ...state, relevantCartError: action.payload, relevantCartLoading: false, relevantCartData: null };
+    case RELEVANT_CART_SUCCESS:
+      return { ...state, relevantCartError: null, relevantCartLoading: false, relevantCartData: action.payload };
+
+    case PUBLISH_LOADING:
+      return { ...state, publishLoading: true };
+    case PUBLISH_ERROR:
+      return { ...state, publishError: action.payload, publishLoading: false, publishData: null };
+    case PUBLISH_SUCCESS:
+      return { ...state, publishError: null, publishLoading: false, publishData: action.payload };
+    case RESET_PUBLISH:
+      return { ...state, ...publishState };
+    case RESET_REMOVE_SOFT:
+      return { ...state, ...removeSoftState };
     case SET_SELECTED_PRODUCT_PROFILE:
       return { ...state, selectedProductProfile: action.payload };
     case RESET_SELL_PRODUCT_PAGE:
@@ -384,9 +462,9 @@ export const getFavoritesLoading = (data) => ({ type: GET_FAVORITES_LOADING, pay
 export const getFavoritesError = (data) => ({ type: GET_FAVORITES_ERROR, payload: data });
 export const getFavoritesSuccess = (data) => ({ type: GET_FAVORITES_SUCCESS, payload: data });
 
-export const getFavoritesIdsLoading = (data) => ({ type: GET_FAVORITES_LOADING, payload: data });
-export const getFavoritesIdsError = (data) => ({ type: GET_FAVORITES_ERROR, payload: data });
-export const getFavoritesIdsSuccess = (data) => ({ type: GET_FAVORITES_SUCCESS, payload: data });
+// export const getFavoritesIdsLoading = (data) => ({ type: GET_FAVORITES_LOADING, payload: data });
+// export const getFavoritesIdsError = (data) => ({ type: GET_FAVORITES_ERROR, payload: data });
+// export const getFavoritesIdsSuccess = (data) => ({ type: GET_FAVORITES_SUCCESS, payload: data });
 
 export const updateCountCart = (data) => ({ type: UPDATE_COUNT_CART, payload: data });
 export const updateCountFavorite = (data) => ({ type: UPDATE_COUNT_FAVORITE, payload: data });
@@ -410,3 +488,22 @@ export const setSelectedProductProfile = (data) => ({ type: SET_SELECTED_PRODUCT
 export const getSellProductsLoading = (data) => ({ type: GET_SELL_PRODUCTS_LOADING, payload: data });
 export const getSellProductsError = (data) => ({ type: GET_SELL_PRODUCTS_ERROR, payload: data });
 export const getSellProductsSuccess = (data) => ({ type: GET_SELL_PRODUCTS_SUCCESS, payload: data });
+export const setCurrentPage = (data) => ({ type: SET_CURRENT_PAGE, payload: data });
+export const resetRemoveFromSale = (data) => ({ type: RESET_REMOVE_FROM_SALE, payload: data });
+export const resetRemoveSoft = (data) => ({ type: RESET_REMOVE_SOFT, payload: data });
+export const getPurchasedProductsLoading = (data) => ({ type: GET_PURCHASED_PRODUCTS_LOADING, payload: data });
+export const getPurchasedProductsError = (data) => ({ type: GET_PURCHASED_PRODUCTS_ERROR, payload: data });
+export const getPurchasedProductsSuccess = (data) => ({ type: GET_PURCHASED_PRODUCTS_SUCCESS, payload: data });
+
+export const resaleLoading = (data) => ({ type: RESALE_LOADING, payload: data });
+export const resaleError = (data) => ({ type: RESALE_ERROR, payload: data });
+export const resaleSuccess = (data) => ({ type: RESALE_SUCCESS, payload: data });
+export const resetResale = (data) => ({ type: RESET_RESALE, payload: data });
+
+export const publishLoading = (data) => ({ type: PUBLISH_LOADING, payload: data });
+export const publishError = (data) => ({ type: PUBLISH_ERROR, payload: data });
+export const publishSuccess = (data) => ({ type: PUBLISH_SUCCESS, payload: data });
+export const resetPublish = (data) => ({ type: RESET_PUBLISH, payload: data });
+export const relevantCartSuccess = (data) => ({ type: RELEVANT_CART_SUCCESS, payload: data });
+export const relevantCartLoading = (data) => ({ type: RELEVANT_CART_LOADING, payload: data });
+export const relevantCartError = (data) => ({ type: RELEVANT_CART_ERROR, payload: data });

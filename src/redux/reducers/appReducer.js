@@ -33,6 +33,10 @@ import {
   SET_CHANGE_PASS_SUCCESS_MODAL,
   SET_RESET_PASS_MODAL,
   SET_RESET_PASS_SUCCESS_MODAL,
+  SET_RESALE_SUCCESS_MODAL,
+  SET_RESALE_MODAL,
+  SET_PUBLISH_MODAL,
+  SET_PUBLISH_SUCCESS_MODAL,
 } from '../types/appTypes';
 
 const defaultState = {
@@ -68,6 +72,10 @@ const defaultState = {
   showChangePassSuccessModal: false,
   showResetPassModal: false,
   showResetPassSuccessModal: false,
+  showResaleModal: false,
+  showResaleSuccessModal: false,
+  showPublishModal: false,
+  showPublishSuccessModal: false,
   breadcrumbs: [],
 };
 
@@ -149,6 +157,14 @@ export default function productReducer(state = defaultState, action) {
       return { ...state, showResetPassModal: action.payload };
     case SET_RESET_PASS_SUCCESS_MODAL:
       return { ...state, showResetPassSuccessModal: action.payload };
+    case SET_RESALE_MODAL:
+      return { ...state, showResaleModal: action.payload };
+    case SET_RESALE_SUCCESS_MODAL:
+      return { ...state, showResaleSuccessModal: action.payload };
+    case SET_PUBLISH_MODAL:
+      return { ...state, showPublishModal: action.payload };
+    case SET_PUBLISH_SUCCESS_MODAL:
+      return { ...state, showPublishSuccessModal: action.payload };
     default:
       return state;
   }
@@ -288,5 +304,21 @@ export const setShowResetPassModal = (data) => ({
 });
 export const setShowResetPassSuccessModal = (data) => ({
   type: SET_RESET_PASS_SUCCESS_MODAL,
+  payload: data,
+});
+export const setShowResaleModal = (data) => ({
+  type: SET_RESALE_MODAL,
+  payload: data,
+});
+export const setShowResaleSuccessModal = (data) => ({
+  type: SET_RESALE_SUCCESS_MODAL,
+  payload: data,
+});
+export const setShowPublishModal = (data) => ({
+  type: SET_PUBLISH_MODAL,
+  payload: data,
+});
+export const setShowPublishSuccessModal = (data) => ({
+  type: SET_PUBLISH_SUCCESS_MODAL,
   payload: data,
 });

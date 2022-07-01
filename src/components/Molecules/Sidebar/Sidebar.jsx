@@ -2,6 +2,7 @@ import Button from 'components/Atoms/Button';
 import Flex from 'components/Atoms/Flex';
 import Hr from 'components/Atoms/Hr';
 import { optionsColored, optionsSize, optionsSizeSelect } from 'data';
+import { sizeTypes } from 'pages/SellProduct/ContentBlock/ContentBlock';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -16,6 +17,7 @@ const Sidebar = () => {
   const colorOptions = useSelector((state) => state.filterOptions.colorOptions);
   const sizeOptions = useSelector((state) => state.filterOptions.sizeOptions);
   const categoryOptions = useSelector((state) => state.filterOptions.categoryOptions);
+  const conditionOptions = useSelector((state) => state.filterOptions.conditionOptions);
   const category = useSelector((state) => state.categories.category);
   const pageCategory = useSelector((state) => state.categories.pageCategory);
 
@@ -26,7 +28,7 @@ const Sidebar = () => {
   useEffect(() => {
     console.log('BRANDS SIZE COLORS USE');
     // get options for filter
-    dispatch(getBrandsOptions());
+    // dispatch(getBrandsOptions());
     dispatch(getColorOptions());
     dispatch(getSizeOptions());
     dispatch(getMaterialOptions());
@@ -37,6 +39,7 @@ const Sidebar = () => {
   const onClose = () => {
     dispatch(setShowMobileFilterModal(false));
   };
+
   return (
     <Flex
       direction="column"
@@ -93,7 +96,8 @@ const Sidebar = () => {
       <Category name="КАТЕГОРИЯ" type="category" options={categoryOptions} />
       <Category name="БРЕНД" type="brand" search options={brandOptions} />
       <Category name="ЦВЕТ" type="color" options={colorOptions} />
-      <Category name="РАЗМЕР" type="size" select options={sizeOptions} optionsSelect={optionsSizeSelect} />
+      <Category name="СОСТОЯНИЕ" type="condition" options={conditionOptions} />
+      <Category name="РАЗМЕР" type="size" select options={sizeOptions} optionsSelect={sizeTypes} />
       <Category name="МАТЕРИАЛ" type="material" options={materialOptions} />
       <Category name="ЦЕНА" type="price" options={materialOptions} />
       {isMobile && (

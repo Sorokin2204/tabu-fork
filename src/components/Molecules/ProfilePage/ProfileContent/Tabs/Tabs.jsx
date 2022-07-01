@@ -13,7 +13,7 @@ const Tabs = ({ tabs, style }) => {
       <S.Container>
         <S.Tabs style={style}>
           {tabs?.map((item, i) => (
-            <Tab key={i} onClick={() => dispatch(setActiveTab(item))} active={activeTab?.id === item?.id ? true : false}>
+            <Tab count={tabs?.length} key={i} onClick={() => dispatch(setActiveTab(item))} active={activeTab?.id === item?.id ? true : false}>
               {item?.name}
             </Tab>
           ))}

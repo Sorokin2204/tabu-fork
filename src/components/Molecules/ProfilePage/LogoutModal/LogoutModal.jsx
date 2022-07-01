@@ -1,5 +1,6 @@
 import Button from 'components/Atoms/Button';
 import { useDispatch, useSelector } from 'react-redux';
+import { getFavorites } from 'redux/actions/user';
 import { setShowLogoutModal } from 'redux/reducers/appReducer';
 import { logout } from 'redux/reducers/userReducer';
 import * as S from './Styled';
@@ -9,8 +10,10 @@ const LogoutModal = () => {
   const dispath = useDispatch();
   const onLogoutClick = () => {
     dispath(logout());
+    dispath(setShowLogoutModal(false));
+    dispath(getFavorites());
 
-    document.location.href = '/';
+    // document.location.href = '/';
   };
 
   return (

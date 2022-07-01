@@ -35,7 +35,7 @@ export const getCategoryBySlug = (slug) => {
   return async (dispatch, getState) => {
     try {
       const {
-        categories: { categories },
+        categories: { categories, main_category },
       } = getState();
       dispatch(setPageCategoryLoading(true));
 
@@ -46,7 +46,8 @@ export const getCategoryBySlug = (slug) => {
           if (findCat) {
             dispatch(setPageCategory(findCat));
           } else {
-            dispatch(setPageCategoryError({ status: 400, message: 'Непредвиденная ошибка' }));
+            dispatch(setPageCategory({ title: 'Бренды', slug: main_category.slug, children: [], oneParent: { title: main_category.title } }));
+            // dispatch(setPageCategoryError({ status: 400, message: 'Непредвиденная ошибка' }));
           }
         })
         .catch((error) => {

@@ -19,7 +19,12 @@ import PriceBlock from './PriceBlock/PriceBlock';
 import SellerBlock from './SellerBlock/SellerBlock';
 import StateBlock from './StateBlock/StateBlock';
 import * as S from './Styled';
-
+export const sizeTypes = [
+  { id: -1, title: 'Все размеры' },
+  { id: 0, title: 'Европейские' },
+  { id: 1, title: 'Амерканские' },
+  { id: 2, title: 'Дюймы' },
+];
 const ContentBlock = ({ errors, register, setValue, watch, trigger, control }) => {
   const dispatch = useDispatch();
   const { getEditProductData } = useSelector((state) => state.product);
@@ -27,18 +32,13 @@ const ContentBlock = ({ errors, register, setValue, watch, trigger, control }) =
   const colors = useSelector((state) => state.filterOptions.colorOptions);
   const materials = useSelector((state) => state.filterOptions.materialOptions);
   const sizes = useSelector((state) => state.filterOptions.sizeOptions);
-  const sizeTypes = [
-    { id: -1, title: 'Все размеры' },
-    { id: 0, title: 'Европейские' },
-    { id: 1, title: 'Амерканские' },
-    { id: 2, title: 'Дюймы' },
-  ];
+
   const [firstCategory, setFirstCategory] = useState(null);
   const [secondCategory, setSecondCategory] = useState(null);
   const [thirdCategory, setThirdCategory] = useState(null);
 
   useEffect(() => {
-    dispatch(getBrandsOptions());
+    // dispatch(getBrandsOptions());
     dispatch(getColorOptions());
     dispatch(getMaterialOptions());
     dispatch(getSizeOptions());

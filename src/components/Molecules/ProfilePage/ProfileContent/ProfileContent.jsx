@@ -1,4 +1,5 @@
 import Loading from 'components/Loading/Loading';
+import Pagination from 'components/Pagination/Pagination';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import ProfileProducts from '../ProfileProducts/ProfileProducts';
@@ -6,7 +7,7 @@ import * as S from './Styled';
 import Tab from './Tabs/Tab';
 import Tabs from './Tabs/Tabs';
 
-const ProfileContent = ({ loading, tabs, title, wishlist, products, type }) => {
+const ProfileContent = ({ loading, tabs, title, wishlist, products, type, currentPage, productsCount, onPageClick }) => {
   const isMobile = useSelector((state) => state.app.isMobile);
   const navigate = useNavigate();
   return (
@@ -25,7 +26,16 @@ const ProfileContent = ({ loading, tabs, title, wishlist, products, type }) => {
 
       {(isMobile || wishlist) && <S.Title wishlist={wishlist}>{title}</S.Title>}
       {tabs && tabs?.length !== 0 && <Tabs tabs={tabs} style={{ maxWidth: `calc(100% + ${(tabs.length - 1) * 40}px)` }} />}
-      {loading ? <Loading relative /> : <ProfileProducts products={products} type={type} />}
+      {loading && products?.length === 0 ? <Loading relative /> : <ProfileProducts products={products} type={type} />}
+      {!loading && products?.length !== 0 && productsCount && (
+        <Pagination
+          currentPage={currentPage}
+          pages={Math.ceil(productsCount / 4)}
+          onPageClick={(val) => {
+            onPageClick(val);
+          }}
+        />
+      )}
     </S.Wrapper>
   );
 };

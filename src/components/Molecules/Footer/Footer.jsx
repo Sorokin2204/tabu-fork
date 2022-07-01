@@ -27,19 +27,31 @@ const Footer = () => {
             <S.TitleColumn>Cвязаться с нами</S.TitleColumn>
             <Flex margin="51.33px 0 0 0">
               <Flex>
-                <TikTok />
+                <a href="https://vm.tiktok.com/ZMNh6dkEs/" target="_blank">
+                  <TikTok />
+                </a>
               </Flex>
               <Flex margin="0 0 0 20px">
-                <Instagram />
+                <a href="https://www.instagram.com/taabu.kz/" target="_blank">
+                  <Instagram />
+                </a>
               </Flex>
               <Flex margin="0 0 0 20px">
-                <Telegram />
+                <a href="https://t.me/taabukz" target="_blank">
+                  <Telegram />
+                </a>
               </Flex>
               <Flex margin="0 0 0 20px">
-                <Whatsapp />
+                {' '}
+                <a href="https://wa.me/87068368442" target="_blank">
+                  <Whatsapp />
+                </a>
               </Flex>
               <Flex margin="0 0 0 20px">
-                <Facebook />
+                {' '}
+                <a href="https://www.facebook.com/Taabu-105695948854173" target="_blank">
+                  <Facebook />
+                </a>
               </Flex>
             </Flex>
           </Flex>

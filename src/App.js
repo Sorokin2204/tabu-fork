@@ -1,16 +1,17 @@
 import { useIsMobile } from 'hooks/useIsMobile';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useRoutes } from 'react-router-dom';
-import { auth, getUser } from 'redux/actions/user';
+import { useNavigate, useRoutes } from 'react-router-dom';
+import { auth, getFavorites, getUser } from 'redux/actions/user';
 import { setIsMobile } from 'redux/reducers/appReducer';
 import './App.css';
 import routes from './routes/routes';
 
 function App() {
   const dispatch = useDispatch();
-  const isAuth = useSelector((state) => state.user.isAuth);
+  const { isAuth, isAuthLoading, isAuthError, isAuthSuccess, currentUser } = useSelector((state) => state.user);
   const isDisableScroll = useSelector((state) => state.app.isDisableScroll);
+  const navigate = useNavigate();
   const isMobile = useIsMobile();
   const routing = useRoutes(routes(isAuth, isMobile));
 
@@ -28,10 +29,11 @@ function App() {
   }, [isDisableScroll]);
 
   useEffect(() => {
+    dispatch(auth());
     dispatch(getUser());
   }, []);
 
-  return <>{routing}</>;
+  return <>{!isAuthLoading && (isAuthError || isAuthSuccess) && routing}</>;
 }
 
 export default App;

@@ -5,28 +5,34 @@ import TopBackground from 'components/Molecules/ProfilePage/TopBackground/TopBac
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFavoriteProducts } from 'redux/actions/product';
-import { getFavorites } from 'redux/actions/user';
 import { sizes } from 'sizes';
+import ProfileLayout from '../ProfileLayout/ProfileLayout';
 import * as S from './Styled';
 
 const ProfileWishListPage = () => {
   const isMobile = useSelector((state) => state.app.isMobile);
-  const { countFavorite, getFavoritesData, getFavoriteProductsLoading, getFavoriteProductsData } = useSelector((state) => state.product);
+  const { currentUser } = useSelector((state) => state.user);
+  const { countFavorite, getFavoriteProductsLoading, getFavoriteProductsData, currentPage } = useSelector((state) => state.product);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getFavorites());
+    dispatch(getFavoriteProducts(1));
   }, []);
 
   return (
-    <S.Wrapper>
-      {!isMobile && <TopBackground />}
-
-      <S.Container>
-        {!isMobile && <ProfileMenu />}
-
-        <ProfileContent type="favorite" loading={getFavoriteProductsLoading} wishlist title={`Избранные: ${getFavoritesData?.length ?? 0}`} products={getFavoritesData} />
-      </S.Container>
-    </S.Wrapper>
+    <ProfileLayout>
+      <ProfileContent
+        type="favorite"
+        loading={getFavoriteProductsLoading}
+        wishlist
+        title={`Избранные: ${currentUser?.favorites_count ?? 0}`}
+        products={getFavoriteProductsData?.results}
+        currentPage={currentPage}
+        productsCount={getFavoriteProductsData?.count}
+        onPageClick={(val) => {
+          dispatch(getFavoriteProducts(val));
+        }}
+      />
+    </ProfileLayout>
   );
 };
 

@@ -16,7 +16,7 @@ const MobileSort = (props) => {
   const onChangeType = (item) => {
     dispatch(setTypeSort(item));
     dispatch(setShowMobileSortModal(false));
-    dispatch(getProductsByCategory());
+    dispatch(getProductsByCategory({ page: 1 }));
   };
 
   return (

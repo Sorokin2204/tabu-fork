@@ -48,7 +48,6 @@ const HoverMenu = () => {
               <S.SubCategory>
                 <Link
                   onClick={() => {
-                    // dispatch(getProductsByCategory(category.slug));
                     onClickLink();
                   }}
                   to={`/categories/${category.slug}`}>
@@ -57,20 +56,22 @@ const HoverMenu = () => {
                 <S.SubCategoryItems>
                   {!category.children.length
                     ? ''
-                    : category.children.map((doubleSubCat, i) => (
-                        <React.Fragment key={i}>
-                          <S.SubCategoryItem>
-                            <Link
-                              onClick={() => {
-                                // dispatch(getProductsByCategory(doubleSubCat.slug));
-                                onClickLink();
-                              }}
-                              to={`/categories/${doubleSubCat.slug}`}>
-                              {doubleSubCat.title}
-                            </Link>
-                          </S.SubCategoryItem>
-                        </React.Fragment>
-                      ))}
+                    : category.children.map((doubleSubCat, i) => {
+                        let link = !category?.brandParam ? `/categories/${doubleSubCat.slug}` : `/categories/${category.slug}?brand=${doubleSubCat.slug}`;
+                        return (
+                          <React.Fragment key={i}>
+                            <S.SubCategoryItem>
+                              <Link
+                                onClick={() => {
+                                  onClickLink();
+                                }}
+                                to={link}>
+                                {doubleSubCat.title}
+                              </Link>
+                            </S.SubCategoryItem>
+                          </React.Fragment>
+                        );
+                      })}
                 </S.SubCategoryItems>
                 <S.OpenAll
                   onClick={() => {

@@ -75,21 +75,25 @@ const routes = (isAuth, isMobile) => [
   },
   {
     path: '/sellproduct/:product_id',
-    element: (
+    element: isAuth ? (
       <MainLayout>
         <SellProductMain key={1} />
       </MainLayout>
+    ) : (
+      <Navigate to="/" />
     ),
   },
   {
     path: '/sellproduct',
-    element: (
+    element: isAuth ? (
       <MainLayout>
         <SellProductMain key={0} />
       </MainLayout>
+    ) : (
+      <Navigate to="/" />
     ),
   },
-  { path: '/ordering', element: <Ordering /> },
+  { path: '/ordering', element: isAuth ? <Ordering /> : <Navigate to="/" /> },
 
   {
     path: '/profile',

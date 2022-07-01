@@ -29,8 +29,9 @@ const Title = styled.div`
 const Details = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
-  margin-top: 46px;
+  /* margin-top: 46px; */
 `;
 
 const Sales = () => {

@@ -18,7 +18,7 @@ const SelectText = ({ options }) => {
   const selectHandler = (type) => {
     dispatch(setTypeSort(type));
     setOpen(false);
-    dispatch(getProductsByCategory({ categoryOptions: [pageCategory], brandOptions, colorOptions, sizeOptions, materialOptions, typeSort: type }));
+    dispatch(getProductsByCategory({ page: 1 }));
   };
 
   return (

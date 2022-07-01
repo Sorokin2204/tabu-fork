@@ -41,7 +41,11 @@ export const Tab = styled.div`
     margin-left: 0;
   }
   @media (max-width: 1300px) {
-    margin: 0 auto;
+    ${(props) =>
+      props.count >= 4 &&
+      css`
+        margin: 0 auto;
+      `}
   }
   @media (max-width: ${sizes.mobile}px) {
     &:nth-child(1) {

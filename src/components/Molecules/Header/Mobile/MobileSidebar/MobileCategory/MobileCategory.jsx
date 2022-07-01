@@ -11,7 +11,6 @@ const MobileCategory = (props) => {
 
   const onCategoryClick = (category) => {
     navigate(`/categories/${category}`);
-    // dispatch(getProductsByCategory(category));
     dispatch(hideMobileSidebar());
   };
 

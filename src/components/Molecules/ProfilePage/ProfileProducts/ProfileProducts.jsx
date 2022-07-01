@@ -5,12 +5,13 @@ import MobileCartProductCard from '../../../Molecules/Cart/CartComponent/Left/Ca
 const ProfileProducts = ({ products, type }) => {
   const isMobile = useSelector((state) => state.app.isMobile);
   console.log(type);
+  console.log(products);
   return (
     <S.Wrapper>
       {isMobile ? (
         <>{products?.length !== 0 ? products?.map((product) => <MobileCartProductCard key={product.id} product={product} type={type} />) : <S.NotFoundText>Товаров нет</S.NotFoundText>}</>
       ) : (
-        <> {products?.length !== 0 ? products?.map((product) => <CartProductCard key={product.id} profile product={product} type={type} />) : <S.NotFoundText>Товаров нет</S.NotFoundText>}</>
+        <> {products?.length !== 0 && products ? products?.map((product) => <CartProductCard key={product.id} profile product={product} type={type} />) : <S.NotFoundText>Товаров нет</S.NotFoundText>}</>
       )}
     </S.Wrapper>
   );

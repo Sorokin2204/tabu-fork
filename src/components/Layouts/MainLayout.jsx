@@ -18,23 +18,23 @@ import ResetPassModal from 'components/Molecules/Modals/ResetPassModal/ResetPass
 import ResetPassSuccessModal from 'components/Molecules/Modals/ResetPassSuccessModal/ResetPassSuccessModal';
 import { getCategories } from 'redux/actions/categories';
 import { getFavorites } from 'redux/actions/user';
+import { getBrandsOptions } from 'redux/actions/filterOptions';
+import { getRelevantCart } from 'redux/actions/product';
 
 const MainLayout = ({ children }) => {
   const dispatch = useDispatch();
   const isMobile = useSelector((state) => state.app.isMobile);
   const params = useParams();
   const showSearch = useSelector((state) => state.search.show);
+  const { currentUser } = useSelector((state) => state.user);
   const categories = useSelector((state) => state.categories.categories);
-  useEffect(() => {
-    console.log(categories);
-    // set cart products
-    // dispatch(setCartProducts(JSON.parse(localStorage.getItem('cartProducts'))));
-  }, []);
+
   useEffect(() => {
     dispatch(getCategories());
-    dispatch(updateCountCart());
-    dispatch(getFavorites(true));
+    dispatch(getBrandsOptions());
+    dispatch(getRelevantCart());
   }, []);
+
   return (
     <div>
       {showSearch ? <Search /> : ''}

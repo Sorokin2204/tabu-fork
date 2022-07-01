@@ -6,18 +6,20 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { sizes } from 'sizes';
+import ProfileLayout from '../ProfileLayout/ProfileLayout';
 import * as S from './Styled';
 
 const ProfileBuyPage = () => {
   const isMobile = useSelector((state) => state.app.isMobile);
   console.log(isMobile);
   return (
-    <S.Wrapper>
-      <TopBackground />
-      <S.Container>
-        <ProfileMenu />
-      </S.Container>
-    </S.Wrapper>
+    <ProfileLayout onlyProfile></ProfileLayout>
+    // <S.Wrapper>
+    //   <TopBackground />
+    //   <S.Container>
+    //     <ProfileMenu />
+    //   </S.Container>
+    // </S.Wrapper>
   );
 };
 

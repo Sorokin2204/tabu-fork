@@ -13,7 +13,7 @@ const AddFavoriteBtn = ({ button, productId }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     // if (getFavoritesData && getFavoritesData?.length !== 0) {
-    const isFavorite = getFavoritesData?.find((item) => item.id === productId);
+    const isFavorite = getFavoritesData?.find((item) => item === productId);
     setIsFavorite(!!isFavorite);
     // }
   }, [getFavoritesData, productId]);

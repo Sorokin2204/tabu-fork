@@ -5,28 +5,47 @@ import TopBackground from 'components/Molecules/ProfilePage/TopBackground/TopBac
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeFromSale, removeSoft } from 'redux/actions/product';
-import { setShowRemoveFromSaleModal, setShowRemoveFromSaleSuccessModal, setShowRemoveModal, setShowRemoveSuccessModal } from 'redux/reducers/appReducer';
+import { publish, removeFromSale, removeSoft, resale } from 'redux/actions/product';
+import { getUser } from 'redux/actions/user';
+import { setShowPublishModal, setShowPublishSuccessModal, setShowRemoveFromSaleModal, setShowRemoveFromSaleSuccessModal, setShowRemoveModal, setShowRemoveSuccessModal, setShowResaleModal, setShowResaleSuccessModal } from 'redux/reducers/appReducer';
+import { resetPublish, resetRemoveFromSale, resetRemoveSoft } from 'redux/reducers/productReducer';
 import { setActiveTab } from 'redux/reducers/userReducer';
 import * as S from './Styled';
-const ProfileLayout = ({ children }) => {
-  const { showRemoveFromSaleModal, showRemoveFromSaleSuccessModal, showRemoveModal, showRemoveSuccessModal } = useSelector((state) => state.app);
-  const { removeFromSaleLoading, removeFromSaleData, removeSoftLoading, removeSoftData } = useSelector((state) => state.product);
-
+const ProfileLayout = ({ children, onlyProfile }) => {
+  const { showRemoveFromSaleModal, showRemoveFromSaleSuccessModal, showRemoveModal, showRemoveSuccessModal, showResaleModal, showResaleSuccessModal, showPublishModal, showPublishSuccessModal } = useSelector((state) => state.app);
+  const { removeFromSaleLoading, removeFromSaleData, removeSoftLoading, removeSoftData, publishData, publishLoading, resaleData, resaleLoading } = useSelector((state) => state.product);
+  const { activeTab } = useSelector((state) => state.user);
   const isMobile = useSelector((state) => state.app.isMobile);
   useEffect(() => {
     if (removeFromSaleData) {
       dispatch(setShowRemoveFromSaleModal(false));
       dispatch(setShowRemoveFromSaleSuccessModal(true));
+      dispatch(resetRemoveFromSale());
       dispatch(setActiveTab({ id: 2, name: 'Снят с продажи', slug: 'removed' }));
+      dispatch(getUser());
     }
   }, [removeFromSaleData]);
 
   useEffect(() => {
-    if (typeof removeSoftData == 'string') {
+    if (publishData) {
+      dispatch(setShowPublishModal(false));
+      dispatch(setShowPublishSuccessModal(true));
+      dispatch(resetPublish());
+      dispatch(setActiveTab({ id: 0, name: 'На модерации', slug: 'moderate' }));
+      dispatch(getUser());
+    }
+  }, [publishData]);
+  useEffect(() => {
+    dispatch(getUser());
+  }, []);
+
+  useEffect(() => {
+    if (removeSoftData) {
       dispatch(setShowRemoveModal(false));
       dispatch(setShowRemoveSuccessModal(true));
-      // dispatch(resetRemoveSoft());
+      dispatch(resetRemoveSoft());
+      dispatch(getUser());
+      dispatch(setActiveTab({ ...activeTab }));
     }
   }, [removeSoftData]);
 
@@ -34,10 +53,10 @@ const ProfileLayout = ({ children }) => {
   return (
     <>
       <S.Wrapper>
-        {!isMobile && <TopBackground />}
+        {(!isMobile || onlyProfile) && <TopBackground />}
 
         <S.Container>
-          {!isMobile && <ProfileMenu />}
+          {(!isMobile || onlyProfile) && <ProfileMenu />}
 
           {children}
         </S.Container>
@@ -56,6 +75,34 @@ const ProfileLayout = ({ children }) => {
             dispatch(removeFromSale());
           }}
           textSecondBtn={'Закрыть'}
+        />
+        <MessageModal
+          open={showResaleModal}
+          onClose={() => {
+            dispatch(setShowResaleModal(false));
+          }}
+          title={'Вы хотите выставить товар на продажу ?'}
+          desc={'Товар появится на модерации.'}
+          textFirstBtn={'Опубликовать'}
+          onClickSecondBtn={() => {
+            dispatch(setShowResaleModal(false));
+          }}
+          onClickFirstBtn={() => {
+            // dispatch(resale());
+          }}
+          textSecondBtn={'Закрыть'}
+        />
+
+        <MessageModal
+          open={showResaleSuccessModal}
+          onClose={() => {
+            dispatch(setShowResaleSuccessModal(false));
+          }}
+          title={'Товар успешно отправлен на проверку'}
+          textFirstBtn={'Отлично'}
+          onClickFirstBtn={() => {
+            dispatch(resale());
+          }}
         />
 
         <MessageModal
@@ -88,6 +135,34 @@ const ProfileLayout = ({ children }) => {
         />
 
         <MessageModal
+          open={showPublishModal}
+          onClose={() => {
+            dispatch(setShowPublishModal(false));
+          }}
+          title={'Вы уверены что хотите опубликовать товар ?'}
+          textFirstBtn={'Опубликовать'}
+          onClickSecondBtn={() => {
+            dispatch(setShowPublishModal(false));
+          }}
+          onClickFirstBtn={() => {
+            dispatch(publish());
+          }}
+          textSecondBtn={'Закрыть'}
+        />
+
+        <MessageModal
+          open={showPublishSuccessModal}
+          onClose={() => {
+            dispatch(setShowPublishSuccessModal(false));
+          }}
+          title={'Товар отправлен на модерацию'}
+          textFirstBtn={'Отлично'}
+          onClickFirstBtn={() => {
+            dispatch(setShowPublishSuccessModal(false));
+          }}
+        />
+
+        <MessageModal
           open={showRemoveSuccessModal}
           onClose={() => {
             dispatch(setShowRemoveSuccessModal(false));
@@ -99,7 +174,7 @@ const ProfileLayout = ({ children }) => {
           }}
         />
 
-        {(removeFromSaleLoading || removeSoftLoading) && <Loading />}
+        {(removeFromSaleLoading || removeSoftLoading || publishLoading) && <Loading />}
       </S.Wrapper>
     </>
   );

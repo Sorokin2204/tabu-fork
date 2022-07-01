@@ -32,7 +32,7 @@ const ProfileMenu = (props) => {
         <EditProfileModal />
         <EditPasswordModal />
         <MessageModal open={showChangePassSuccessModal} onClose={() => dispath(setShowChangePassSuccessModal(false))} title={'Пароль успешно изменен'} textFirstBtn={'Отлично'} onClickFirstBtn={() => dispath(setShowChangePassSuccessModal(false))} />
-        <MessageModal open={showEditUserSuccessModal} onClose={() => dispath(setShowEditUserSuccessModal(false))} title={'Данные профиля успешно обнавлены'} textFirstBtn={'Отлично'} onClickFirstBtn={() => dispath(setShowEditUserSuccessModal(false))} />
+        <MessageModal open={showEditUserSuccessModal} onClose={() => dispath(setShowEditUserSuccessModal(false))} title={'Данные профиля успешно обновлены'} textFirstBtn={'Отлично'} onClickFirstBtn={() => dispath(setShowEditUserSuccessModal(false))} />
         <S.WrapperInner>
           {user?.avatar ? <S.Avatar src={`${URL + user?.avatar}`} /> : <S.AvatarText>{user?.fio?.length ? user?.fio[0]?.toUpperCase() : user?.company_name?.length ? user?.company_name[0]?.toUpperCase() : ''}</S.AvatarText>}
           {/* <S.Name>{user?.fio}</S.Name> */}
