@@ -25,6 +25,7 @@ import {
 import _ from 'lodash';
 import { getFavoritesError, getFavoritesLoading, getFavoritesSuccess, updateCountFavorite } from 'redux/reducers/productReducer';
 import { authError } from 'utils/authError';
+import { loadGetInitialProps } from 'next/dist/shared/lib/utils';
 const config = {
   headers: { 'content-type': 'multipart/form-data' },
 };
