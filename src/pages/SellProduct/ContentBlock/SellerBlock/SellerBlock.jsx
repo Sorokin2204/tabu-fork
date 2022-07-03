@@ -62,7 +62,6 @@ const SellerBlock = ({ control, errors, register }) => {
           }}
         />
         <FormInput
-          type="number"
           control={control}
           label="Номер дома"
           placeholder={'Введите номер дома'}

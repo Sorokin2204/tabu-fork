@@ -19,8 +19,8 @@ const ProfileOrderListPage = () => {
       name: 'Экспертиза',
       slug: 'expertise',
     },
-    { id: 1, name: 'Отправленно', slug: 'sent' },
-    { id: 2, name: 'Доставленно', slug: 'delivered' },
+    { id: 1, name: 'Отправлено', slug: 'sent' },
+    { id: 2, name: 'Доставлено', slug: 'delivered' },
   ];
   const {
     currentUser: { delivered_count, sent_count, expertise_count, purchased_count },

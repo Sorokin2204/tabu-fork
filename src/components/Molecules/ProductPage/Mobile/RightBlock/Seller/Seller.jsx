@@ -36,7 +36,7 @@ const Seller = (props) => {
             </S.Location>
           </S.Details>
         </S.Bottom>
-        <S.Comment>{openedProduct?.comment}</S.Comment>
+        {openedProduct?.comment && <S.Comment>{openedProduct?.comment}</S.Comment>}
       </S.DetailsContainer>
     </S.Container>
   );

@@ -16,7 +16,6 @@ const CartComponent = (props) => {
   return (
     <S.Container {...props}>
       <S.Title>{`Корзина ${cartProducts?.length ? `(${cartProducts?.length})` : ''}`}</S.Title>
-      <S.Description>Бесплатная доставка и возврат</S.Description>
 
       <Grid
         margin="56px 0 0 0"

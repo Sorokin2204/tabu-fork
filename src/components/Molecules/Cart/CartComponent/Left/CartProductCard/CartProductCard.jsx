@@ -34,7 +34,7 @@ const CartProductCard = ({ profile, product, type }) => {
             </S.Profile>
           )}
 
-          <S.ProductImage type={type} src={URL + product?.images[0]?.image} />
+          <S.ProductImage type={type} src={URL + product?.images?.[0]?.image} />
         </S.LeftCol>
         <S.DescriptionCol type={type}>
           <S.DescBlock type={type}>

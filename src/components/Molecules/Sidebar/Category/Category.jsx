@@ -230,7 +230,7 @@ const Category = (props) => {
               })}
 
             {/* Если тип категории price, выводится инпут с ценой */}
-            {props.type === 'price' && <MultiRangeSlider min={0} max={10000000} />}
+            <div style={{ overflow: 'hidden' }}> {props.type === 'price' && <MultiRangeSlider min={0} max={10000000} />}</div>
           </Checks>
         </Options>
         <Hr margin="24px 0 0 0" color="#EEEEEE" />

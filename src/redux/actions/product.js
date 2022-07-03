@@ -499,7 +499,7 @@ export const editProduct = (data) => {
     } catch (e) {
       authError(e);
       dispatch(editProductError('Произошла непредвиденная ошибка'));
-      console.log(e);
+      console.log(e.response.data);
     }
   };
 };

@@ -12,18 +12,23 @@ const Inputs = ({ min, setMin, max, setMax }) => {
         <label className="price-input-label">От</label>
         <NumberFormat
           onValueChange={(e) => {
-            if (e.floatValue >= parseInt(max)) {
-              setMin(parseInt(max) - 1);
-            } else {
-              setMin(e.floatValue);
-            }
+            setMin(e.floatValue);
           }}
           prefix="₸ "
           thousandSeparator=" "
           value={min}
           autoComplete="off"
           className="price-input"
-          onBlur={(e) => dispath(setPriceRange({ ...priceRange, min: e.target.value.replace(/\D/g, '') }))}
+          onBlur={(e) => {
+            const minVal = e.target.value.replace(/\D/g, '');
+            if (parseInt(minVal) >= parseInt(max)) {
+              setMin(parseInt(max) - 1);
+              dispath(setPriceRange({ ...priceRange, min: parseInt(max) - 1 }));
+            } else {
+              setMin(parseInt(minVal));
+              dispath(setPriceRange({ ...priceRange, min: minVal }));
+            }
+          }}
         />
         {/* <input value={min.current} onChange={(e) => setMin(e.target.value)} className="price-input" /> */}
       </div>
@@ -34,16 +39,24 @@ const Inputs = ({ min, setMin, max, setMax }) => {
           prefix="₸ "
           thousandSeparator=" "
           onValueChange={(e) => {
-            if (e.floatValue <= parseInt(min)) {
-              setMax(parseInt(min) + 1);
-            } else {
-              setMax(e.floatValue);
-            }
+            setMax(e.floatValue);
           }}
           value={max}
           autoComplete="off"
           className="price-input"
-          onBlur={(e) => dispath(setPriceRange({ ...priceRange, max: e.target.value.replace(/\D/g, '') }))}
+          onBlur={(e) => {
+            const maxVal = e.target.value.replace(/\D/g, '');
+            if (parseInt(maxVal) <= parseInt(min)) {
+              setMax(parseInt(min) + 1);
+              dispath(setPriceRange({ ...priceRange, max: parseInt(min) + 1 }));
+            } else if (maxVal >= 10000000) {
+              setMax(10000000);
+              dispath(setPriceRange({ ...priceRange, max: 10000000 }));
+            } else {
+              setMax(parseInt(maxVal));
+              dispath(setPriceRange({ ...priceRange, max: maxVal }));
+            }
+          }}
         />
 
         {/* <input value={max.current} onChange={(e) => setMax(e.target.value)} className="price-input" /> */}

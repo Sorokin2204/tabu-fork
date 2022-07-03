@@ -2,9 +2,9 @@ import React from 'react';
 import * as S from './Styled';
 import RightArrow from 'assets/svg/right-arrow.svg';
 import LeftArrow from 'assets/svg/left-arrow.svg';
-const Pagination = ({ pages, currentPage, onPageClick }) => {
+const Pagination = ({ style, pages, currentPage, onPageClick }) => {
   return (
-    <S.Wrapper>
+    <S.Wrapper style={style}>
       <S.List>
         <S.Next
           disabled={currentPage === 1}

@@ -10,7 +10,7 @@ import Loading from 'components/Loading/Loading';
 const ResetPassModal = () => {
   const dispath = useDispatch();
   const { showResetPassModal } = useSelector((state) => state.app);
-  const { resetPasswordData, resetPasswordLoading } = useSelector((state) => state.user);
+  const { resetPasswordData, resetPasswordLoading, resetPasswordError } = useSelector((state) => state.user);
   const defaultValues = {
     email: '',
   };
@@ -30,7 +30,7 @@ const ResetPassModal = () => {
   });
 
   const onSubmit = (data) => {
-    dispath(resetPassword(data));
+    dispath(resetPassword(data?.email));
   };
   useEffect(() => {
     if (resetPasswordData && !resetPasswordLoading) {
@@ -57,7 +57,7 @@ const ResetPassModal = () => {
           <div style={{ width: isMobile ? '260px' : '300px', textAlign: 'left', marginBottom: isMobile ? '28px' : '0' }}>
             <FormInput
               style={{ marginTop: '10px', width: '100%' }}
-              label="Эл.почта"
+              label={resetPasswordError ? <span style={{ color: '#EE1616' }}>{resetPasswordError}</span> : 'Эл.почта'}
               placeholder="Введите электронную почту"
               type="email"
               register={register}

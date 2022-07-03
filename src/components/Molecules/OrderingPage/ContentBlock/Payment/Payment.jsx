@@ -18,7 +18,7 @@ const Payment = ({ setStep, active, values, data }) => {
       email: data.email,
       city: data.city,
       street: data.street,
-      number_of_house: parseInt(data.house),
+      number_of_house: data.house,
       number_of_apartament: parseInt(data.flat),
       comment: data.comment,
     };

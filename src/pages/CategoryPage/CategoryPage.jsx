@@ -206,8 +206,9 @@ const CategoryPage = () => {
                 />
               )}
             </S.StyledProducts>{' '}
-            {products.length !== 0 && !productsLoading && !pageCategoryLoading && (
+            {products?.results && !productsLoading && !pageCategoryLoading && (
               <Pagination
+                style={{ display: products?.results?.length >= 1 ? 'block' : 'none' }}
                 currentPage={currentPage}
                 pages={Math.ceil(products?.count / 4)}
                 onPageClick={(val) => {

@@ -17,7 +17,7 @@ const Authenticity = ({ errors, register, watch, setValue }) => {
             register={register}
             name="serial_number"
             rules={{
-              required: { value: true, message: 'Заполните серийный номер' },
+              required: { value: false, message: 'Заполните серийный номер' },
             }}
             errors={errors}
             label={'Серийный номер'}
@@ -28,7 +28,7 @@ const Authenticity = ({ errors, register, watch, setValue }) => {
             register={register}
             name="sample"
             rules={{
-              required: { value: true, message: 'Заполните модель' },
+              required: { value: false, message: 'Заполните модель' },
             }}
             errors={errors}
             label={'Модель'}

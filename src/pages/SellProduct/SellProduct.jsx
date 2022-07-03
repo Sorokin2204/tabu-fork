@@ -209,11 +209,14 @@ const SellProduct = () => {
       newData.details_list = uploadDetailsData;
       newData.condition_images = images;
       newData.images = images;
-      newData.sample = newData.sample.toUpperCase();
+      newData.sample = newData?.sample ?? `  `;
+      newData.serial_number = newData?.serial_number ?? `  `;
       newData.number_of_flat = parseInt(newData.number_of_flat);
-      newData.number_of_house = parseInt(newData.number_of_house);
-      newData.price = newData.price.replace(/[^0-9]+/g, '');
-      newData.old_price = newData?.old_price?.replace(/[^0-9]+/g, '');
+      newData.number_of_house = newData.number_of_house.toString();
+      newData.price = newData?.price?.toString()?.replace(/[^0-9]+/g, '');
+      newData.old_price = newData?.old_price ? newData?.old_price?.replace(/[^0-9]+/g, '') : null;
+      newData.old_price = newData?.old_price === '0' ? null : newData?.old_price;
+
       newData.phone_number = newData.phone_number.replace(/[^0-9\+]+/g, '');
       newData.seller = currentUser.id;
       newData.productvariations_set = uploadVariationsData;

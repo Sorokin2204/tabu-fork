@@ -179,16 +179,18 @@ export const resetPassword = (data) => {
   return async (dispatch) => {
     try {
       dispatch(resetPasswordLoading(true));
-      setTimeout(() => {
-        dispatch(resetPasswordSuccess(true));
-      }, 2000);
-      // settim
-      // const response = await axios.post(`${API_URL}/users/edit/resetPassword/`, data);
-      // dispatch(resetPasswordSuccess(response.data));
+      const formData = new FormData();
+      formData.append('email', data);
+      const response = await axios.post(`${API_URL}/users/reset-password/`, formData);
+
+      dispatch(resetPasswordSuccess(response.data));
     } catch (e) {
-      authError(e);
-      const error = e?.response?.data?.detail ?? 'Произошла ошибка';
-      console.log(e.response);
+      let error = 'Произошла ошибка';
+      const { status } = e?.response;
+      if (status === 404) {
+        error = 'Такого email не существует';
+      }
+      console.log(error);
       dispatch(resetPasswordError(error));
     }
   };

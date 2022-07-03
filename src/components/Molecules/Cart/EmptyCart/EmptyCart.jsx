@@ -1,7 +1,9 @@
 import Button from 'components/Atoms/Button';
+import { useNavigate } from 'react-router-dom';
 import * as S from './Styled';
 
 const EmptyCart = () => {
+  const navigate = useNavigate();
   return (
     <S.Container>
       <S.Image>
@@ -13,7 +15,7 @@ const EmptyCart = () => {
       </S.Image>
       <S.Title>Ваша корзина пуста</S.Title>
       <S.Description>Добавьте товары в корзину</S.Description>
-      <Button padding="14px 42.5px" margin="80px 0 0 0" green>
+      <Button padding="14px 42.5px" margin="80px 0 0 0" green onClick={() => navigate('/categories/dlya-nee')}>
         Перейти к покупкам
       </Button>
     </S.Container>

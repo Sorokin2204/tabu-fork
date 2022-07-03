@@ -109,7 +109,6 @@ const Delivery = ({ register, handleSubmit, watch, errors, setValue, control, se
         />
         <FormInput
           width="100%"
-          type="number"
           control={control}
           label="Номер дома"
           placeholder={'Введите номер дома'}

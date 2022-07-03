@@ -66,6 +66,7 @@ const MultiRangeSlider = ({ min, max, onChange }) => {
     <>
       <div className="container_range">
         <input
+          onTouchEnd={(event) => dispatch(setPriceRange({ ...priceRange, min: event.target.value }))}
           onMouseUp={(event) => dispatch(setPriceRange({ ...priceRange, min: event.target.value }))}
           type="range"
           min={min}
@@ -78,6 +79,7 @@ const MultiRangeSlider = ({ min, max, onChange }) => {
           style={{ zIndex: minVal > max - 100 && '5' }}
         />
         <input
+          onTouchEnd={(event) => dispatch(setPriceRange({ ...priceRange, max: event.target.value }))}
           onMouseUp={(event) => dispatch(setPriceRange({ ...priceRange, max: event.target.value }))}
           type="range"
           min={min}
