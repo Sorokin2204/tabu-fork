@@ -3,6 +3,7 @@ import { API_URL } from 'config';
 import { orderingError, orderingLoading, orderingSuccess, setCartProducts, setCartProductsLoading, setCartTotal } from 'redux/reducers/cartReducer';
 import { updateCountCart } from 'redux/reducers/productReducer';
 import { authError } from 'utils/authError';
+import { fbqSellProduct } from 'utils/fbPixel';
 
 // export const getRelevantCart = () => {
 //   return async (dispatch) => {
@@ -22,7 +23,6 @@ export const getCartProducts = () => {
 
       const currentCart = JSON.parse(localStorage.getItem('cart'));
       if (currentCart) {
-        console.log(currentCart.map((item) => item.id).join(','));
         const response = await axios.get(`${API_URL}/products/?id__in=${currentCart.map((item) => item.id).join(',')}`);
         let total = 0;
         const cartProducts = response.data.results.map((item) => {
@@ -42,8 +42,11 @@ export const getCartProducts = () => {
 };
 
 export const ordering = (data) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     try {
+      const {
+        cart: { cartTotal },
+      } = getState();
       dispatch(orderingLoading(true));
       const response = await axios.post(`${API_URL}/products/purchases/`, data, {
         headers: { Authorization: `Token ${localStorage.getItem('token')}` },
@@ -51,12 +54,13 @@ export const ordering = (data) => {
       localStorage.removeItem('cart');
 
       dispatch(orderingSuccess(response.data));
+      fbqSellProduct(cartTotal);
+
       document.location.href = response.data.payment_page_url;
     } catch (e) {
-      console.log(e);
-      console.log(e.response.data);
+      const error = e?.response?.data?.detail ?? 'Произошла непредвиденная ошибка';
       authError(e);
-      dispatch(orderingError('Произошла непредвиденная ошибка'));
+      dispatch(orderingError(error));
     }
   };
 };

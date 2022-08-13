@@ -16,4 +16,11 @@ export const ExamplePhoto = styled.div`
     min-width: 156px;
     margin-left: 16px;
   }
+  @media (max-width: 500px) {
+    width: 203px;
+    height: 220px;
+    margin-top: 16px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;

@@ -16,7 +16,7 @@ const MobileSubscribe = () => {
   const showSubscribeThanksModal = useSelector((state) => state.app.showSubscribeThanksModal);
   const showSubscribeErrorModal = useSelector((state) => state.app.showSubscribeErrorModal);
   const defaultValues = {
-    category: 21,
+    category: 140,
     email: '',
   };
   const {
@@ -34,22 +34,21 @@ const MobileSubscribe = () => {
 
   useEffect(() => {
     if (data) {
-      setValue('category', 21);
+      setValue('category', 140);
       setValue('email', '');
       clearErrors();
     }
   }, [data]);
 
   const onSubmit = (data) => {
-    console.log(data);
     dispatch(postSubscribe(data));
   };
   const handleWomanChange = () => {
-    setValue('category', 21);
+    setValue('category', 140);
   };
   const gender = watch('category');
   const handleMenChange = () => {
-    setValue('category', 20);
+    setValue('category', 141);
   };
   return (
     <>
@@ -82,8 +81,8 @@ const MobileSubscribe = () => {
               Ранний доступ к распродаже, новости о специальных предложениях и подборки лучших новинок — для подписчиков рассылки.
             </Text>
             <Flex margin="24px 0 0 0" justify="center">
-              <Radio label="Женщина" value={gender === 21} onChange={handleWomanChange} />
-              <Radio label="Мужчина" value={gender === 20} onChange={handleMenChange} margin="0 0 0 32px" />
+              <Radio label="Женщина" value={gender === 140} onChange={handleWomanChange} />
+              <Radio label="Мужчина" value={gender === 141} onChange={handleMenChange} margin="0 0 0 32px" />
             </Flex>
             <Flex
               margin="31px auto 0 auto"

@@ -45,12 +45,20 @@ export const ProductsNotFound = styled.div`
   height: 400px;
   color: #717171;
   grid-column: 1/7;
+
   @media ${media.mobile} {
-    grid-column: 1/12;
+    grid-column: 1/14;
+  }
+  @media (max-width: 800px) {
+    grid-column: 1/8;
+  }
+  @media (max-width: 500px) {
+    grid-column: 1/4;
   }
 `;
 
 export const StyledProducts = styled.div`
+  overflow: hidden;
   margin-top: 24px;
   display: grid;
   width: 100%;

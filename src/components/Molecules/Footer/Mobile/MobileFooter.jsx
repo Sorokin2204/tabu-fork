@@ -29,7 +29,11 @@ export const footerData = [
   },
   {
     title: 'ПОМОЩЬ',
-    list: [{ name: 'FAQ', link: '/#faq-block' }],
+    list: [
+      { name: 'FAQ', link: '/#faq-block' },
+      { name: 'Публичная оферта для продавцов', link: process.env.PUBLIC_URL + '/info/pdf/public-for-seller.pdf', blank: true },
+      { name: 'Публичная оферта для покупателей', link: process.env.PUBLIC_URL + '/info/pdf/public-for-customer.pdf', blank: true },
+    ],
   },
 ];
 
@@ -101,7 +105,7 @@ const MobileFooter = () => {
           </a>
         </S.Net>
         <S.Net>
-          <a href="https://wa.me/87068368442" target="_blank">
+          <a href="https://wa.me/+77068368442" target="_blank">
             {' '}
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path

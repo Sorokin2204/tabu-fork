@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
   align-items: center;
 `;
 
-export const Block = styled.div`
+export const Block = styled.a`
   text-align: center;
   display: flex;
   flex-direction: column;

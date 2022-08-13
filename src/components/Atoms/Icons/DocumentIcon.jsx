@@ -1,14 +1,8 @@
-import React from "react";
+import React from 'react';
 
-const DocumentIcon = () => {
+const DocumentIcon = ({ width = 64, height = 64 }) => {
   return (
-    <svg
-      width={64}
-      height={64}
-      viewBox="0 0 64 64"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width={width} height={height} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -25,30 +19,10 @@ const DocumentIcon = () => {
         strokeWidth="1.5"
         strokeLinecap="round"
       />
-      <path
-        d="M21.3335 18.6667H29.3335"
-        stroke="black"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-      <path
-        d="M21.3335 29.3333H42.6668"
-        stroke="black"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-      <path
-        d="M21.3335 37.3333H42.6668"
-        stroke="black"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-      <path
-        d="M21.3335 45.3333H42.6668"
-        stroke="black"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
+      <path d="M21.3335 18.6667H29.3335" stroke="black" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M21.3335 29.3333H42.6668" stroke="black" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M21.3335 37.3333H42.6668" stroke="black" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M21.3335 45.3333H42.6668" stroke="black" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   );
 };

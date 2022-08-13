@@ -17,7 +17,9 @@ const Footer = () => {
               <S.TitleColumn>{item?.title}</S.TitleColumn>
               <Flex margin="40px 0 0 0" direction="column">
                 {item?.list?.map((itemFooter) => (
-                  <S.TextColumn href={itemFooter.link}>{itemFooter.name}</S.TextColumn>
+                  <S.TextColumn href={itemFooter.link} {...(itemFooter?.blank && { target: '_blank' })}>
+                    {itemFooter.name}
+                  </S.TextColumn>
                 ))}
               </Flex>
             </Flex>
@@ -43,7 +45,7 @@ const Footer = () => {
               </Flex>
               <Flex margin="0 0 0 20px">
                 {' '}
-                <a href="https://wa.me/87068368442" target="_blank">
+                <a href="https://wa.me/+77068368442" target="_blank">
                   <Whatsapp />
                 </a>
               </Flex>

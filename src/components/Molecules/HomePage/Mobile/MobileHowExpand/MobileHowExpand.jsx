@@ -5,10 +5,11 @@ const MobileHowExpand = (props) => {
   return (
     <S.Wrapper name="faq-block">
       <S.Title>Как работает сервис?</S.Title>
-      <Tab title="Кто может продавать товары на площадке TAABU ?" description="Veniam sit laborum consequat ex minim laboris officia qui eu est duis est eiusmod." />
-      <Tab title="Какие преимущества для продавцов ?" description="Veniam sit laborum consequat ex minim laboris officia qui eu est duis est eiusmod." />
-      <Tab title="Как начать действовать сегодня, чтобы обойти своих конкурентов ?" description="Veniam sit laborum consequat ex minim laboris officia qui eu est duis est eiusmod." />
-      <Tab title="Какие преимущества для покупателей ?" description="Veniam sit laborum consequat ex minim laboris officia qui eu est duis est eiusmod." />
+      <Tab title="Кто может продавать товары на площадке TAABU?" description="Наши продавцы - это частные лица и магазины. Чтобы начать продавать на нашей площадке, достаточно зарегистрироваться и загрузить фото вещей на свой аккаунт." />
+      <Tab title="Какие услуги входят в стоимость товара?" description="В стоимость товара входит доставка, проверка качества и подлинности, проверка соответствия состоянию, сертификат качества и подлинности TAABU и фирменная упаковка." />
+      <Tab title="Как происходит оплата?" description="Вы заказываете товар, средства с вашего счета переходят на счет TAABU, и будут перечислены продавцу только после того, как товар попадет к вам." />
+      <Tab title="Сколько времени занимает доставка?" description="По городу Алматы доставка занимает около 7 рабочих дней. Доставка может занять больше времени в другие города Казахстана." />
+      <Tab title="Что если товар не соответствует описанию / не прошел проверку?" description="Если товар не прошел нашу проверку по любой причине, мы отправим деньги обратно покупателю, а товар – продавцу. Пожалуйста, ознакомьтесь с Правилами Пользования на нашем сайте." />
     </S.Wrapper>
   );
 };

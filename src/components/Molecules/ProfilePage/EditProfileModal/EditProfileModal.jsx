@@ -42,7 +42,7 @@ const EditProfileModal = ({ show, onClose }) => {
   });
 
   useEffect(() => {
-    console.log(user);
+   
     if (user && showEditUserModal) {
       setValue('email', user?.email);
       setValue('fio', user?.user_type === 0 ? user?.fio : user?.company_name);
@@ -110,6 +110,7 @@ const EditProfileModal = ({ show, onClose }) => {
       formData.append('avatar', newData?.avatar?.newFile);
     }
     formData.append('city', newData.city);
+   
     dispath(editUser({ data: formData, token }));
   };
 

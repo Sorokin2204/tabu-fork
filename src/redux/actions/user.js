@@ -25,7 +25,7 @@ import {
 import _ from 'lodash';
 import { getFavoritesError, getFavoritesLoading, getFavoritesSuccess, updateCountFavorite } from 'redux/reducers/productReducer';
 import { authError } from 'utils/authError';
-import { loadGetInitialProps } from 'next/dist/shared/lib/utils';
+import { fbqCompleteRegister } from 'utils/fbPixel';
 const config = {
   headers: { 'content-type': 'multipart/form-data' },
 };
@@ -44,6 +44,7 @@ export const registration = (data) => {
 
       const response = await axios.post(`${API_URL}/users/register/`, dataUser);
       dispatch(userSuccess(response.data));
+      fbqCompleteRegister();
       dispatch(setShowAuthModal(false));
       localStorage.setItem('token', response.data.token);
       document.location.href = '/profile';
@@ -82,7 +83,7 @@ export const getFavorites = () => {
         headers: { Authorization: `Token ${localStorage.getItem('token')}` },
       });
       const favorites = response.data.map((item) => item[0]);
-      console.log(favorites);
+
       // const favoriteIds = response.data.results.map((item) => item.id);
       // console.log(response.data);
 

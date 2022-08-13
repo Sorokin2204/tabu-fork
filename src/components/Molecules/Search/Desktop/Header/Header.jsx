@@ -1,6 +1,6 @@
 import ImageBlock from 'components/Atoms/ImageBlock';
 import * as S from './Styled';
-import Logo from 'assets/img/logo.png';
+import Logo from 'assets/img/logo.svg';
 import { useDispatch } from 'react-redux';
 import { setShowSearch } from 'redux/reducers/searchReducer';
 

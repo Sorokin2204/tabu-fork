@@ -12,7 +12,7 @@ import { removeFromCart } from 'utils/removeFromCart';
 import { getCartProducts } from 'redux/actions/cart';
 import { useNavigate } from 'react-router-dom';
 import { getFavoriteProducts, publish, removeFavorite } from 'redux/actions/product';
-import { setShowPublishModal, setShowRemoveFromSaleModal, setShowRemoveModal } from 'redux/reducers/appReducer';
+import { setShowPublishModal, setShowRemoveFromSaleModal, setShowRemoveModal, setShowResaleModal } from 'redux/reducers/appReducer';
 import { setSelectedProductProfile, updateCountCart } from 'redux/reducers/productReducer';
 import RestoreIcon from 'assets/svg/restore.svg';
 import ProfileIcon from 'assets/svg/profile.svg';
@@ -95,7 +95,7 @@ const CartProductCard = ({ profile, product, type }) => {
                 grayBorder
                 onClick={() => {
                   dispatch(setSelectedProductProfile(product?.id));
-                  dispatch(setShowPublishModal(true));
+                  dispatch(setShowResaleModal(true));
                 }}>
                 <img src={RestoreIcon} style={{ marginBottom: '2px', marginRight: '9.5px' }} />
                 Продать

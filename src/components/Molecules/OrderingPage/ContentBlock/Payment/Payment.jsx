@@ -22,7 +22,7 @@ const Payment = ({ setStep, active, values, data }) => {
       number_of_apartament: parseInt(data.flat),
       comment: data.comment,
     };
-    console.log(postData);
+
     dispatch(ordering(postData));
     // document.location.href = response.data.payment_page_url;
   };

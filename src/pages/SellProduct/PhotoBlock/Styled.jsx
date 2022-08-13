@@ -13,7 +13,9 @@ export const PhotoInfo = styled.div`
   background: #f9f9f9;
   display: flex;
   margin-top: 13px;
-  width: 400px;
+  max-width: 400px;
+  width: 100%;
+  box-sizing: border-box;
 `;
 export const IconInfo = styled.img`
   width: 17px;
@@ -58,6 +60,10 @@ export const SectionInner = styled.div`
   display: flex;
   flex-direction: row;
   margin-top: 24px;
+  @media (max-width: 500px) {
+    flex-direction: column;
+    justify-content: center;
+  } ;
 `;
 
 export const MainText = styled.div`
@@ -77,6 +83,9 @@ export const SubTitleBlock = styled.div`
   margin-top: 56px;
   @media (max-width: 1110px) {
     margin-top: 40px;
+  }
+  @media (max-width: 500px) {
+    display: none;
   }
 `;
 

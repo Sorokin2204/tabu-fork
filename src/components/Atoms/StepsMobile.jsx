@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import Text from './Text';
 import Flex from './Flex';
 import { useSelector } from 'react-redux';
-import VideoPrev from 'assets/img/steps-prev.png';
+import VideoPrev1 from 'assets/img/for-cust.jpg';
+import VideoPrev2 from 'assets/img/for-seller.jpg';
 import PlayIcon from 'assets/svg/play.svg';
 import { useState } from 'react';
 const StyledSteps = styled.div`
@@ -37,11 +38,22 @@ const StepsVideo = styled.div`
 const StepsIframe = styled.iframe`
   border: none;
 `;
+const StepsVideoPreview1 = styled.div`
+  background-position: 40%;
+  position: absolute;
+  background-repeat: no-repeat;
 
-const StepsVideoPreview = styled.div`
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+`;
+const StepsVideoPreview2 = styled.div`
+  background-position: 100%;
   position: absolute;
   background-repeat: no-repeat;
   background-size: cover;
+
   top: 0;
   left: 0;
   right: 0;
@@ -227,14 +239,14 @@ const StepsMobile = ({ active }) => {
           </StyledSteps>
           <StepsVideo>
             {showVideoTabFirst ? (
-              <StepsIframe id="existing-iframe-example" width="100%" height="100%" src={'https://www.youtube.com/embed/fJ9rUzIMcZQ?autoplay=1&mute=1&enablejsapi=1'} frameborder="0"></StepsIframe>
+              <StepsIframe id="existing-iframe-example" width="100%" height="100%" src={'https://www.youtube.com/embed/vgcaiFXbSXQ?autoplay=1&mute=1&enablejsapi=1'} frameborder="0"></StepsIframe>
             ) : (
-              <StepsVideoPreview
+              <StepsVideoPreview1
                 style={{
-                  backgroundImage: `url(${VideoPrev})`,
+                  backgroundImage: `url(${VideoPrev1})`,
                 }}>
                 <StepsVideoPlay onClick={() => setShowVideoTabFirst(true)}></StepsVideoPlay>
-              </StepsVideoPreview>
+              </StepsVideoPreview1>
             )}
           </StepsVideo>
         </StepsWrapper>
@@ -329,14 +341,15 @@ const StepsMobile = ({ active }) => {
           </StyledSteps>
           <StepsVideo>
             {showVideoTabSecond ? (
-              <StepsIframe id="existing-iframe-example" width="100%" height="100%" src={'https://www.youtube.com/embed/fJ9rUzIMcZQ?autoplay=1&mute=1&enablejsapi=1'} frameborder="0"></StepsIframe>
+              <StepsIframe id="existing-iframe-example" width="100%" height="100%" src={'https://www.youtube.com/embed/l7_slsxfjfM?autoplay=1&mute=1&enablejsapi=1'} frameborder="0"></StepsIframe>
             ) : (
-              <StepsVideoPreview
+              <StepsVideoPreview2
                 style={{
-                  backgroundImage: `url(${VideoPrev})`,
+                  backgroundPositionX: '30%',
+                  backgroundImage: `url(${VideoPrev2})`,
                 }}>
                 <StepsVideoPlay onClick={() => setShowVideoTabSecond(true)}></StepsVideoPlay>
-              </StepsVideoPreview>
+              </StepsVideoPreview2>
             )}
           </StepsVideo>
         </StepsWrapper>
@@ -431,14 +444,14 @@ const StepsMobile = ({ active }) => {
           </StyledSteps>
           <StepsVideo>
             {showVideoTabSecond ? (
-              <StepsIframe id="existing-iframe-example" width="100%" height="100%" src={'https://www.youtube.com/embed/fJ9rUzIMcZQ?autoplay=1&mute=1&enablejsapi=1'} frameborder="0"></StepsIframe>
+              <StepsIframe id="existing-iframe-example" width="100%" height="100%" src={'https://www.youtube.com/embed/l7_slsxfjfM?autoplay=1&mute=1&enablejsapi=1'} frameborder="0"></StepsIframe>
             ) : (
-              <StepsVideoPreview
+              <StepsVideoPreview2
                 style={{
-                  backgroundImage: `url(${VideoPrev})`,
+                  backgroundImage: `url(${VideoPrev2})`,
                 }}>
                 <StepsVideoPlay onClick={() => setShowVideoTabSecond(true)}></StepsVideoPlay>
-              </StepsVideoPreview>
+              </StepsVideoPreview2>
             )}
           </StepsVideo>
         </StepsWrapper>

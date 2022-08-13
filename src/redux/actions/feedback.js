@@ -19,7 +19,7 @@ export const postFeedback = (data) => {
         })
         .catch((error) => {
           const errorMessage = error?.response?.data?.email?.[0];
-          dispatch(feedbackError(errorMessage ? { title: errorMessage, desc: 'Попробуйте ввести другую почту' } : { title: 'Извините, произошла неожидонная ошибка', desc: 'Повторите позже' }));
+          dispatch(feedbackError(errorMessage ? { title: errorMessage, desc: 'Попробуйте ввести другую почту' } : { title: 'Извините, произошла неожиданная ошибка', desc: 'Повторите позже' }));
           dispatch(setShowRequestErrorModal(true));
         });
     } catch (e) {

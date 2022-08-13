@@ -17,7 +17,7 @@ const defaultState = {
   typeSize: -1,
   priceRange: {},
   query: `${API_URL}/products`,
-  typeSort: { name: 'Сначала новые', slug: 'created_at' },
+  typeSort: { name: 'Сначала новые', slug: '-created_at' },
 };
 
 export default function filterOptionsReducer(state = defaultState, action) {
@@ -59,7 +59,7 @@ export default function filterOptionsReducer(state = defaultState, action) {
         brandOptions: state.brandOptions.map((brand) => ({ ...brand, selected: false })),
         sizeOptions: state.sizeOptions.map((size) => ({ ...size, selected: false })),
         materialOptions: state.materialOptions.map((material) => ({ ...material, selected: false })),
-        typeSort: { name: 'Сначала новые', slug: 'created_at' },
+        typeSort: { name: 'Сначала новые', slug: '-created_at' },
       };
     default:
       return state;

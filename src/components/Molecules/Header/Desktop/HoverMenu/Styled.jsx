@@ -5,6 +5,8 @@ export const HoverMenu = styled.div`
   flex-direction: column;
   background: #fff;
   padding: 32px 56px 56px 56px;
+  max-height: calc(100vh - 171px);
+  overflow: scroll;
   /* height: 497px; */
 `;
 export const SubCategory = styled.div`

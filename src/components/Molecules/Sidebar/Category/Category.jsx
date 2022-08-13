@@ -82,7 +82,7 @@ const Category = (props) => {
   // useEffect(() => {
   //   if (props.type === 'brand' && queryy.get('brand')) {
   //     dispatch(resetFilters());
-  //     // console.log(searchParams.get('brand'));
+
   //     toggleCheckbox('brand', queryy.get('brand'));
   //   }
   // }, [queryy.get('brand')]);
@@ -206,9 +206,13 @@ const Category = (props) => {
                       onClick={(e) => {
                         if (isBrandInUrl) {
                           const removeBrands = brandsParam?.filter((item) => item !== option.title).join(',');
-                          setSearchParams({ brand: removeBrands });
+                          setSearchParams({ ...(searchParams.get('news') && { news: true }), brand: removeBrands });
                         } else {
-                          setSearchParams({ brand: brandsParam + `,${option.title}` });
+                          if (brandsParam) {
+                            setSearchParams({ ...(searchParams.get('news') && { news: true }), brand: brandsParam + `,${option.title}` });
+                          } else {
+                            setSearchParams({ ...(searchParams.get('news') && { news: true }), brand: option.title });
+                          }
                         }
                       }}
                       key={option.title}

@@ -93,7 +93,7 @@ export const uploadImages = (images) => {
           formData.append('image', image?.file);
           formData.append('main_image', imageType === 0 ? true : false);
           formData.append('image_type', imageTypes[image?.type]);
-          console.log(formData);
+
           const response = axios.post(`${API_URL}/products/images/`, formData, config);
           imageRequests.push(response);
         }
@@ -204,7 +204,6 @@ function compare(a, b) {
   return 0;
 }
 const convertDataForEditPage = (data) => {
-  console.log(data.details_list);
   return {
     ...data,
     phone_number: convertToMaskPhone(data?.phone_number),
@@ -230,12 +229,13 @@ export const getEditProduct = (id) => {
       const response = await axios.get(`${API_URL}/products/${id}/?format=json`, {
         headers: { Authorization: `Token ${localStorage.getItem('token')}` },
       });
-      console.log(response.data);
+
       if (response.data) {
       }
       const cat = findCategoryLocal(response.data.category, categories, true);
-      console.log(response.data);
+
       const data = convertDataForEditPage(response.data);
+      console.log(data);
       dispatch(getEditProductSuccess({ ...data, category: cat }));
     } catch (e) {
       authError(e);
@@ -255,7 +255,7 @@ export const getSellProducts = (status, page) => {
         params: {
           status,
           page,
-          page_size: 4,
+          page_size: 20,
         },
       });
       dispatch(getSellProductsSuccess(response.data));
@@ -281,7 +281,7 @@ export const getPurchasedProducts = (status, page) => {
         params: {
           purchased_status: status,
           page,
-          page_size: 4,
+          page_size: 20,
         },
       });
       const data = { ...response.data, results: converFromVariation(response.data.results) };
@@ -347,13 +347,18 @@ export const getProductsByCategory = ({ page }) => {
       let sizesParam = sizes && `&size__title__in=${sizes}`;
       let materialsParam = materials && `&material__title__in=${materials}`;
       let pageParam = `&page=${page}`;
-      let pageSizeParam = `&page_size=4`;
+      let pageSizeParam = `&page_size=20`;
       let sortParam = typeSort && `&ordering=${typeSort.slug}`;
       let priceParam = `&price=${priceRange?.min ?? 0},${priceRange?.max ?? 10000000}`;
       const url = [API_URL, '/products?format=json', categoriesParam, brandsParam, colorsParam, sizesParam, materialsParam, conditionsParam, sortParam, pageParam, pageSizeParam, priceParam].join('');
       dispatch(setProductsLoading(true));
       setTimeout(() => {
         axios.get(url).then((response) => {
+          const newData = response.data;
+          if (newData?.length !== 0) {
+            // newData.map(item => ({...item, }))
+          }
+
           dispatch(setProducts(response.data));
           dispatch(setProductsLoading(false));
         });
@@ -415,14 +420,18 @@ export const resale = () => {
         product: { selectedProductProfile },
       } = getState();
       dispatch(resaleLoading(true));
-      const response = await axios.delete(`${API_URL}/products/${selectedProductProfile.toString()}/`, {
-        headers: { Authorization: `Token ${localStorage.getItem('token')}` },
-      });
+      const response = await axios.post(
+        `${API_URL}/products/${selectedProductProfile.toString()}/resell/`,
+        {},
+        {
+          headers: { Authorization: `Token ${localStorage.getItem('token')}` },
+        },
+      );
       dispatch(resaleSuccess(response.data));
     } catch (e) {
       authError(e);
       dispatch(resaleError('Произошла непредвиденная ошибка'));
-      console.log(e);
+      console.log(e.response.data);
     }
   };
 };
@@ -550,7 +559,7 @@ export const getFavoriteProducts = (page) => {
       const response = await axios.get(`${API_URL}/users/get_favorites/`, {
         params: {
           page,
-          page_size: 4,
+          page_size: 20,
         },
         headers: { Authorization: `Token ${localStorage.getItem('token')}` },
       });
@@ -588,7 +597,7 @@ export const getNewProducts = () => {
 export const getTrends = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${API_URL}/products?tags__title__in=Trend/?format=json`);
+      const response = await axios.get(`${API_URL}/products?tags__title__in=Trend`);
       dispatch(setTrends(response.data));
     } catch (e) {
       console.log(e);

@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { publish, removeFromSale, removeSoft, resale } from 'redux/actions/product';
 import { getUser } from 'redux/actions/user';
 import { setShowPublishModal, setShowPublishSuccessModal, setShowRemoveFromSaleModal, setShowRemoveFromSaleSuccessModal, setShowRemoveModal, setShowRemoveSuccessModal, setShowResaleModal, setShowResaleSuccessModal } from 'redux/reducers/appReducer';
-import { resetPublish, resetRemoveFromSale, resetRemoveSoft } from 'redux/reducers/productReducer';
+import { resetPublish, resetRemoveFromSale, resetRemoveSoft, resetResale } from 'redux/reducers/productReducer';
 import { setActiveTab } from 'redux/reducers/userReducer';
 import * as S from './Styled';
 const ProfileLayout = ({ children, onlyProfile }) => {
@@ -16,6 +16,17 @@ const ProfileLayout = ({ children, onlyProfile }) => {
   const { removeFromSaleLoading, removeFromSaleData, removeSoftLoading, removeSoftData, publishData, publishLoading, resaleData, resaleLoading } = useSelector((state) => state.product);
   const { activeTab } = useSelector((state) => state.user);
   const isMobile = useSelector((state) => state.app.isMobile);
+
+  useEffect(() => {
+    if (resaleData) {
+      dispatch(setShowResaleModal(false));
+      dispatch(setShowResaleSuccessModal(true));
+      dispatch(resetResale());
+      dispatch(setActiveTab({ id: 2, name: 'Доставлено', slug: 'delivered' }));
+      dispatch(getUser());
+    }
+  }, [resaleData]);
+
   useEffect(() => {
     if (removeFromSaleData) {
       dispatch(setShowRemoveFromSaleModal(false));
@@ -88,7 +99,7 @@ const ProfileLayout = ({ children, onlyProfile }) => {
             dispatch(setShowResaleModal(false));
           }}
           onClickFirstBtn={() => {
-            // dispatch(resale());
+            dispatch(resale());
           }}
           textSecondBtn={'Закрыть'}
         />
@@ -101,7 +112,7 @@ const ProfileLayout = ({ children, onlyProfile }) => {
           title={'Товар успешно отправлен на проверку'}
           textFirstBtn={'Отлично'}
           onClickFirstBtn={() => {
-            dispatch(resale());
+            dispatch(setShowResaleSuccessModal(false));
           }}
         />
 
@@ -174,7 +185,7 @@ const ProfileLayout = ({ children, onlyProfile }) => {
           }}
         />
 
-        {(removeFromSaleLoading || removeSoftLoading || publishLoading) && <Loading />}
+        {(removeFromSaleLoading || removeSoftLoading || publishLoading || resaleLoading) && <Loading />}
       </S.Wrapper>
     </>
   );

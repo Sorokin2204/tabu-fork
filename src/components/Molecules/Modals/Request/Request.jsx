@@ -49,7 +49,6 @@ const Request = (props) => {
   }, [data]);
 
   const onSubmit = (data) => {
-    console.log(data);
     const phone = data.phone.replace(/-/g, ' ').replace(/ /g, '').replace(/\(/g, '').replace(/\)/g, '');
     dispatch(postFeedback({ ...data, phone }));
   };
@@ -126,7 +125,14 @@ const Request = (props) => {
         </S.Wrapper>
       </form>
       {loading && <Loading />}
-      <MessageModal open={showRequestThanksModal} onClose={() => dispatch(setShowRequestThanksModal(false))} title={'Спасибо заявка принята'} desc={'Это текст снизу'} textFirstBtn={'Отлично'} onClickFirstBtn={() => dispatch(setShowRequestThanksModal(false))} />
+      <MessageModal
+        open={showRequestThanksModal}
+        onClose={() => dispatch(setShowRequestThanksModal(false))}
+        title={'Спасибо! Скоро с вами свяжутся.'}
+        desc={'Сделав небольшое действие вы внесли большой вклад в будущее нашей экологии'}
+        textFirstBtn={'Отлично'}
+        onClickFirstBtn={() => dispatch(setShowRequestThanksModal(false))}
+      />
       <MessageModal open={showRequestErrorModal} onClose={() => dispatch(setShowRequestErrorModal(false))} title={error?.title} desc={error?.desc} textFirstBtn={'Закрыть'} onClickFirstBtn={() => dispatch(setShowRequestErrorModal(false))} />
     </>
   );

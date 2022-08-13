@@ -15,7 +15,7 @@ const Cart = () => {
       dispatch(getCartProducts());
     }
   }, []);
-  console.log();
+
   return <>{JSON.parse(localStorage.getItem('cart'))?.length !== 0 && countCart && localStorage.getItem('cart') ? <CartComponent /> : <EmptyCart />}</>;
 };
 

@@ -1,6 +1,6 @@
 import * as S from './Styled';
 import ImageBlock from '../../../Atoms/ImageBlock';
-import Logo from 'assets/img/logo.png';
+import Logo from 'assets/img/logo.svg';
 import MobileTopHeader from './MobileTopHeader/MobileTopHeader';
 import MobileSidebar from './MobileSidebar/MobileSidebar';
 import { useDispatch, useSelector } from 'react-redux';
@@ -61,7 +61,8 @@ const MobileHeader = () => {
         </S.LeftBox>
 
         <S.Logo>
-          <ImageBlock onClick={onClickLogo} src={Logo} />
+          <img src={Logo} onClick={onClickLogo} style={{ display: 'block', width: '25vw', minWidth: '120px', maxHeight: '30px', objectFit: 'cover' }} />
+          {/* <ImageBlock  src={Logo} style={{maxHeight: }} /> */}
         </S.Logo>
         <S.UserBlock>
           <S.Search

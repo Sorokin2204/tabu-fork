@@ -30,7 +30,7 @@ const ProfileContent = ({ loading, tabs, title, wishlist, products, type, curren
       {!loading && products?.length !== 0 && productsCount && (
         <Pagination
           currentPage={currentPage}
-          pages={Math.ceil(productsCount / 4)}
+          pages={Math.ceil(productsCount / 20)}
           onPageClick={(val) => {
             onPageClick(val);
           }}

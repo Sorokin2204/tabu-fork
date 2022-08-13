@@ -5,7 +5,7 @@ export const scrollToSection = () => {
   const hasCommentAnchor = currentLocation.includes('/#');
   if (hasCommentAnchor) {
     const anchorCommentId = `${currentLocation.substring(currentLocation.indexOf('#') + 1)}`;
-    console.log('scroo' + checkCurrentWidth());
+
     scroller.scrollTo(`${anchorCommentId}`, {
       duration: 800,
       delay: 0,

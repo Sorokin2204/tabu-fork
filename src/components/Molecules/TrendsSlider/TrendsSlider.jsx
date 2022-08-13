@@ -11,6 +11,7 @@ import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled.div`
   width: calc(100vw - 130px);
@@ -18,13 +19,14 @@ const Wrapper = styled.div`
 `;
 
 const TrendsSlider = (props) => {
+  const navigate = useNavigate();
   return (
     <Wrapper>
       <Swiper id="swiper-home-trand-product" modules={[Navigation]} loop={true} spaceBetween={32} slidesPerView={3} navigation>
         {props.products?.results?.map((product, i) => {
           return (
-            <SwiperSlide>
-              <Card key={i} noHover img={URL + product.images[0]?.image} title={product?.title} description={product?.description} price={product?.price} />
+            <SwiperSlide onClick={() => navigate(`/products/${product?.id}`)}>
+              <Card key={i} noHover img={URL + product.images[0]?.image} title={product?.title} description={product?.description} price={product?.price} product_id={product?.id} />
             </SwiperSlide>
           );
         })}

@@ -85,9 +85,21 @@ export const ContentBlock = styled.div`
   flex-direction: column;
   align-items: start;
 `;
-
+export const Accept = styled.div`
+  text-align: center;
+  font-family: 'Mont';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 13px;
+  margin-top: 12px;
+  color: #717171;
+`;
 export const Buttons = styled.div`
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 332px;
   margin-top: 174px;
   @media (max-width: 1110px) {
     box-sizing: border-box;

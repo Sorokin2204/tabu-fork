@@ -35,18 +35,24 @@ export const getCategoryBySlug = (slug) => {
   return async (dispatch, getState) => {
     try {
       const {
-        categories: { categories, main_category },
+        categories: { categories, main_category, category },
       } = getState();
       dispatch(setPageCategoryLoading(true));
 
       axios
         .get(`${API_URL}/products/category/${slug}`)
         .then((response) => {
+          console.log('CATTT', category);
           const findCat = findCategoryLocal(response.data.id, categories);
           if (findCat) {
             dispatch(setPageCategory(findCat));
           } else {
-            dispatch(setPageCategory({ title: 'Бренды', slug: main_category.slug, children: [], oneParent: { title: main_category.title } }));
+            if (category?.title == 'Новинки') {
+              dispatch(setPageCategory({ title: 'Новинки', slug: main_category.slug, children: [], oneParent: { title: main_category.title } }));
+            } else {
+              dispatch(setPageCategory({ title: 'Бренды', slug: main_category.slug, children: [], oneParent: { title: main_category.title } }));
+            }
+
             // dispatch(setPageCategoryError({ status: 400, message: 'Непредвиденная ошибка' }));
           }
         })

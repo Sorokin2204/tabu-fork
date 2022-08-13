@@ -13,12 +13,14 @@ const GeneralInformation = () => {
           <S.NameRow>Бренд</S.NameRow>
           <S.NameRow>Материал</S.NameRow>
           <S.NameRow>Цвет</S.NameRow>
+          <S.NameRow>Состояние</S.NameRow>
         </S.LeftColumn>
         <S.RightColumn>
           <S.ValueRow>{openedProduct ? (openedProduct.category ? openedProduct.category.title : '') : ''}</S.ValueRow>
           <S.ValueRow>{openedProduct ? (openedProduct.brand ? openedProduct.brand.title : '') : ''}</S.ValueRow>
           <S.ValueRow>{openedProduct ? (openedProduct.material ? openedProduct.material.title : '') : ''}</S.ValueRow>
           <S.ValueRow>{openedProduct ? (openedProduct.color ? openedProduct.color.title : '') : ''}</S.ValueRow>
+          <S.ValueRow>{openedProduct ? (openedProduct?.condition_name ? openedProduct?.condition_name : '') : ''}</S.ValueRow>
         </S.RightColumn>
       </S.Columns>
     </S.Container>

@@ -1,3 +1,7 @@
+import CartIcon from 'components/Atoms/Icons/CartIcon';
+import DeliveryIcon from 'components/Atoms/Icons/DeliveryIcon';
+import DocumentIcon from 'components/Atoms/Icons/DocumentIcon';
+import LockIcon from 'components/Atoms/Icons/LockIcon';
 import * as S from './Styled';
 
 const MobileCards = () => {
@@ -5,10 +9,7 @@ const MobileCards = () => {
     <S.Wrapper>
       <S.Card>
         <S.Left>
-          <svg width={56} height={56} viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fillRule="evenodd" clipRule="evenodd" d="M13.9998 16.3333H41.9998L44.3332 46.6666H11.6665L13.9998 16.3333Z" stroke="black" strokeLinecap="round" />
-            <path d="M21 21V14C21 10.134 24.134 7 28 7C31.866 7 35 10.134 35 14V21" stroke="black" strokeLinecap="round" />
-          </svg>
+          <CartIcon width={56} hegiht={56} />
         </S.Left>
         <S.Right>
           <S.Title>Новая и почти новая одежда</S.Title>
@@ -18,40 +19,31 @@ const MobileCards = () => {
       </S.Card>
       <S.Card>
         <S.Left>
-          <svg width={56} height={56} viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fillRule="evenodd" clipRule="evenodd" d="M13.9998 16.3333H41.9998L44.3332 46.6666H11.6665L13.9998 16.3333Z" stroke="black" strokeLinecap="round" />
-            <path d="M21 21V14C21 10.134 24.134 7 28 7C31.866 7 35 10.134 35 14V21" stroke="black" strokeLinecap="round" />
-          </svg>
+          <DocumentIcon width={56} hegiht={56} />
         </S.Left>
         <S.Right>
-          <S.Title>Новая и почти новая одежда</S.Title>
-          <S.Description>Частные продавцы размещают новую одежду с бирками и почти новую одежду в отличном состоянии.</S.Description>
+          <S.Title>Гарантия качества</S.Title>
+          <S.Description>Эксперты проверяют состояние товара. После проверки мы предоставляем сертификат подлинности и качества.</S.Description>
           <S.ButtonBox></S.ButtonBox>
         </S.Right>
       </S.Card>
       <S.Card>
         <S.Left>
-          <svg width={56} height={56} viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fillRule="evenodd" clipRule="evenodd" d="M13.9998 16.3333H41.9998L44.3332 46.6666H11.6665L13.9998 16.3333Z" stroke="black" strokeLinecap="round" />
-            <path d="M21 21V14C21 10.134 24.134 7 28 7C31.866 7 35 10.134 35 14V21" stroke="black" strokeLinecap="round" />
-          </svg>
+          <LockIcon width={56} hegiht={56} />
         </S.Left>
         <S.Right>
-          <S.Title>Новая и почти новая одежда</S.Title>
-          <S.Description>Частные продавцы размещают новую одежду с бирками и почти новую одежду в отличном состоянии.</S.Description>
+          <S.Title>Безопасная сделка</S.Title>
+          <S.Description>После оплаты деньги переходят на счет TAABU и отправляются продавцу после отправки товара покупателю.</S.Description>
           <S.ButtonBox></S.ButtonBox>
         </S.Right>
       </S.Card>
       <S.Card>
         <S.Left>
-          <svg width={56} height={56} viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fillRule="evenodd" clipRule="evenodd" d="M13.9998 16.3333H41.9998L44.3332 46.6666H11.6665L13.9998 16.3333Z" stroke="black" strokeLinecap="round" />
-            <path d="M21 21V14C21 10.134 24.134 7 28 7C31.866 7 35 10.134 35 14V21" stroke="black" strokeLinecap="round" />
-          </svg>
+          <DeliveryIcon width={56} hegiht={56} />
         </S.Left>
         <S.Right>
-          <S.Title>Новая и почти новая одежда</S.Title>
-          <S.Description>Частные продавцы размещают новую одежду с бирками и почти новую одежду в отличном состоянии.</S.Description>
+          <S.Title>Доставка до двери</S.Title>
+          <S.Description>Мы забираем товар, проверяем его и отправляем покупателю. Курьер доставляет посылку в день отправки товара.</S.Description>
           <S.ButtonBox></S.ButtonBox>
         </S.Right>
       </S.Card>

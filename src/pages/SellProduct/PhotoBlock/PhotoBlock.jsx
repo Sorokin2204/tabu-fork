@@ -19,8 +19,7 @@ export const imageTypes = {
 const PhotoBlock = ({ setValue, errors, watch, name }) => {
   const isMobile = useSelector((state) => state.app.isMobile);
   const images = watch(name);
-  console.log(images);
-  console.log(getOldImageIds(images));
+
   const condition = watch('condition');
   const dispatch = useDispatch();
   return (

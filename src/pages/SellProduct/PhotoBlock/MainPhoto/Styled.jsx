@@ -2,6 +2,11 @@ import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div`
   width: 100%;
+  @media (max-width: 500px) {
+    width: 203px;
+    height: 220px;
+    margin: 0 auto;
+  }
 `;
 
 export const MainPhoto = styled.button`

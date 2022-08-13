@@ -16,19 +16,21 @@ const CategorySelectModal = ({ firstCategory, setFirstCategory, secondCategory, 
 
   useEffect(() => {
     setSecondCategories(firstCategory?.children);
-    setStep(2);
+    // setStep(2);
   }, [firstCategory]);
   useEffect(() => {
     setThirdCategories(secondCategory?.children);
-    setStep(3);
+    // setStep(3);
   }, [secondCategory]);
   const onCategoryClick = (columnNumber, category) => {
     if (columnNumber === 1) {
       setFirstCategory(category);
+      setStep(2);
     }
 
     if (columnNumber === 2) {
       setSecondCategory(category);
+      setStep(3);
     }
 
     if (columnNumber === 3) {

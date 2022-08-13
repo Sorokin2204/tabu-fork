@@ -1,6 +1,6 @@
 import * as S from './Styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { hideMobileSidebar, hideProfile, setIsDisableScroll, setShowAuthModal, setShowRegModal, showMobileSidebar } from '../../../../../redux/reducers/appReducer';
+import { hideMobileSidebar, hideProfile, setIsDisableScroll, setMenuCategory, setShowAuthModal, setShowRegModal, showMobileSidebar } from '../../../../../redux/reducers/appReducer';
 import MobileCategory from './MobileCategory/MobileCategory';
 import MobileCategories from './MobileCategories/MobileCategories';
 import { setMainCategory } from 'redux/reducers/categoriesReducer';
@@ -46,7 +46,13 @@ const MobileSidebar = (props) => {
 
           <S.Tabs>
             {categories.map((category, i) => (
-              <S.Tab key={i} onClick={() => onTabClick(category)} active={main_category.title === category.title ? true : false}>
+              <S.Tab
+                key={i}
+                onClick={() => {
+                  dispatch(setMenuCategory({ ...menuCategory, active: false }));
+                  onTabClick(category);
+                }}
+                active={main_category.title === category.title ? true : false}>
                 {category.title}
               </S.Tab>
             ))}

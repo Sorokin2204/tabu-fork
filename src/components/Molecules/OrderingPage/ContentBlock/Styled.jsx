@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const ContentBlock = styled.div`
+  overflow: hidden;
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -9,13 +10,15 @@ export const ContentBlock = styled.div`
 
 export const Header = styled.div`
   display: flex;
+  overflow: hidden;
   justify-content: center;
   align-items: center;
-
+  transform: scale(130%);
   width: 100%;
   height: 80px;
   @media (max-width: 1110px) {
     height: 77px;
+    transform: scale(160%);
   }
 `;
 

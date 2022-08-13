@@ -60,6 +60,29 @@ const BottomHeader = () => {
                 Бренды
               </Link>
             </S.BottomCategory>
+            <S.BottomCategory
+              key={12345678}
+              onMouseEnter={() => {
+                dispatch(hideHoverMenu());
+                // dispatch(
+                //   setCategory({
+                //     slug: `${main_category?.slug}`,
+                //     title: 'Новинки',
+                //     brandParam: true,
+                //     children: [],
+                //   }),
+                // );
+                // onHover({
+                //   slug: `${main_category?.slug}`,
+                //   title: 'Новинки',
+                //   brandParam: true,
+                //   children: [],
+                // });
+              }}>
+              <Link to={`/categories/${main_category?.slug}?news=true`} replace>
+                Новинки
+              </Link>
+            </S.BottomCategory>
           </>
         )}
       </S.BottomCategories>

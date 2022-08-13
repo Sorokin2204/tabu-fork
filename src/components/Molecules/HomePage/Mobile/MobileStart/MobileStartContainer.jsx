@@ -21,12 +21,6 @@ const MobileStartContainer = () => {
                 <SwiperSlide>
                   <MobileStart ad={ad} />
                 </SwiperSlide>
-                <SwiperSlide>
-                  <MobileStart ad={ad} />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <MobileStart ad={ad} />
-                </SwiperSlide>
               </>
             ))}
         </Swiper>

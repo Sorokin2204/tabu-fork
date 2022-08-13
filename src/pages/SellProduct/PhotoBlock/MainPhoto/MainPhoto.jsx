@@ -26,7 +26,7 @@ const MainPhoto = (props) => {
 
   const handleChange = (event) => {
     const file = event.target.files[0];
-    console.log(file);
+
     const url = URL.createObjectURL(file);
     props.setValue(`images[${imageTypes[props.type]}]`, {
       type: props.type,

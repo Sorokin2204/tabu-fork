@@ -8,9 +8,11 @@ const MobileCategory = (props) => {
   const dispatch = useDispatch();
   const menuCategory = useSelector((state) => state.app.menuCategory);
   let navigate = useNavigate();
-
+  const parentCategory = useSelector((state) => state.categories.category);
   const onCategoryClick = (category) => {
-    navigate(`/categories/${category}`);
+    let link = !menuCategory?.parentCategory?.brandParam ? `/categories/${category.slug}` : `/categories/${parentCategory.slug}?brand=${category.slug}`;
+
+    navigate(link);
     dispatch(hideMobileSidebar());
   };
 
@@ -28,12 +30,11 @@ const MobileCategory = (props) => {
       </S.Back>
       <S.Title
         onClick={() => {
-          navigate('/categories/' + menuCategory.parentCategory.slug);
           dispatch(hideMobileSidebar());
         }}>
         {!menuCategory.parentCategory ? '' : menuCategory.parentCategory.title}
       </S.Title>
-      <S.Categories>{!menuCategory.parentCategory ? '' : menuCategory.parentCategory.children.map((subcat, i) => <S.Category onClick={() => onCategoryClick(subcat.slug)}>{subcat.title}</S.Category>)}</S.Categories>
+      <S.Categories>{!menuCategory.parentCategory ? '' : menuCategory.parentCategory.children.map((subcat, i) => <S.Category onClick={() => onCategoryClick(subcat)}>{subcat.title}</S.Category>)}</S.Categories>
     </S.Wrapper>
   );
 };

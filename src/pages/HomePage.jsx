@@ -35,13 +35,19 @@ import Background from 'assets/img/startSell.png';
 import WeSellingImg from 'assets/img/weSelling2.png';
 
 import { scrollToSection } from 'utils/scrollToSection';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import useMediaQuery from 'utils/useMediaQuery';
+import NotFound from 'components/NotFound/NotFound';
+import { fbqViewPage } from 'utils/fbPixel';
+import { setShowAuthModal, setShowRegModal, setShowRequestModal } from 'redux/reducers/appReducer';
 
 const HomePage = () => {
   const { newProducts, trends } = useSelector((state) => state.product);
   const { ads } = useSelector((state) => state.ads);
   const params = useParams();
   const { hash } = useLocation();
+  const navigate = useNavigate();
+  const isAuth = useSelector((state) => state.user.isAuth);
   useEffect(() => {
     if (newProducts.length !== 0 && trends.length !== 0 && ads.length !== 0) {
       scrollToSection();
@@ -52,11 +58,12 @@ const HomePage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    fbqViewPage();
     dispatch(getNewProducts());
     dispatch(getTrends());
     dispatch(getAds());
   }, []);
-
+  const matches = useMediaQuery('(min-width: 560px)');
   return (
     <div>
       <Request />
@@ -69,6 +76,14 @@ const HomePage = () => {
           <MobileNowInTrand />
           <MobileSections />
           <MobileStartSale
+            onClick={() => {
+              if (isAuth) {
+                navigate('/sellproduct');
+              } else {
+                dispatch(setShowAuthModal(true));
+                dispatch(setShowRegModal(true));
+              }
+            }}
             title={'Начните продавать'}
             text={'Продавая вещи, которые пылятся в гардеробе, вы не консервируете деньги у себя в шкафу, а зарабатываете на будущие покупки. На нашем сайте достаточно двух кликов, чтобы выставить свои вещи на продажу.'}
             btnText={'Продать товар'}
@@ -78,11 +93,12 @@ const HomePage = () => {
           <MobileCards />
           <MobileInstagram />
           <MobileStartSale
-            style={{ backgroundColor: '#000', backgroundSize: 'auto', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 40px top 80px' }}
+            onClick={() => dispatch(setShowRequestModal(true))}
+            style={{ backgroundColor: '#000', backgroundSize: isMobile ? '40vw' : 'auto', backgroundRepeat: 'no-repeat', backgroundPosition: isMobile ? 'right 40px top 110px' : 'right 40px top 80px' }}
             title={'Сделаем всё за вас'}
             text={'Заберем ваши вещи. Подготовим, опубликуем и продадим. Переведем вам деньги.'}
             btnText={'Получить вип-сервис'}
-            img={WeSellingImg}
+            img={matches ? WeSellingImg : null}
           />
           {/* <WeSelling /> */}
           <MobileHowWorks vip />
@@ -99,6 +115,14 @@ const HomePage = () => {
           <Trends />
           <TwoSections />
           <StartSell
+            onClick={() => {
+              if (isAuth) {
+                navigate('/sellproduct');
+              } else {
+                dispatch(setShowAuthModal(true));
+                dispatch(setShowRegModal(true));
+              }
+            }}
             style={{
               backgroundSize: '105%',
               backgroundPosition: 'center 5%',
@@ -111,6 +135,7 @@ const HomePage = () => {
           {/*<Media />*/}
           <Advantages />
           <StartSell
+            onClick={() => dispatch(setShowRequestModal(true))}
             style={{ backgroundColor: '#000', backgroundRepeat: 'no-repeat', backgroundPosition: 'left 90% top 38px', height: '470px' }}
             title={'Сделаем всё за вас'}
             text={'Заберем ваши вещи. Подготовим, опубликуем и продадим. Переведем вам деньги.'}

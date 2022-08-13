@@ -11,7 +11,7 @@ import { getCartProducts } from 'redux/actions/cart';
 import Button from 'components/Atoms/Button';
 import { useNavigate } from 'react-router-dom';
 import { getFavoriteProducts, removeFavorite } from 'redux/actions/product';
-import { setShowPublishModal, setShowRemoveFromSaleModal, setShowRemoveModal } from 'redux/reducers/appReducer';
+import { setShowPublishModal, setShowRemoveFromSaleModal, setShowRemoveModal, setShowResaleModal } from 'redux/reducers/appReducer';
 import { setSelectedProductProfile, updateCountCart } from 'redux/reducers/productReducer';
 import ProfileIcon from 'assets/svg/profile.svg';
 import RestoreIcon from 'assets/svg/restore.svg';
@@ -126,7 +126,7 @@ const CartProductCard = ({ product, type }) => {
                 grayBorder
                 onClick={() => {
                   dispatch(setSelectedProductProfile(product?.id));
-                  dispatch(setShowPublishModal(true));
+                  dispatch(setShowResaleModal(true));
                 }}>
                 <img src={RestoreIcon} style={{ marginBottom: '2px', marginRight: '9.5px' }} />
                 Продать

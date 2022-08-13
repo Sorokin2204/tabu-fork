@@ -26,14 +26,11 @@ const Sidebar = () => {
   const materialOptions = useSelector((state) => state.filterOptions.materialOptions);
 
   useEffect(() => {
-    console.log('BRANDS SIZE COLORS USE');
     // get options for filter
     // dispatch(getBrandsOptions());
     dispatch(getColorOptions());
     dispatch(getSizeOptions());
     dispatch(getMaterialOptions());
-
-    console.log(category?.children);
   }, []);
   const showMobileFilterModal = useSelector((state) => state.app.showMobileFilterModal);
   const onClose = () => {
@@ -81,7 +78,7 @@ const Sidebar = () => {
               lineHeight: '18px',
               color: '#717171',
             }}>
-            Фильтр по
+            Фильтр
           </div>
           <div style={{ cursor: 'pointer' }} onClick={onClose}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -108,6 +105,7 @@ const Sidebar = () => {
             fontSize: '14px',
             padding: '14.5px',
             marginTop: '72px',
+            marginBottom: '72px',
           }}>
           Сохранить
         </Button>

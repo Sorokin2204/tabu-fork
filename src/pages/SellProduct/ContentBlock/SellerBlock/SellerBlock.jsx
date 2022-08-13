@@ -83,7 +83,7 @@ const SellerBlock = ({ control, errors, register }) => {
           register={register}
           name="number_of_flat"
           rules={{
-            required: { value: true, message: 'Заполните номер квартиры' },
+            required: { value: false, message: 'Заполните номер квартиры' },
           }}
           errors={errors}
           style={{

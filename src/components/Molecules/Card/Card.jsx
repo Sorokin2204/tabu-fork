@@ -51,7 +51,6 @@ const Card = (props) => {
     setIsFavorite(!!isFavorite);
   }, [getFavoritesData]);
 
-  console.log(isFavorite);
   const onClickView = () => {
     const targetProduct = products.results.find((x) => x.id === props.product_id);
 
@@ -159,7 +158,7 @@ const Card = (props) => {
         </S.FavoriteIcon>
       )}
 
-      <S.ImageBlock onClick={() => console.log(props?.img)} src={props?.img} />
+      <S.ImageBlock onClick={() => {}} src={props?.img} />
 
       <S.Details>
         <Flex direction="column" width="80%">

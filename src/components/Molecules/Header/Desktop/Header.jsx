@@ -8,7 +8,7 @@ import OpenedProfile from './OpenedProfile';
 import Expand from 'assets/svg/expand_profile.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { hideHoverMenu, hideProfile, setShowAuthModal, setShowRegModal, showProfile } from 'redux/reducers/appReducer';
-import Logo from 'assets/img/logo.png';
+import Logo from 'assets/img/logo.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import ImageBlock from 'components/Atoms/ImageBlock';
 import { getCategories } from 'redux/actions/categories';
@@ -42,7 +42,7 @@ const Header = () => {
         </S.Categories>
         <S.Logo>
           <Link to="/">
-            <ImageBlock src={Logo} />
+            <img src={Logo} style={{ width: '266px', marginTop: '10px', maxHeight: '30px', objectFit: 'cover' }} />
           </Link>
         </S.Logo>
         <S.UserBlock>

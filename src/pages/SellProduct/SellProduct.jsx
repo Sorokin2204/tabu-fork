@@ -10,7 +10,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { addProduct, editProduct, getEditProduct, getOldImageIds, uploadDetails, uploadImages, uploadVariations } from 'redux/actions/product';
 import { auth } from 'redux/actions/user';
 import { setShowMobileCartModal, setShowPhotoRecomendModal, setShowSellerThanksModal } from 'redux/reducers/appReducer';
-import { resetAddProducts, resetSellProductPage } from 'redux/reducers/productReducer';
+import { resetAddProducts, resetSellProductPage, uploadDetailsSuccess, uploadVariationsSuccess } from 'redux/reducers/productReducer';
 import { sizes } from 'sizes';
 import ContentBlock from './ContentBlock/ContentBlock';
 import PhotoBlock, { imageTypes } from './PhotoBlock/PhotoBlock';
@@ -219,8 +219,13 @@ const SellProduct = () => {
 
       newData.phone_number = newData.phone_number.replace(/[^0-9\+]+/g, '');
       newData.seller = currentUser.id;
-      newData.productvariations_set = uploadVariationsData;
-      console.log(newData);
+      if (getEditProductData) {
+        console.log([...uploadVariationsData, ...getEditProductData?.size_variations.map((sizeVar) => sizeVar.id)]);
+        newData.productvariations_set = [...uploadVariationsData, ...getEditProductData?.size_variations.map((sizeVar) => sizeVar.id)];
+      } else {
+        newData.productvariations_set = uploadVariationsData;
+      }
+
       if (getEditProductData) {
         dispath(editProduct(newData));
       } else {
@@ -243,7 +248,9 @@ const SellProduct = () => {
   useEffect(() => {
     if (getEditProductData) {
       Object.keys(getEditProductData).map((key) => {
-        setValue(key, getEditProductData[key]);
+        if (key !== 'size_variations') {
+          setValue(key, getEditProductData[key]);
+        }
       });
     }
   }, [getEditProductData]);
@@ -256,18 +263,29 @@ const SellProduct = () => {
 
   const onSubmit = (data) => {
     const { images, condition, details_list, size } = data;
-    console.log(images);
+
     const validImages = validateImages(images, condition);
     if (validImages) {
-      if (getEditProductData) {
-      }
       dispath(uploadImages(images));
-      dispath(uploadDetails(details_list));
-      dispath(uploadVariations(size.map((item) => item.id)));
+      if (watch('details_list')?.length === 1 && watch('details_list')?.[0] === '') {
+        dispath(uploadDetailsSuccess([]));
+      } else {
+        dispath(uploadDetails(details_list));
+      }
+      if (getEditProductData) {
+        const replaceRepeatSize = size.map((item) => item.id).filter((sizeItem) => !getEditProductData?.size_variations.find((sizeFind) => sizeFind.size.id === sizeItem));
+        if (replaceRepeatSize?.length !== 0) {
+          dispath(uploadVariations(replaceRepeatSize));
+        } else {
+          dispath(uploadVariationsSuccess([]));
+        }
+      } else {
+        dispath(uploadVariations(size.map((item) => item.id)));
+      }
     }
   };
   const location = useLocation();
-  console.log(errors);
+
   return (!getEditProductLoading && getEditProductData) || (!getEditProductData && !product_id) ? (
     <S.Wrapper>
       <S.Title>{product_id ? 'Редактировать товар' : 'Продать товар'}</S.Title>
@@ -303,6 +321,7 @@ const SellProduct = () => {
         >
           Опубликовать этот товар
         </Button>
+        <S.Accept>Нажимая кнопку «Опубликовать этот товар», вы соглашаетесь с «Публичной офертой для продавцов» и «Правилами пользования»</S.Accept>
       </S.Buttons>
       <MessageModal
         open={showPhotoRecomendModal}

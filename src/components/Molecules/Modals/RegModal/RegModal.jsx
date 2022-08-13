@@ -61,16 +61,14 @@ const RegModal = () => {
   };
 
   const onLoginSubmit = (data) => {
-    console.log(data);
     dispatch(login(data));
   };
   const onRegSubmit = (data) => {
-    console.log(data);
     const phone = data.phone.replace(/-/g, ' ').replace(/ /g, '').replace(/\(/g, '').replace(/\)/g, '');
     dispatch(registration({ ...data, phone }));
   };
   const userType = regForm.watch('user_type');
-  console.log(userType);
+
   return (
     <>
       <S.Wrapper className={showRegModal ? 'visible' : 'hidden'} onClick={handleClose}></S.Wrapper>

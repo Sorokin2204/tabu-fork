@@ -37,6 +37,7 @@ import {
   SET_RESALE_MODAL,
   SET_PUBLISH_MODAL,
   SET_PUBLISH_SUCCESS_MODAL,
+  SET_ORDERING_ERROR,
 } from '../types/appTypes';
 
 const defaultState = {
@@ -76,6 +77,7 @@ const defaultState = {
   showResaleSuccessModal: false,
   showPublishModal: false,
   showPublishSuccessModal: false,
+  showOrderingError: false,
   breadcrumbs: [],
 };
 
@@ -165,6 +167,8 @@ export default function productReducer(state = defaultState, action) {
       return { ...state, showPublishModal: action.payload };
     case SET_PUBLISH_SUCCESS_MODAL:
       return { ...state, showPublishSuccessModal: action.payload };
+    case SET_ORDERING_ERROR:
+      return { ...state, showOrderingError: action.payload };
     default:
       return state;
   }
@@ -320,5 +324,9 @@ export const setShowPublishModal = (data) => ({
 });
 export const setShowPublishSuccessModal = (data) => ({
   type: SET_PUBLISH_SUCCESS_MODAL,
+  payload: data,
+});
+export const setShowOrderingError = (data) => ({
+  type: SET_ORDERING_ERROR,
   payload: data,
 });

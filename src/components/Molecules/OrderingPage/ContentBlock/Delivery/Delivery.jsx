@@ -10,7 +10,6 @@ const Delivery = ({ register, handleSubmit, watch, errors, setValue, control, se
   const continueClick = () => {};
   const isMobile = useSelector((state) => state.app.isMobile);
   const onSubmit = (data) => {
-    console.log(data);
     setStep(2);
     window.scrollTo(0, 0);
   };
@@ -128,7 +127,7 @@ const Delivery = ({ register, handleSubmit, watch, errors, setValue, control, se
           register={register}
           name="flat"
           rules={{
-            required: { value: true, message: 'Заполните номер квартиры' },
+            required: { value: false, message: 'Заполните номер квартиры' },
           }}
           errors={errors}
         />

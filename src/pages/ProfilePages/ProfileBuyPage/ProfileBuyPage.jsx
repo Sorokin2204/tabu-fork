@@ -11,7 +11,7 @@ import * as S from './Styled';
 
 const ProfileBuyPage = () => {
   const isMobile = useSelector((state) => state.app.isMobile);
-  console.log(isMobile);
+ 
   return (
     <ProfileLayout onlyProfile></ProfileLayout>
     // <S.Wrapper>

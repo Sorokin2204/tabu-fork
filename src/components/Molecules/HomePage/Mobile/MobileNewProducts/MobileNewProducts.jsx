@@ -17,7 +17,7 @@ const MobileNewProducts = () => {
 
       <S.Products>
         {newProducts?.results?.map((product, i) => (
-          <Card key={i} title={product.title} description={product.description} price={product.price} img={product.images[0].image} product_id={product.id} />
+          <Card key={i} title={product.title} description={product.description} price={product.price} img={URL + product.images[0].image} product_id={product.id} />
         ))}
       </S.Products>
     </S.Wrapper>

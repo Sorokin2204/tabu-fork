@@ -62,8 +62,7 @@ export const Burger = styled.div``;
 export const Logo = styled.div`
   display: grid;
   justify-self: center;
-  width: 20vw;
-  min-width: 105px;
+
   align-items: center;
   cursor: pointer;
 `;

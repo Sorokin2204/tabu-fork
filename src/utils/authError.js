@@ -10,7 +10,7 @@ export const authError = (error) => {
   if (rep?.status == 401) {
     store.dispatch(getFavoritesSuccess([]));
     store.dispatch(logout());
-    console.log('RELOAD');
+
     // history.go(0);
     return;
   }

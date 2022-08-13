@@ -14,7 +14,7 @@ const MobileFilter = () => {
   return (
     <S.MobileFilter className={showMobileFilterModal ? 'show_mobile_filter' : ''}>
       <S.Header>
-        <S.Title>Фильтр по</S.Title>
+        <S.Title>Фильтр</S.Title>
         <S.Close onClick={onClose}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M7 7L17 17" stroke="black" strokeLinecap="round" strokeLinejoin="round" />

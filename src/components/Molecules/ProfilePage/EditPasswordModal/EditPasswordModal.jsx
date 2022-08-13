@@ -34,7 +34,6 @@ const EditPasswordModal = () => {
 
   const onSubmit = (data) => {
     dispath(changePassword({ newPassword: data.newPassword, oldPassword: data.oldPassword }));
-    console.log(data);
   };
   const watchNewPass = watch('newPassword');
   const watchNewRepeatPass = watch('newRepeatPassword');

@@ -20,7 +20,6 @@ function App() {
   }, [isMobile]);
 
   useEffect(() => {
-    console.log();
     if (isDisableScroll) {
       window.document.body.classList.add('no-scroll');
     } else {

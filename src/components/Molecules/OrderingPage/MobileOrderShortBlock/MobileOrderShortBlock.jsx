@@ -8,7 +8,7 @@ import { currencyFormat } from 'utils/currencyFormat';
 
 const MobileOrderShortBlock = () => {
   const { cartProducts, cartTotal } = useSelector((state) => state.cart);
-  console.log(cartProducts);
+ 
   const showMobileCartModal = useSelector((state) => state.app.showMobileCartModal);
   const dispatch = useDispatch();
   return (

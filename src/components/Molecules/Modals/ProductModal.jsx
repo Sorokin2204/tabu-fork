@@ -22,6 +22,7 @@ import { addToCart } from 'utils/addToCart';
 import { removeFromCart } from 'utils/removeFromCart';
 import { store } from 'redux/reducers';
 import { currencyFormat } from 'utils/currencyFormat';
+import { fbqAddtoCart } from 'utils/fbPixel';
 
 export const StyledWrapper = styled.div`
   position: fixed;
@@ -96,6 +97,7 @@ export const onClickAddToCart = (setInCart, productId, productSize) => {
   }
   store.dispatch(updateCountCart());
   setInCart(findInLocalCart(productId));
+  fbqAddtoCart();
 };
 const ProductModal = (props) => {
   const opened_product = useSelector((state) => state.product.openedProduct);

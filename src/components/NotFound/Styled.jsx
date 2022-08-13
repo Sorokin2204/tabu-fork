@@ -10,8 +10,11 @@ export const Inner = styled.div`
 export const Logo = styled.img`
   display: block;
   margin-bottom: 50px;
-  width: 157px;
+  width: 200px;
+  max-height: 30px;
   height: auto;
+  object-fit: cover;
+  transform: scale(140%);
 `;
 export const Left = styled.div`
   margin-top: 60px;

@@ -22,7 +22,7 @@ import * as S from './Styled';
 export const sizeTypes = [
   { id: -1, title: 'Все размеры' },
   { id: 0, title: 'Европейские' },
-  { id: 1, title: 'Амерканские' },
+  { id: 1, title: 'Американские' },
   { id: 2, title: 'Дюймы' },
 ];
 const ContentBlock = ({ errors, register, setValue, watch, trigger, control }) => {
@@ -68,14 +68,9 @@ const ContentBlock = ({ errors, register, setValue, watch, trigger, control }) =
         },
       })
       .then((response) => {
-        console.log(response);
-        console.log(data);
         document.location.href = '/';
       })
-      .catch((reason) => {
-        console.log(reason);
-        console.log(data);
-      });
+      .catch((reason) => {});
   };
   useEffect(() => {
     register('brand', { required: { value: true, message: 'Выберите бренд' } });
@@ -92,81 +87,6 @@ const ContentBlock = ({ errors, register, setValue, watch, trigger, control }) =
   useEffect(() => {
     if (product_id) {
       setValue('description', getEditProductData?.description);
-      // const defaultTestValues = {
-      //   title: '',
-      //   description: 'Это текст описания',
-      //   seller: null,
-      //   category: {
-      //     id: 100,
-      //     slug: 'beisbolky_kepki',
-      //     title: 'Бейсболки и кепки',
-      //     description: '',
-      //     parent: 89,
-      //     children: [],
-      //     order: null,
-      //   },
-      //   active: true,
-      //   price: '₸ 12 345',
-      //   old_price: '₸ 10 000',
-      //   size: [
-      //     {
-      //       id: 5,
-      //       title: '36',
-      //       size_type: 0,
-      //       size_value: '36',
-      //     },
-      //     {
-      //       id: 6,
-      //       title: '36.5',
-      //       size_type: 0,
-      //       size_value: '36.5',
-      //     },
-      //     {
-      //       id: 7,
-      //       title: '37',
-      //       size_type: 0,
-      //       size_value: '37',
-      //     },
-      //     {
-      //       id: 8,
-      //       title: '37.5',
-      //       size_type: 0,
-      //       size_value: '37.5',
-      //     },
-      //   ],
-      //   color: {
-      //     id: 1,
-      //     title: 'Синий',
-      //     color_code: '#07A4EF',
-      //   },
-      //   brand: {
-      //     id: 1,
-      //     title: 'Adidas',
-      //   },
-      //   material: {
-      //     id: 1,
-      //     title: 'Кашемир',
-      //   },
-      //   condition: 0,
-      //   images: [],
-      //   serial_number: 'SER01',
-      //   sample: 'Expert 32',
-      //   vintage: false,
-      //   duster: true,
-      //   box: true,
-      //   phone_number: '+7 (777) 777-77-77',
-      //   region: 'Беларусь',
-      //   city: 'Минск',
-      //   street: 'ул.Ленина',
-      //   number_of_house: '11',
-      //   number_of_flat: '22',
-      //   details_list: ['1 деталь', '2 деталь', '3 деталь'],
-      //   sizeType: {
-      //     id: 0,
-      //     title: 'Все размеры',
-      //   },
-      //   comment: 'Это текст комментария',
-      // };
     }
   }, [product_id]);
   useEffect(() => {

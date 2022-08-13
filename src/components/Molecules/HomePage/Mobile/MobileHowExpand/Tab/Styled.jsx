@@ -4,7 +4,7 @@ export const Tab = styled.div`
   display: flex;
   flex-direction: column;
   border-bottom: 1px solid #e2e2e2;
-  padding: 24px 25px;
+  padding: 24px 12px 24px 24px;
   align-items: center;
 
   font-family: Mont;
@@ -22,7 +22,7 @@ export const Tab = styled.div`
 `;
 
 export const TabIcon = styled.div`
-  margin-left: 23px;
+  margin-left: 5px;
   height: 18px;
 `;
 

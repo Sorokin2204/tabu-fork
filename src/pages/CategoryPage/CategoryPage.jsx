@@ -30,7 +30,7 @@ import NotFound from 'components/NotFound/NotFound';
 import Pagination from 'components/Pagination/Pagination';
 import { filterCheckbox } from 'components/Molecules/Sidebar/Category/Category';
 export const optionsSort = [
-  { slug: 'created_at', name: 'Сначала новые' },
+  { slug: '-created_at', name: 'Сначала новые' },
   { slug: '-price', name: 'По убыванию цены' },
   {
     slug: 'price',
@@ -109,7 +109,7 @@ const CategoryPage = () => {
       // if (brandParam) {
       // filterCheckbox(brandOptions, brandParam, setBrandOptions);
       // } else {
-      console.log('CALL IN CHANGE CAT');
+
       dispatch(getProductsByCategory({ page: 1 }));
       // }
 
@@ -166,7 +166,7 @@ const CategoryPage = () => {
         <MobileSort />
 
         <BreadCrumbs list={breadcrumbs} />
-        <S.TitlePage>{pageCategory?.title}</S.TitlePage>
+        <S.TitlePage>{searchParams.get('news') ? 'Новинки' : pageCategory?.title}</S.TitlePage>
         {!isMobile ? (
           <>
             <Flex margin="28px 0 0 0" width="100%" justify="end">
@@ -193,7 +193,7 @@ const CategoryPage = () => {
               {products.length === 0 || productsLoading || pageCategoryLoading ? (
                 <></>
               ) : products?.results?.length === 0 ? (
-                <S.ProductsNotFound>Товаров не найдено</S.ProductsNotFound>
+                <S.ProductsNotFound>Товар не найден</S.ProductsNotFound>
               ) : (
                 products.results.map((product) => <Card key={product.id} product_id={product.id} title={product.title} description={product.description} price={product.price} product={product} img={URL + product.images[0].image} />)
               )}
@@ -210,9 +210,8 @@ const CategoryPage = () => {
               <Pagination
                 style={{ display: products?.results?.length >= 1 ? 'block' : 'none' }}
                 currentPage={currentPage}
-                pages={Math.ceil(products?.count / 4)}
+                pages={Math.ceil(products?.count / 20)}
                 onPageClick={(val) => {
-                  console.log(val);
                   dispatch(getProductsByCategory({ page: val }));
                 }}
               />
@@ -229,8 +228,6 @@ const CategoryPage = () => {
             {pageCategoryLoading && <Loading relative style={{ right: '0px', top: '0' }} />}
           </S.StyledProducts>
         )} */}
-
-        {console.log(Math.ceil(products?.count / 6))}
       </S.Wrapper>
     </S.Wrap>
   ) : (

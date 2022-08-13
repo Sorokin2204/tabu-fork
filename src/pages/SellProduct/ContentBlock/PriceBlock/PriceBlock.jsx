@@ -29,7 +29,7 @@ const PriceBlock = ({ register, errors, watch, control }) => {
               required: { value: false },
             }}
             errors={errors}
-            label={'Новая цена'}
+            label={'Старая цена'}
           />
           <S.Description>Если вы хотите, чтобы ваш товар продался быстрее, вы можете сделать на него скидку </S.Description>
         </div>

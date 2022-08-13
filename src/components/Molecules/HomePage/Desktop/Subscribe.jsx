@@ -40,7 +40,7 @@ const Subscribe = () => {
   const showSubscribeThanksModal = useSelector((state) => state.app.showSubscribeThanksModal);
   const showSubscribeErrorModal = useSelector((state) => state.app.showSubscribeErrorModal);
   const defaultValues = {
-    category: 21,
+    category: 140,
     email: '',
   };
   const {
@@ -58,22 +58,21 @@ const Subscribe = () => {
 
   useEffect(() => {
     if (data) {
-      setValue('category', 21);
+      setValue('category', 140);
       setValue('email', '');
       clearErrors();
     }
   }, [data]);
 
   const onSubmit = (data) => {
-    console.log(data);
     dispatch(postSubscribe(data));
   };
   const handleWomanChange = () => {
-    setValue('category', 21);
+    setValue('category', 140);
   };
   const gender = watch('category');
   const handleMenChange = () => {
-    setValue('category', 20);
+    setValue('category', 141);
   };
   return (
     <>
@@ -87,8 +86,8 @@ const Subscribe = () => {
               Ранний доступ к распродаже, новости о специальных предложениях и подборки лучших новинок — для подписчиков рассылки.
             </Text>
             <Flex margin="40px 0 0 0" justify="center">
-              <Radio label="Женщина" value={gender === 21} onChange={handleWomanChange} />
-              <Radio label="Мужчина" value={gender === 20} onChange={handleMenChange} margin="0 0 0 64px" />
+              <Radio label="Женщина" value={gender === 140} onChange={handleWomanChange} />
+              <Radio label="Мужчина" value={gender === 141} onChange={handleMenChange} margin="0 0 0 64px" />
             </Flex>
             <Flex margin="31px 0 0 0">
               <Input
@@ -112,13 +111,13 @@ const Subscribe = () => {
               Подписаться
             </Button>
             <Text fontFamily="Gilroy" fontSize="14px" fontWeight="400" color="#717171" textAlign="center" margin="32px 0 0 0">
-              Подписываясь на рассылку, вы соглашаетесь с «Правилами пользования», «Публичной офертой» и «Политикой конфиденциальности».
+              Подписываясь на рассылку, вы соглашаетесь с «Правилами пользования» и «Публичной офертой и Политикой конфиденциальности».
             </Text>
           </Container>
           {loading && <Loading />}
         </Wrapper>
       </form>
-      <MessageModal open={showSubscribeThanksModal} onClose={() => dispatch(setShowSubscribeThanksModal(false))} title={'Подписка на рассылку оформлена'} desc={'Это текст снизу'} textFirstBtn={'Отлично'} onClickFirstBtn={() => dispatch(setShowSubscribeThanksModal(false))} />
+      <MessageModal open={showSubscribeThanksModal} onClose={() => dispatch(setShowSubscribeThanksModal(false))} title={'Подписка на рассылку оформлена'} desc={''} textFirstBtn={'Отлично'} onClickFirstBtn={() => dispatch(setShowSubscribeThanksModal(false))} />
       <MessageModal open={showSubscribeErrorModal} onClose={() => dispatch(setShowSubscribeErrorModal(false))} title={error?.title} desc={error?.desc} textFirstBtn={'Закрыть'} onClickFirstBtn={() => dispatch(setShowSubscribeErrorModal(false))} />
     </>
   );

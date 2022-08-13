@@ -8,7 +8,7 @@ const SortButtons = (props) => {
   return (
     <S.Buttons>
       <S.Button onClick={() => dispatch(setShowMobileSortModal(true))}>Сортировка</S.Button>
-      <S.Button onClick={() => dispatch(setShowMobileFilterModal(true))}>Фильтр по</S.Button>
+      <S.Button onClick={() => dispatch(setShowMobileFilterModal(true))}>Фильтр</S.Button>
     </S.Buttons>
   );
 };
