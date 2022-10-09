@@ -58,7 +58,6 @@ export const ProductsNotFound = styled.div`
 `;
 
 export const StyledProducts = styled.div`
-  overflow: hidden;
   margin-top: 24px;
   display: grid;
   width: 100%;
@@ -67,6 +66,7 @@ export const StyledProducts = styled.div`
   grid-gap: 48px 24px;
   justify-content: start;
   @media ${media.mobile} {
+    overflow: hidden;
     grid-gap: 24px 16px;
     grid-template-columns: repeat(auto-fit, minmax(155px, 155px));
   }

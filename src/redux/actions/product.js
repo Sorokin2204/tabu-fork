@@ -233,9 +233,11 @@ export const getEditProduct = (id) => {
       if (response.data) {
       }
       const cat = findCategoryLocal(response.data.category, categories, true);
+      const responseInvoice = await axios.get(`${API_URL}/users/invoice/`, {
+        headers: { Authorization: `Token ${localStorage.getItem('token')}` },
+      });
+      const data = convertDataForEditPage({ ...response.data, invoice: responseInvoice?.data?.invoice });
 
-      const data = convertDataForEditPage(response.data);
-      console.log(data);
       dispatch(getEditProductSuccess({ ...data, category: cat }));
     } catch (e) {
       authError(e);

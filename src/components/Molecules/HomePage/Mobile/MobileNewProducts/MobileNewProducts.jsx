@@ -9,7 +9,7 @@ const MobileNewProducts = () => {
 
   return (
     <S.Wrapper>
-      <a href="/categories/Новинки">
+      <a href="/categories/dlya-nee?news=true">
         {' '}
         <S.Title>Новинки</S.Title>
       </a>

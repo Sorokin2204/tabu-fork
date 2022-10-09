@@ -131,7 +131,7 @@ const ProductModal = (props) => {
         </CloseBlock>
         <StyledModal>
           <GridModal>
-            {opened_product.images ? <DivImage style={{ backgroundSize: 'cover' }} backgroundSize={'cover'} src={URL + opened_product.images[0].image} /> : ''}
+            {opened_product.images ? <DivImage style={{ backgroundSize: 'contain' }} backgroundSize={'contain'} src={URL + opened_product.images[0].image} /> : ''}
 
             <Flex direction="column" padding="20px 20px 0 20px">
               <Text fontFamily="Gilroy" fontWeight="600" fontSize="12px" color="#717171">

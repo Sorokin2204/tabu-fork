@@ -30,6 +30,8 @@ const MobileCategory = (props) => {
       </S.Back>
       <S.Title
         onClick={() => {
+          let linkParent = `/categories/${menuCategory?.parentCategory?.slug}`;
+          navigate(linkParent);
           dispatch(hideMobileSidebar());
         }}>
         {!menuCategory.parentCategory ? '' : menuCategory.parentCategory.title}

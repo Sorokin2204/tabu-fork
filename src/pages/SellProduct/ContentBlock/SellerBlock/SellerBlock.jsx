@@ -9,6 +9,21 @@ const SellerBlock = ({ control, errors, register }) => {
       <S.Title>Продавец</S.Title>
       <S.Inputs>
         <FormInput
+          label="Ваш номер карты"
+          placeholder="Введите ваш номер карты"
+          type="number"
+          format={'#### #### #### ####'}
+          control={control}
+          name="invoice"
+          errors={errors}
+          rules={{
+            required: { value: true, message: 'Заполните номер карты' },
+          }}
+          style={{
+            marginTop: isMobile ? '34px' : '41px',
+          }}
+        />
+        <FormInput
           label="Телефон"
           placeholder="Введите ваш номер телефона"
           type="phone"
@@ -76,7 +91,6 @@ const SellerBlock = ({ control, errors, register }) => {
           }}
         />
         <FormInput
-          type="number"
           control={control}
           label="Квартира"
           placeholder={'Введите номер квартиры'}

@@ -1,8 +1,10 @@
+import axios from 'axios';
 import Button from 'components/Atoms/Button';
 import Loading from 'components/Loading/Loading';
 import MessageModal from 'components/Molecules/ProductPage/ThanksModal/ThanksModal';
 import ThankModal from 'components/Molecules/ProductPage/ThanksModal/ThanksModal';
 import NotFound from 'components/NotFound/NotFound';
+import { API_URL } from 'config';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,7 +22,8 @@ import * as S from './Styled';
 const SellProduct = () => {
   const defaultValuess = {
     title: '',
-    description: 'Это текст описания',
+    invoice: '',
+    description: '',
     seller: null,
     category: {
       id: 100,
@@ -91,10 +94,11 @@ const SellProduct = () => {
       id: 0,
       title: 'Все размеры',
     },
-    comment: 'Это текст комментария',
+    comment: '',
   };
   const defaultValues = {
     title: '',
+    invoice: '',
     description: '',
     seller: null,
     category: null,
@@ -151,6 +155,7 @@ const SellProduct = () => {
         dispath(getEditProduct(product_id));
       }
     } else {
+      setInvoice();
       // window.location.reload();
       // reset();
       // dispath(resetSellProductPage());
@@ -159,7 +164,14 @@ const SellProduct = () => {
       // });
     }
   }, [product_id, categories]);
-
+  const setInvoice = async () => {
+    const responseInvoice = await axios.get(`${API_URL}/users/invoice/`, {
+      headers: { Authorization: `Token ${localStorage.getItem('token')}` },
+    });
+    if (responseInvoice?.data?.invoice) {
+      setValue('invoice', responseInvoice?.data?.invoice);
+    }
+  };
   const dispath = useDispatch();
   const validateImage = (images, type, nameError, messageError) => {
     const frontImage = images.findIndex((img) => img?.type === type);
@@ -212,6 +224,7 @@ const SellProduct = () => {
       newData.sample = newData?.sample ?? `  `;
       newData.serial_number = newData?.serial_number ?? `  `;
       newData.number_of_flat = parseInt(newData.number_of_flat);
+      newData.invoice = newData.invoice;
       newData.number_of_house = newData.number_of_house.toString();
       newData.price = newData?.price?.toString()?.replace(/[^0-9]+/g, '');
       newData.old_price = newData?.old_price ? newData?.old_price?.replace(/[^0-9]+/g, '') : null;

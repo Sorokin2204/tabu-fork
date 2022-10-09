@@ -1,7 +1,7 @@
 import * as S from './Styled';
 import { Controller } from 'react-hook-form';
 import NumberFormat from 'react-number-format';
-const FormInput = ({ value, setValue, label, placeholder, type, disabled, width, style, control, name, register, rules, errors, styleInput }) => {
+const FormInput = ({ value, setValue, label, placeholder, type, disabled, width, style, control, name, register, rules, errors, styleInput, format }) => {
   return (
     <S.Wrapper width={width} style={style}>
       <div
@@ -41,7 +41,7 @@ const FormInput = ({ value, setValue, label, placeholder, type, disabled, width,
           rules={{
             ...rules,
           }}
-          render={({ field: { onChange, name, value } }) => <NumberFormat style={styleInput} name={name} value={value} onChange={onChange} placeholder={placeholder} autoComplete="off" customInput={CustomInput} />}
+          render={({ field: { onChange, name, value } }) => <NumberFormat style={styleInput} name={name} value={value} onChange={onChange} placeholder={placeholder} autoComplete="off" customInput={CustomInput} {...(format && { format: format })} />}
         />
       ) : (
         <S.Input style={styleInput} autoComplete="off" value={value} onChange={(e) => !disabled && setValue(e.target.value)} placeholder={placeholder} type={type} {...(register && { ...register(name, { ...(rules && rules) }) })} />

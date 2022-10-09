@@ -134,7 +134,7 @@ const MobileSubscribe = () => {
           {loading && <Loading />}
         </Flex>
       </form>
-      <MessageModal open={showSubscribeThanksModal} onClose={() => dispatch(setShowSubscribeThanksModal(false))} title={'Подписка на рассылку оформлена'} desc={'Это текст снизу'} textFirstBtn={'Отлично'} onClickFirstBtn={() => dispatch(setShowSubscribeThanksModal(false))} />
+      <MessageModal open={showSubscribeThanksModal} onClose={() => dispatch(setShowSubscribeThanksModal(false))} title={'Подписка на рассылку оформлена'} desc={''} textFirstBtn={'Отлично'} onClickFirstBtn={() => dispatch(setShowSubscribeThanksModal(false))} />
       <MessageModal open={showSubscribeErrorModal} onClose={() => dispatch(setShowSubscribeErrorModal(false))} title={error?.title} desc={error?.desc} textFirstBtn={'Закрыть'} onClickFirstBtn={() => dispatch(setShowSubscribeErrorModal(false))} />
     </>
   );
